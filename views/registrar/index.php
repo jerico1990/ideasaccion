@@ -60,7 +60,7 @@ use yii\widgets\Pjax;
     
     <div class="col-xs-12 col-sm-4 col-md-4 text-center">
         <div class="form-group label-floating field-registrar-foto required" style="margin-top: 15px">
-            <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen($(this))" required/>
+            <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen($(this))"/>
             <img id="img_destino" class="" style="height: 80px;width: 80px;cursor: pointer" src="../foto_personal/no_disponible.jpg">
         </div>
     </div>
@@ -427,9 +427,9 @@ use yii\widgets\Pjax;
         var p6=$('input[name=\'Registrar[p6][]\']:checked').length;
         var ext = $('#registrar-foto').val().split('.').pop().toLowerCase();
         
-            if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-                error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
-            }
+        /*if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
+        }*/
 
         if ($('#registrar-nombres').val()=='') {
             error=error+'Ingrese nombres <br>';
