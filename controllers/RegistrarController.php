@@ -55,7 +55,7 @@ class RegistrarController extends Controller
         if ($registrar->load(Yii::$app->request->post()) && $registrar->validate()) {
             $registrar->foto = UploadedFile::getInstance($registrar, 'foto');
             
-            if(Usuario::find()->where('email=:email',[':email'=>$registrar->email])->one())
+            if(Usuario::find()->where('username=:username',[':email'=>$registrar->email])->one())
             {
                 Yii::$app->session->setFlash('emailexistente');
                 return $this->refresh();
