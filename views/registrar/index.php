@@ -60,8 +60,8 @@ use yii\widgets\Pjax;
     
     <div class="col-xs-12 col-sm-4 col-md-4 text-center">
         <div class="form-group label-floating field-registrar-foto required" style="margin-top: 15px">
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen($(this))" required/>
-            <img id="img_destino" class="" style="height: 80px;width: 80px" src="../foto_personal/no_disponible.jpg">
+            <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen($(this))" required/>
+            <img id="img_destino" class="" style="height: 80px;width: 80px;cursor: pointer" src="../foto_personal/no_disponible.jpg">
         </div>
     </div>
     <div class="clearfix"></div>
