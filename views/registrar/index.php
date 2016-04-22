@@ -195,7 +195,7 @@ use yii\widgets\Pjax;
 <script>
     $.notify({
         // options
-        message: 'Los datos ingresados no estan correctos' 
+        message: 'El correo ya existe' 
     },{
         // settings
         type: 'danger',
