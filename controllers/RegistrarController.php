@@ -53,7 +53,7 @@ class RegistrarController extends Controller
         $registrar= new Registrar;
         
         if ($registrar->load(Yii::$app->request->post()) && $registrar->validate()) {
-            if(Estudiante::find()->where('email=:email',[':email'=>$registrar->email])->one())
+            /*if(Estudiante::find()->where('email=:email',[':email'=>$registrar->email])->one())
             {
                 Yii::$app->session->setFlash('emailexistente');
                 return $this->refresh();
@@ -64,7 +64,7 @@ class RegistrarController extends Controller
                 return $this->refresh();
             }
             else
-            {
+            {*/
                 $registrar->foto = UploadedFile::getInstance($registrar, 'foto');
                 $estudiante =new Estudiante;
                 $estudiante->nombres=$registrar->nombres;
@@ -225,7 +225,7 @@ class RegistrarController extends Controller
                 //return $this->refresh();
                 //return $this->refresh();
                 return $this->redirect(['site/login']);
-            }
+            //}
         }
         
         

@@ -721,7 +721,7 @@ use yii\widgets\Pjax;
                 
             }
         });
-        if (dni.responseText==1) {
+        if (dni.responseText=='1') {
             error=error+'El dni ya existe <br>';
         }
         
@@ -729,12 +729,12 @@ use yii\widgets\Pjax;
             url: '<?= $validaremail ?>',
             type: 'POST',
             async: false,
-            data: {dni:$('#registrar-email').val()},
+            data: {email:$('#registrar-email').val()},
             success: function(data){
                 
             }
         });
-        if (email.responseText==1) {
+        if (email.responseText=='1') {
             error=error+'El correo electrónico ya existe <br>';
         }
         
