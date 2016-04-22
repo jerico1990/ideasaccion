@@ -53,173 +53,174 @@ class RegistrarController extends Controller
         $registrar= new Registrar;
         
         if ($registrar->load(Yii::$app->request->post()) && $registrar->validate()) {
-            $registrar->foto = UploadedFile::getInstance($registrar, 'foto');
-            
-            if(Usuario::find()->where('username=:username',[':email'=>$registrar->email])->one())
+            if(Usuario::find()->where('username=:username',[':username'=>$registrar->email])->one())
             {
                 Yii::$app->session->setFlash('emailexistente');
                 return $this->refresh();
             }
-            
-            $estudiante =new Estudiante;
-            $estudiante->nombres=$registrar->nombres;
-            $estudiante->apellido_paterno=$registrar->apellido_paterno;
-            $estudiante->apellido_materno=$registrar->apellido_materno;
-            $estudiante->sexo=$registrar->sexo;
-            $estudiante->dni=$registrar->dni;
-            $estudiante->fecha_nac=date("Y-m-d",strtotime($registrar->fecha_nac));
-            $estudiante->email=$registrar->email;
-            $estudiante->celular=$registrar->celular;
-            $estudiante->institucion_id=$registrar->institucion;
-            $estudiante->grado=$registrar->grado;
-            $estudiante->save();
-            
-            $usuario=new Usuario;
-            $usuario->username=$registrar->email;
-            $usuario->password=$registrar->password;
-            $usuario->status=1;
-            $usuario->estudiante_id=$estudiante->id;
-            $usuario->save();
-            
-            $subject="Sistema de evaluación CSE – Confirmación de creación de cuenta";
-            $content="Estimado/a docente:<br><br>
-                     ¡Bienvenido/a al sistema de evaluación por competencias socioemocionales CSE!
-                     Para finalizar el proceso de inscripción, por favor ingrese al siguiente <a href='http://jorgepc.com/mineduproyecto/web/'>enlace</a>.
-                     <br><br>
-                     Los datos de su cuenta son:<br><br>
-                     <b>Usuario:</b> $usuario->username <br>
-                     <b>Contraseña:</b> $usuario->password<br><br>
-                     Saludos cordiales,<br><br>
-                     <br>
-                     ";
-            Yii::$app->mail->compose('@app/mail/layouts/html',['content'=>$content])
-           ->setFrom('cesar.gago.egocheaga@gmail.com')
-           ->setTo($registrar->email)
-           ->setSubject($subject)
-           ->send();
-        
-            /*$encuesta=new Encuesta;
-            $encuesta->estudiante_id=$estudiante->id;
-            if(isset($registrar->p1[0]))
-            {
-                $encuesta->p1_1=$registrar->p1[0];
-            }
-            if(isset($registrar->p1[1]))
-            {
-                $encuesta->p1_2=$registrar->p1[1];
-            }
-            if(isset($registrar->p1[2]))
-            {
-                $encuesta->p1_3=$registrar->p1[2];
-            }
-            if(isset($registrar->p1[3]))
-            {
-                $encuesta->p1_4=$registrar->p1[3];
-            }
-            
-            if(isset($registrar->p2))
-            {
-                $encuesta->p2=$registrar->p2;
-            }
-            
-            if(isset($registrar->p3[0]))
-            {
-                $encuesta->p3_1=$registrar->p3[0];
-            }
-            if(isset($registrar->p3[1]))
-            {
-                $encuesta->p3_2=$registrar->p3[1];
-            }
-            if(isset($registrar->p3[2]))
-            {
-                $encuesta->p3_3=$registrar->p3[2];
-            }
-            if(isset($registrar->p3[3]))
-            {
-                $encuesta->p3_4=$registrar->p3[3];
-            }
-            if(isset($registrar->p3[4]))
-            {
-                $encuesta->p3_5=$registrar->p3[4];
-            }
-            if(isset($registrar->p3[5]))
-            {
-                $encuesta->p3_6=$registrar->p3[5];
-            }
-            
-            
-            if(isset($registrar->p4[0]))
-            {
-                $encuesta->p4_1=$registrar->p4[0];
-            }
-            if(isset($registrar->p4[1]))
-            {
-                $encuesta->p4_2=$registrar->p4[1];
-            }
-            if(isset($registrar->p4[2]))
-            {
-                $encuesta->p4_3=$registrar->p4[2];
-            }
-            if(isset($registrar->p4[3]))
-            {
-                $encuesta->p4_4=$registrar->p4[3];
-            }
-            if(isset($registrar->p4[4]))
-            {
-                $encuesta->p4_5=$registrar->p4[4];
-            }
-            if(isset($registrar->p4[5]))
-            {
-                $encuesta->p4_6=$registrar->p4[5];
-            }
-            
-            if(isset($registrar->p5[0]))
-            {
-                $encuesta->p5_1=$registrar->p5[0];
-            }
-            if(isset($registrar->p5[1]))
-            {
-                $encuesta->p5_2=$registrar->p5[1];
-            }
-            
-            
-            if(isset($registrar->p6[0]))
-            {
-                $encuesta->p6_1=$registrar->p6[0];
-            }
-            if(isset($registrar->p6[1]))
-            {
-                $encuesta->p6_2=$registrar->p6[1];
-            }
-            if(isset($registrar->p6[2]))
-            {
-                $encuesta->p6_3=$registrar->p6[2];
-            }
-            if(isset($registrar->p6[3]))
-            {
-                $encuesta->p6_4=$registrar->p6[3];
-            }
-            
-            $encuesta->save();*/
-            
-            if($registrar->foto)
-            {
-                $registrar->foto->saveAs('foto_personal/' . $usuario->id . '.' . $registrar->foto->extension);
-                $usuario->avatar=$usuario->id. '.' . $registrar->foto->extension;
-            }
             else
             {
-                $usuario->avatar="no_disponible.jpg";
+                $registrar->foto = UploadedFile::getInstance($registrar, 'foto');
+                $estudiante =new Estudiante;
+                $estudiante->nombres=$registrar->nombres;
+                $estudiante->apellido_paterno=$registrar->apellido_paterno;
+                $estudiante->apellido_materno=$registrar->apellido_materno;
+                $estudiante->sexo=$registrar->sexo;
+                $estudiante->dni=$registrar->dni;
+                $estudiante->fecha_nac=date("Y-m-d",strtotime($registrar->fecha_nac));
+                $estudiante->email=$registrar->email;
+                $estudiante->celular=$registrar->celular;
+                $estudiante->institucion_id=$registrar->institucion;
+                $estudiante->grado=$registrar->grado;
+                $estudiante->save();
+                
+                $usuario=new Usuario;
+                $usuario->username=$registrar->email;
+                $usuario->password=$registrar->password;
+                $usuario->status=1;
+                $usuario->estudiante_id=$estudiante->id;
+                $usuario->save();
+                
+                $subject="Sistema de evaluación CSE – Confirmación de creación de cuenta";
+                $content="Estimado/a docente:<br><br>
+                         ¡Bienvenido/a al sistema de evaluación por competencias socioemocionales CSE!
+                         Para finalizar el proceso de inscripción, por favor ingrese al siguiente <a href='http://jorgepc.com/mineduproyecto/web/'>enlace</a>.
+                         <br><br>
+                         Los datos de su cuenta son:<br><br>
+                         <b>Usuario:</b> $usuario->username <br>
+                         <b>Contraseña:</b> $usuario->password<br><br>
+                         Saludos cordiales,<br><br>
+                         <br>
+                         ";
+                Yii::$app->mail->compose('@app/mail/layouts/html',['content'=>$content])
+               ->setFrom('cesar.gago.egocheaga@gmail.com')
+               ->setTo($registrar->email)
+               ->setSubject($subject)
+               ->send();
+            
+                /*$encuesta=new Encuesta;
+                $encuesta->estudiante_id=$estudiante->id;
+                if(isset($registrar->p1[0]))
+                {
+                    $encuesta->p1_1=$registrar->p1[0];
+                }
+                if(isset($registrar->p1[1]))
+                {
+                    $encuesta->p1_2=$registrar->p1[1];
+                }
+                if(isset($registrar->p1[2]))
+                {
+                    $encuesta->p1_3=$registrar->p1[2];
+                }
+                if(isset($registrar->p1[3]))
+                {
+                    $encuesta->p1_4=$registrar->p1[3];
+                }
+                
+                if(isset($registrar->p2))
+                {
+                    $encuesta->p2=$registrar->p2;
+                }
+                
+                if(isset($registrar->p3[0]))
+                {
+                    $encuesta->p3_1=$registrar->p3[0];
+                }
+                if(isset($registrar->p3[1]))
+                {
+                    $encuesta->p3_2=$registrar->p3[1];
+                }
+                if(isset($registrar->p3[2]))
+                {
+                    $encuesta->p3_3=$registrar->p3[2];
+                }
+                if(isset($registrar->p3[3]))
+                {
+                    $encuesta->p3_4=$registrar->p3[3];
+                }
+                if(isset($registrar->p3[4]))
+                {
+                    $encuesta->p3_5=$registrar->p3[4];
+                }
+                if(isset($registrar->p3[5]))
+                {
+                    $encuesta->p3_6=$registrar->p3[5];
+                }
+                
+                
+                if(isset($registrar->p4[0]))
+                {
+                    $encuesta->p4_1=$registrar->p4[0];
+                }
+                if(isset($registrar->p4[1]))
+                {
+                    $encuesta->p4_2=$registrar->p4[1];
+                }
+                if(isset($registrar->p4[2]))
+                {
+                    $encuesta->p4_3=$registrar->p4[2];
+                }
+                if(isset($registrar->p4[3]))
+                {
+                    $encuesta->p4_4=$registrar->p4[3];
+                }
+                if(isset($registrar->p4[4]))
+                {
+                    $encuesta->p4_5=$registrar->p4[4];
+                }
+                if(isset($registrar->p4[5]))
+                {
+                    $encuesta->p4_6=$registrar->p4[5];
+                }
+                
+                if(isset($registrar->p5[0]))
+                {
+                    $encuesta->p5_1=$registrar->p5[0];
+                }
+                if(isset($registrar->p5[1]))
+                {
+                    $encuesta->p5_2=$registrar->p5[1];
+                }
+                
+                
+                if(isset($registrar->p6[0]))
+                {
+                    $encuesta->p6_1=$registrar->p6[0];
+                }
+                if(isset($registrar->p6[1]))
+                {
+                    $encuesta->p6_2=$registrar->p6[1];
+                }
+                if(isset($registrar->p6[2]))
+                {
+                    $encuesta->p6_3=$registrar->p6[2];
+                }
+                if(isset($registrar->p6[3]))
+                {
+                    $encuesta->p6_4=$registrar->p6[3];
+                }
+                
+                $encuesta->save();*/
+                
+                if($registrar->foto)
+                {
+                    $registrar->foto->saveAs('foto_personal/' . $usuario->id . '.' . $registrar->foto->extension);
+                    $usuario->avatar=$usuario->id. '.' . $registrar->foto->extension;
+                }
+                else
+                {
+                    $usuario->avatar="no_disponible.jpg";
+                }
+                
+                $usuario->update();
+                Yii::$app->session->setFlash('registrar');
+                
+                
+                
+                //return $this->refresh();
+                //return $this->refresh();
+                return $this->redirect(['site/login']);
             }
-            
-            $usuario->update();
-            Yii::$app->session->setFlash('registrar');
-            
-            
-            
-            //return $this->refresh();
-            //return $this->refresh();
-            return $this->redirect(['site/login']);
         }
         
         
