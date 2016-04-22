@@ -208,7 +208,23 @@ use yii\widgets\Pjax;
 
 </script>
 <?php endif; ?>
+<?php if (Yii::$app->session->hasFlash('dniexistente')): ?>
+<script>
+    $.notify({
+        // options
+        message: 'El dni ya existe' 
+    },{
+        // settings
+        type: 'danger',
+        z_index: 1000000,
+        placement: {
+                from: 'bottom',
+                align: 'right'
+        },
+    });
 
+</script>
+<?php endif; ?>
 
 
 <script>

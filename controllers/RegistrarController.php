@@ -53,9 +53,14 @@ class RegistrarController extends Controller
         $registrar= new Registrar;
         
         if ($registrar->load(Yii::$app->request->post()) && $registrar->validate()) {
-            if(Usuario::find()->where('username=:username',[':username'=>$registrar->email])->one())
+            if(Estudiante::find()->where('email=:email',[':email'=>$registrar->email])->one())
             {
                 Yii::$app->session->setFlash('emailexistente');
+                return $this->refresh();
+            }
+            else if(Estudiante::find()->where('dni=:dni',[':dni'=>$registrar->dni])->one())
+            {
+                Yii::$app->session->setFlash('dniexistente');
                 return $this->refresh();
             }
             else
