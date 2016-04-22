@@ -21,6 +21,7 @@ class LoginWidget extends Widget
     {
         $model = new LoginForm();
         $resultados=Resultados::find()->all();
+        
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if($this->tipo==2)
             {

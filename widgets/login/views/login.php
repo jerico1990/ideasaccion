@@ -10,6 +10,25 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 use yii\web\JsExpression;
 ?>
+
+<?php if (Yii::$app->session->hasFlash('usuarioincorrecto')): ?>
+<script>
+    $.notify({
+        // options
+        message: 'Los datos ingresados no estan correctos' 
+    },{
+        // settings
+        type: 'danger',
+        z_index: 1000000,
+        placement: {
+                from: 'bottom',
+                align: 'right'
+        },
+    });
+
+</script>
+<?php endif; ?>
+
 <?php $form = ActiveForm::begin(); ?>
     
     <div class="col-lg-12 col-md-12 col-xs-12">

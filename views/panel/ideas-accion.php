@@ -27,14 +27,14 @@ use app\models\VotacionInterna;
 <div class="clearfix"></div>
 <?php if($equipo->estado==1){ ?>
 <div class="col-md-12">
-    <h2>II. Participaci髇 en Foro</h2>
+    <h2>II. Participaci贸n en Foro</h2>
     <hr>
-    <p>Tu equipo tiene la siguiente participaci髇</p>
+    <p>Tu equipo tiene la siguiente participaci贸n</p>
     <table class="table">
         <thead>
             <th></th>
             <th>Integrante</th>
-            <th>Asuntos P鷅licos</th>
+            <th>Asuntos P煤blicos</th>
             <th>Asuntos Privados</th>
         </thead>
         <tbody>
@@ -136,7 +136,7 @@ if($proyecto)
 {
 ?>
 <div class="col-md-12">
-    <h2>V. Reflexi髇</h2>
+    <h2>V. Reflexi贸n</h2>
     <hr>
     <?php
         $reflexiones=Reflexion::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->all();
@@ -157,7 +157,7 @@ if($proyecto)
 <?php } ?>
     <?php if(($equipo->etapa==1 || $equipo->etapa==2) && ($etapa->etapa==2 || $etapa->etapa==3)) {?>
     <div class="col-md-12">
-        <h2>VI. Recomendaci髇 de proyectos</h2>
+        <h2>VI. Recomendaci贸n de proyectos</h2>
         <hr>
         <table class="table">
             <thead>
@@ -214,7 +214,7 @@ if($proyecto)
     {
     ?>
     <div class="col-md-12">
-        <h2>VIII. Evaluaci髇</h2>
+        <h2>VIII. Evaluaci贸n</h2>
         <hr>
         <?php
             $evaluaciones=Evaluacion::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->all();
@@ -240,7 +240,7 @@ if($proyecto)
         
     ?>
     <div class="col-md-12">
-        <h2>IX. Votaci髇 Interna</h2>
+        <h2>IX. Votaci贸n Interna</h2>
         <hr>
         <?php
             $Countvotos=Integrante::find()
