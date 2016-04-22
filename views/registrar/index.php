@@ -191,6 +191,26 @@ use yii\widgets\Pjax;
     $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
 ?>
 
+<?php if (Yii::$app->session->hasFlash('emailexistente')): ?>
+<script>
+    $.notify({
+        // options
+        message: 'Los datos ingresados no estan correctos' 
+    },{
+        // settings
+        type: 'danger',
+        z_index: 1000000,
+        placement: {
+                from: 'bottom',
+                align: 'right'
+        },
+    });
+
+</script>
+<?php endif; ?>
+
+
+
 <script>
     
     

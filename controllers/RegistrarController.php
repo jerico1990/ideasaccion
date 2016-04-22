@@ -54,9 +54,14 @@ class RegistrarController extends Controller
         
         if ($registrar->load(Yii::$app->request->post()) && $registrar->validate()) {
             $registrar->foto = UploadedFile::getInstance($registrar, 'foto');
-            //var_dump($registrar->p1);die;
+            
+            if(Usuario::find()->where('email=:email',[':email'=>$registrar->email])->one())
+            {
+                Yii::$app->session->setFlash('emailexistente');
+                return $this->refresh();
+            }
+            
             $estudiante =new Estudiante;
-            //$estudiante->nombres_apellidos=$registrar->nombres_apellidos;
             $estudiante->nombres=$registrar->nombres;
             $estudiante->apellido_paterno=$registrar->apellido_paterno;
             $estudiante->apellido_materno=$registrar->apellido_materno;
