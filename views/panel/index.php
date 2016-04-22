@@ -87,11 +87,11 @@ $btninscribir=$integrante
 <h1><b>Mi equipo</b></h1>
 <div class="col-xs-12 col-sm-3 col-md-3"></div>
 <div class="col-xs-12 col-sm-4 col-md-4">
-    <h4 style="padding-bottom: 5px"><label>Nombre de tu equipo:</label> </h4>
-    <p class="text-justify" style="font-size: 20px;padding-bottom: 5px"><?= $equipo->descripcion_equipo ?></p>
-    <h4 style="padding-bottom: 5px"><label>Descripción de tu equipo:</label>  </h4>
+    <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Nombre de tu equipo:</label> </h4>
+    <p class="text-justify" style="font-size: 20px;"><?= $equipo->descripcion_equipo ?></p>
+    <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Descripción de tu equipo:</label>  </h4>
     <p class="text-justify" style="padding-bottom: 5px"><?= $equipo->descripcion ?></p>
-    <h4 style="padding-bottom: 5px"><label>Asunto público:</label>  </h4>
+    <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Asunto público:</label>  </h4>
     <p class="text-justify" style="padding-bottom: 5px"><?= $equipo->asunto->descripcion_cabecera ?></p>
 </div>
 <div class="col-xs-12 col-sm-2 col-md-2">
