@@ -624,6 +624,8 @@ use yii\widgets\Pjax;
             $('.field-registrar-grado').removeClass('has-error');
         }
         
+        
+        
         /*
         if (p1==0) {
             error=error+'Seleccione al menos 1 opción en la primera pregunta <br>';
@@ -709,6 +711,33 @@ use yii\widgets\Pjax;
             $('.field-registrar-password').addClass('has-error');
             $('.field-registrar-repassword').addClass('has-error');
         }
+        
+        var dni=$.ajax({
+            url: '<?= $validardni ?>',
+            type: 'POST',
+            async: false,
+            data: {dni:$('#registrar-dni').val()},
+            success: function(data){
+                
+            }
+        });
+        if (dni.responseText==1) {
+            error=error+'El dni ya existe <br>';
+        }
+        
+        var email=$.ajax({
+            url: '<?= $validaremail ?>',
+            type: 'POST',
+            async: false,
+            data: {dni:$('#registrar-email').val()},
+            success: function(data){
+                
+            }
+        });
+        if (email.responseText==1) {
+            error=error+'El correo electrónico ya existe <br>';
+        }
+        
         
         
         if (error!='')
