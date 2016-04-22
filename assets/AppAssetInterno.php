@@ -31,7 +31,7 @@ class AppAssetInterno extends AssetBundle
         //'js/app.js',
         
         'js/bootstrap-notify.js',
-        //'js/notify.js',
+        //'js/bootstrap-notify.min.js',
         //'js/notify.min.js'
         //'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
         //'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js'
@@ -44,6 +44,6 @@ class AppAssetInterno extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        //'yii\bootstrap\BootstrapAsset',
     ];
 }
