@@ -190,22 +190,33 @@ foreach($objetivos as $objetivo){
 		
 		var tebody="";
 		var i=data[0];
-		console.log(data[0]);
+		var selecta="";
+		
 		if (data) {
-		    
 		    data.splice(0,1);
 		    $.each(data, function(i,star) {
-			console.log(star.fecha_fin);
-			//star.fecha_inicio=new Date(star.fecha_inicio);
-			//console.log(star.fecha_inicio.getDate());
+			var responsable=0;
+			//console.log(star.responsable);
+			<?php foreach($responsables as $responsable){ ?>
+			    responsable=<?= $responsable->estudiante_id ?>;
+			    //console.log(<?= $responsable->estudiante_id ?>);
+			   // console.log(star.responsable);
+			    if (responsable==star.responsable) {
+				selecta=selecta+"<option value='<?= $responsable->estudiante_id ?>' selected ><?= $responsable->estudiante->nombres." ".$responsable->estudiante->apellido_paterno." ".$responsable->estudiante->apellido_materno ?></option>";
+				//console.log("0");
+			    }
+			    else
+			    {
+				//console.log("1");
+				selecta=selecta+"<option value='<?= $responsable->estudiante_id ?>' ><?= $responsable->estudiante->nombres." ".$responsable->estudiante->apellido_paterno." ".$responsable->estudiante->apellido_materno ?></option>";
+			    }
+			<?php } ?>
 			tebody=tebody+"<tr id='cronograma_"+i+"'>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_responsable_"+i+" required' style='margin-top: 0px'>"+
 						"<select id='proyecto-cronograma_responsable_"+i+"' class='form-control' name='Proyecto[cronogramas_responsables][]' >"+
 						    "<option value>seleccionar</option>"+
-						    <?php foreach($responsables as $responsable){ ?>
-							"<option value='<?= $responsable->estudiante_id ?>'><?= $responsable->estudiante->nombres." ".$responsable->estudiante->apellido_paterno." ".$responsable->estudiante->apellido_materno ?></option>"+
-						    <?php } ?>
+						    selecta+
 						"</select>"+
 					    "</div>"+
 					"</td>"+
