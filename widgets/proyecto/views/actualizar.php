@@ -37,8 +37,8 @@ use yii\web\JsExpression;
                 <div class="col-xs-12 col-sm-6 col-md-6">    
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group label-floating field-proyecto-titulo required">
-                            <label class="control-label" for="proyecto-titulo" title="Máximo 10 palabras">Título</label>
-                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="10" title="Máximo 10 palabras" value="<?= $proyecto->titulo ?>" <?= $disabled ?> required>
+                            <label class="control-label" for="proyecto-titulo">Título</label>
+                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= $proyecto->titulo ?>" <?= $disabled ?> required>
                         </div>
                     </div>
                     <div class="clearfix"></div>
