@@ -66,7 +66,6 @@ class Nav extends Widget
      * - dropDownOptions: array, optional, the HTML options that will passed to the [[Dropdown]] widget.
      * - items: array|string, optional, the configuration array for creating a [[Dropdown]] widget,
      *   or a string representing the dropdown menu. Note that Bootstrap does not support sub-dropdown menus.
-     * - encode: boolean, optional, whether the label will be HTML-encoded. If set, supersedes the $encodeLabels option for only this item.
      *
      * If a menu item is a string, it will be rendered directly without HTML encoding.
      */
@@ -177,9 +176,7 @@ class Nav extends Widget
             $active = $this->isItemActive($item);
         }
 
-        if (empty($items)) {
-            $items = '';
-        } else {
+        if ($items !== null) {
             $linkOptions['data-toggle'] = 'dropdown';
             Html::addCssClass($options, ['widget' => 'dropdown']);
             Html::addCssClass($linkOptions, ['widget' => 'dropdown-toggle']);

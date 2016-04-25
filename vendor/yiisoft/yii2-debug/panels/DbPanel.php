@@ -30,6 +30,7 @@ class DbPanel extends Panel
      * the execution is considered taking critical number of DB queries.
      */
     public $criticalQueryThreshold;
+
     /**
      * @var string the name of the database component to use for executing (explain) queries
      */
@@ -39,11 +40,11 @@ class DbPanel extends Panel
      * @var array db queries info extracted to array as models, to use with data provider.
      */
     private $_models;
+
     /**
      * @var array current database request timings
      */
     private $_timings;
-
 
     /**
      * @inheritdoc
@@ -113,7 +114,7 @@ class DbPanel extends Panel
     public function calculateTimings()
     {
         if ($this->_timings === null) {
-            $this->_timings = Yii::getLogger()->calculateTimings(isset($this->data['messages']) ? $this->data['messages'] : []);
+            $this->_timings = Yii::getLogger()->calculateTimings($this->data['messages']);
         }
 
         return $this->_timings;
@@ -227,15 +228,10 @@ class DbPanel extends Panel
 
     /**
      * @return boolean Whether the DB component has support for EXPLAIN queries
-     * @since 2.0.5
      */
     protected function hasExplain()
     {
-        $db = $this->getDb();
-        if (!($db instanceof \yii\db\Connection)) {
-            return false;
-        }
-        switch ($db->getDriverName()) {
+        switch ($this->getDb()->getDriverName()) {
             case 'mysql':
             case 'sqlite':
             case 'pgsql':
@@ -261,9 +257,8 @@ class DbPanel extends Panel
 
     /**
      * Returns a reference to the DB component associated with the panel
-     *
+     * 
      * @return \yii\db\Connection
-     * @since 2.0.5
      */
     public function getDb()
     {

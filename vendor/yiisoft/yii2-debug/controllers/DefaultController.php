@@ -11,7 +11,6 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\debug\models\search\Debug;
-use yii\web\Response;
 
 /**
  * Debugger controller
@@ -46,12 +45,6 @@ class DefaultController extends Controller
         }
 
         return $actions;
-    }
-
-    public function beforeAction($action)
-    {
-        Yii::$app->response->format = Response::FORMAT_HTML;
-        return parent::beforeAction($action);
     }
 
     public function actionIndex()
@@ -113,7 +106,7 @@ class DefaultController extends Controller
             throw new NotFoundHttpException('Mail file not found');
         }
 
-        return Yii::$app->response->sendFile($filePath);
+        Yii::$app->response->sendFile($filePath);
     }
 
     private $_manifest;
