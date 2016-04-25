@@ -90,7 +90,7 @@ use yii\web\JsExpression;
                             <div id="txt_actividades_objetivo_especifico_1">
                                 <?php foreach($actividades as $actividad){ ?>
                                     <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
-                                        <a href="../actividad/index?id=<?= $actividad->actividad_id ?>" target="_blank"><?= $actividad->descripcion ?></a>
+                                        <?= $actividad->descripcion ?>
                                         <br>
                                     <?php } ?>
                                 <?php } ?>
@@ -104,7 +104,7 @@ use yii\web\JsExpression;
                             <div id="txt_actividades_objetivo_especifico_1">
                                 <?php foreach($actividades as $actividad){ ?>
                                     <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
-                                        <a href="../actividad/index?id=<?= $actividad->actividad_id ?>" target="_blank"><?= $actividad->descripcion ?></a>
+                                        <?= $actividad->descripcion ?>
                                         <br>
                                     <?php } ?>
                                 <?php } ?>
@@ -118,7 +118,7 @@ use yii\web\JsExpression;
                             <div id="txt_actividades_objetivo_especifico_1">
                                 <?php foreach($actividades as $actividad){ ?>
                                     <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
-                                        <a href="../actividad/index?id=<?= $actividad->actividad_id ?>" target="_blank"><?= $actividad->descripcion ?></a>
+                                        <?= $actividad->descripcion ?>
                                         <br>
                                     <?php } ?>
                                 <?php } ?>
