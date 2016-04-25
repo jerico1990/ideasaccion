@@ -271,14 +271,6 @@ class ActualizarProyectoWidget extends Widget
                     $planpresupuestal->unidad=$proyecto->planes_presupuestales_unidades[$i];
                     $planpresupuestal->dirigido=$proyecto->planes_presupuestales_dirigidos[$i];
                     $planpresupuestal->como_conseguirlo=$proyecto->planes_presupuestales_comos_conseguirlos[$i];
-                    /*if(isset($proyecto->planes_presupuestales_precios_unitarios[$i]))
-                    {
-                        $planpresupuestal->precio_unitario=$proyecto->planes_presupuestales_precios_unitarios[$i];
-                    }
-                    else
-                    {
-                        $planpresupuestal->precio_unitario="";
-                    }*/
                     $planpresupuestal->precio_unitario=$proyecto->planes_presupuestales_precios_unitarios[$i];
                     $planpresupuestal->cantidad=$proyecto->planes_presupuestales_cantidades[$i];
                     $planpresupuestal->subtotal=$proyecto->planes_presupuestales_subtotales[$i];
@@ -286,12 +278,6 @@ class ActualizarProyectoWidget extends Widget
                 }
                 else
                 {
-                    /*$precio=1;
-                    if($proyecto->planes_presupuestales_precios_unitarios[$i]!="")
-                    {
-                        $precio=$proyecto->planes_presupuestales_precios_unitarios[$i];
-                    }
-                    */
                     $planpresupuestal=new PlanPresupuestal;
                     $planpresupuestal->actividad_id=$proyecto->planes_presupuestales_actividades;
                     $planpresupuestal->recurso_descripcion=$proyecto->planes_presupuestales_recursos_descripciones[$i];

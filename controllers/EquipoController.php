@@ -9,6 +9,7 @@ use app\models\Integrante;
 use app\models\Invitacion;
 use app\models\Equipo;
 use app\models\EquipoSearch;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -141,6 +142,9 @@ class EquipoController extends Controller
         $integrante->rol=2;
         $integrante->estado=1;
         $integrante->save();
+        /*$ruta=Ruta::find()->where('user_id=:user_id',[':user_id'=>\Yii::$app->user->id])->one();
+        $ruta->etapa_3=1;
+        $ruta->update();*/
         echo 1;
     }
     

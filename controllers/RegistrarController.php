@@ -14,7 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\UploadedFile;
-use kartik\growl\Growl;
+
 /**
  * ParticipanteController implements the CRUD actions for Participante model.
  */
@@ -102,7 +102,12 @@ class RegistrarController extends Controller
                ->setTo($registrar->email)
                ->setSubject($subject)
                ->send();
-            
+                
+                /*$ruta=new Ruta;
+                $ruta->user_id=$usuario->id;
+                $ruta->etapa_1=1;
+                $ruta->etapa_2=1;
+                $ruta->save();*/
                 /*$encuesta=new Encuesta;
                 $encuesta->estudiante_id=$estudiante->id;
                 if(isset($registrar->p1[0]))

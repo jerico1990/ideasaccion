@@ -38,7 +38,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>" ng-app="app">
+<html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,8 +48,9 @@ $foros=Foro::find()->orderBy('id DESC')->all();
         
 
   <!-- jQuery -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  
+  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -70,7 +71,9 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 
   <!-- Page style -->
   <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/index.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
+
+<script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
     <?php $this->head() ?>
 </head>
 <body class="skin-blue">
@@ -135,9 +138,9 @@ $foros=Foro::find()->orderBy('id DESC')->all();
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">Menú</li>
-            <?php if($integrante){ ?>
+            <?php //if($integrante){ ?>
             <li><?= Html::a('<i class="fa fa-book"></i> Ideas en acción',['panel/ideas-accion'],[]);?></li>
-            <?php } ?>
+            <?php //} ?>
             <li><?= Html::a('<i class="fa fa-book"></i> Mi equipo',['panel/index'],[]);?></li>
             <?php if($integrante){ ?>
             <!--<li><?= Html::a('<i class="fa fa-book"></i> Ruta',['ruta/index'],[]);?></li>-->

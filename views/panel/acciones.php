@@ -27,7 +27,7 @@ if($votacionpublica || $etapa->etapa!=3)
             <div class="clearfix"></div><p></p>
             <button class="btn btn-raised btn-success" id="cerrar2entrega" <?= ($etapa->etapa!=2)?'disabled':'' ?> >cerrar 2da entrega</button>
             <div class="clearfix"></div><p></p>
-            <?= Html::a('Votación interna',['votacioninterna'],['class'=>'btn btn-raised btn-success','disabled'=>$disabled]); ?>
+            <?= Html::a('Votación interna',['votacioninterna'],['id'=>'btnvotacioninterna','class'=>'btn btn-raised btn-success','disabled'=>$disabled]); ?>
             <div class="clearfix"></div><p></p>
             <button class="btn btn-raised btn-success" id="cerrarvotacioninterna" <?= ($votacionpublica || $etapa->etapa!=3)?'disabled':'' ?> >cerrar votación interna</button>
         </div>
@@ -249,9 +249,24 @@ if($votacionpublica || $etapa->etapa!=3)
     
     $('#cerrarvotacioninterna').click(function(events){
         var faltavalorporcentual=<?= $faltavalorporcentual ?>;
+        var votacionesinternas=<?= $votacionesinternas ?>;
         if (faltavalorporcentual>0) {
             $.notify({
                 message: 'Falta ingresa valor en algunos proyectos' 
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
+        
+        if (votacionesinternas==0) {
+            $.notify({
+                message: 'No tiene ningun registro en votación interna' 
             },{
                 type: 'danger',
                 z_index: 1000000,
@@ -275,6 +290,23 @@ if($votacionpublica || $etapa->etapa!=3)
         });
         
         
+        return true;
+    });
+    $('#btnvotacioninterna').click(function(events){
+        var votacionesinternas=<?= $votacionesinternas ?>;
+        if (votacionesinternas==0) {
+            $.notify({
+                message: 'No tiene ningun registro en votación interna' 
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
         return true;
     });
     

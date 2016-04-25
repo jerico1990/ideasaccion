@@ -17,6 +17,7 @@ class Resultados extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $descripcion_cabecera;
     public static function tableName()
     {
         return 'resultados';
@@ -28,6 +29,7 @@ class Resultados extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['descripcion_cabecera'],'safe'],
             [['asunto_id', 'region_id', 'cantidad'], 'integer']
         ];
     }

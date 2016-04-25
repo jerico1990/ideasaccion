@@ -45,195 +45,18 @@ foreach($objetivos as $objetivo){
 		<tbody id="presupuesto_cuerpo">
 		    
 		</tbody>
+		<tr>
+		    <td>Total</td>
+		    <td colspan="5" ></td>
+		    <td><div  class="total"></div></td>
+		    <td></td>
+		    <!--<input type="hidden"  id="total">-->
+		</tr>
 	    </table>
 	    <?php if($disabled==''){?>
 		<div id="btn_presupuesto" class="btn btn-default pull-right" onclick="InsertarPlanPresupuestal()" style="display: none">Agregar</div>
 	    <?php } ?>
 	</div>
-    <div class="clearfix"></div>
-    <?php /*?>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-	<table class="table table-striped table-hover" id="tab_plan_presupuestal">
-	    <thead>
-		<th>Objetivo especifico</th>
-		<th>Actividad</th>
-		<th>Recursos</th>
-		<th>A quien va dirigido</th>
-		<th>¿Como conseguirlo?</th>
-		<th colspan="3" class="text-center">Presupuesto</th>
-		<?= ($disabled=='')?'<th></th>':'' ?>
-	    </thead>
-	    <tbody>
-		
-		<?php if($planespresupuestales){?>
-		    <?php $plan=0; ?>
-		    <?php foreach($planespresupuestales as $planpresupuestal){?>
-			<tr id='plan_presupuestal_<?= $plan ?>'>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_objetivo_<?= $plan ?> required" style="margin-top: 0px">
-				    <select id="proyecto-plan_presupuestal_objetivo_<?= $plan ?>" class="form-control" name="Proyecto[planes_presupuestales_objetivos][]" onchange="actividad($(this).val(),<?= $plan ?>)" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<?php foreach($objetivos as $objetivo){  ?>
-					    <option value='<?= $objetivo->id ?>' <?= ($objetivo->id==$planpresupuestal->objetivo_especifico_id)?'selected':'' ?>><?= $objetivo->descripcion ?></option>
-					<?php }  ?>
-				    </select>
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_actividad_<?= $plan ?> required" style="margin-top: 0px">
-				    <select id="proyecto-plan_presupuestal_actividad_<?= $plan ?>" class="form-control" name="Proyecto[planes_presupuestales_actividades][]" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<?php foreach($actividades as $actividad){  ?>
-					    <option value='<?= $actividad->id ?>' <?= ($actividad->id==$planpresupuestal->actividad_id)?'selected':'' ?> ><?= $actividad->descripcion ?> </option>
-					<?php } ?>
-				    </select>
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_recurso_descripcion_<?= $plan ?> required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_recurso_descripcion_<?= $plan ?>" class="form-control" name="Proyecto[planes_presupuestales_recursos_descripciones][]" placeholder="Recurso" value="<?= $planpresupuestal->recurso_descripcion ?>"  <?= $disabled ?> />
-				    <!--
-				    <select id="proyecto-plan_presupuestal_recurso_<?= $plan ?>" class="form-control" name="Proyecto[planes_presupuestales_recursos][]" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<option value=1 <?= ($planpresupuestal->recurso == 1) ? 'selected' : ''; ?> >Material</option>
-					<option value=2 <?= ($planpresupuestal->recurso == 2) ? 'selected' : ''; ?>>Humano</option>
-				    </select>-->
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_dirigido_<?= $plan ?> required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_dirigido_<?= $plan ?>" class="form-control" name="Proyecto[planes_presupuestales_dirigidos][]" placeholder="A quien va dirigdio" value="<?= $planpresupuestal->dirigido ?>"  <?= $disabled ?>/>
-				    <!--
-				    <select id="proyecto-plan_presupuestal_recurso_<?= $plan ?>" class="form-control" name="Proyecto[planes_presupuestales_recursos][]" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<option value=1 <?= ($planpresupuestal->recurso == 1) ? 'selected' : ''; ?> >Material</option>
-					<option value=2 <?= ($planpresupuestal->recurso == 2) ? 'selected' : ''; ?>>Humano</option>
-				    </select>-->
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_como_conseguirlo_<?= $plan ?> required" style="margin-top: 0px">
-				    <select onchange="ComoConseguirlo($(this).val(),<?= $plan ?>)" id="proyecto-plan_presupuestal_como_conseguirlo_<?= $plan ?>" class="form-control" name="Proyecto[planes_presupuestales_comos_conseguirlos][]" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<option value=1 <?= ($planpresupuestal->como_conseguirlo == 1) ? 'selected' : ''; ?>>Pedir</option>
-					<option value=2 <?= ($planpresupuestal->como_conseguirlo == 2) ? 'selected' : ''; ?>>Crear</option>
-					<option value=3 <?= ($planpresupuestal->como_conseguirlo == 3) ? 'selected' : ''; ?>>Comprar</option>
-				    </select>
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_precio_unitario_<?= $plan ?> required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_precio_unitario_<?= $plan ?>" onfocusout="Subtotal1(<?= $plan ?>,1)" class="form-control numerico" name="Proyecto[planes_presupuestales_precios_unitarios][]" placeholder="Precio unitario" value="<?= ($planpresupuestal->precio_unitario==0)?'':$planpresupuestal->precio_unitario ?>" <?= ($planpresupuestal->como_conseguirlo == 1 || $planpresupuestal->como_conseguirlo == 2) ? 'disabled' : ''; ?>  <?= $disabled ?>/>
-				    <?php  if($planpresupuestal->como_conseguirlo == 1 || $planpresupuestal->como_conseguirlo == 2) {?>
-					<input type="hidden"  class="form-control numerico" name="Proyecto[planes_presupuestales_precios_unitarios][]" placeholder="Precio unitario" value="0"   />
-				    <?php } ?>																																																																					    
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_cantidad_<?= $plan ?> required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_cantidad_<?= $plan ?>" onfocusout="Subtotal2(<?= $plan ?>,2)" class="form-control numerico" name="Proyecto[planes_presupuestales_cantidades][]" placeholder="Cantidad" value="<?= $planpresupuestal->cantidad ?>" <?= $disabled ?>/>
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_subtotal_<?= $plan ?> required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_subtotal1_<?= $plan ?>" class="form-control numerico" name="Proyecto[planes_presupuestales_subtotales1][]" placeholder="Subtotal" value="<?= $planpresupuestal->subtotal ?>" disabled />
-				    <input type="hidden" id="proyecto-plan_presupuestal_subtotal_<?= $plan ?>" class="form-control numerico" name="Proyecto[planes_presupuestales_subtotales][]" placeholder="Subtotal" value="<?= $planpresupuestal->subtotal ?>" />
-				</div>
-			    </td>
-			    <?php if($disabled==''){?>
-			    <td style="padding: 2px">
-				<span class="remCF glyphicon glyphicon-minus-sign">
-				    <input class="id" type="hidden" name="Proyecto[planes_presupuestal_ids][]" value="<?= $planpresupuestal->id ?>" />
-				</span>
-			    </td>
-			    <?php } ?>
-			</tr>
-			<?php $plan++; ?>
-		    <?php } ?>
-		<?php } else {?>
-			<tr id='plan_presupuestal_0'>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_objetivo_0 required" style="margin-top: 0px">
-				    <select id="proyecto-plan_presupuestal_objetivo_0" class="form-control" name="Proyecto[planes_presupuestales_objetivos][]" onchange="actividad($(this).val(),0)" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<?= $opciones_objetivos ?>
-				    </select>
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_actividad_0 required" style="margin-top: 0px">
-				    <select id="proyecto-plan_presupuestal_actividad_0" class="form-control" name="Proyecto[planes_presupuestales_actividades][]" <?= $disabled ?>>
-					<option value>seleccionar</option>
-				    </select>
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_recurso_descripcion_0 required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_recurso_descripcion_0" class="form-control" name="Proyecto[planes_presupuestales_recursos_descripciones][]" placeholder="Recurso"  <?= $disabled ?> />
-				    <!--
-				    <select id="proyecto-plan_presupuestal_recurso_0" class="form-control" name="Proyecto[planes_presupuestales_recursos][]" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<option value=1>Material</option>
-					<option value=2>Humano</option>
-				    </select>-->
-				</div>
-			    </td>
-			    
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_dirigido_0 required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_dirigido_0" class="form-control" name="Proyecto[planes_presupuestales_dirigidos][]" placeholder="A quien va dirigdio" <?= $disabled ?> />
-				    <!--
-				    <select id="proyecto-plan_presupuestal_recurso_0" class="form-control" name="Proyecto[planes_presupuestales_recursos][]" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<option value=1>Material</option>
-					<option value=2>Humano</option>
-				    </select>-->
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_como_conseguirlo_0 required" style="margin-top: 0px">
-				    <select onchange="ComoConseguirlo($(this).val(),0)" id="proyecto-plan_presupuestal_como_conseguirlo_0" class="form-control" name="Proyecto[planes_presupuestales_comos_conseguirlos][]" <?= $disabled ?>>
-					<option value>seleccionar</option>
-					<option value=1>Pedir</option>
-					<option value=2>Crear</option>
-					<option value=3>Comprar</option>
-				    </select>
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_precio_unitario_0 required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_precio_unitario_0" onfocusout="Subtotal1(0,1)" class="form-control numerico" name="Proyecto[planes_presupuestales_precios_unitarios][]" placeholder="Precio unitario" <?= $disabled ?>/>
-				    <input type="hidden" id="proyecto-plan_presupuestal_precio_unitario1_0"  class="form-control numerico" name="Proyecto[planes_presupuestales_precios_unitarios][]" />
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_cantidad_0 required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_cantidad_0" onfocusout="Subtotal2(0,2)" class="form-control numerico" name="Proyecto[planes_presupuestales_cantidades][]" placeholder="Cantidad" <?= $disabled ?>/>
-				</div>
-			    </td>
-			    <td style="padding: 2px">
-				<div class="form-group field-proyecto-plan_presupuestal_subtotal_0 required" style="margin-top: 0px">
-				    <input id="proyecto-plan_presupuestal_subtotal1_0" class="form-control numerico" name="Proyecto[planes_presupuestales_subtotales1][]" placeholder="Subtotal" disabled/>
-				    <input type="hidden" id="proyecto-plan_presupuestal_subtotal_0" class="form-control numerico" name="Proyecto[planes_presupuestales_subtotales][]" placeholder="Subtotal"  />
-				</div>
-			    </td>
-			    <?php if($disabled==''){?>
-			    <td style="padding: 2px">
-				<!--<span class="remCF glyphicon glyphicon-minus-sign"></span>-->
-			    </td>
-			    <?php } ?>
-			</tr>
-		<?php $plan=1; ?>
-		<?php } ?>
-		<tr id='plan_presupuestal_<?= $plan ?>'></tr>
-	    </tbody>
-	</table>
-	<?php if($disabled==''){?>
-	<div  class="btn btn-default pull-right" onclick="InsertarPlanPresupuestal()">Agregar</div>
-	<?php } ?>
-	<!--<div class="btn btn-default pull-left" onclick="InsertarPlanPresupuestal()">Agregar</div>-->
-    </div>
-    <?php */ ?>
     <div class="clearfix"></div>
 
 <?php
@@ -284,6 +107,7 @@ foreach($objetivos as $objetivo){
 	
 	var planespresupuestalesrecursosdescripciones=$('input[name=\'Proyecto[planes_presupuestales_recursos_descripciones][]\']').length;
         
+	
 	for (var i=0; i<planespresupuestalesrecursosdescripciones; i++) {
 	    console.log(planespresupuestalesrecursosdescripciones);
 	    if($('#proyecto-plan_presupuestal_recurso_descripcion_'+i).val()=='')
@@ -396,8 +220,8 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_precio_unitario_"+plan+"' onfocusout='Subtotal1("+plan+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios][]' placeholder='Precio unitario'>"+
-						"<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario1_"+plan+"'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' />"+
+						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+plan+"' onfocusout='Subtotal1("+plan+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario'>"+
+						"<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_"+plan+"'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' />"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
@@ -407,8 +231,8 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_subtotal_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_subtotal1_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal'  disabled>"+
-						"<input type='hidden' id='proyecto-plan_presupuestal_subtotal_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' >"+
+						"<input id='proyecto-plan_presupuestal_subtotal1_"+plan+"' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal'  disabled>"+
+						"<input type='hidden' id='proyecto-plan_presupuestal_subtotal_"+plan+"' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' >"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
@@ -437,11 +261,12 @@ foreach($objetivos as $objetivo){
 	}
 	return true;
     });
-    var x=1;
-    var y=1;
+    var x=0;
+    var y=0;
+    
     function Subtotal1(id,tipo) {
 	if (tipo==1) {
-	    x=$('#proyecto-plan_presupuestal_precio_unitario_'+id).val();
+	    x=$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val();
 	}
 	if ($('#proyecto-plan_presupuestal_cantidad_'+id).val()!='') {
 	    y=$('#proyecto-plan_presupuestal_cantidad_'+id).val();
@@ -449,8 +274,15 @@ foreach($objetivos as $objetivo){
 	
 	var subtotal=x*y;
 	$('#proyecto-plan_presupuestal_subtotal_'+id).val(subtotal);
-	$('#proyecto-plan_presupuestal_subtotal1_'+id).val(subtotal);
-	
+	$('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal);
+	$('#proyecto-plan_presupuestal_precio_unitario_'+id).val($('#proyecto-plan_presupuestal_precio_unitario1_'+id).val());
+	var total=0;
+	$('#presupuesto .totales').each(function(){
+		//console.log($(this).val());
+		total=total+parseInt($(this).val());
+	});
+	console.log();
+	$('.total').html("S/."+total);
     }
     
     function Subtotal2(id,tipo) {
@@ -459,25 +291,49 @@ foreach($objetivos as $objetivo){
 	    y=$('#proyecto-plan_presupuestal_cantidad_'+id).val();
 	}
 	
-	if ($('#proyecto-plan_presupuestal_precio_unitario_'+id).val()!='') {
-	    x=$('#proyecto-plan_presupuestal_precio_unitario_'+id).val();
+	if ($('#proyecto-plan_presupuestal_precio_unitario1_'+id).val()!='') {
+	    x=$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val();
 	}
 	var subtotal=x*y;
 	$('#proyecto-plan_presupuestal_subtotal_'+id).val(subtotal);
-	$('#proyecto-plan_presupuestal_subtotal1_'+id).val(subtotal);
+	$('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal);
+	
+	var total=0;
+	$('#presupuesto .totales').each(function(){
+		//console.log($(this).val());
+		total=total+parseInt($(this).val());
+	});
+	console.log();
+	$('.total').html("S/."+total);
     }
     
     function ComoConseguirlo(value,id) {
 	if (value==1 || value==2)
 	{
-	    $('#proyecto-plan_presupuestal_precio_unitario_'+id).val("");
-	    $('#proyecto-plan_presupuestal_precio_unitario_'+id).prop( "disabled", true );
-	    $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("");
+	    $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val(0);
+	    $('#proyecto-plan_presupuestal_precio_unitario1_'+id).prop( "disabled", true );
+	    $('#proyecto-plan_presupuestal_precio_unitario_'+id).val(0);
+	    
+	    $('#proyecto-plan_presupuestal_subtotal_'+id).val(0);
+	    $('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+0);
+	    
+	    
+	    
+	    
 	}
 	else
 	{
-	    $('#proyecto-plan_presupuestal_precio_unitario_'+id).prop( "disabled", false );
+	    $('#proyecto-plan_presupuestal_precio_unitario1_'+id).prop( "disabled", false );
 	}
+	
+	var total=0;
+	$('#presupuesto .totales').each(function(){
+		//console.log($(this).val());
+		total+=parseInt($(this).val());
+		//console.log(total);
+	});
+	console.log(total);
+	$('.total').html("S/."+total);
     }
     
     
@@ -492,21 +348,25 @@ foreach($objetivos as $objetivo){
 	    success: function(data){
 		var tebody="";
 		var i=data[0];
-		var select1="";
-		var select2="";
-		var select3="";
+		var total=0;
 		
 		if (data) {
 		    data.splice(0,1);
 		    $.each(data, function(i,star) {
+			total=total+star.subtotal;
+			//$('#total').val(total);
+			
+			var select1="";
+			var select2="";
+			var select3="";
 			$("#proyecto-plan_presupuestal_como_conseguirlo_"+i+" selected").val(star.como_conseguirlo);
-			if (star.como_conseguirlo==1) {
+			if (star.como_conseguirlo=='1') {
 			    select1="selected";
 			}
-			if (star.como_conseguirlo==2) {
+			if (star.como_conseguirlo=='2') {
 			    select2="selected";
 			}
-			if (star.como_conseguirlo==3) {
+			if (star.como_conseguirlo=='3') {
 			    select3="selected";
 			}
 			tebody=tebody+"<tr id='plan_presupuestal_"+i+"'>"+
@@ -538,8 +398,8 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_precio_unitario_"+i+"' onfocusout='Subtotal1("+i+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios][]' placeholder='Precio unitario' value='"+star.precio_unitario+"'>"+
-						"<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario1_"+i+"'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' value='"+star.precio_unitario+"' />"+
+						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+i+"' onfocusout='Subtotal1("+i+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario' value='"+star.precio_unitario+"'>"+
+						"<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_"+i+"'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' value='"+star.precio_unitario+"' />"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
@@ -549,17 +409,19 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_subtotal_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_subtotal1_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal' value='"+star.subtotal+"' disabled>"+
-						"<input type='hidden' id='proyecto-plan_presupuestal_subtotal_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' value='"+star.subtotal+"'>"+
+						"<input id='proyecto-plan_presupuestal_subtotal1_"+i+"' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal' value='S/."+star.subtotal+"' disabled>"+
+						"<input type='hidden' id='proyecto-plan_presupuestal_subtotal_"+i+"' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' value='"+star.subtotal+"'>"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<span class='remCF glyphicon glyphicon-minus-sign'>"+
 						"<input class='id' type='hidden' name='Proyecto[planes_presupuestal_ids][]' value='"+star.id+"' />"+
+						
 					    "</span>"+
 					"</td>"+
 				    "</tr>";
 			   // idtr=i;
+			   
 		    });
 		    //console.log(idtr);
 		    tebody=tebody+"<tr id='plan_presupuestal_"+i+"'><input type='hidden' id='contador' value='"+i+"' ></tr>"
@@ -595,8 +457,8 @@ foreach($objetivos as $objetivo){
 				    "</td>"+
 				    "<td style='padding: 2px'>"+
 					"<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_0' required' style='margin-top: 0px'>"+
-					    "<input id='proyecto-plan_presupuestal_precio_unitario_0' onfocusout='Subtotal1(0,1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios][]' placeholder='Precio unitario'>"+
-					    "<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario1_0'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' />"+
+					    "<input id='proyecto-plan_presupuestal_precio_unitario1_0' onfocusout='Subtotal1(0,1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario'>"+
+					    "<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_0'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' />"+
 					"</div>"+
 				    "</td>"+
 				    "<td style='padding: 2px'>"+
@@ -607,7 +469,7 @@ foreach($objetivos as $objetivo){
 				    "<td style='padding: 2px'>"+
 					"<div class='form-group field-proyecto-plan_presupuestal_subtotal_0' required' style='margin-top: 0px'>"+
 					    "<input id='proyecto-plan_presupuestal_subtotal1_0' class='form-control' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal'disabled>"+
-					    "<input type='hidden' id='proyecto-plan_presupuestal_subtotal_0' class='form-control' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' >"+
+					    "<input type='hidden' id='proyecto-plan_presupuestal_subtotal_0' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' >"+
 					"</div>"+
 				    "</td>"+
 				    "<td style='padding: 2px'>"+
@@ -620,6 +482,7 @@ foreach($objetivos as $objetivo){
 		
 			
 		//console.log(tebody);
+		$('.total').html("S/."+total);
 		$('#presupuesto_cuerpo').html(tebody);
 		$('#presupuesto').show();
 		$('#btn_presupuesto').show();

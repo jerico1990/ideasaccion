@@ -19,31 +19,31 @@ if($equipo->id)
     <div class="row">
         <div class="row col-xs-12 col-sm-8 col-md-8">
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group label-floating field-equipo-descripcion_equipo required">
+                <div class="form-group label-floating field-equipo-descripcion_equipo required" style="margin-top: 15px">
                     <label class="control-label" for="equipo-descripcion_equipo">Nombre de equipo</label>
-                    <input value="<?= $equipo->descripcion_equipo?>" type="text" id="equipo-descripcion_equipo" class="form-control texto" name="Equipo[descripcion_equipo]">
+                    <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" value="<?= $equipo->descripcion_equipo?>" type="text" id="equipo-descripcion_equipo" class="form-control texto" name="Equipo[descripcion_equipo]">
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group label-floating field-equipo-descripcion required">
+                <div class="form-group label-floating field-equipo-descripcion required" style="margin-top: 15px">
                     <label class="control-label" for="equipo-descripcion">Danos una breve descripción de tu equipo</label>
-                    <textarea  id="equipo-descripcion" class="form-control" name="Equipo[descripcion]"><?= $equipo->descripcion?></textarea>
+                    <textarea  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="equipo-descripcion" class="form-control" name="Equipo[descripcion]"><?= $equipo->descripcion?></textarea>
                 </div>
             </div>
         </div>
         <div class="row col-xs-12 col-sm-4 col-md-4 text-center">
-            <div class="form-group label-floating field-equipo-foto_img required text-center">
-                <label>Agrega una imagen para tu equipo</label>
-                <input type="file" id="equipo-foto_img" class="form-control file" name="Equipo[foto_img]" onchange="Imagen($(this))">
-                <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 120px;width: 120px;align:center"]) ?>
+            <div class="form-group label-floating field-equipo-foto_img required text-center" style="margin-top: 15px">
+                
+                <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="equipo-foto_img" class="form-control file" name="Equipo[foto_img]" onchange="Imagen($(this))">
+                <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 80px;width: 80px;align:center;cursor: pointer"]) ?>
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="col-xs-12 col-sm-7 col-md-5">
-            <div class="form-group label-floating field-equipo-asunto_id required">
+            <div class="form-group label-floating field-equipo-asunto_id required" style="margin-top: 15px">
                 <label class="control-label" for="equipo-asunto_id">Selecciona el Asunto de Público sobre el que trabajará tu equipo</label>
-                <select id="equipo-asunto_id" class="form-control" name="Equipo[asunto_id]">
+                <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="equipo-asunto_id" class="form-control" name="Equipo[asunto_id]">
                     <option value=""></option>
                     <?php
                         $resultados=Resultados::find()->where('region_id=:region_id',['region_id'=>$institucion->department_id])->all();

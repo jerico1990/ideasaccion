@@ -21,6 +21,7 @@ use app\models\Video;
 use app\models\Evaluacion;
 use app\models\VotacionInterna;
 use app\models\Ubigeo;
+use app\models\VotacionPublica;
 use yii\db\Query;
 
 /**

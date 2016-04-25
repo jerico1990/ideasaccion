@@ -56,7 +56,7 @@ class EntregaController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout='equipo';
+        $this->layout='estandar';
         $etapa=Etapa::find()->where('estado=1')->one();
         $etapa1=Etapa::find()->where('estado=1 and etapa=1')->one();
         $etapa2=Etapa::find()->where('estado=1 and etapa=2')->one();

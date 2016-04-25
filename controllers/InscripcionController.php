@@ -16,7 +16,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\filters\AccessControl;
-use kartik\widgets\Growl;
+
 use yii\web\UploadedFile;
 /**
  * ParticipanteController implements the CRUD actions for Participante model.
@@ -129,7 +129,9 @@ class InscripcionController extends Controller
             {
                 $equipo->foto_img->saveAs('foto_equipo/' . $equipo->id . '.' . $equipo->foto_img->extension);
             }
-            
+            /*$ruta=Ruta::find()->where('user_id=:user_id',[':user_id'=>\Yii::$app->user->id])->one();
+            $ruta->etapa_3=1;
+            $ruta->update();*/
             
             return $this->redirect(['panel/index']);
            

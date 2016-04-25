@@ -1001,6 +1001,67 @@ use yii\web\JsExpression;
     
     $("#btnproyecto").click(function(event){
         var error='';
+        /*planpresupuestal*/
+        var planespresupuestalesrecursosdescripciones=$('input[name=\'Proyecto[planes_presupuestales_recursos_descripciones][]\']').length;
+        /*planpresupeutal ini*/
+        for (var i=0; i<planespresupuestalesrecursosdescripciones; i++) {
+	    console.log(planespresupuestalesrecursosdescripciones);
+	    if($('#proyecto-plan_presupuestal_recurso_descripcion_'+i).val()=='')
+            {
+                error=error+'ingrese información en la fila #'+(i+1)+' de la columna recurso dscripción <br>';
+                $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).addClass('has-success');
+                $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).removeClass('has-error');
+            }
+	    
+	    if($('#proyecto-plan_presupuestal_unidad_'+i).val()=='')
+            {
+                error=error+'ingrese información en la fila #'+(i+1)+' de la columna unidad <br>';
+                $('.field-proyecto-plan_presupuestal_unidad_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-plan_presupuestal_unidad_'+i).addClass('has-success');
+                $('.field-proyecto-plan_presupuestal_unidad_'+i).removeClass('has-error');
+            }
+	    
+	    if($('#proyecto-plan_presupuestal_dirigido_'+i).val()=='')
+            {
+                error=error+'ingrese información en la fila #'+(i+1)+' de la columna a quien va dirigido <br>';
+                $('.field-proyecto-plan_presupuestal_dirigido_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-plan_presupuestal_dirigido_'+i).addClass('has-success');
+                $('.field-proyecto-plan_presupuestal_dirigido_'+i).removeClass('has-error');
+            }
+	    
+	    if($('#proyecto-plan_presupuestal_como_conseguirlo_'+i).val()=='')
+            {
+                error=error+'ingrese información en la fila #'+(i+1)+' de la columna como conseguirlo <br>';
+                $('.field-proyecto-plan_presupuestal_como_conseguirlo_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-plan_presupuestal_como_conseguirlo_'+i).addClass('has-success');
+                $('.field-proyecto-plan_presupuestal_como_conseguirlo_'+i).removeClass('has-error');
+            }
+	    if($('#proyecto-plan_presupuestal_cantidad_'+i).val()=='')
+            {
+                error=error+'ingrese información en la fila #'+(i+1)+' de la columna cantidad <br>';
+                $('.field-proyecto-plan_presupuestal_cantidad_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-plan_presupuestal_cantidad_'+i).addClass('has-success');
+                $('.field-proyecto-plan_presupuestal_cantidad_'+i).removeClass('has-error');
+            }
+        }
+        /*planpresupuestal fin*/
+        
         
         if($('#proyecto-titulo').val()=='')
         {

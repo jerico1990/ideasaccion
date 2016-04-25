@@ -18,12 +18,12 @@ use yii\web\JsExpression;
 <hr class="colorgraph">
 <div class="row">
     <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">Datos generales</a></li>
-            <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="true">Resultado</a></li>
-            <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true">Presupuesto</a></li>
-            <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Cronograma</a></li>
-            <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false">Mi Video</a></li>
+        <ul class="nav nav-tabs" style="background: white;">
+            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Datos generales</a></li>
+            <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Resultado</a></li>
+            <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Presupuesto</a></li>
+            <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Cronograma</a></li>
+            <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="true" style="color: #333 !important"> Mi Video</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1">

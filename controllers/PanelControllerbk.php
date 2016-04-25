@@ -68,8 +68,19 @@ class PanelController extends Controller
             return $this->redirect(['acciones']);
         }
         
+        //$this->layout='equipo';
+        $etapa=Etapa::find()->where('estado=1')->one();
+        $usuario=Usuario::find()->where('id=:id',[':id'=>\Yii::$app->user->id])->one();
+        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+        $equipo=Equipo::find()->where('id=:id',[':id'=>$integrante->equipo_id])->one();
+        $integrantes=Integrante::find()
+                            ->select('usuario.id user_id,estudiante.id,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno')
+                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                            ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
+                            ->where('equipo_id=:equipo_id',[':equipo_id'=>$equipo->id])
+                            ->all();
         
-        return $this->render('ideas-accion');
+        return $this->render('ideas-accion',['equipo'=>$equipo,'integrantes'=>$integrantes,'etapa'=>$etapa]);
     }
     public function actionIndex()
     {
@@ -119,7 +130,6 @@ class PanelController extends Controller
         $Countresultados=Resultados::find()->count();
         $votacionpublica=VotacionPublica::find()->all();
         $etapa=Etapa::find()->where('estado=1')->one();
-        $votacionesinternas=VotacionInterna::find()->count();
         $faltavalorporcentual=VotacionInterna::find()
                         ->innerJoin('proyecto','proyecto.id=votacion_interna.proyecto_id')
                         ->where('votacion_interna.estado=2 and proyecto.valor_porcentual_administrador is null ')->count();
@@ -127,8 +137,7 @@ class PanelController extends Controller
         return $this->render('acciones',['resultados'=>$resultados,'etapa'=>$etapa,
                                          'faltavalorporcentual'=>$faltavalorporcentual,
                                          'votacionpublica'=>$votacionpublica,
-                                         'countVoto'=>$countVoto,'Countresultados'=>$Countresultados,
-                                         'votacionesinternas'=>$votacionesinternas]);
+                                         'countVoto'=>$countVoto,'Countresultados'=>$Countresultados]);
     }
     
     public function actionCerrar($bandera)
@@ -165,7 +174,7 @@ class PanelController extends Controller
         $this->layout='registrar';
         
         $searchModel = new VotacionInternaSearch();
-        $dataProvider = $searchModel->votacion(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $countInterna=VotacionInterna::find()->select(['count(proyecto_id) as maximo'])->groupBy('proyecto_id')->one();
         
         return $this->render('votacioninterna',[
