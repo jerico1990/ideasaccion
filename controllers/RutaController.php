@@ -231,7 +231,7 @@ class RutaController extends Controller
         }
         
         array_push($data,['reflexiones'=>$reflexionArray]);
-        if($proyecto && $equipo->estado==0)
+        if($proyecto && $equipo->estado==1 && ($etapa->etapa==1 || $etapa->etapa==2 || $etapa->etapa==3))
         {
             array_push($data,['proyecto_registrado'=>$proyectoregistrado,'checkreflexion'=>$CountReflexion,'checkvideo'=>$videoregistrado]);
             echo json_encode($data,JSON_UNESCAPED_UNICODE); 
