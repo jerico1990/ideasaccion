@@ -118,4 +118,25 @@ class CronogramaController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionCargatablacronograma($valor)
+    {
+        $dataTabla=[];
+        $cronogramaArray=[];
+        $cronogramas=Cronograma::find()
+                                ->where('actividad_id=:actividad_id and estado=1',[':actividad_id'=>$valor])
+                                ->all();
+        
+        $countcronogramas=Cronograma::find()
+                                ->where('actividad_id=:actividad_id and estado=1',[':actividad_id'=>$valor])
+                                ->count();
+        array_push($dataTabla,$countcronogramas);
+        foreach($cronogramas as $cronograma)
+        {
+            array_push($dataTabla,['id'=>$cronograma->id,'responsable'=>$cronograma->responsable_id,'fecha_inicio'=>date("Y-m-d", strtotime($cronograma->fecha_inicio)),'fecha_fin'=>date("Y-m-d", strtotime($cronograma->fecha_fin))]);
+        }
+        
+        //array_push($dataTabla,['cronograma'=>$cronogramaArray]);
+        echo json_encode($dataTabla,JSON_UNESCAPED_UNICODE); 
+    }
 }

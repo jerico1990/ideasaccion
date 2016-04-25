@@ -419,15 +419,12 @@ foreach($objetivos as $objetivo){
 						
 					    "</span>"+
 					"</td>"+
-				    "</tr>";
-			   // idtr=i;
-			   
+				    "</tr>";			   
 		    });
-		    //console.log(idtr);
 		    tebody=tebody+"<tr id='plan_presupuestal_"+i+"'><input type='hidden' id='contador' value='"+i+"' ></tr>"
 		    
 		}
-		else
+		/*else
 		{
 		    tebody="<tr id='plan_presupuestal_0'>"+
 				    "<td style='padding: 2px'>"+
@@ -478,7 +475,7 @@ foreach($objetivos as $objetivo){
 				    "</td>"+
 				"</tr>"+
 				"<tr id='plan_presupuestal_1'></tr>";
-		}
+		}*/
 		
 			
 		//console.log(tebody);
