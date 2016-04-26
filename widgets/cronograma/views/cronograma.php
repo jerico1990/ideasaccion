@@ -16,6 +16,11 @@ foreach($objetivos as $objetivo){
 }
 
 ?>
+
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
     <div class="col-xs-12 col-sm-6 col-md-6 text-center">
@@ -221,8 +226,8 @@ foreach($objetivos as $objetivo){
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-cronograma_fecha_inicio_"+i+" required' style='margin-top: 0px'>"+
-						"<input type='date' id='proyecto-cronograma_fecha_inicio_"+i+"' class='form-control' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' value='"+star.fecha_inicio+"' />"+
+					    "<div class='form-group field-proyecto-cronograma_fecha_inicio_"+i+" required form-control-wrapper' style='margin-top: 0px'>"+
+						"<input type='text' id='proyecto-cronograma_fecha_inicio_"+i+"' class='form-control ' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' value='"+star.fecha_inicio+"' />"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
@@ -237,9 +242,9 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 				    "</tr>";
 			   // idtr=i;
-			   
+			$('#proyecto-cronograma_fecha_inicio_'+i).bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });   
 		    });
-		    //console.log(idtr);
+		    
 		    tebody=tebody+"<tr id='cronograma_"+i+"'><input type='hidden' id='contador1' value='"+i+"' ></tr>"
 		    
 		}

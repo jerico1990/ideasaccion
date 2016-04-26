@@ -220,8 +220,8 @@ class InscripcionController extends Controller
                 $equipo->foto_img->saveAs('foto_equipo/' . $equipo->id . '.' . $equipo->foto_img->extension);
             }
             
-            return $this->refresh();
-            //return $this->redirect(['panel/index']);
+            //return $this->refresh();
+            return $this->redirect(['panel/index']);
         }
         return $this->render('index',[
                                       'equipo'=>$equipo,

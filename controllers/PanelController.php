@@ -113,7 +113,7 @@ class PanelController extends Controller
     
     public function actionAcciones()
     {
-        $this->layout='registrar';
+        $this->layout='administrador';
         $countVoto=Voto::find()->count();
         $resultados=Resultados::find()->all();
         $Countresultados=Resultados::find()->count();

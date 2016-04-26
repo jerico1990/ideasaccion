@@ -100,7 +100,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
               <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-                <p style="font-size: 12px" class="pull-left"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></p>
+                <p style="font-size: 12px" class="pull-left">Administrador</p>
                 <br>
               <!--<a href="#"><i class="fa fa-circle text-success"></i> En linea</a>-->
             </div>
@@ -113,42 +113,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">Menú</li>
-            <?php //if($integrante){ ?>
-            <li><?= Html::a('<i class="fa fa-book"></i> Ideas en acción',['panel/ideas-accion'],[]);?></li>
-            <?php //} ?>
-            <li><?= Html::a('<i class="fa fa-book"></i> Mi equipo',['panel/index'],[]);?></li>
-            <?php if($integrante){ ?>
-            <!--<li><?= Html::a('<i class="fa fa-book"></i> Ruta',['ruta/index'],[]);?></li>-->
-            <?php } ?>
-            <?php if ($integrante && $equipo){ ?>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-share"></i> <span>Foros</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                <?php foreach($foros as $foro): ?>
-                    <?php if($foro->id==2 || ($integrante && $foro->asunto_id==$equipo->asunto_id)){?>
-                    <li><?= Html::a("$foro->titulo",['foro/view','id'=>$foro->id],[]);?></li>
-                    <?php } ?>
-                <?php endforeach; ?>
-                </ul>
-            </li>
-            <?php } ?>
-            <?php if($integrante && $equipo && !$proyecto && $integrante->rol==1){ ?>
-            <li><?= Html::a("Mi proyecto",['proyecto/index'],[]);?> </li>
-            <?php } elseif($integrante && $equipo && $proyecto && ($integrante->rol==1 || $integrante->rol==2)){ ?>
-            <li><?= Html::a("Mi proyecto",['proyecto/actualizar'],[]);?></li>
-            <?php if($integrante && $equipo && $proyecto && $proyecto->etapa!=''){?>
-            <li><?= Html::a("Mis entregas",['entrega/index'],[]);?></li>
-            <?php }?>
-            <?php } ?>
-            <?php if($integrante && $equipo && $etapa2 && ($equipo->etapa==1 || $equipo->etapa==2)){?>
-            <li><?= Html::a("Búsqueda de proyectos",['proyecto/buscar'],[]);?></li>
-            <?php } ?>
-            <?php if($integrante && $equipo && $etapa3 && ($equipo->etapa==2)){?>
-            <li><?= Html::a("Votación interna",['proyecto/votacion'],[]);?></li>
-            <?php } ?>
+            
           </ul>
         </section>
         <!-- /.sidebar -->

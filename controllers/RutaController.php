@@ -212,7 +212,7 @@ class RutaController extends Controller
         /*Reflexion*/
         $reflexiones=Integrante::find()
                         ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_paterno) nombres_apellidos',
-                                  '(select count(*) from reflexion where reflexion.user_id=usuario.id and reflexion.proyecto_id=proyecto.id) entrada'])
+                                  '(select case when trim(reflexion.reflexion)=""  then 0 else 1 end from reflexion where reflexion.user_id=usuario.id and reflexion.proyecto_id=proyecto.id) entrada'])
                         ->innerJoin('equipo','equipo.id=integrante.equipo_id')
                         ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                         ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')

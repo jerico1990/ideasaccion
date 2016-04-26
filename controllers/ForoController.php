@@ -50,7 +50,7 @@ class ForoController extends Controller
      */
     public function actionView($id)
     {
-        $this->layout='equipo';
+        $this->layout='estandar';
         $newComentario = new ForoComentario();
         $model=$this->findModel($id);
         if ($newComentario->load(Yii::$app->request->post())) {

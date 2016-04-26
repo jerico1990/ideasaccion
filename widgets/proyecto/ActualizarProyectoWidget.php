@@ -271,22 +271,23 @@ class ActualizarProyectoWidget extends Widget
                     $planpresupuestal->unidad=$proyecto->planes_presupuestales_unidades[$i];
                     $planpresupuestal->dirigido=$proyecto->planes_presupuestales_dirigidos[$i];
                     $planpresupuestal->como_conseguirlo=$proyecto->planes_presupuestales_comos_conseguirlos[$i];
-                    $planpresupuestal->precio_unitario=$proyecto->planes_presupuestales_precios_unitarios[$i];
+                    $planpresupuestal->precio_unitario=str_replace("S/.","",$proyecto->planes_presupuestales_precios_unitarios[$i]);
                     $planpresupuestal->cantidad=$proyecto->planes_presupuestales_cantidades[$i];
-                    $planpresupuestal->subtotal=$proyecto->planes_presupuestales_subtotales[$i];
+                    $planpresupuestal->subtotal=str_replace("S/.","",$proyecto->planes_presupuestales_subtotales[$i]);
                     $planpresupuestal->update();
                 }
                 else
                 {
+                    //var_dump($proyecto->planes_presupuestales_precios_unitarios[$i]);die;
                     $planpresupuestal=new PlanPresupuestal;
                     $planpresupuestal->actividad_id=$proyecto->planes_presupuestales_actividades;
                     $planpresupuestal->recurso_descripcion=$proyecto->planes_presupuestales_recursos_descripciones[$i];
                     $planpresupuestal->unidad=$proyecto->planes_presupuestales_unidades[$i];
                     $planpresupuestal->dirigido=$proyecto->planes_presupuestales_dirigidos[$i];
                     $planpresupuestal->como_conseguirlo=$proyecto->planes_presupuestales_comos_conseguirlos[$i];
-                    $planpresupuestal->precio_unitario=$proyecto->planes_presupuestales_precios_unitarios[$i];
+                    $planpresupuestal->precio_unitario=str_replace("S/.","",$proyecto->planes_presupuestales_precios_unitarios[$i]);
                     $planpresupuestal->cantidad=$proyecto->planes_presupuestales_cantidades[$i];
-                    $planpresupuestal->subtotal=$proyecto->planes_presupuestales_subtotales[$i];
+                    $planpresupuestal->subtotal=str_replace("S/.","",$proyecto->planes_presupuestales_subtotales[$i]);
                     $planpresupuestal->estado=1;
                     $planpresupuestal->save();
                 }

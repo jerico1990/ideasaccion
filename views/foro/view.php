@@ -17,10 +17,19 @@ $posts = $model->posts;
     <article class="thread-view">
         <header class="thread-head">
             <h1><?= Html::encode($this->title) ?></h1>
+        </header>
+    </article>
+    
+    <?= $this->render('_posts', [
+            'posts'=>$posts['posts'],
+            'pageSize'=>$posts['pages']->pageSize, //分页
+            'pages' => $posts['pages'], //分页
+            'postCount' => $model->post_count //评论数
+        ]);
+    ?>
+    <article class="thread-view">
+        <header class="thread-head">
             <div class="thread-info">
-                <span class="glyphicon glyphicon-user"></span> <?= $usuario->username ?>
-                &nbsp;•&nbsp;
-                <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($model->creado_at) ?>
                 <div class="pull-right">
                     <span class="glyphicon glyphicon-comment"></span> <?= $model->post_count ?>
                 </div>
@@ -33,11 +42,4 @@ $posts = $model->posts;
             ]);
         ?>
     <!-- Post Form End -->
-    <?= $this->render('_posts', [
-            'posts'=>$posts['posts'],
-            'pageSize'=>$posts['pages']->pageSize, //分页
-            'pages' => $posts['pages'], //分页
-            'postCount' => $model->post_count //评论数
-        ]);
-    ?>
 </div>

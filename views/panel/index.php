@@ -7,7 +7,7 @@ use app\models\Invitacion;
 if($integrante)
 {
     $integrantes=Integrante::find()
-                ->select('integrante.id,estudiante.nombres_apellidos,integrante.estudiante_id,integrante.rol')
+                ->select('integrante.id,estudiante.nombres_apellidos,integrante.estudiante_id,integrante.rol,estudiante.email')
                 ->innerJoin('estudiante','integrante.estudiante_id=estudiante.id')
                 ->where('integrante.equipo_id=:equipo_id and integrante.estado=1',[':equipo_id'=>$integrante->equipo_id])
                 ->all();
@@ -15,20 +15,24 @@ if($integrante)
     $connection = \Yii::$app->db;
     $command=$connection->createCommand("
                 SELECT AA.tipo,AA.equipo_id,AA.id,AA.nombres_apellidos,AA.nombres,AA.apellido_paterno,AA.apellido_materno,
-                AA.estudiante_id,AA.rol,AA.estado
+                AA.estudiante_id,AA.rol,AA.estado,AA.email,AA.orden,AA.avatar
                 FROM
                 (
                 select 1 tipo,integrante.equipo_id,integrante.id,estudiante.nombres_apellidos,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,
-                integrante.estudiante_id,integrante.rol,integrante.estado from integrante
+                integrante.estudiante_id,integrante.rol,integrante.estado,estudiante.email,1 orden,usuario.avatar
+                from integrante
                 inner join estudiante on integrante.estudiante_id=estudiante.id
+                inner join usuario on usuario.estudiante_id=estudiante.id
                 where integrante.equipo_id=".$integrante->equipo_id." and integrante.estado in (1,2)
                 union
                 select 2 tipo,invitacion.equipo_id,invitacion.id,estudiante.nombres_apellidos,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,
-                estudiante.id,0,6 from invitacion
+                estudiante.id,0,6,estudiante.email,2,usuario.avatar
+                from invitacion
                 inner join estudiante on invitacion.estudiante_invitado_id=estudiante.id
+                inner join usuario on usuario.estudiante_id=estudiante.id
                 where invitacion.equipo_id=".$integrante->equipo_id." and invitacion.estado=1
                 ) AA
-                ORDER BY AA.ROL ASC
+                ORDER BY AA.orden ASC,AA.ROL ASC
                 
                ");
     $equipoeinvitaciones = $command->queryAll();
@@ -60,8 +64,8 @@ $btninscribir=$integrante
                 echo "<tr>
                         <td>$invitacion->descripcion_equipo</td>
                         <td><div class='row-picture'>
-                    <img class='circle' src='../../web/foto_personal/".$invitacion->avatar."' alt='icon' style='height: 30px;width: 30px'>
-                    ".$invitacion->nombres." ".$invitacion->apellido_paterno."".$invitacion->apellido_materno."
+                        <img class='circle' src='../../web/foto_personal/".$invitacion->avatar."' alt='icon' style='height: 30px;width: 30px'>
+                    ".$invitacion->nombres." ".$invitacion->apellido_paterno." ".$invitacion->apellido_materno."
                   </div> </td>
                         <td class='text-center'><div style='color:green;font-size:24px;cursor:pointer'  class='fa  fa-check-circle-o fa-6' onclick='unirme($invitacion->id)'></div></td>
                         <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='rechazar($invitacion->id)'></div></td>
@@ -88,7 +92,7 @@ $btninscribir=$integrante
 <div class="col-xs-12 col-sm-3 col-md-3"></div>
 <div class="col-xs-12 col-sm-4 col-md-4">
     <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Nombre de tu equipo:</label> </h4>
-    <p class="text-justify" style="font-size: 20px;"><?= $equipo->descripcion_equipo ?></p>
+    <p class="text-justify" style="padding-bottom: 5px"><?= $equipo->descripcion_equipo ?></p>
     <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Descripción de tu equipo:</label>  </h4>
     <p class="text-justify" style="padding-bottom: 5px"><?= $equipo->descripcion ?></p>
     <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Asunto público:</label>  </h4>
@@ -104,7 +108,8 @@ $btninscribir=$integrante
 <?php //if($equipo->estado==0){ ?>
 <table class="table table-striped table-hover ">
     <thead>
-        <th>Nombres y Apellidos</th>
+        <th>Nombres y apellidos</th>
+        <th>correo electrónico</th>
         <th>Estado</th>
         <?php if($equipo->estado==0){ ?>
         <th class='text-center'></th>
@@ -117,6 +122,8 @@ $btninscribir=$integrante
         {
             echo    "<tr>
                         <td>".$equipoeinvitacion['nombres']." ".$equipoeinvitacion['apellido_paterno']." ".$equipoeinvitacion['apellido_materno']."</td>";
+            
+            echo "<td>".$equipoeinvitacion['email']."</td>";
                         
             if($integrante->rol==1)
             {
@@ -137,7 +144,7 @@ $btninscribir=$integrante
                 }
                 elseif($equipoeinvitacion['rol']==0)
                 {
-                    echo    "<td>invitado</td>
+                    echo    "<td>Invitado</td>
                             <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='eliminarinvitado(".$equipoeinvitacion['estudiante_id'].",".$equipoeinvitacion['equipo_id'].")'></div></td>";
                 }
             }
@@ -165,7 +172,7 @@ $btninscribir=$integrante
                 }
                 elseif($equipoeinvitacion['rol']==0)
                 {
-                    echo    "<td>invitado</td>
+                    echo    "<td>Invitado</td>
                             <td></td>";
                 }
             }

@@ -20,6 +20,7 @@ class Foro extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $nombres_apellidos;
     public static function tableName()
     {
         return 'foro';
@@ -64,11 +65,12 @@ class Foro extends \yii\db\ActiveRecord
     public function getPosts()
     {
         $query = new Query;
-        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar')
+        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno')
             ->from('{{%foro_comentario}} as p')
             ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
+            ->join('INNER JOIN','{{%estudiante}} as es', 'es.id=u.estudiante_id')
             ->where('p.foro_id=:id', [':id' => $this->id]);
-        $result = Yii::$app->tools->Pagination($query);
+        $result = Yii::$app->tools->Pagination($query,10);
         return ['posts' => $result['result'], 'pages' => $result['pages']];
     }
 }

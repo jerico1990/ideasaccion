@@ -5,7 +5,7 @@ use yii\helpers\HtmlPurifier;
 use yii\widgets\LinkPager;
 
 $floor = 1;
-if (isset($_GET['page']) >= 2) //分页标识大于2才开始计算
+if (isset($_GET['page']) >= 2)
     $floor += ($pageSize * $_GET['page']) - $pageSize;
 ?>
 <section class="posts">
@@ -19,7 +19,7 @@ if (isset($_GET['page']) >= 2) //分页标识大于2才开始计算
             <div class="row post-item">
                 <div class="col-sm-12">
                     <div class="post-meta">
-                        <?= Html::a('<span class="glyphicon glyphicon-user"></span> ' . Html::encode($post['username']), ['/user/view', 'id' => $post['username']]) ?>
+                        <span class="glyphicon glyphicon-user"></span> <?= $post['nombres']." ".$post['apellido_paterno'] ?>
                         &nbsp;•&nbsp;
                         <span class="post-time">
                             <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?>

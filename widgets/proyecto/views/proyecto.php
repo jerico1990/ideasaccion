@@ -15,7 +15,7 @@ use yii\web\JsExpression;
 
 
 <?php $form = ActiveForm::begin(); ?>
-<h1>Mi proyecto</h1>
+<h1><b>Mi proyecto</b></h1>
 <hr class="colorgraph">
 <div class="row">
     <div class="nav-tabs-custom">
@@ -28,9 +28,9 @@ use yii\web\JsExpression;
                 <div class="col-xs-12 col-sm-3 col-md-3"></div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-titulo required">
+                        <div class="form-group label-floating field-proyecto-titulo required" style="margin-top: 15px">
                             <label class="control-label" for="proyecto-titulo" title="Máximo 200 palabras">Título</label>
-                            <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras">
+                            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras">
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -42,16 +42,16 @@ use yii\web\JsExpression;
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-resumen required">
+                        <div class="form-group label-floating field-proyecto-resumen required" style="margin-top: 15px">
                             <label class="control-label" for="proyecto-resumen" title="Mínimo 500 palabras">Sumilla / Justificación</label>
-                            <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" minlength="100" maxlength="2500" title="Mínimo 500 palabras"></textarea>
+                            <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" minlength="100" maxlength="2500" title="Mínimo 500 palabras"></textarea>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-beneficiario required">
+                        <div class="form-group label-floating field-proyecto-beneficiario required" style="margin-top: 15px">
                             <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
-                            <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" ></textarea>
+                            <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" ></textarea>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -65,9 +65,9 @@ use yii\web\JsExpression;
                     
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-objetivo_general required">
+                        <div class="form-group label-floating field-proyecto-objetivo_general required" style="margin-top: 15px">
                             <label class="control-label" for="proyecto-objetivo_general" title="Máximo 200 palabras">Objetivo general</label>
-                            <textarea id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="200"  title="Máximo 200 palabras"></textarea>
+                            <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="200"  title="Máximo 200 palabras"></textarea>
                         </div>
                     </div>
                     <div class="clearfix"></div>

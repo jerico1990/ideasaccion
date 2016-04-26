@@ -14,7 +14,7 @@ use yii\web\JsExpression;
 ?>
 
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
-<h1>Mi Proyecto</h1>
+<h1><b>Mi proyecto</b></h1>
 <hr class="colorgraph">
 <div class="row">
     <div class="nav-tabs-custom">
@@ -602,8 +602,8 @@ use yii\web\JsExpression;
     
     
     $("#tab_logic_1").on('click','.remCF',function(){
-        var r = confirm("Estas seguro?");
-        if (r == true) {
+        //var r = confirm("Estas seguro?");
+        //if (r == true) {
             id=$(this).children().val();
             if (id) {
 		$.ajax({
@@ -621,12 +621,12 @@ use yii\web\JsExpression;
 	    {
 		$(this).parent().parent().remove();
 	    }
-        } 
+        //} 
     });
     
     $("#tab_logic_2").on('click','.remCF',function(){
-        var r = confirm("Estas seguro?");
-        if (r == true) {
+        //var r = confirm("Estas seguro?");
+        //if (r == true) {
             id=$(this).children().val();
             if (id) {
 		$.ajax({
@@ -644,12 +644,12 @@ use yii\web\JsExpression;
 	    {
 		$(this).parent().parent().remove();
 	    }
-        } 
+        //} 
     });
     
     $("#tab_logic_3").on('click','.remCF',function(){
-        var r = confirm("Estas seguro?");
-        if (r == true) {
+        //var r = confirm("Estas seguro?");
+        //if (r == true) {
             id=$(this).children().val();
             if (id) {
 		$.ajax({
@@ -667,7 +667,7 @@ use yii\web\JsExpression;
 	    {
 		$(this).parent().parent().remove();
 	    }
-        } 
+        //} 
     });
     
     $("#add_row_1").click(function(){

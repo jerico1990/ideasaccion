@@ -15,7 +15,14 @@ foreach($objetivos as $objetivo){
     $opciones_objetivos=$opciones_objetivos.'<option value='.$objetivo->id.'>'.$objetivo->descripcion.'</option>';
 }
 
+
+
+
 ?>
+<script src="<?= \Yii::$app->request->BaseUrl ?>/autoNumeric-master/autoNumeric.js"></script>
+<script src="<?= \Yii::$app->request->BaseUrl ?>/jQuery-Plugins-master/numeric/jquery.numeric.js"></script>
+
+
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
     <div class="col-xs-12 col-sm-6 col-md-6 text-center">
@@ -192,6 +199,7 @@ foreach($objetivos as $objetivo){
         }
         else
         {
+	    
 	    $('#plan_presupuestal_'+plan).html(
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_recurso_descripcion_"+plan+"' required' style='margin-top: 0px'>"+
@@ -220,18 +228,18 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+plan+"' onfocusout='Subtotal1("+plan+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario'>"+
+						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+plan+"' onkeypress='Numerico(event)' onfocus='Subtotal11("+plan+",2)'  onfocusout='Subtotal1("+plan+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='S/. 0.00'>"+
 						"<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_"+plan+"'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' />"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_cantidad_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_cantidad_"+plan+"' onfocusout='Subtotal2("+plan+",2)' class='form-control' name='Proyecto[planes_presupuestales_cantidades][]' placeholder='Cantidad' >"+
+						"<input id='proyecto-plan_presupuestal_cantidad_"+plan+"' onkeypress='Numerico(event)'   onfocusout='Subtotal2("+plan+",2)' class='form-control' name='Proyecto[planes_presupuestales_cantidades][]' placeholder='Cantidad' >"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_subtotal_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_subtotal1_"+plan+"' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal'  disabled>"+
+						"<input id='proyecto-plan_presupuestal_subtotal1_"+plan+"' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='S/. 0.00'   disabled>"+
 						"<input type='hidden' id='proyecto-plan_presupuestal_subtotal_"+plan+"' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' >"+
 					    "</div>"+
 					"</td>"+
@@ -240,6 +248,13 @@ foreach($objetivos as $objetivo){
 					    "</span>"+
 					"</td>");
 	    $('#presupuesto').append('<tr id="plan_presupuestal_'+(plan+1)+'"><input type="hidden" id="contador" value="'+(plan+1)+'" ></tr>');
+	    /*$('#proyecto-plan_presupuestal_precio_unitario1_'+plan).autoNumeric("init",{
+		aSep: '.',
+		aDec: ',', 
+		aSign: 'S/. '
+	    });*/
+	    
+	    
 	    plan++;
 	}
 	return true;
@@ -261,12 +276,36 @@ foreach($objetivos as $objetivo){
 	}
 	return true;
     });
+    
+    function Numerico(evt)
+    {
+	var theEvent = evt || window.event;
+	var key = theEvent.keyCode || theEvent.which;
+	key = String.fromCharCode( key );
+	var regex = /[0-9]|\./;
+	if( !regex.test(key) ) {
+	  theEvent.returnValue = false;
+	  if(theEvent.preventDefault) theEvent.preventDefault();
+	}
+    }
+    
+    
     var x=0;
     var y=0;
     
+    
+    function Subtotal11(id,tipo) {
+	$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("");
+	$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("S/."+$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val());
+	
+    }
+    
     function Subtotal1(id,tipo) {
+	
+	var unitario1 = $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val();
+
 	if (tipo==1) {
-	    x=$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val();
+	    x=unitario1.replace("S/.", "");
 	}
 	if ($('#proyecto-plan_presupuestal_cantidad_'+id).val()!='') {
 	    y=$('#proyecto-plan_presupuestal_cantidad_'+id).val();
@@ -274,37 +313,38 @@ foreach($objetivos as $objetivo){
 	
 	var subtotal=x*y;
 	$('#proyecto-plan_presupuestal_subtotal_'+id).val(subtotal);
-	$('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal);
+	$('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal.toFixed(2));
 	$('#proyecto-plan_presupuestal_precio_unitario_'+id).val($('#proyecto-plan_presupuestal_precio_unitario1_'+id).val());
 	var total=0;
 	$('#presupuesto .totales').each(function(){
 		//console.log($(this).val());
 		total=total+parseInt($(this).val());
 	});
-	console.log();
-	$('.total').html("S/."+total);
+	$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("S/."+parseInt(x).toFixed(2));
+	$('.total').html("S/."+total.toFixed(2));
     }
     
     function Subtotal2(id,tipo) {
+	var unitario1 = $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val();
 	
 	if (tipo==2) {
 	    y=$('#proyecto-plan_presupuestal_cantidad_'+id).val();
 	}
 	
-	if ($('#proyecto-plan_presupuestal_precio_unitario1_'+id).val()!='') {
-	    x=$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val();
+	if (unitario1.replace("S/.", "")!='') {
+	    x=unitario1.replace("S/.", "");
 	}
 	var subtotal=x*y;
 	$('#proyecto-plan_presupuestal_subtotal_'+id).val(subtotal);
-	$('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal);
+	$('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal.toFixed(2));
 	
 	var total=0;
 	$('#presupuesto .totales').each(function(){
 		//console.log($(this).val());
 		total=total+parseInt($(this).val());
 	});
-	console.log();
-	$('.total').html("S/."+total);
+	
+	$('.total').html("S/."+total.toFixed(2));
     }
     
     function ComoConseguirlo(value,id) {
@@ -398,7 +438,7 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+i+"' onfocusout='Subtotal1("+i+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario' value='"+star.precio_unitario+"'>"+
+						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+i+"' onfocusout='Subtotal1("+i+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario' value='S/."+star.precio_unitario.toFixed(2)+"'>"+
 						"<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_"+i+"'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' value='"+star.precio_unitario+"' />"+
 					    "</div>"+
 					"</td>"+
@@ -409,7 +449,7 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_subtotal_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_subtotal1_"+i+"' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal' value='S/."+star.subtotal+"' disabled>"+
+						"<input id='proyecto-plan_presupuestal_subtotal1_"+i+"' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal' value='S/."+star.subtotal.toFixed(2)+"' disabled>"+
 						"<input type='hidden' id='proyecto-plan_presupuestal_subtotal_"+i+"' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' value='"+star.subtotal+"'>"+
 					    "</div>"+
 					"</td>"+
@@ -422,64 +462,9 @@ foreach($objetivos as $objetivo){
 				    "</tr>";			   
 		    });
 		    tebody=tebody+"<tr id='plan_presupuestal_"+i+"'><input type='hidden' id='contador' value='"+i+"' ></tr>"
-		    
 		}
-		/*else
-		{
-		    tebody="<tr id='plan_presupuestal_0'>"+
-				    "<td style='padding: 2px'>"+
-					"<div class='form-group field-proyecto-plan_presupuestal_recurso_descripcion_0' required' style='margin-top: 0px'>"+
-					    "<input id='proyecto-plan_presupuestal_recurso_descripcion_0' class='form-control' name='Proyecto[planes_presupuestales_recursos_descripciones][]' placeholder='Recurso'   />"+
-					"</div>"+
-				    "</td>"+
-				    "<td style='padding: 2px'>"+
-					"<div class='form-group field-proyecto-plan_presupuestal_unidad_0' required' style='margin-top: 0px'>"+
-					    "<input id='proyecto-plan_presupuestal_unidad_0' class='form-control' name='Proyecto[planes_presupuestales_unidades][]' placeholder='Unidad'  />"+
-					"</div>"+
-				    "</td>"+
-				    "<td style='padding: 2px'>"+
-					"<div class='form-group field-proyecto-plan_presupuestal_dirigido_0' required' style='margin-top: 0px'>"+
-					    "<input id='proyecto-plan_presupuestal_dirigido_0' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido'   />"+
-					"</div>"+
-				    "</td>"+
-				    "<td style='padding: 2px'>"+
-					"<div class='form-group field-proyecto-plan_presupuestal_como_conseguirlo_0' required' style='margin-top: 0px'>"+
-					    "<select onchange='ComoConseguirlo($(this).val(),0)' id='proyecto-plan_presupuestal_como_conseguirlo_0' class='form-control' name='Proyecto[planes_presupuestales_comos_conseguirlos][]'>"+
-						"<option value>seleccionar</option>"+
-						"<option value='1'>Pedir</option>"+
-						"<option value='2'>Crear</option>"+
-						"<option value='3'>Comprar</option>"+
-					    "</select>"+
-					"</div>"+
-				    "</td>"+
-				    "<td style='padding: 2px'>"+
-					"<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_0' required' style='margin-top: 0px'>"+
-					    "<input id='proyecto-plan_presupuestal_precio_unitario1_0' onfocusout='Subtotal1(0,1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario'>"+
-					    "<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_0'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' />"+
-					"</div>"+
-				    "</td>"+
-				    "<td style='padding: 2px'>"+
-					"<div class='form-group field-proyecto-plan_presupuestal_cantidad_"+i+"' required' style='margin-top: 0px'>"+
-					    "<input id='proyecto-plan_presupuestal_cantidad_0' onfocusout='Subtotal2(0,2)' class='form-control' name='Proyecto[planes_presupuestales_cantidades][]' placeholder='Cantidad' >"+
-					"</div>"+
-				    "</td>"+
-				    "<td style='padding: 2px'>"+
-					"<div class='form-group field-proyecto-plan_presupuestal_subtotal_0' required' style='margin-top: 0px'>"+
-					    "<input id='proyecto-plan_presupuestal_subtotal1_0' class='form-control' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='Subtotal'disabled>"+
-					    "<input type='hidden' id='proyecto-plan_presupuestal_subtotal_0' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' >"+
-					"</div>"+
-				    "</td>"+
-				    "<td style='padding: 2px'>"+
-					"<span class='remCF glyphicon glyphicon-minus-sign'>"+
-					"</span>"+
-				    "</td>"+
-				"</tr>"+
-				"<tr id='plan_presupuestal_1'></tr>";
-		}*/
-		
-			
-		//console.log(tebody);
-		$('.total').html("S/."+total);
+		//$("#diskamountUnit").val('$' + total.toFixed(2));
+		$('.total').html("S/."+total.toFixed(2));
 		$('#presupuesto_cuerpo').html(tebody);
 		$('#presupuesto').show();
 		$('#btn_presupuesto').show();

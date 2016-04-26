@@ -102,9 +102,13 @@ $foros=Foro::find()->orderBy('id DESC')->all();
               <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-              <p style="font-size: 9px"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></p>
-                <?= Html::a('Cerrar sesión',['login/logout'],[]);?>
+                <p style="font-size: 12px" class="pull-left"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></p>
+                <br>
               <!--<a href="#"><i class="fa fa-circle text-success"></i> En linea</a>-->
+            </div>
+            <br>
+            <div class="pull-right">
+                <?= Html::a('Cerrar sesión',['login/logout'],['class'=>'']);?>
             </div>
           </div>
           <!-- /.search form -->

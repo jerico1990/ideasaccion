@@ -13,11 +13,12 @@ use yii\web\JsExpression;
 
 ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
+<?php if(!$etapa1 || $equipo->etapa==0){ ?>
 <button class="btn btn-raised btn-success" type="button" id="btnprimeraentrega" <?= (!$etapa1 || $equipo->etapa==1)?'disabled':'' ?>>Cerrar primera entrega</button>
-
+<?php }?>
+<?php if($etapa2 || $equipo->etapa==1){ ?>
 <button class="btn btn-raised btn-success" type="button" id="btnsegundaentrega" <?= (!$etapa2 || $equipo->etapa==2)?'disabled':'' ?>>Cerrar segunda entrega</button>
-
+<?php }?>
 
 <?php if($equipo->etapa==1 || $equipo->etapa==2){?>
 <?php //= \app\widgets\proyecto\ProyectoPrimeraEntregaWidget::widget(); ?>
