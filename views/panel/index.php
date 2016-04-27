@@ -62,13 +62,13 @@ $btninscribir=$integrante
             foreach($invitaciones as $invitacion)
             {
                 echo "<tr>
-                        <td>$invitacion->descripcion_equipo</td>
-                        <td><div class='row-picture'>
+                        <td style='vertical-align:middle'>$invitacion->descripcion_equipo</td>
+                        <td style='vertical-align:middle'><div class='row-picture'>
                         <img class='circle' src='../../web/foto_personal/".$invitacion->avatar."' alt='icon' style='height: 30px;width: 30px'>
                     ".$invitacion->nombres." ".$invitacion->apellido_paterno." ".$invitacion->apellido_materno."
                   </div> </td>
-                        <td class='text-center'><div style='color:green;font-size:24px;cursor:pointer'  class='fa  fa-check-circle-o fa-6' onclick='unirme($invitacion->id)'></div></td>
-                        <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='rechazar($invitacion->id)'></div></td>
+                        <td class='text-center' style='vertical-align:middle'><div style='color:green;font-size:24px;cursor:pointer'  class='fa  fa-check-circle-o fa-6' onclick='unirme($invitacion->id)'></div></td>
+                        <td class='text-center' style='vertical-align:middle'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='rechazar($invitacion->id)'></div></td>
                         </tr>";
             }
             ?>
@@ -225,7 +225,7 @@ echo " <button class='btn btn-raised btn-success' onclick='finalizarequipo(".$in
     $eliminarintegrante= Yii::$app->getUrlManager()->createUrl('equipo/eliminarintegrante');
     $validarequipo= Yii::$app->getUrlManager()->createUrl('equipo/validarequipo');
     $finalizarequipo= Yii::$app->getUrlManager()->createUrl('equipo/finalizarequipo');
-    
+    $validarparafinalizar= Yii::$app->getUrlManager()->createUrl('equipo/validarparafinalizar');
 ?>
 <script>
 function unirme(id) {
@@ -462,46 +462,72 @@ function eliminarintegrante(id) {
 
 
 function finalizarequipo(id) {
-    $.ajax({
-        url: '<?php echo $finalizarequipo ?>',
+    var texto="";
+    var validarparafinalizar=$.ajax({
+        url: '<?php echo $validarparafinalizar ?>',
         type: 'GET',
-        async: true,
+        async: false,
         data: {id:id},
-        success: function(data){
-            if (data==1) {
-                $.notify({
-                    // options
-                    message: 'Ha finalizado su equipo' 
-                },{
-                    // settings
-                    type: 'success',
-                    z_index: 1000000,
-                    placement: {
-                            from: 'bottom',
-                            align: 'right'
-                    },
-                });
-            }
-            else if (data==2) {
-                
-                $.notify({
-                    // options
-                    message: 'No tiene la cantidad suficiente para finalizar el equipo, deben ser 4 integrantes' 
-                },{
-                    // settings
-                    type: 'danger',
-                    z_index: 1000000,
-                    placement: {
-                            from: 'bottom',
-                            align: 'right'
-                    },
-                });
-            }
-            
-            setTimeout(function(){
-                window.location.reload(1);
-            }, 2000);
-        }
+        success: function(data){}
     });
+    
+    
+    if (validarparafinalizar.responseText==1) {
+        texto="Estas seguro de finalizar tu equipo, aún tienes invitaciones pendientes los cuales serán eliminadas";
+    }
+    else if (validarparafinalizar.responseText==0) {
+        texto="Estas seguro de finalizar tu equipo";
+    }
+    
+    var txt;
+    var r = confirm(texto);
+    if (r == true) {
+        $.ajax({
+            url: '<?php echo $finalizarequipo ?>',
+            type: 'GET',
+            async: true,
+            data: {id:id},
+            success: function(data){
+                if (data==1) {
+                    $.notify({
+                        // options
+                        message: 'Ha finalizado su equipo' 
+                    },{
+                        // settings
+                        type: 'success',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                }
+                else if (data==2) {
+                    
+                    $.notify({
+                        // options
+                        message: 'No tiene la cantidad suficiente para finalizar el equipo, deben ser 4 integrantes como mínimo' 
+                    },{
+                        // settings
+                        type: 'danger',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                }
+                
+                setTimeout(function(){
+                    window.location.reload(1);
+                }, 2000);
+            }
+        });
+    }
+    
+    
+    
+    
+    
 }
 </script>

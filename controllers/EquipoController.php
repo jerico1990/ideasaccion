@@ -349,7 +349,7 @@ class EquipoController extends Controller
         {
             $bandera=2;
         }
-        if($invitacionContador>3)
+        if($invitacionContador>=5)
         {
             $bandera=3;
         }
@@ -412,5 +412,35 @@ class EquipoController extends Controller
             $bandera=1;    
         }
         echo $bandera;
+    }
+    public function actionValidarinvitacioneintegrante5($equipo)
+    {
+        $invitacionContador=Invitacion::find()->where('estado=1 and equipo_id=:equipo_id ',
+                                              [':equipo_id'=>(integer) $equipo])->count();
+        
+        $integranteContador=Integrante::find()->where('equipo_id=:equipo_id ',
+                                              [':equipo_id'=>(integer) $equipo])->count();
+        $invitacionContador=$invitacionContador+$integranteContador;
+        
+        if($invitacionContador==5)
+        {
+            echo 1;
+        }
+        
+    }
+    
+    public function actionValidarparafinalizar($id)
+    {
+        //$integranteContador=Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$id])->count();
+        $invitacionContador=Invitacion::find()->where('estado=1 and equipo_id=:equipo_id ',
+                                              [':equipo_id'=>$id])->count();
+        if($invitacionContador>0)
+        {
+            echo 1;
+        }
+        else
+        {
+            echo 0;
+        }
     }
 }

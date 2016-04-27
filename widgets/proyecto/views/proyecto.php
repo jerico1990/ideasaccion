@@ -72,10 +72,16 @@ use yii\web\JsExpression;
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <h4>Objetivos especificos:</h4>
+                        <h4>Objetivos especificos <span class="glyphicon glyphicon-plus-sign" onclick="agregarObjetivoActividad()" ></span></h4>
                     </div>
+                    
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div id="mostrar_oe_actividades">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!--<div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group field-proyecto-objetivo_especifico_1 required">
                             <span class="glyphicon glyphicon-plus-sign field-proyecto-objetivo_especifico_1" data-toggle="modal" data-target="#objetivo_especifico_1"></span>
                             <div style="display: inline" id="txt_objetivo_especifico_1"></div>
@@ -95,7 +101,7 @@ use yii\web\JsExpression;
                             <div style="display: inline" id="txt_objetivo_especifico_3"></div>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
+                    <div class="clearfix"></div>-->
                 </div>
                 <div class="clearfix"></div>
             </div><!-- /.tab-pane -->
@@ -109,32 +115,26 @@ use yii\web\JsExpression;
     </div>
 </div>
 
-
-
-<!-- Objetivo General -->
-<div class="modal fade" id="objetivo_general"   role="dialog" aria-labelledby="myModalLabel">
+<!-- Objetivo Especifico general-->
+<div class="modal fade" id="objetivo_especifico_general" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="z-index: 2000 !important">
-        <div class="modal-content" >
+        <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Objetivo general</h4>
+                <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
-            <div class="modal-body">
-                <!--<<div class="form-group label-floating field-proyecto-objetivo_general required">
-                    <label class="control-label" for="proyecto-objetivo_general" title="Máximo 200 palabras">Descripción: *</label>
-                    textarea id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="200"  title="Máximo 200 palabras"></textarea>
-                </div>-->
+            <div class="modal-body" id="oe_modal">
+                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <!--<button type="button" id="btn_objetivo_general" class="btn btn-primary" data-dismiss="modal">Guardar</button>-->
+                <button type="button" class="btn btn-raised btn-success"  onclick='MostrarOeActividades()'>Aceptar</button>
             </div>
         </div>
     </div>
 </div>
 
 
-<!-- Objetivo Especifico 1 -->
+<!-- Objetivo Especifico 1 
 <div class="modal fade" id="objetivo_especifico_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="z-index: 2000 !important">
         <div class="modal-content">
@@ -196,7 +196,7 @@ use yii\web\JsExpression;
 </div>
 
 
-<!-- Objetivo Especifico 2 -->
+<!-- Objetivo Especifico 2 
 <div class="modal fade" id="objetivo_especifico_2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="z-index: 2000 !important">
         <div class="modal-content">
@@ -259,7 +259,7 @@ use yii\web\JsExpression;
 
 
 
-<!-- Objetivo Especifico 3 -->
+<!-- Objetivo Especifico 3 
 <div class="modal fade" id="objetivo_especifico_3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document" style="z-index: 2000 !important">
         <div class="modal-content">
@@ -319,6 +319,8 @@ use yii\web\JsExpression;
         </div>
     </div>
 </div>
+
+-->
 <?php ActiveForm::end(); ?>
 
 
@@ -679,6 +681,15 @@ use yii\web\JsExpression;
     
     $("#btnproyecto").click(function(event){
         var error='';
+        var objetivo_especifico_1=$('input[name=\'Proyecto[objetivo_especifico_1]\']').length;
+        var objetivo_especifico_2=$('input[name=\'Proyecto[objetivo_especifico_2]\']').length;
+        var objetivo_especifico_3=$('input[name=\'Proyecto[objetivo_especifico_3]\']').length;
+        var total=objetivo_especifico_1+objetivo_especifico_2+objetivo_especifico_3;
+        
+        if (total<3) {
+            error=error+'ingrese 3 objetivos especificos <br>';
+        }
+        
         
         if($('#proyecto-titulo').val()=='')
         {
@@ -718,42 +729,37 @@ use yii\web\JsExpression;
         {
             error=error+'ingrese objetivo general del proyecto <br>';
             $('.field-proyecto-objetivo_general').addClass('has-error');
-            $('.field-proyecto-objetivo_general').css( 'color', '#a94442' );
             
         }
         else
         {
             $('.field-proyecto-objetivo_general').addClass('has-success');
             $('.field-proyecto-objetivo_general').removeClass('has-error');
-            $('.field-proyecto-objetivo_general').css( 'color', 'black' );
         }
         
+        /*
         if($('#proyecto-objetivo_especifico_1').val()=='')
         {
             error=error+'ingrese objetivo especifico 1   <br>';
             $('.field-proyecto-objetivo_especifico_1').addClass('has-error');
-            $('.field-proyecto-objetivo_especifico_1').css( 'color', '#a94442' );
         }
         else
         {
             $('.field-proyecto-objetivo_especifico_1').addClass('has-success');
             $('.field-proyecto-objetivo_especifico_1').removeClass('has-error');
-            $('.field-proyecto-objetivo_especifico_1').css( 'color', 'black' );
         }
         
         if($('#proyecto-objetivo_especifico_2').val()=='')
         {
             error=error+'ingrese objetivo especifico 2   <br>';
             $('.field-proyecto-objetivo_especifico_2').addClass('has-error');
-            $('.field-proyecto-objetivo_especifico_2').css( 'color', '#a94442' );
         }
         else
         {
             $('.field-proyecto-objetivo_especifico_2').addClass('has-success');
             $('.field-proyecto-objetivo_especifico_2').removeClass('has-error');
-            $('.field-proyecto-objetivo_especifico_2').css( 'color', 'black' );
         }
-        
+        */
         
         
         if(error!='')
@@ -780,6 +786,170 @@ use yii\web\JsExpression;
         }
         return true;
     });
+    var oe=1;
+    var actividad=1;
+    /*
+    $('#objetivo_especifico_general').on('hidden.bs.modal', function (e) {
+        actividad=1;
+        console.log("aa");
+    });*/
+    
+    
+    function agregarObjetivoActividad() {        
+        
+        
+        var body="";
+        var objetivo_especifico_1=$('input[name=\'Proyecto[objetivo_especifico_1]\']').length;
+        var objetivo_especifico_2=$('input[name=\'Proyecto[objetivo_especifico_2]\']').length;
+        var objetivo_especifico_3=$('input[name=\'Proyecto[objetivo_especifico_3]\']').length;
+        var total=objetivo_especifico_1+objetivo_especifico_2+objetivo_especifico_3;
+        if (total>=3) {
+            $.notify({
+                message: 'Solo se puede agregar 3 objetivos especificos'
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
+        $('#objetivo_especifico_general').modal({backdrop: 'static', keyboard: false});
+        actividad=1;
+        
+        body=   "<div id='objetivo'>"+
+                    "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+                        "<div class='form-group label-floating field-proyecto-temp_objetivo_especifico required' style='margin-top: 15px'>"+
+                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo especifico </label>"+
+                            "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_objetivo_especifico' class='form-control'>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"+
+                "<div class='clearfix'></div>"+
+                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign pull-right' onclick='agregarActividad()' ></span></div>"+
+               
+                "<div id='actividades'></div>"+
+                "<div class='clearfix'></div>";
+        $("#oe_modal").html(body);
+        //oe++;
+        return true;
+    }
+    
+    function agregarActividad() {
+        
+        var error='';
+        //var temp_actividad=$("proyecto-temp_actividad_"+(actividad-1)).val();
+        var temp_actividades=$('input[name=\'Proyecto[temp_actividades][]\']').length;
+        for (var i=1; i<=temp_actividades; i++) {
+            if(jQuery.trim($('#proyecto-temp_actividad_'+i).val())=='')
+            {
+                error=error+'Ingrese Actividad #'+i+' <br>';
+                $('.field-proyecto-temp_actividad_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-temp_actividad_'+i).addClass('has-success');
+                $('.field-proyecto-temp_actividad_'+i).removeClass('has-error');
+            }
+        }
+        
+        if (error!='') {
+            $.notify({
+                message: error
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
+        
+        var body="";
+        body=   "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+                    "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividad+" required' style='margin-top: 15px'>"+
+                        "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividad+"' >Descripción de actividad #"+actividad+"</label>"+
+                        "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividad+"' name='Proyecto[temp_actividades][]' class='form-control'>"+
+                    "</div>"+
+                "</div>";
+        $("#actividades").append(body);
+        actividad++;
+        return true;
+    }
+    
+    function MostrarOeActividades() {
+        var body="";
+        var error='';
+        var temp_objetivo_especifico=$("#proyecto-temp_objetivo_especifico").val();
+        var temp_actividades=$('input[name=\'Proyecto[temp_actividades][]\']').length;
+        var bodyactividades="";
+        if(jQuery.trim(temp_objetivo_especifico)=='')
+        {
+            error=error+'Ingrese descripción en Objetivo especifico <br>';
+            $('.field-proyecto-temp_objetivo_especifico').addClass('has-error');
+        }
+        else
+        {
+            $('.field-proyecto-temp_objetivo_especifico').addClass('has-success');
+            $('.field-proyecto-temp_objetivo_especifico').removeClass('has-error');
+        }
+        
+        if (temp_actividades==0) {
+            error=error+'Ingrese 1 actividad como mínimo <br>';
+        }
+        
+        for (var i=1; i<=temp_actividades; i++) {
+            if(jQuery.trim($('#proyecto-temp_actividad_'+i).val())=='')
+            {
+                error=error+'Ingrese Actividad #'+i+' <br>';
+                $('.field-proyecto-temp_actividad_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-temp_actividad_'+i).addClass('has-success');
+                $('.field-proyecto-temp_actividad_'+i).removeClass('has-error');
+            }
+        }
+        
+        
+        if (error!='') {
+            $.notify({
+                message: error
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
+        
+        
+        $("#actividades input").each(function( index ) {
+            bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
+            console.log( $( this ).val() );
+        });
+        
+        
+        
+        var body=   "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+                            "<li><b>"+temp_objetivo_especifico+"</b></li>"+
+                            "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
+                            "<ul>"+bodyactividades+"</ul>"+
+                    "</div>";
+        $('#objetivo_especifico_general').modal('toggle');
+        $("#mostrar_oe_actividades").append(body);
+        oe++;
+        actividad=1;
+        return true;
+        
+    }
 </script>
 
 

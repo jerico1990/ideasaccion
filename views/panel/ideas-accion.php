@@ -8,7 +8,7 @@
             <p>Asuntos Públicos</p>
         </section>
     </div>
-    <div ng-controller="SegundoController">
+    <div ng-controller="SegundoController" ng-show="segundo">
         <h3>¡Arranca la votación!</h3>
         <section>
             Los asuntos públicos seleccionados de tu región son:
@@ -17,13 +17,13 @@
             </div>
         </section>
     </div>
-    <div ng-controller="TerceroController">
+    <div ng-controller="TerceroController" ng-show="tercero">
         <h3>{{titulo3}}</h3>
         <section>
             <i class="{{icono3}}"></i> {{texto3}}
         </section>
     </div>
-    <div ng-controller="CuartoController">
+    <div ng-controller="CuartoController" ng-show="cuarto">
         <h3>{{titulo4}}</h3>
         <section>
             <div>
@@ -33,7 +33,7 @@
             </div>
         </section>
     </div>
-    <div ng-controller="QuintoController">
+    <div ng-controller="QuintoController" ng-show="quinto">
         <h3>{{titulo5}}</h3>
         <section>
             <div>
@@ -42,7 +42,7 @@
             </div>
         </section>
     </div>
-    <div ng-controller="SextoController">
+    <div ng-controller="SextoController" ng-show="sexto">
         <h3>{{titulo6}}</h3>
         <section>
             <div>
@@ -52,7 +52,7 @@
             </div>
         </section>
     </div>
-    <div ng-controller="SeptimoController">
+    <div ng-controller="SeptimoController" ng-show="septimo">
         <h3>{{titulo7}}</h3>
         <section>
             <div>
@@ -60,7 +60,7 @@
             </div>
         </section>
     </div>
-    <div ng-controller="OctavoController">
+    <div ng-controller="OctavoController" ng-show="octavo">
         <h3>{{titulo8}}</h3>
         <section>
             <div>
@@ -70,15 +70,7 @@
         </section>
     </div>
     
-    <div ng-controller="NovenoController">
-        <!--<h3>{{titulo9}}</h3>-->
-        <section>
-            <div>
-               <!-- <i class="{{checkvideo8}}"></i> {{txtvideo8}} <br>
-                <i class="{{checkevaluacion8}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Evaluación de los integrantes" data-content="{{txtevaluacionesusuarios8}}" data-placement="horizontal">{{txtevaluaciones8}}<div class="ripple-container"></div></a>  <br>-->
-            </div>
-        </section>
-    </div>
+    
 </div>
 
 
@@ -145,9 +137,11 @@
     });
     
     app.controller('SegundoController',function($scope,$http) {
+        $scope.segundo=false;
         $scope.SegundaEtapa=function (){
             $http.get('<?= $segundo ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
                 $scope.asuntos = data;
+                $scope.segundo=true;
             });
         }
         $scope.SegundaEtapa();
@@ -155,6 +149,7 @@
     
     
     app.controller('TerceroController',function($scope,$http) {
+        $scope.tercero=false;
         $scope.titulo3="";
         $scope.texto3="";
         $scope.icono3="";
@@ -170,7 +165,7 @@
                         $scope.icono3="fa fa-fw fa-check-square";
                         $scope.texto3="Tu equipo ya se encuentra inscrito";
                     }
-                    
+                    $scope.tercero=true;
                 }
             });
         }
@@ -178,6 +173,7 @@
     });
     
     app.controller('CuartoController',function($scope,$http) {
+        $scope.cuarto=false;
         $scope.titulo4="";
         $scope.texto4="";
         $scope.tutorial4="";
@@ -189,6 +185,7 @@
                     $scope.titulo4="Revisamos los materiales";
                     $scope.tutorial4="Tutoriales";
                     $scope.orientacion4="Orientación";
+                    $scope.cuarto=true;
                 }
             });
         }
@@ -197,6 +194,7 @@
     
     
     app.controller('QuintoController',function($scope,$http) {
+        $scope.quinto=false;
         $scope.titulo5="";
         $scope.texto5="";
         $scope.checkforoasunto5="";
@@ -245,6 +243,7 @@
                     }else{
                         $scope.checkforoabierto5="fa fa-fw fa-check-square";
                     }
+                    $scope.quinto=true;
                 }
             });
         }
@@ -253,6 +252,7 @@
     
     
     app.controller('SextoController',function($scope,$http) {
+        $scope.sexto=false;
         $scope.titulo6="";
         $scope.checkproyectoregistrado6="";
         $scope.txtproyectoregistrado6="";
@@ -301,6 +301,7 @@
                             $scope.txtreflexionesusuarios6=$scope.txtreflexionesusuarios6+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos"]+"("+value["entradas"]+" entradas)<br>";
                         }
                     });
+                    $scope.sexto=true;
                 }
             });
         }
@@ -313,13 +314,13 @@
     
     
     app.controller('SeptimoController',function($scope,$http) {
+        $scope.septimo=false;
         $scope.titulo7="";
         $scope.checkaporte7="";
         $scope.txtaportes7="";
         $scope.txtaportesusuarios7="";
         $scope.SeptimoEtapa=function (){
             $http.get('<?= $septimo ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
-                console.log(data);
                 if (data) {
                     $scope.titulo7="Aportamos y mejoramos";
                     $scope.txtaportes7="Aportes";
@@ -339,7 +340,8 @@
                         {
                             $scope.txtaportesusuarios7=$scope.txtaportesusuarios7+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos"]+"("+value["entradas"]+" entradas)<br>";
                         }
-                    }); 
+                    });
+                    $scope.septimo=true;
                 }
                 
                 
@@ -350,6 +352,7 @@
     
     
     app.controller('OctavoController',function($scope,$http) {
+        $scope.octavo=false;
         $scope.titulo8="";
         $scope.checkvideo8="";
         $scope.txtvideo8="";
@@ -388,7 +391,7 @@
                             $scope.txtevaluacionesusuarios8=$scope.txtevaluacionesusuarios8+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos"]+"("+value["entradas"]+" entradas)<br>";
                         }
                     });
-                    
+                    $scope.octavo=true;
                     
                 }
             });

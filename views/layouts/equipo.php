@@ -61,58 +61,23 @@ $foros=Foro::find()->orderBy('id DESC')->all();
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
           </a>
-          <!--
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="../foto_personal/<?= $usuario->avatar?>" class="user-image" alt="User Image"/>
-                  <span class="hidden-xs"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></span>
-                </a>
-                <ul class="dropdown-menu" style="width:350px !important">
-                  <li class="user-header">
-                    <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
-                    <p>
-                        <?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?>
-                        <small><?= date('d-m-Y')?></small>
-                    </p>
-                  </li>
-                  <li class="user-footer">
-                    <div class="pull-left">
-                        <?= Html::a('Configuración',['usuario/configuracion'],['class'=>'btn btn-default btn-flat']);?>
-                    </div>
-                    <div class="pull-right">
-                        <?= Html::a('Cerrar sesión',['login/logout'],['class'=>'btn btn-default btn-flat']);?>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        -->
+          
         </nav>
       </header>
-      <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
-          <!-- Sidebar user panel -->
-          <div class="user-panel">
-            <div class="pull-left image">
-              <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
+            <div class="user-panel ">
+                <div class="pull-left image col-md-4">
+                    <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
+                </div>
+                <div class="pull-left info col-md-8">
+                    <p style="font-size: 12px" class="pull-left text-left"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></p>
+                </div>
+                <div class="clearfix"></div>
+                <div class="pull-right col-md-12 text-right">
+                    <?= Html::a('Cerrar sesión',['login/logout'],['class'=>'']);?>
+                </div>
             </div>
-            <div class="pull-left info">
-                <p style="font-size: 12px" class="pull-left"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></p>
-                <br>
-              <!--<a href="#"><i class="fa fa-circle text-success"></i> En linea</a>-->
-            </div>
-            <br>
-            <div class="pull-right">
-                <?= Html::a('Cerrar sesión',['login/logout'],['class'=>'']);?>
-            </div>
-          </div>
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">Menú</li>
             <?php if($integrante){ ?>
@@ -120,9 +85,6 @@ $foros=Foro::find()->orderBy('id DESC')->all();
             <?php } ?>
             
             <li><?= Html::a('<i class="fa fa-book"></i> Mi equipo',['panel/index'],[]);?></li>
-            <?php if($integrante){ ?>
-            <!--<li><?= Html::a('<i class="fa fa-book"></i> Ruta',['ruta/index'],[]);?></li>-->
-            <?php } ?>
             <?php if ($integrante && $equipo){ ?>
             <li class="treeview">
                 <a href="#">
@@ -153,22 +115,13 @@ $foros=Foro::find()->orderBy('id DESC')->all();
             <?php } ?>
           </ul>
         </section>
-        <!-- /.sidebar -->
       </aside>
-
-      <!-- Right side column. Contains the navbar and content of the page -->
       <div class="content-wrapper">
         <section class="content">
         <?= $content ?>
         </section>
-      </div><!-- /.content-wrapper -->
-      <!--<footer class="main-footer">
-        <div class="pull-right hidden-xs">
-         
-        </div>
-        
-      </footer>-->
-    </div><!-- ./wrapper -->
+      </div>
+    </div>
 
 
 <?php $this->endBody() ?>

@@ -86,8 +86,8 @@ if($equipo->id)
                                     echo "<tr>
                                             <td class='text-center'><div class='checkbox'><label><input name='Equipo[invitaciones][]' type='checkbox' value='$estudiante->id' onclick='validar($estudiante->id,$equipoid,$(this))'><span class='checkbox-material'></span></label></div></td>
                                             
-                                            <td>$estudiante->nombres $estudiante->apellido_paterno $estudiante->apellido_materno</td>
-                                            <td>$estudiante->grado</td>
+                                            <td style='vertical-align:middle'>$estudiante->nombres $estudiante->apellido_paterno $estudiante->apellido_materno</td>
+                                            <td style='vertical-align:middle'>$estudiante->grado</td>
                                     </tr>";
                                      
                                     $i++;
@@ -115,6 +115,7 @@ if($equipo->id)
     //$validarintegrante= Yii::$app->getUrlManager()->createUrl('equipo/validarintegrante');
     $validarinvitacioneintegrante= Yii::$app->getUrlManager()->createUrl('equipo/validarinvitacioneintegrante');
     $validarinvitacioneintegrante2= Yii::$app->getUrlManager()->createUrl('equipo/validarinvitacioneintegrante2');
+    $validarinvitacioneintegrante5= Yii::$app->getUrlManager()->createUrl('equipo/validarinvitacioneintegrante5');
     $validarintegrante2= Yii::$app->getUrlManager()->createUrl('equipo/validarintegrante2');
     $existeequipo=Yii::$app->getUrlManager()->createUrl('equipo/existeequipo');
     
@@ -201,7 +202,7 @@ if($equipo->id)
     });
     
     var contador=<?= $invitacionContador ?>;
-    console.log(contador);
+    
     var equipo=<?= $invitacionContador ?>;
     $( '#btnequipo' ).click(function( event ) {
         var error='';
@@ -224,6 +225,21 @@ if($equipo->id)
             $('.field-equipo-asunto_id').addClass('has-error');
         }
         
+        var validarinvitaciones= $.ajax({
+            url: '<?= $validarinvitacioneintegrante5 ?>',
+            type: 'GET',
+            async: false,
+            data: {equipo:<?= $equipoid ?>},
+            success: function(data){
+                
+            }
+        });
+        
+        if (validarinvitaciones.responseText==1) {
+            error=error+'Solo se permite 5 invitaciones como máximo';
+        }
+        //console.log(validarinvitaciones);
+        //return false;
         
         if(error!='')
         {
@@ -237,6 +253,11 @@ if($equipo->id)
                     align: 'right'
                 },
             });
+            if (validarinvitaciones.responseText==1) {
+                setTimeout(function(){
+                    window.location.reload(1);
+                }, 2000);
+            }
             return false;
         }
         
@@ -286,8 +307,7 @@ if($equipo->id)
                     
                 }
             });
-            //console.log(validarestudiantes.responseText);
-            //return false;
+            
             if (validarestudiantes.responseText==1) {
                 
                 $.ajax({
@@ -390,7 +410,7 @@ if($equipo->id)
                 {
                     $.notify({
                         // options
-                        message: 'Solo se permite 4 invitaciones como máximo' 
+                        message: 'Solo se permite 5 invitaciones como máximo' 
                     },{
                         // settings
                         type: 'danger',
@@ -404,6 +424,7 @@ if($equipo->id)
                         window.location.reload(1);
                     }, 2000);
                 }
+                return false;
             }
         });
         return true;

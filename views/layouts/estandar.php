@@ -1,8 +1,6 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $content string */
-
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -16,9 +14,7 @@ use app\models\Proyecto;
 use app\models\Etapa;
 use app\models\Invitacion;
 AppEstandarAsset::register($this);
-
 if (!\Yii::$app->user->isGuest) {
-
 $etapa2=Etapa::find()->where('etapa=2')->one();
 $etapa3=Etapa::find()->where('etapa=3')->one();
 $usuario=Usuario::find()->where('id=:id',[':id'=>\Yii::$app->user->id])->one();
@@ -34,7 +30,6 @@ if($integrante)
     }
 }
 $foros=Foro::find()->orderBy('id DESC')->all();
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -95,20 +90,19 @@ $foros=Foro::find()->orderBy('id DESC')->all();
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
-          <div class="user-panel">
-            <div class="pull-left image">
-              <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
+          <div class="user-panel ">
+                <div class="pull-left image col-md-4">
+                    <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
+                </div>
+                <div class="pull-left info col-md-8">
+                    <p style="font-size: 12px" class="pull-left text-left"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></p>
+                <!--<a href="#"><i class="fa fa-circle text-success"></i> En linea</a>-->
+                </div>
+                <div class="clearfix"></div>
+                <div class="pull-right col-md-12 text-right">
+                    <?= Html::a('Cerrar sesión',['login/logout'],['class'=>'']);?>
+                </div>
             </div>
-            <div class="pull-left info">
-                <p style="font-size: 12px" class="pull-left"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></p>
-                <br>
-              <!--<a href="#"><i class="fa fa-circle text-success"></i> En linea</a>-->
-            </div>
-            <br>
-            <div class="pull-right">
-                <?= Html::a('Cerrar sesión',['login/logout'],['class'=>'']);?>
-            </div>
-          </div>
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
@@ -173,19 +167,16 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 <!-- Open source code -->
 <script>
   window.page = window.location.hash || "#about";
-
   $(document).ready(function () {
     if (window.page != "#about") {
       $(".menu").find("li[data-target=" + window.page + "]").trigger("click");
     }
   });
-
   $(window).on("resize", function () {
     $("html, body").height($(window).height());
     $(".main, .menu").height($(window).height() - $(".header-panel").outerHeight());
     $(".pages").height($(window).height());
   }).trigger("resize");
-
   $(".menu li").click(function () {
     // Menu
     if (!$(this).data("target")) return;
@@ -196,14 +187,10 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     var page = $(window.page);
     window.location.hash = window.page;
     $(this).addClass("active");
-
-
     page.show();
-
     var totop = setInterval(function () {
       $(".pages").animate({scrollTop: 0}, 0);
     }, 1);
-
     setTimeout(function () {
       page.addClass("active");
       setTimeout(function () {
@@ -211,29 +198,21 @@ $foros=Foro::find()->orderBy('id DESC')->all();
       }, 1000);
     }, 100);
   });
-
   function cleanSource(html) {
     var lines = html.split(/\n/);
-
     lines.shift();
     lines.splice(-1, 1);
-
     var indentSize = lines[0].length - lines[0].trim().length,
         re = new RegExp(" {" + indentSize + "}");
-
     lines = lines.map(function (line) {
       if (line.match(re)) {
         line = line.substring(indentSize);
       }
-
       return line;
     });
-
     lines = lines.join("\n");
-
     return lines;
   }
-
   $("#opensource").click(function () {
     $.get(window.location.href, function (data) {
       var html = $(data).find(window.page).html();

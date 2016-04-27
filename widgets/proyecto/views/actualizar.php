@@ -12,6 +12,10 @@ use yii\web\JsExpression;
 /* @var $title string */
 
 ?>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <h1><b>Mi proyecto</b></h1>
@@ -1350,6 +1354,10 @@ use yii\web\JsExpression;
             return true;
         }
     }
+    
+     //$('#registrar-fecha_nac').bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
+    //$('.date1').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+	    //$.material.init();
 </script>
 
 

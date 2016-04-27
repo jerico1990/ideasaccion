@@ -17,7 +17,7 @@
 		this.element = element;
 		this.$element = $(element);
 
-		this.params = { date : true, time : true, format : 'YYYY-MM-DD', minDate : null, maxDate : null, currentDate : null, lang : 'en', weekStart : 0, shortTime : false, clearButton : false, nowButton : false, cancelText : 'Cancel', okText : 'OK', clearText : 'Clear', nowText : 'Now', switchOnClick : false };
+		this.params = { date : true, time : true, format : 'YYYY-MM-DD', minDate : null, maxDate : null, currentDate : null, lang : 'en', weekStart : 0, shortTime : false, clearButton : false, nowButton : false, cancelText : 'Cancelar', okText : 'Aceptar', clearText : 'Clear', nowText : 'Now', switchOnClick : false };
 		this.params = $.fn.extend(this.params, options);
 
 		this.name = "dtp_" + this.setName();
@@ -270,8 +270,8 @@
 									'<div class="dtp-buttons">' +
 										'<button class="dtp-btn-now btn btn-flat hidden">' + this.params.nowText + '</button>' +
 										'<button class="dtp-btn-clear btn btn-flat hidden">' + this.params.clearText + '</button>' +
-										'<button class="dtp-btn-cancel btn btn-flat">' + this.params.cancelText + '</button>' +
 										'<button class="dtp-btn-ok btn btn-flat">' + this.params.okText + '</button>' +
+										'<button class="dtp-btn-cancel btn btn-flat">' + this.params.cancelText + '</button>' +
 										'<div class="clearfix"></div>' +
 									'</div>' +
 								'</div>' +

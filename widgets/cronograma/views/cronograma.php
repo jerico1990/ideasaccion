@@ -17,10 +17,10 @@ foreach($objetivos as $objetivo){
 
 ?>
 
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
-<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
-<script type="text/javascript" src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<!--este es el input correcto-->
+<input type="text" id="registrar-fecha_nac" class="form-control label-floating" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento">
+    
+    
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
     <div class="col-xs-12 col-sm-6 col-md-6 text-center">
@@ -59,7 +59,17 @@ foreach($objetivos as $objetivo){
     $eliminarcronograma=Yii::$app->getUrlManager()->createUrl('actividad/eliminarcronograma');
     $cargatablacronograma= Yii::$app->getUrlManager()->createUrl('cronograma/cargatablacronograma');
 ?>
+
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/material.js"></script>
+
 <script>
+     
+   
+    
     var cron=0;
     var opciones_objetivos="<?= $opciones_objetivos ?>";
     function actividad2(value,contador) {
@@ -148,7 +158,6 @@ foreach($objetivos as $objetivo){
         }
         else
         {
-	   
 	    $('#cronograma_'+cron).html(
 		    "<td style='padding: 2px'>"+
 			"<div class='form-group field-proyecto-cronograma_responsable_"+cron+" required' style='margin-top: 0px'>"+
@@ -162,7 +171,7 @@ foreach($objetivos as $objetivo){
 		    "</td>"+
 		   "<td style='padding: 2px'>"+
 			"<div class='form-group field-proyecto-cronograma_fecha_inicio_"+cron+" required' style='margin-top: 0px'>"+
-			    "<input type='date' id='proyecto-cronograma_fecha_inicio_"+cron+"' class='form-control' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' />"+
+			    "<input type='date'   id='proyecto-cronograma_fecha_inicio_"+cron+"' class='form-control date1' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' />"+
 			"</div>"+
 		    "</td>"+
 		    "<td style='padding: 2px'>"+
@@ -176,15 +185,12 @@ foreach($objetivos as $objetivo){
 	    $('#cronograma').append('<tr id="cronograma_'+(cron+1)+'"></tr>');
 	    cron++;
 	}
-	
 	return true;
-	
     }
     
-    
-    
+    /*este carga cuando el selector observa de que hay data*/
     function cronograma(valor) {
-	
+	//$.material.init();
 	$.ajax({
 	    url: '<?= $cargatablacronograma ?>',
 	    type: 'GET',
@@ -192,31 +198,25 @@ foreach($objetivos as $objetivo){
 	    dataType: 'json',
 	    data: {valor:valor},
 	    success: function(data){
-		
 		var tebody="";
 		var i=data[0];
 		var selecta="";
-		
+	
 		if (data) {
 		    data.splice(0,1);
 		    $.each(data, function(i,star) {
 			var responsable=0;
-			//console.log(star.responsable);
 			<?php foreach($responsables as $responsable){ ?>
 			    responsable=<?= $responsable->estudiante_id ?>;
-			    //console.log(<?= $responsable->estudiante_id ?>);
-			   // console.log(star.responsable);
 			    if (responsable==star.responsable) {
 				selecta=selecta+"<option value='<?= $responsable->estudiante_id ?>' selected ><?= $responsable->estudiante->nombres." ".$responsable->estudiante->apellido_paterno." ".$responsable->estudiante->apellido_materno ?></option>";
-				//console.log("0");
 			    }
 			    else
 			    {
-				//console.log("1");
 				selecta=selecta+"<option value='<?= $responsable->estudiante_id ?>' ><?= $responsable->estudiante->nombres." ".$responsable->estudiante->apellido_paterno." ".$responsable->estudiante->apellido_materno ?></option>";
 			    }
 			<?php } ?>
-			tebody=tebody+"<tr id='cronograma_"+i+"'>"+
+			tebody=tebody+"<tr id='cronograma_"+i+"' class='demo'>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_responsable_"+i+" required' style='margin-top: 0px'>"+
 						"<select id='proyecto-cronograma_responsable_"+i+"' class='form-control' name='Proyecto[cronogramas_responsables][]' >"+
@@ -227,7 +227,7 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_fecha_inicio_"+i+" required form-control-wrapper' style='margin-top: 0px'>"+
-						"<input type='text' id='proyecto-cronograma_fecha_inicio_"+i+"' class='form-control ' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' value='"+star.fecha_inicio+"' />"+
+						"<input type='date'  id='proyecto-cronograma_fecha_inicio_"+i+"' class='form-control label-floating date1' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' value='"+star.fecha_inicio+"' />"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
@@ -241,20 +241,44 @@ foreach($objetivos as $objetivo){
 					    "</span>"+
 					"</td>"+
 				    "</tr>";
-			   // idtr=i;
-			$('#proyecto-cronograma_fecha_inicio_'+i).bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });   
 		    });
-		    
-		    tebody=tebody+"<tr id='cronograma_"+i+"'><input type='hidden' id='contador1' value='"+i+"' ></tr>"
-		    
+		    tebody=tebody+"<tr id='cronograma_"+i+"'><input type='hidden' id='contador1' value='"+i+"' ></tr> "
+		    //$('.date'+i).bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
 		}
-		
 		$('#cronograma_cuerpo').html(tebody);
 		$('#cronograma').show();
 		$('#btn_cronograma').show();
-		
 	    }
 	});
+	
+	
     }
+    
+    
+    $(document).on('focus','.date1',function(){
+	var id = $(this).parents().parents().parents().attr('id');
+	console.log($(this).parents().parents().parents().attr('id'));
+	//$.material.init();
+	//createDatepicker()
+	//$.material.init();
+	//$('input').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+	//$.material.init();
+	
+    })
+    
+      
+    //$('date1').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
+    /*
+    $('.date1').bootstrapMaterialDatePicker().on('change', function(e, date){
+	console.log("aa");
+	// do something
+    });
+    */
+    
+    
+    /*este es lallamada de la libreria*/
+    //$('#registrar-fecha_nac').bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
+    /*esta es la que quiero*/
+    
 </script>
 
