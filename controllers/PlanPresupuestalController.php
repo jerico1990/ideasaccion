@@ -6,6 +6,8 @@ use Yii;
 use app\models\PlanPresupuestal;
 use app\models\PlanPresupuestalSearch;
 use app\models\Actividad;
+use app\models\ActividadCopia;
+use app\models\PlanPresupuestalCopia;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -149,6 +151,62 @@ class PlanPresupuestalController extends Controller
         }
     }
     
+    public function actionActividades1($id)
+    {
+        $countActividades=ActividadCopia::find()
+                        ->select('actividad_copia.id,actividad_copia.descripcion')
+                        ->innerJoin('objetivo_especifico_copia','objetivo_especifico_copia.id=actividad_copia.objetivo_especifico_id')
+                        ->where('objetivo_especifico_copia.id=:id and actividad_copia.estado=1 and actividad_copia.etapa=1',[':id'=>$id])
+                        ->groupBy('actividad_copia.id,actividad_copia.descripcion')
+                        ->count();
+                        
+        $actividades=ActividadCopia::find()
+                        ->select('actividad_copia.id,actividad_copia.descripcion')
+                        ->innerJoin('objetivo_especifico_copia','objetivo_especifico_copia.id=actividad_copia.objetivo_especifico_id')
+                        ->where('objetivo_especifico_copia.id=:id and actividad_copia.estado=1 and actividad_copia.etapa=1',[':id'=>$id])
+                        ->groupBy('actividad_copia.id,actividad_copia.descripcion')
+                        ->orderBy('actividad_copia.descripcion')
+                        ->all();
+        
+        if($countActividades>0){
+            echo "<option value>Seleccionar</option>";
+            foreach($actividades as $actividad){
+                echo "<option value='".$actividad->id."'>".$actividad->descripcion."</option>";
+            }
+        }
+        else{
+            echo "<option value>Seleccionar</option>";
+        }
+    }
+    
+    public function actionActividades2($id)
+    {
+        $countActividades=ActividadCopia::find()
+                        ->select('actividad_copia.id,actividad_copia.descripcion')
+                        ->innerJoin('objetivo_especifico_copia','objetivo_especifico_copia.id=actividad_copia.objetivo_especifico_id')
+                        ->where('objetivo_especifico_copia.id=:id and actividad_copia.estado=1 and actividad_copia.etapa=2',[':id'=>$id])
+                        ->groupBy('actividad_copia.id,actividad_copia.descripcion')
+                        ->count();
+                        
+        $actividades=ActividadCopia::find()
+                        ->select('actividad_copia.id,actividad_copia.descripcion')
+                        ->innerJoin('objetivo_especifico_copia','objetivo_especifico_copia.id=actividad_copia.objetivo_especifico_id')
+                        ->where('objetivo_especifico_copia.id=:id and actividad_copia.estado=1 and actividad_copia.etapa=2',[':id'=>$id])
+                        ->groupBy('actividad_copia.id,actividad_copia.descripcion')
+                        ->orderBy('actividad_copia.descripcion')
+                        ->all();
+        
+        if($countActividades>0){
+            echo "<option value>Seleccionar</option>";
+            foreach($actividades as $actividad){
+                echo "<option value='".$actividad->id."'>".$actividad->descripcion."</option>";
+            }
+        }
+        else{
+            echo "<option value>Seleccionar</option>";
+        }
+    }
+    
     
     public function actionCargatablapresupuesto($valor)
     {
@@ -159,6 +217,42 @@ class PlanPresupuestalController extends Controller
         
         $countplanespresupuestales=PlanPresupuestal::find()
                                 ->where('actividad_id=:actividad_id and estado=1',[':actividad_id'=>$valor])
+                                ->count();
+        array_push($dataTabla,$countplanespresupuestales);
+        foreach($planespresupuestales as $planpresupuestal)
+        {
+            array_push($dataTabla,$planpresupuestal->attributes);
+        }
+        echo json_encode($dataTabla,JSON_UNESCAPED_UNICODE); 
+    }
+    
+    public function actionCargatablapresupuesto1($valor)
+    {
+        $dataTabla=[];
+        $planespresupuestales=PlanPresupuestalCopia::find()
+                                ->where('actividad_id=:actividad_id and estado=1 and etapa=1',[':actividad_id'=>$valor])
+                                ->all();
+        
+        $countplanespresupuestales=PlanPresupuestalCopia::find()
+                                ->where('actividad_id=:actividad_id and estado=1 and etapa=1',[':actividad_id'=>$valor])
+                                ->count();
+        array_push($dataTabla,$countplanespresupuestales);
+        foreach($planespresupuestales as $planpresupuestal)
+        {
+            array_push($dataTabla,$planpresupuestal->attributes);
+        }
+        echo json_encode($dataTabla,JSON_UNESCAPED_UNICODE); 
+    }
+    
+    public function actionCargatablapresupuesto2($valor)
+    {
+        $dataTabla=[];
+        $planespresupuestales=PlanPresupuestalCopia::find()
+                                ->where('actividad_id=:actividad_id and estado=1 and etapa=2',[':actividad_id'=>$valor])
+                                ->all();
+        
+        $countplanespresupuestales=PlanPresupuestalCopia::find()
+                                ->where('actividad_id=:actividad_id and estado=1 and etapa=2',[':actividad_id'=>$valor])
                                 ->count();
         array_push($dataTabla,$countplanespresupuestales);
         foreach($planespresupuestales as $planpresupuestal)

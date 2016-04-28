@@ -145,10 +145,10 @@ use yii\web\JsExpression;
             </div><!-- /.tab-pane -->
             
             <div class="tab-pane" id="tab_3">
-                <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
+                <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget1::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
             </div><!-- /.tab-pane -->
             <div class="tab-pane" id="tab_4">
-                <?= \app\widgets\cronograma\CronogramaWidget::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
+                <?= \app\widgets\cronograma\CronogramaWidget1::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
             </div><!-- /.tab-pane -->
             <div class="tab-pane" id="tab_5">
                 
