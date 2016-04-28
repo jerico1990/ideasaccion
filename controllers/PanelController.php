@@ -162,7 +162,7 @@ class PanelController extends Controller
     
     public function actionVotacioninterna()
     {
-        $this->layout='registrar';
+        $this->layout='administrador';
         
         $searchModel = new VotacionInternaSearch();
         $dataProvider = $searchModel->votacion(Yii::$app->request->queryParams);

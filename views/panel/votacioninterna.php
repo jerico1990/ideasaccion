@@ -17,10 +17,10 @@ use yii\widgets\Pjax;
         'method' => 'get',
     ]); ?>
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group field-votacion_interna_search-region_id required">
-            <label class="control-label" for="votacion_interna_search-region_id">Región: *</label>
+        <div class="form-group label-floating field-votacion_interna_search-region_id required">
+            <label class="control-label" for="votacion_interna_search-region_id">Región</label>
             <select id="votacion_interna_search-region_id" class="form-control" name="VotacionInternaSearch[region_id]" >
-                <option value>Seleccionar</option>
+                <option value></option>
                 <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
                     <option value="<?= $departamento->department_id ?>" <?= ($searchModel->region_id==$departamento->department_id)?'selected':'' ?>><?= $departamento->department ?></option>
                 <?php } ?>
@@ -28,16 +28,17 @@ use yii\widgets\Pjax;
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group field-votacion_interna_search-titulo required">
-            <label class="control-label" for="votacion_interna_search-titulo">Proyecto: *</label>
+        <div class="form-group label-floating field-votacion_interna_search-titulo required">
+            <label class="control-label" for="votacion_interna_search-titulo">Proyecto</label>
             <input type="text" name="VotacionInternaSearch[titulo]" class="form-control" value="<?= $searchModel->titulo?>">
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
+            <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-success']) ?>
         </div>
     </div>
+    <div class="clearfix"></div>
 <?php ActiveForm::end(); ?>
 <?php Pjax::end(); ?>
 
