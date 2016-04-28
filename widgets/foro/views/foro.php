@@ -15,21 +15,8 @@ $posts = $model->posts;
     <article class="thread-view">
         <header class="thread-head">
             <h1><?= Html::encode($this->title) ?></h1>
-            <div class="thread-info">
-                <span class="glyphicon glyphicon-user"></span> <?= $usuario->username ?>
-                &nbsp;•&nbsp;
-                <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($model->creado_at) ?>
-                <div class="pull-right">
-                    <span class="glyphicon glyphicon-comment"></span> <?= $model->post_count ?>
-                </div>
-            </div>
         </header>
     </article>
-    <!-- Post Form Begin -->
-        <?= $this->render('/foro-comentario/_form',[
-                'model'=>$newComentario,
-            ]);
-        ?>
     <!-- Post Form End -->
     <?= $this->render('/foro/_posts', [
             'posts'=>$posts['posts'],
@@ -38,4 +25,24 @@ $posts = $model->posts;
             'postCount' => $model->post_count //???
         ]);
     ?>
+    <article class="thread-view">
+        <header class="thread-head">
+            <div class="thread-info">
+                <div class="pull-right">
+                    <span class="glyphicon glyphicon-comment"></span> <?= $model->post_count ?>
+                </div>
+            </div>
+        </header>
+    </article>
+    <!-- Post Form Begin -->
+    <?= $this->render('/foro-comentario/_form',[
+            'model'=>$newComentario,
+        ]);
+    ?>
+    
 </div>
+
+
+
+
+

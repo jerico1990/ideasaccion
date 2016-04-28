@@ -133,8 +133,11 @@ $foros=Foro::find()->orderBy('id DESC')->all();
             <li><?= Html::a("Mi proyecto",['proyecto/index'],[]);?> </li>
             <?php } elseif($integrante && $equipo && $proyecto && ($integrante->rol==1 || $integrante->rol==2)){ ?>
             <li><?= Html::a("Mi proyecto",['proyecto/actualizar'],[]);?></li>
-            <?php if($integrante && $equipo && $proyecto && $proyecto->etapa!=''){?>
-            <li><?= Html::a("Mis entregas",['entrega/index'],[]);?></li>
+            <?php if($integrante && $equipo && $proyecto && ($equipo->etapa==1 || $equipo->etapa==2 || $equipo->etapa==3)){?>
+            <li><?= Html::a("Mi primera entrega",['entrega/primera'],[]);?></li>
+            <?php }?>
+            <?php if($integrante && $equipo && $proyecto && ($equipo->etapa==2 || $equipo->etapa==3)){?>
+            <li><?= Html::a("Mi segunda entrega",['entrega/segunda'],[]);?></li>
             <?php }?>
             <?php } ?>
             <?php if($integrante && $equipo && $etapa2 && ($equipo->etapa==1 || $equipo->etapa==2)){?>

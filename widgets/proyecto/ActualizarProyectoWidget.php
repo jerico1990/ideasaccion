@@ -348,9 +348,9 @@ class ActualizarProyectoWidget extends Widget
             }
             
             $foro=Foro::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
-            if($foro)
+            
+            if($foro && $newComentario->load(Yii::$app->request->post()) && trim($newComentario->contenido)!='')
             {
-                $newComentario->load(Yii::$app->request->post());
                 $newComentario->foro_id = $foro->id;
                 $newComentario->save();
             }
@@ -359,7 +359,7 @@ class ActualizarProyectoWidget extends Widget
             return \Yii::$app->getResponse()->refresh();
         }
         
-        if($this->entrega==1)
+         if($this->entrega==1)
         {
             $disabled='disabled';
             $videoprimera=VideoCopia::find()->where('proyecto_id=:proyecto_id and etapa in (0,1)',[':proyecto_id'=>$proyecto->id])->one();
@@ -370,6 +370,20 @@ class ActualizarProyectoWidget extends Widget
             $videoprimera=NULL;
             $videosegunda=NULL;
         }
+        /*
+        if($this->entrega==1)
+        {
+            $disabled='disabled';
+            //$videoprimera=Video::find()->where('proyecto_id=:proyecto_id and etapa in (0,1)',[':proyecto_id'=>$proyecto->id])->one();
+            //$videosegunda=Video::find()->where('proyecto_id=:proyecto_id and etapa in (0,2)',[':proyecto_id'=>$proyecto->id])->one();
+            $videoprimera=Video::find()->where('proyecto_id=:proyecto_id and etapa in (0,1)',[':proyecto_id'=>$proyecto->id])->one();
+            $videosegunda=Video::find()->where('proyecto_id=:proyecto_id and etapa in (0,2)',[':proyecto_id'=>$proyecto->id])->one();
+        }
+        else
+        {
+            $videoprimera=NULL;
+            $videosegunda=NULL;
+        }*/
         
         if($equipo->etapa==2)
         {

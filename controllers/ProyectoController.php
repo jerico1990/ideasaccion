@@ -387,7 +387,7 @@ class ProyectoController extends Controller
     
     public function actionBuscar()
     {
-        $this->layout='equipo';
+        $this->layout='estandar';
         $searchModel = new ProyectoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
@@ -399,7 +399,7 @@ class ProyectoController extends Controller
     
     public function actionVotacion()
     {
-        $this->layout='equipo';
+        $this->layout='estandar';
         $searchModel = new ProyectoSearch();
         $dataProvider = $searchModel->votacion(Yii::$app->request->queryParams);
         $votacionesinternas=VotacionInterna::find()

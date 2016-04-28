@@ -18,13 +18,13 @@ foreach($objetivos as $objetivo){
 ?>
 
 <!--este es el input correcto-->
-<input type="text" id="registrar-fecha_nac" class="form-control label-floating" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento">
+
     
     
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
     <div class="col-xs-12 col-sm-6 col-md-6 text-center">
-	<select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" <?= $disabled ?>>
+	<select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" >
 	    <option value>seleccionar</option>
 	    <?= $opciones_objetivos ?>
 	</select>
@@ -32,7 +32,7 @@ foreach($objetivos as $objetivo){
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
     <div class="col-xs-12 col-sm-6 col-md-6 text-center">
-	<select id="proyecto-cronograma_actividad_99" class="form-control" name="Proyecto[cronogramas_actividades]" onchange="cronograma($(this).val())" <?= $disabled ?>>
+	<select id="proyecto-cronograma_actividad_99" class="form-control" name="Proyecto[cronogramas_actividades]" onchange="cronograma($(this).val())" >
 	    <option value>seleccionar</option>
 	</select>
     </div>
@@ -219,7 +219,7 @@ foreach($objetivos as $objetivo){
 			tebody=tebody+"<tr id='cronograma_"+i+"' class='demo'>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_responsable_"+i+" required' style='margin-top: 0px'>"+
-						"<select id='proyecto-cronograma_responsable_"+i+"' class='form-control' name='Proyecto[cronogramas_responsables][]' >"+
+						"<select id='proyecto-cronograma_responsable_"+i+"' class='form-control' name='Proyecto[cronogramas_responsables][]' <?= $disabled?>>"+
 						    "<option value>seleccionar</option>"+
 						    selecta+
 						"</select>"+
@@ -227,19 +227,21 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_fecha_inicio_"+i+" required form-control-wrapper' style='margin-top: 0px'>"+
-						"<input type='date'  id='proyecto-cronograma_fecha_inicio_"+i+"' class='form-control label-floating date1' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' value='"+star.fecha_inicio+"' />"+
+						"<input type='date'  id='proyecto-cronograma_fecha_inicio_"+i+"' class='form-control label-floating date1' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' value='"+star.fecha_inicio+"' <?= $disabled?> />"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_fecha_fin_"+i+" required' style='margin-top: 0px'>"+
-						"<input type='date' id='proyecto-cronograma_fecha_fin_"+i+"' class='form-control' name='Proyecto[cronogramas_fechas_fines][]' placeholder='Fecha fin' value='"+star.fecha_fin+"'/>"+
+						"<input type='date' id='proyecto-cronograma_fecha_fin_"+i+"' class='form-control' name='Proyecto[cronogramas_fechas_fines][]' placeholder='Fecha fin' value='"+star.fecha_fin+"' <?= $disabled?>/>"+
 					    "</div>"+
 					"</td>"+
+					<?php if($disabled==''){?>
 					"<td style='padding: 2px'>"+
 					    "<span class='remCF glyphicon glyphicon-minus-sign'>"+
 						"<input class='id' type='hidden' name='Proyecto[cronogramas_ids][]' value='"+star.id+"' />"+
 					    "</span>"+
 					"</td>"+
+					<?php } ?>
 				    "</tr>";
 		    });
 		    tebody=tebody+"<tr id='cronograma_"+i+"'><input type='hidden' id='contador1' value='"+i+"' ></tr> "

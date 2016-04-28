@@ -47,7 +47,7 @@
         <section>
             <div>
                 <i class="{{checkproyectoregistrado6}}"></i> {{txtproyectoregistrado6}} <br>
-                <i class="{{checkreflexion6}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Foro de asuntos públicos" data-content="{{txtreflexionesusuarios6}}" data-placement="horizontal">{{txtreflexiones6}}<div class="ripple-container"></div></a>  <br>
+                <i class="{{checkreflexion6}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Reflexiones" data-content="{{txtreflexionesusuarios6}}" data-placement="horizontal">{{txtreflexiones6}}<div class="ripple-container"></div></a>  <br>
                 <i class="{{checkvideo6}}"></i> {{txtvideo6}} <br>
             </div>
         </section>
@@ -294,11 +294,11 @@
                     $scope.reflexiones=data[0]["reflexiones"];
                     angular.forEach( $scope.reflexiones, function(value, key) {
                         if (value["entradas"]==0) {
-                            $scope.txtreflexionesusuarios6=$scope.txtreflexionesusuarios6+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos"]+"("+value["entradas"]+" entradas)<br>";
+                            $scope.txtreflexionesusuarios6=$scope.txtreflexionesusuarios6+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos"]+" <br>";
                         }
                         else
                         {
-                            $scope.txtreflexionesusuarios6=$scope.txtreflexionesusuarios6+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos"]+"("+value["entradas"]+" entradas)<br>";
+                            $scope.txtreflexionesusuarios6=$scope.txtreflexionesusuarios6+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos"]+" <br>";
                         }
                     });
                     $scope.sexto=true;
@@ -384,11 +384,11 @@
                     $scope.evaluaciones=data[0]["evaluaciones"];
                     angular.forEach( $scope.evaluaciones, function(value, key) {
                         if (value["entradas"]==0) {
-                            $scope.txtevaluacionesusuarios8=$scope.txtevaluacionesusuarios8+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos"]+"("+value["entradas"]+" entradas)<br>";
+                            $scope.txtevaluacionesusuarios8=$scope.txtevaluacionesusuarios8+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos"]+" <br>";
                         }
                         else
                         {
-                            $scope.txtevaluacionesusuarios8=$scope.txtevaluacionesusuarios8+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos"]+"("+value["entradas"]+" entradas)<br>";
+                            $scope.txtevaluacionesusuarios8=$scope.txtevaluacionesusuarios8+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos"]+" <br>";
                         }
                     });
                     $scope.octavo=true;

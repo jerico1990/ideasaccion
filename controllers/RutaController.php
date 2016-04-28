@@ -271,7 +271,7 @@ class RutaController extends Controller
                 /*Aportes*/
                 $aportes=Integrante::find()
                                 ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_paterno) nombres_apellidos',
-                                          '(select count(*) from foro_comentario where foro_comentario.foro_id>33 and foro_comentario.user_id=usuario.id) entrada'])
+                                          '(select count(*) from foro_comentario inner join foro f on f.id=foro_comentario.foro_id where foro_comentario.foro_id>33 and f.proyecto_id!=proyecto.id and foro_comentario.user_id=usuario.id) entrada'])
                                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
                                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                                 ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
@@ -325,7 +325,7 @@ class RutaController extends Controller
                 /*Evaluación*/
                 $evaluaciones=Integrante::find()
                                 ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_paterno) nombres_apellidos',
-                                          '(select count(*) from evaluacion where evaluacion.user_id=usuario.id and evaluacion.proyecto_id=proyecto.id) entrada'])
+                                          '(select case when trim(evaluacion.evaluacion)=""  then 0 else 1 end from evaluacion where evaluacion.user_id=usuario.id and evaluacion.proyecto_id=proyecto.id) entrada'])
                                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
                                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                                 ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
@@ -349,7 +349,7 @@ class RutaController extends Controller
         }
         
         
-        if($integrante && $equipo && $equipo->estado==1 && $proyecto && $etapa->etapa==3)
+        if($integrante && $equipo && $equipo->estado==1 && $proyecto && ($etapa->etapa==2 || $etapa->etapa==3))
         {
             array_push($data,['checkvideo'=>$videoregistrado,'checkevaluacion'=>$CountEvaluacion]);
             echo json_encode($data,JSON_UNESCAPED_UNICODE); 

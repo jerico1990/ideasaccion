@@ -10,13 +10,22 @@ use yii\web\JsExpression;
 /* @var $this \yii\web\View */
 /* @var $user \common\models\LoginForm */
 /* @var $title string */
-
+$contoe=0;
 ?>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
 <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<style>.image-upload > input
+{
+    display: none;
+}
 
+.image-upload img
+{
+    width: 80px;
+    cursor: pointer;
+}</style>
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <h1><b>Mi proyecto</b></h1>
 <hr class="colorgraph">
@@ -30,7 +39,7 @@ use yii\web\JsExpression;
             <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
             <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi Video</a></li>
             <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
-            <?php if($etapa->etapa==2){ ?>
+            <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
             <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>
             <li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Foro</a></li>
             <?php } ?>
@@ -75,56 +84,68 @@ use yii\web\JsExpression;
                 <div class="col-xs-12 col-sm-3 col-md-3"></div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-objetivo_general required">
+                     <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group label-floating field-proyecto-objetivo_general required" style="margin-top: 15px">
                             <label class="control-label" for="proyecto-objetivo_general" title="Máximo 200 palabras">Objetivo general</label>
-                            <textarea id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="200"  title="Máximo 200 palabras" <?= $disabled ?>><?= $proyecto->objetivo_general ?></textarea>
+                            <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="200"  title="Máximo 200 palabras" <?= $disabled ?>><?= $proyecto->objetivo_general ?></textarea>
                         </div>
                     </div>
-                    
+                   <div class="clearfix"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <?php if($disabled=='disabled') { ?>
+                            <h4>Objetivos especificos </h4>
+                        <?php } else { ?>
+                            <h4>Objetivos especificos <span class="glyphicon glyphicon-plus-sign" onclick="agregarObjetivoActividad()" <?= $disabled ?>></span></h4>
+                        <?php } ?>
+                    </div>
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <h4>Objetivos especificos:</h4>
-                    </div>
-                    <div class="clearfix"></div>
-                    
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group field-proyecto-objetivo_especifico_1 required">
-                            <span class="glyphicon glyphicon-plus-sign field-proyecto-objetivo_especifico_1" data-toggle="modal" data-target="#objetivo_especifico_1"></span> <div style="display: inline" id="txt_objetivo_especifico_1"><?= $proyecto->objetivo_especifico_1 ?></div><br>
-                            <div id="txt_actividades_objetivo_especifico_1">
-                                <?php foreach($actividades as $actividad){ ?>
-                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
-                                        <?= $actividad->descripcion ?>
-                                        <br>
-                                    <?php } ?>
+                        <div id="mostrar_oe_actividades">
+                            <div class='col-xs-12 col-sm-12 col-md-12'>
+                                <?php if($proyecto->objetivo_especifico_1){ ?>
+                                    <li><b><?= $proyecto->objetivo_especifico_1 ?></b></li>
+                                        <input type='hidden' value='<?= $proyecto->objetivo_especifico_1 ?>' name='Proyecto[objetivo_especifico_1]'>
+                                    <ul>
+                                        <?php foreach($actividades as $actividad){ ?>
+                                            <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
+                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
+                                                <input type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </ul>
+                                    <?php $contoe=1; ?>
                                 <?php } ?>
                             </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group field-proyecto-objetivo_especifico_2 required">
-                            <span class="glyphicon glyphicon-plus-sign field-proyecto-objetivo_especifico_2" data-toggle="modal" data-target="#objetivo_especifico_2"></span> <div style="display: inline" id="txt_objetivo_especifico_2"><?= $proyecto->objetivo_especifico_2 ?></div>
-                            <div id="txt_actividades_objetivo_especifico_1">
-                                <?php foreach($actividades as $actividad){ ?>
-                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
-                                        <?= $actividad->descripcion ?>
-                                        <br>
-                                    <?php } ?>
+                            
+                            <div class='col-xs-12 col-sm-12 col-md-12'>
+                                <?php if($proyecto->objetivo_especifico_2){  ?>
+                                    <li><b><?= $proyecto->objetivo_especifico_2 ?></b></li>
+                                        <input type='hidden' value='<?= $proyecto->objetivo_especifico_2 ?>' name='Proyecto[objetivo_especifico_2]'>
+                                    <ul>
+                                        <?php foreach($actividades as $actividad){ ?>
+                                            <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
+                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
+                                                <input type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </ul>
+                                    <?php $contoe=2; ?>
                                 <?php } ?>
                             </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group field-proyecto-objetivo_especifico_3 required">
-                            <span class="glyphicon glyphicon-plus-sign field-proyecto-objetivo_especifico_3" data-toggle="modal" data-target="#objetivo_especifico_3"></span> <div style="display: inline" id="txt_objetivo_especifico_3"><?= $proyecto->objetivo_especifico_3 ?></div>
-                            <div id="txt_actividades_objetivo_especifico_1">
-                                <?php foreach($actividades as $actividad){ ?>
-                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
-                                        <?= $actividad->descripcion ?>
-                                        <br>
-                                    <?php } ?>
+                            
+                            <div class='col-xs-12 col-sm-12 col-md-12'>
+                                <?php if($proyecto->objetivo_especifico_3) { ?>
+                                    <li><b><?= $proyecto->objetivo_especifico_3 ?></b></li>
+                                        <input type='hidden' value='<?= $proyecto->objetivo_especifico_3 ?>' name='Proyecto[objetivo_especifico_3]'>
+                                    <ul>
+                                        <?php foreach($actividades as $actividad){ ?>
+                                            <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
+                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
+                                                <input type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </ul>
+                                    <?php $contoe=3; ?>
                                 <?php } ?>
                             </div>
                         </div>
@@ -171,53 +192,73 @@ use yii\web\JsExpression;
                 <?= \app\widgets\cronograma\CronogramaWidget::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
             </div><!-- /.tab-pane -->
             <div class="tab-pane" id="tab_5">
+                <div class="clearfix"></div>
                 <?php if($integrante->rol==1 && !$disabled){ ?>
-                <input type="file" id="video-archivo" name="Video[archivo]" class="" onchange="Video($(this))"><br>
-                <input type="submit" id="btnvideo" value="Cargar video">
-                <div class="progress">
-                    <div class="bar"></div >
-                    <div class="percent">0%</div >
-                </div>
                 
-                <video width="320" height="240" controls>
-                    <source src="<?= Yii::getAlias('@video').$video->ruta ?>" type="video/mp4">  
-                </video>
-                <br>
+                    <?php if($video->ruta){?>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <video width="320" height="240" controls>
+                            <source src="<?= Yii::getAlias('@video').$video->ruta ?>" type="video/mp4">  
+                        </video>
+                    </div>
+                    <?php } else { ?>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="form-group label-floating field-registrar-foto required" style="margin-top: 15px">
+                            <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video($(this))"/>
+                            <img id="img_destino" class="" style="height: 240px;width:320px;cursor: pointer" src="../images/video.jpg">
+                        </div>
+                    </div>
+                    <?php } ?>
                 <?php } ?>
                 
                 <?php if($integrante->rol==1 && $disabled && $videoprimera){ ?>
-                
-                <video width="320" height="240" controls>
-                    <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
-                </video>
-                <br>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <video width="320" height="240" controls>
+                            <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
+                        </video>
+                    </div>
                 <?php } ?>
                 
                 <?php if($integrante->rol==2 && $disabled && !$videoprimera && !$videosegunda){ ?>
                 <?php //var_dump($videoprimera);die; ?>
-                
-                <video width="320" height="240" controls>
-                    <source src="<?= Yii::getAlias('@video').$video->ruta ?>" type="video/mp4">  
-                </video>
-                <br>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <video width="320" height="240" controls>
+                            <source src="<?= Yii::getAlias('@video').$video->ruta ?>" type="video/mp4">  
+                        </video>
+                    </div>
                 <?php } ?>
                 
                 <?php if($integrante->rol==2 && $disabled && $videoprimera){ ?>
                 <?php //var_dump($videoprimera);die; ?>
-                
-                <video width="320" height="240" controls>
-                    <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
-                </video>
-                <br>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <video width="320" height="240" controls>
+                            <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
+                        </video>
+                    </div>
                 <?php } ?>
                 
                 <?php if($integrante->rol==2 && $videosegunda){ ?>
-                
-                <video width="320" height="240" controls>
-                    <source src="<?= Yii::getAlias('@video').$videosegunda->ruta ?>" type="video/mp4">  
-                </video>
-                <br>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                       <video width="320" height="240" controls>
+                            <source src="<?= Yii::getAlias('@video').$videosegunda->ruta ?>" type="video/mp4">  
+                        </video> 
+                    </div>
                 <?php } ?>
+                
+                <div class="clearfix"></div>
+                
             </div><!-- /.tab-pane -->
             <div class="tab-pane" id="tab_6">
                 <div class="clearfix"></div>
@@ -257,308 +298,19 @@ use yii\web\JsExpression;
     
    
     <div class="clearfix"></div>
-    
-    <!-- Objetivo General -->
-    <div class="modal fade" id="objetivo_general" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" style="z-index: 2000 !important">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Objetivo general</h4>
-                </div>
-                <div class="modal-body">
-                    <!--<div class="form-group field-proyecto-objetivo_general required">
-                        <label class="control-label" for="proyecto-objetivo_general" title="Máximo 30 palabras">Descripción: *</label>
-                        <textarea id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="30" placeholder="Objetivo General" title="Máximo 30 palabras" <?= $disabled ?>><?= $proyecto->objetivo_general ?></textarea>
-                    </div>-->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <?php if($disabled==''){ ?>
-                    <!--<button type="button" id="btn_objetivo_general" class="btn btn-primary" data-dismiss="modal">Guardar</button>-->
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    <!-- Objetivo Especifico 1 -->
-    <div class="modal fade" id="objetivo_especifico_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- Objetivo Especifico general-->
+    <div class="modal fade" id="objetivo_especifico_general" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document" style="z-index: 2000 !important">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel"></h4>
                 </div>
-                <div class="modal-body">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-objetivo_especifico_1 required">
-                            <label class="control-label" for="proyecto-objetivo_especifico_1" >Objetivo especifico #1</label>
-                            <input type="hidden" name="Proyecto[objetivo_especifico_1_id]" value="<?= $proyecto->objetivo_especifico_1_id ?>" >
-                            <textarea id="proyecto-objetivo_especifico_1" class="form-control" name="Proyecto[objetivo_especifico_1]"    <?= $disabled ?>><?= $proyecto->objetivo_especifico_1 ?></textarea>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <table class="table table-striped table-hover" id="tab_logic_1">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">
-                                        #
-                                    </th>
-                                    <th class="text-center">
-                                        Actividad
-                                    </th>
-                                    <?php if($disabled==''){ ?>
-                                    <th>
-                                    </th>
-                                    <?php } ?>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i=0; ?>
-                                <?php if($actividades1){ ?>
-                                <?php foreach($actividades1 as $actividad){ ?>
-                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){ ?>
-                                    <tr id='addr_1_<?= $i ?>'>
-                                        <td>
-                                        <?= ($i+1) ?>
-                                        </td>
-                                        <td style="padding: 2px">
-                                            <div class="form-group field-proyecto-actividad_objetivo1_<?= $i ?> required" style="margin-top: 0px">
-                                                <input type="text" id="proyecto-actividad_objetivo1_<?= $i ?>" class="form-control" name="Proyecto[actividades_1][]"  value="<?= $actividad->descripcion ?>" <?= $disabled ?> placeholder="Actividad #1"/>
-                                            </div>
-                                        </td>
-                                        <?php if($disabled==''){ ?>
-                                        <td>
-                                            <span class="remCF glyphicon glyphicon-minus-sign" value="<?= $actividad->actividad_id ?>">
-                                                <input type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
-                                            </span>
-                                        </td>
-                                        <?php }?>
-                                    </tr>
-                                    
-                                    <?php $i++; ?>
-                                    <?php }?>
-                                <?php } ?>
-                                <?php } else { ?>
-                                    <tr id='addr_1_0'>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td style="padding: 2px">
-                                            <div class="form-group field-proyecto-actividad_objetivo1_0 required" style="margin-top: 0px">
-                                                <input type="text" id="proyecto-actividad_objetivo1_0" class="form-control" name="Proyecto[actividades_1][]"  placeholder="Actividad #1"/>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="remCF glyphicon glyphicon-minus-sign">
-                                            </span>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                                <tr id='addr_1_<?= $i ?>'></tr>
-                            </tbody>
-                        </table>
-                        
-                        <br>
-                    </div>
-                    <div class="clearfix"></div>
+                <div class="modal-body" id="oe_modal">
+                    
                 </div>
                 <div class="modal-footer">
-                    <?php if($disabled==''){ ?>
-                    <div id="add_row_1" class="btn btn-raised btn-success" value="1">Agregar</div>
-                    <button type="button" id="btn_objetivo_especifico_1" class="btn btn-raised btn-success" data-dismiss="modal">Guardar</button>
-                    <?php }?>
-                    <button type="button" class="btn btn-raised btn-success" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    <!-- Objetivo Especifico 2 -->
-    <div class="modal fade" id="objetivo_especifico_2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" style="z-index: 2000 !important">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="col-xs-12  col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-objetivo_especifico_2 required">
-                            <label class="control-label" for="proyecto-objetivo_especifico_2" >Objetivo especifico #2</label>
-                            <input type="hidden" name="Proyecto[objetivo_especifico_2_id]" value="<?= $proyecto->objetivo_especifico_2_id ?>">
-                            <textarea id="proyecto-objetivo_especifico_2" class="form-control" name="Proyecto[objetivo_especifico_2]"  <?= $disabled ?>><?= $proyecto->objetivo_especifico_2 ?></textarea>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <table class="table table-striped table-hover" id="tab_logic_2">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">
-                                        #
-                                    </th>
-                                    <th class="text-center">
-                                        Actividad
-                                    </th>
-                                    <?php if($disabled==''){ ?>
-                                    <th>
-                                    </th>
-                                    <?php } ?>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $a=0; ?>
-                                <?php if($actividades2){ ?>
-                                <?php foreach($actividades2 as $actividad){?>
-                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){ ?>
-                                    <tr id='addr_2_<?= $a ?>'>
-                                        <td>
-                                        <?= ($a+1) ?>
-                                        </td>
-                                        <td style="padding: 2px">
-                                            <div class="form-group label-floating field-proyecto-actividad_objetivo2_<?= $a ?> required" style="margin-top: 0px">
-                                                <input type="text" id="proyecto-actividad_objetivo2_<?= $a ?>" class="form-control" name="Proyecto[actividades_2][]"  value="<?= $actividad->descripcion ?>" <?= $disabled ?> placeholder="Actividad #1"/>
-                                            </div>
-                                        </td>
-                                        <?php if($disabled==''){ ?>
-                                        <td>
-                                            <span class="remCF glyphicon glyphicon-minus-sign">
-                                                <input type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>"/>
-                                            </span>
-                                        </td>
-                                        <?php } ?>
-                                    </tr>
-                                    <?php $a++; ?>
-                                    <?php } ?>
-                                <?php } ?>
-                                <?php } else { ?>
-                                    <tr id='addr_2_0'>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td style="padding: 2px">
-                                            <div class="form-group label-floating field-proyecto-actividad_objetivo2_0 required" style="margin-top: 0px">
-                                                <input type="text" id="proyecto-actividad_objetivo2_0" class="form-control" name="Proyecto[actividades_2][]"  placeholder="Actividad #1"/>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="remCF glyphicon glyphicon-minus-sign"></span>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                                <tr id='addr_2_<?= $a ?>'></tr>
-                            </tbody>
-                        </table>
-                        
-                        <br>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="modal-footer">
-                    <?php if($disabled==''){ ?>
-                    <div id="add_row_2" class="btn btn-raised btn-success" value="1">Agregar</div>
-                    <button type="button" id="btn_objetivo_especifico_2" class="btn btn-raised btn-success" data-dismiss="modal">Guardar</button>
-                    <?php } ?>
-                    <button type="button" class="btn btn-raised btn-success" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
-    
-    <!-- Objetivo Especifico 3 -->
-    <div class="modal fade" id="objetivo_especifico_3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" style="z-index: 2000 !important">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-objetivo_especifico_3 required">
-                            <label class="control-label" for="proyecto-objetivo_especifico_3" >Objetivo especifico #3</label>
-                            <input type="hidden" name="Proyecto[objetivo_especifico_3_id]" value="<?= $proyecto->objetivo_especifico_3_id ?>">
-                            <textarea id="proyecto-objetivo_especifico_3" class="form-control" name="Proyecto[objetivo_especifico_3]"  <?= $disabled ?>><?= $proyecto->objetivo_especifico_3 ?></textarea>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <table class="table table-striped table-hover" id="tab_logic_3">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">
-                                        #
-                                    </th>
-                                    <th class="text-center">
-                                        Actividad
-                                    </th>
-                                    <?php if($disabled==''){ ?>
-                                    <th>
-                                    </th>
-                                    <?php } ?>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $e=0; ?>
-                                <?php if($actividades3){ ?>
-                                <?php foreach($actividades3 as $actividad){?>
-                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){ ?>
-                                    <tr id='addr_3_<?= $e ?>'>
-                                        <td>
-                                        <?= ($e+1) ?>
-                                        </td>
-                                        <td style="padding: 2px">
-                                            <div class="form-group label-floating field-proyecto-actividad_objetivo3_<?= $e ?> required" style="margin-top: 0px">
-                                                <input type="text" id="proyecto-actividad_objetivo3_<?= $e ?>" class="form-control" name="Proyecto[actividades_3][]"  value="<?= $actividad->descripcion ?>" <?= $disabled ?> placeholder="Actividad #1"/>
-                                            </div>
-                                        </td>
-                                        <?php if($disabled==''){ ?>
-                                        <td>
-                                            <span class="remCF glyphicon glyphicon-minus-sign">
-                                                <input type="hidden" name="Proyecto[actividades_ids_3][]" value="<?= $actividad->actividad_id ?>"/>
-                                            </span>
-                                        </td>
-                                        <?php } ?>
-                                    </tr>
-                                    <?php $e++; ?>
-                                    <?php }?>
-                                <?php } ?>
-                                <?php } else { ?>
-                                    <tr id='addr_3_0'>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td style="padding: 2px">
-                                            <div class="form-group label-floating field-proyecto-actividad_objetivo3_0 required" style="margin-top: 0px">
-                                                <input type="text" id="proyecto-actividad_objetivo3_0" class="form-control" name="Proyecto[actividades_3][]" placeholder="Actividad #1" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="remCF glyphicon glyphicon-minus-sign"></span>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
-                                <tr id='addr_3_<?= $e ?>'></tr>
-                            </tbody>
-                        </table>
-                        
-                        <br>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="modal-footer">
-                    <?php if($disabled==''){ ?>
-                    <div id="add_row_3" class="btn btn-raised btn-success" value="1">Agregar</div>
-                    <button type="button" id="btn_objetivo_especifico_3" class="btn btn-raised btn-success" data-dismiss="modal">Guardar</button>
-                    <?php }?>
-                    <button type="button" class="btn btn-raised btn-success" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-raised btn-success"  onclick='MostrarOeActividades()'>Aceptar</button>
                 </div>
             </div>
         </div>
@@ -599,409 +351,10 @@ use yii\web\JsExpression;
     $reflexion= Yii::$app->getUrlManager()->createUrl('proyecto/reflexion');
     $evaluacion= Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
 ?>
+<!--var i=<?php //= $i ?>;
+    var a=<?php //= $a ?>;
+    var e=<?php //= $e ?>;-->
 <script>
-    var i=<?= $i ?>;
-    var a=<?= $a ?>;
-    var e=<?= $e ?>;
-    
-    
-    $("#tab_logic_1").on('click','.remCF',function(){
-        //var r = confirm("Estas seguro?");
-        //if (r == true) {
-            id=$(this).children().val();
-            if (id) {
-		$.ajax({
-                    url: '<?= $eliminaractividad ?>',
-                    type: 'GET',
-                    async: true,
-                    data: {id:id},
-                    success: function(data){
-                        
-                    }
-                });
-		$(this).parent().parent().remove();	
-	    }
-	    else
-	    {
-		$(this).parent().parent().remove();
-	    }
-        //} 
-    });
-    
-    $("#tab_logic_2").on('click','.remCF',function(){
-        //var r = confirm("Estas seguro?");
-        //if (r == true) {
-            id=$(this).children().val();
-            if (id) {
-		$.ajax({
-                    url: '<?= $eliminaractividad ?>',
-                    type: 'GET',
-                    async: true,
-                    data: {id:id},
-                    success: function(data){
-                        
-                    }
-                });
-		$(this).parent().parent().remove();	
-	    }
-	    else
-	    {
-		$(this).parent().parent().remove();
-	    }
-        //} 
-    });
-    
-    $("#tab_logic_3").on('click','.remCF',function(){
-        //var r = confirm("Estas seguro?");
-        //if (r == true) {
-            id=$(this).children().val();
-            if (id) {
-		$.ajax({
-                    url: '<?= $eliminaractividad ?>',
-                    type: 'GET',
-                    async: true,
-                    data: {id:id},
-                    success: function(data){
-                        
-                    }
-                });
-		$(this).parent().parent().remove();	
-	    }
-	    else
-	    {
-		$(this).parent().parent().remove();
-	    }
-        //} 
-    });
-    
-    $("#add_row_1").click(function(){
-        
-        
-        var objetivo=$('input[name=\'Proyecto[actividades_1][]\']').length;
-        if (objetivo==5 && $('#proyecto-actividad_objetivo1_'+(i-1)).val()!='')
-        {
-            $.notify({
-                message: 'No se puede agregar mas de 5' 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            $('.field-proyecto-actividad_objetivo1_'+(i-1)).addClass('has-success');
-            $('.field-proyecto-actividad_objetivo1_'+(i-1)).removeClass('has-error');
-            return false;
-        }
-        
-        
-        if($('#proyecto-actividad_objetivo1_'+(i-1)).val()=='')
-        {
-            var error='ingrese la '+i+' actividad <br>';
-            $('.field-proyecto-actividad_objetivo1_'+(i-1)).addClass('has-error');
-            $.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        else
-        {
-            $('.field-proyecto-actividad_objetivo1_'+(i-1)).addClass('has-success');
-            $('.field-proyecto-actividad_objetivo1_'+(i-1)).removeClass('has-error');
-            
-            $('#addr_1_'+i).html("<td>"+ (i+1) +"</td><td style='padding: 2px'><div class='form-group field-proyecto-actividad_objetivo1_"+i+" required' style='margin-top: 0px'><input id='proyecto-actividad_objetivo1_"+i+"' name='Proyecto[actividades_1][]' type='text' class='form-control' placeholder='Actividad #"+(i+1)+"' /></div></td><td><span class='remCF glyphicon glyphicon-minus-sign'></span></td>");
-            $('#tab_logic_1').append('<tr id="addr_1_'+(i+1)+'"></tr>');
-            i++;
-        }
-        
-        
-        return true;
-    });
-    
-    
-    $("#add_row_2").click(function(){
-        
-        
-        var objetivo=$('input[name=\'Proyecto[actividades_2][]\']').length;
-        if (objetivo==5 && $('#proyecto-actividad_objetivo2_'+(a-1)).val()!='')
-        {
-            $.notify({
-                message: 'No se puede agregar mas de 5' 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            $('.field-proyecto-actividad_objetivo2_'+(a-1)).addClass('has-success');
-            $('.field-proyecto-actividad_objetivo2_'+(a-1)).removeClass('has-error');
-            return false;
-        }
-        
-        
-        if($('#proyecto-actividad_objetivo2_'+(a-1)).val()=='')
-        {
-            var error='ingrese la '+a+' actividad <br>';
-            $('.field-proyecto-actividad_objetivo2_'+(a-1)).addClass('has-error');
-            $.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        else
-        {
-            $('.field-proyecto-actividad_objetivo2_'+(a-1)).addClass('has-success');
-            $('.field-proyecto-actividad_objetivo2_'+(a-1)).removeClass('has-error');
-            
-            $('#addr_2_'+a).html("<td>"+ (a+1) +"</td><td style='padding: 2px'><div class='form-group field-proyecto-actividad_objetivo2_"+a+" required' style='margin-top: 0px'><input id='proyecto-actividad_objetivo2_"+a+"' name='Proyecto[actividades_2][]' type='text' class='form-control'  placeholder='Actividad #"+(a+1)+"' /></div></td><td><span class='remCF glyphicon glyphicon-minus-sign'></span></td>");
-            $('#tab_logic_2').append('<tr id="addr_2_'+(a+1)+'"></tr>');
-            a++;
-        }
-        
-        
-        return true;
-    });
-    
-    
-    $("#add_row_3").click(function(){
-        
-        
-        var objetivo=$('input[name=\'Proyecto[actividades_3][]\']').length;
-        if (objetivo==5 && $('#proyecto-actividad_objetivo3_'+(e-1)).val()!='')
-        {
-            $.notify({
-                message: 'No se puede agregar mas de 5' 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            $('.field-proyecto-actividad_objetivo3_'+(e-1)).addClass('has-success');
-            $('.field-proyecto-actividad_objetivo3_'+(e-1)).removeClass('has-error');
-            return false;
-        }
-        
-        
-        if($('#proyecto-actividad_objetivo3_'+(e-1)).val()=='')
-        {
-            var error='ingrese la '+e+' actividad <br>';
-            $('.field-proyecto-actividad_objetivo3_'+(e-1)).addClass('has-error');
-            $.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        else
-        {
-            $('.field-proyecto-actividad_objetivo3_'+(e-1)).addClass('has-success');
-            $('.field-proyecto-actividad_objetivo3_'+(e-1)).removeClass('has-error');
-            
-            $('#addr_3_'+e).html("<td>"+ (e+1) +"</td><td style='padding: 2px'><div class='form-group field-proyecto-actividad_objetivo3_"+e+" required' style='margin-top: 0px'><input id='proyecto-actividad_objetivo3_"+e+"' name='Proyecto[actividades_3][]' type='text' class='form-control'  placeholder='Actividad #"+(e+1)+"'/></div></td><td><span class='remCF glyphicon glyphicon-minus-sign'></span></td>");
-            $('#tab_logic_3').append('<tr id="addr_3_'+(e+1)+'"></tr>');
-            e++;
-        }
-        
-        
-        return true;
-    });
-    
-    $("#btn_objetivo_general").click(function(event){
-        if ($('#proyecto-objetivo_general').val()=='') {
-            $.notify({
-                message: 'Ingrese el Objetivo General' 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            $('.field-proyecto-objetivo_general').addClass('has-error');
-            return false;
-        }
-        $('.field-proyecto-objetivo_general').css( 'color', 'black' );
-        $("#txt_objetivo_general").html($('#proyecto-objetivo_general').val());
-        return true;
-    });
-    
-    $("#btn_objetivo_especifico_1").click(function(event){
-        var error='';
-        if ($('#proyecto-objetivo_especifico_1').val()=='') {
-            error=error+' Ingrese el Objetivo especifico 1 <br>';
-            $('.field-proyecto-objetivo_especifico_1').addClass('has-error');
-        }
-        else
-        {
-            $('.field-proyecto-objetivo_especifico_1').addClass('has-success');
-            $('.field-proyecto-objetivo_especifico_1').removeClass('has-error');
-        }
-        
-        var objetivo1=$('input[name=\'Proyecto[actividades_1][]\']').length;
-        for (var i=0; i<objetivo1; i++) {
-            if($('#proyecto-actividad_objetivo1_'+i).val()=='')
-            {
-                error=error+'ingrese si quiera '+i+' objetivo especifico <br>';
-                $('.field-proyecto-actividad_objetivo1_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-actividad_objetivo1_'+i).addClass('has-success');
-                $('.field-proyecto-actividad_objetivo1_'+i).removeClass('has-error');
-            }
-        }
-        
-        
-        if (error!='') {
-            $.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        else
-        {
-            $("#txt_objetivo_especifico_1").html($('#proyecto-objetivo_especifico_1').val());
-            $('.field-proyecto-objetivo_especifico_1').css( 'color', 'black' );
-            $( "#w0" ).submit();
-            return true;
-        }
-        
-    });
-    
-    $("#btn_objetivo_especifico_2").click(function(event){
-        var error='';
-        
-        var objetivo2=$('input[name=\'Proyecto[actividades_2][]\']').length;
-        for (var i=0; i<objetivo2; i++) {
-            if($('#proyecto-actividad_objetivo2_'+i).val()=='')
-            {
-                error=error+'ingrese si quiera '+i+' objetivo especifico <br>';
-                $('.field-proyecto-actividad_objetivo2_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-actividad_objetivo2_'+i).addClass('has-success');
-                $('.field-proyecto-actividad_objetivo2_'+i).removeClass('has-error');
-            }
-        }
-        
-        if ($('#proyecto-objetivo_especifico_2').val()=='') {
-            error=error+'Ingrese el Objetivo especifico 2 <br>';
-            $('.field-proyecto-objetivo_especifico_2').addClass('has-error');
-        }
-        else
-        {
-            $('.field-proyecto-objetivo_especifico_2').addClass('has-success');
-            $('.field-proyecto-objetivo_especifico_2').removeClass('has-error');
-        }
-        
-        
-        if (error!='') {
-            $.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        else
-        {
-            $("#txt_objetivo_especifico_2").html($('#proyecto-objetivo_especifico_2').val());
-            $('.field-proyecto-objetivo_especifico_2').css( 'color', 'black' );
-            $( "#w0" ).submit();
-            return true;
-        }
-    });
-    
-    $("#btn_objetivo_especifico_3").click(function(event){
-        var error='';
-        
-        if ($('#proyecto-objetivo_especifico_3').val()=='') {
-            error=error+'Ingrese el Objetivo especifico 3 <br>';
-            $('.field-proyecto-objetivo_especifico_3').addClass('has-error');
-        }
-        else
-        {
-            $('.field-proyecto-objetivo_especifico_3').addClass('has-success');
-            $('.field-proyecto-objetivo_especifico_3').removeClass('has-error');
-        }
-            
-        var objetivo3=$('input[name=\'Proyecto[actividades_3][]\']').length;
-        for (var i=0; i<objetivo3; i++) {
-            if($('#proyecto-actividad_objetivo3_'+i).val()=='')
-            {
-                error=error+'ingrese si quiera '+i+' objetivo especifico <br>';
-                $('.field-proyecto-actividad_objetivo3_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-actividad_objetivo3_'+i).addClass('has-success');
-                $('.field-proyecto-actividad_objetivo3_'+i).removeClass('has-error');
-            }
-        }
-        
-        
-        
-        if (error!='') {
-            $.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        else
-        {
-            $("#txt_objetivo_especifico_3").html($('#proyecto-objetivo_especifico_3').val());
-            $('.field-proyecto-objetivo_especifico_3').css( 'color', 'black' );
-            $( "#w0" ).submit();
-            return true;
-        }
-    });
     
     $("#btnproyecto").click(function(event){
         var error='';
@@ -1230,60 +583,79 @@ use yii\web\JsExpression;
     
     $('#btnproyectoevaluacion').click(function(events){
         var error='';
-        
-        if($.trim($('#proyecto-evaluacion').val())=='')
-        {
-            error=error+'ingrese una evaluacion del proyecto <br>';
-            $('.field-proyecto-evaluacion').addClass('has-error');
+        var etapa=<?= $etapa->etapa ?>;
+        if (etapa==2) {
+            /*if($.trim($('#proyecto-evaluacion').val())=='')
+            {
+                error=error+'ingrese una evaluacion del proyecto <br>';
+                $('.field-proyecto-evaluacion').addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-evaluacion').addClass('has-success');
+                $('.field-proyecto-evaluacion').removeClass('has-error');
+            }
+            
+            if(error!='')
+            {
+                $.notify({
+                    message: error 
+                },{
+                    type: 'danger',
+                    z_index: 1000000,
+                    placement: {
+                        from: 'bottom',
+                        align: 'right'
+                    },
+                });
+                return false;
+            }
+            else
+            {*/
+                $.ajax({
+                    url: '<?= $evaluacion ?>',
+                    type: 'POST',
+                    async: true,
+                    data: {'Evaluacion[evaluacion]':$('#proyecto-evaluacion').val(),'Evaluacion[proyecto_id]':<?= $proyecto->id ?>,'Evaluacion[user_id]':<?= \Yii::$app->user->id ?>},
+                    success: function(data){
+                        $.notify({
+                            message: 'Se ha guardado tu información' 
+                        },{
+                            type: 'success',
+                            z_index: 1000000,
+                            placement: {
+                                from: 'bottom',
+                                align: 'right'
+                            },
+                        });
+                        $( "#w0" ).submit();
+                    }
+                });
+                
+                setTimeout(function(){
+                                            window.location.reload(1);
+                                        }, 2000);
+                return true;
+            //}   
         }
         else
         {
-            $('.field-proyecto-evaluacion').addClass('has-success');
-            $('.field-proyecto-evaluacion').removeClass('has-error');
-        }
-        
-        if(error!='')
-        {
             $.notify({
-                message: error 
+                message: 'Se ha guardado la información' 
             },{
-                type: 'danger',
+                type: 'success',
                 z_index: 1000000,
                 placement: {
                     from: 'bottom',
                     align: 'right'
                 },
             });
-            return false;
-        }
-        else
-        {
-            $.ajax({
-                url: '<?= $evaluacion ?>',
-                type: 'POST',
-                async: true,
-                data: {'Evaluacion[evaluacion]':$('#proyecto-evaluacion').val(),'Evaluacion[proyecto_id]':<?= $proyecto->id ?>,'Evaluacion[user_id]':<?= \Yii::$app->user->id ?>},
-                success: function(data){
-                    $.notify({
-                        message: 'Se ha guardado tu evaluación' 
-                    },{
-                        type: 'success',
-                        z_index: 1000000,
-                        placement: {
-                            from: 'bottom',
-                            align: 'right'
-                        },
-                    });
-                    $( "#w0" ).submit();
-                }
-            });
-            
+            $( "#w0" ).submit();
             setTimeout(function(){
-                                        window.location.reload(1);
-                                    }, 2000); 
+                window.location.reload(1);
+            }, 2000);
             return true;
         }
-        
     });
     
     
@@ -1355,9 +727,173 @@ use yii\web\JsExpression;
         }
     }
     
-     //$('#registrar-fecha_nac').bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
-    //$('.date1').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
-	    //$.material.init();
+    
+    var oe=1;
+    var actividadcon=1;
+    /*
+    $('#objetivo_especifico_general').on('hidden.bs.modal', function (e) {
+        actividad=1;
+        console.log("aa");
+    });*/
+    
+    
+    function agregarObjetivoActividad() {        
+        
+        
+        var body="";
+        var objetivo_especifico_1=$('input[name=\'Proyecto[objetivo_especifico_1]\']').length;
+        var objetivo_especifico_2=$('input[name=\'Proyecto[objetivo_especifico_2]\']').length;
+        var objetivo_especifico_3=$('input[name=\'Proyecto[objetivo_especifico_3]\']').length;
+        var total=objetivo_especifico_1+objetivo_especifico_2+objetivo_especifico_3;
+        if (total>=3) {
+            $.notify({
+                message: 'Solo se puede agregar 3 objetivos especificos'
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
+        $('#objetivo_especifico_general').modal({backdrop: 'static', keyboard: false});
+        actividadcon=1;
+        
+        body=   "<div id='objetivo'>"+
+                    "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+                        "<div class='form-group label-floating field-proyecto-temp_objetivo_especifico required' style='margin-top: 15px'>"+
+                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo especifico </label>"+
+                            "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_objetivo_especifico' class='form-control'>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>"+
+                "<div class='clearfix'></div>"+
+                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign pull-right' onclick='agregarActividad()' ></span></div>"+
+               
+                "<div id='actividades'></div>"+
+                "<div class='clearfix'></div>";
+        $("#oe_modal").html(body);
+        //oe++;
+        return true;
+    }
+    
+    function agregarActividad() {
+        
+        var error='';
+        //var temp_actividad=$("proyecto-temp_actividad_"+(actividad-1)).val();
+        var temp_actividades=$('input[name=\'Proyecto[temp_actividades][]\']').length;
+        for (var i=1; i<=temp_actividades; i++) {
+            if(jQuery.trim($('#proyecto-temp_actividad_'+i).val())=='')
+            {
+                error=error+'Ingrese Actividad #'+i+' <br>';
+                $('.field-proyecto-temp_actividad_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-temp_actividad_'+i).addClass('has-success');
+                $('.field-proyecto-temp_actividad_'+i).removeClass('has-error');
+            }
+        }
+        
+        if (error!='') {
+            $.notify({
+                message: error
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
+        
+        var body="";
+        body=   "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+                    "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividadcon+" required' style='margin-top: 15px'>"+
+                        "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividadcon+"' >Descripción de actividad #"+actividadcon+"</label>"+
+                        "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividadcon+"' name='Proyecto[temp_actividades][]' class='form-control'>"+
+                    "</div>"+
+                "</div>";
+        $("#actividades").append(body);
+        actividadcon++;
+        return true;
+    }
+    
+    function MostrarOeActividades() {
+        oe=<?= ($contoe+1) ?>;
+        var body="";
+        var error='';
+        var temp_objetivo_especifico=$("#proyecto-temp_objetivo_especifico").val();
+        var temp_actividades=$('input[name=\'Proyecto[temp_actividades][]\']').length;
+        var bodyactividades="";
+        if(jQuery.trim(temp_objetivo_especifico)=='')
+        {
+            error=error+'Ingrese descripción en Objetivo especifico <br>';
+            $('.field-proyecto-temp_objetivo_especifico').addClass('has-error');
+        }
+        else
+        {
+            $('.field-proyecto-temp_objetivo_especifico').addClass('has-success');
+            $('.field-proyecto-temp_objetivo_especifico').removeClass('has-error');
+        }
+        
+        if (temp_actividades==0) {
+            error=error+'Ingrese 1 actividad como mínimo <br>';
+        }
+        
+        for (var i=1; i<=temp_actividades; i++) {
+            if(jQuery.trim($('#proyecto-temp_actividad_'+i).val())=='')
+            {
+                error=error+'Ingrese Actividad #'+i+' <br>';
+                $('.field-proyecto-temp_actividad_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-temp_actividad_'+i).addClass('has-success');
+                $('.field-proyecto-temp_actividad_'+i).removeClass('has-error');
+            }
+        }
+        
+        
+        if (error!='') {
+            $.notify({
+                message: error
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
+        
+        
+        $("#actividades input").each(function( index ) {
+            bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
+            console.log( $( this ).val() );
+        });
+        
+        
+        
+        var body=   "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+                            "<li><b>"+temp_objetivo_especifico+"</b></li>"+
+                            "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
+                            "<ul>"+bodyactividades+"</ul>"+
+                    "</div>";
+        $('#objetivo_especifico_general').modal('toggle');
+        $("#mostrar_oe_actividades").append(body);
+        oe++;
+        actividadcon=1;
+        return true;
+        
+    }
+    
 </script>
 
 

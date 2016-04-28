@@ -67,5 +67,33 @@ class EntregaController extends Controller
         
         return $this->render('index',['equipo'=>$equipo]);
     }
+    
+    public function actionPrimera()
+    {
+        $this->layout='estandar';
+        $etapa=Etapa::find()->where('estado=1')->one();
+        $etapa1=Etapa::find()->where('estado=1 and etapa=1')->one();
+        $etapa2=Etapa::find()->where('estado=1 and etapa=2')->one();
+        $usuario=Usuario::findOne(\Yii::$app->user->id);
+        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+        $equipo=Equipo::findOne($integrante->equipo_id);
+        
+        
+        return $this->render('primera',['equipo'=>$equipo]);
+    }
+    
+    public function actionSegunda()
+    {
+        $this->layout='estandar';
+        $etapa=Etapa::find()->where('estado=1')->one();
+        $etapa1=Etapa::find()->where('estado=1 and etapa=1')->one();
+        $etapa2=Etapa::find()->where('estado=1 and etapa=2')->one();
+        $usuario=Usuario::findOne(\Yii::$app->user->id);
+        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+        $equipo=Equipo::findOne($integrante->equipo_id);
+        
+        
+        return $this->render('segunda',['equipo'=>$equipo]);
+    }
 
 }
