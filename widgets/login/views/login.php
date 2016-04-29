@@ -29,42 +29,35 @@ use yii\web\JsExpression;
 </script>
 <?php endif; ?>
 
-<?php $form = ActiveForm::begin(); ?>
-    
-    <div class="col-lg-12 col-md-12 col-xs-12">
-        <div class="form-group label-floating field-loginform-username required">
-            <label class="control-label" for="loginform-username">Correo electrónico</label>
-            <input type="email" id="loginform-username" class="form-control" name="LoginForm[username]">
+<?php $form = ActiveForm::begin(['options' => ['class' => 'form_login']]); ?>
+    <div class="title_form">
+        <img src="../img/title/login.png" alt="" />
+    </div>
+    <div class="content_form">
+        <div class="content_form">
+            <div class="form-group label-floating field-loginform-username required" style="margin: 0px">
+                <label class="control-label" for="loginform-username" style="text-align:left !important">Correo electrónico</label>
+                <input type="email" id="loginform-username" class="form-control" name="LoginForm[username]">
+            </div>
+            <div class="form-group label-floating field-loginform-password required" style="margin: 0px">
+                <label class="control-label text-left" for="loginform-password" style="text-align:left !important">Contraseña</label>
+                <input type="password" id="loginform-password" class="form-control" name="LoginForm[password]">
+            </div>
+            <div class="form-group" style="margin: 0px">
+               <button id="ingresar" type="submit" class="btn btn-default">Ingresar</button>
+            </div>
+            <?php if($tipo==2 && $resultados){ ?>
+            <div class="form-group olvide_contrasena text-center" style="margin: 0px">
+                <u><?= Html::a('¿Olvido su contraseña?',['site/recuperar'],['class'=>'']);?></u>
+            </div>
+            <div class="line_separator"></div>
+            <div class="form-group no_apuntado text-center" style="margin: 0px">
+            <p>¿Aún no te has apuntado?</p>
+            <?= Html::a('Regístrate',['registrar/index'],['class'=>'btn btn-default']);?>
+            </div>
+            <?php } ?>
         </div>
     </div>
-    <div class="clearfix"></div>
-    <div class="col-lg-12 col-md-12 col-xs-12">
-        <div class="form-group label-floating field-loginform-password required">
-            <label class="control-label" for="loginform-password">Contraseña</label>
-            <input type="password" id="loginform-password" class="form-control" name="LoginForm[password]">
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-lg-12 col-md-12 col-xs-12">
-        <div class="form-group text-center">
-           <button id="ingresar" type="submit" class="btn btn-raised btn-success">Ingresar</button>
-        </div>
-         <hr>
-    </div>
-    <div class="clearfix"></div>
-    <?php if($tipo==2 && $resultados){ ?>
-    <div class="col-lg-12 col-md-12 col-xs-12 text-center">
-        <u><?= Html::a('¿Olvido su contraseña?',['site/recuperar']);?></u>
-    </div>
-    
-    <div class="col-lg-12 col-md-12 col-xs-12 text-center">
-        <div class="form-group text-center">
-        <p>¿Aún no te has apuntado?</p>
-        <?= Html::a('Regístrate',['registrar/index'],['class'=>'btn btn-raised btn-success']);?>
-        </div>
-    </div>
-    <?php } ?>
-    <div class="clearfix"></div>
 <?php ActiveForm::end(); ?>
 
 

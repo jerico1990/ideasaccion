@@ -151,7 +151,7 @@ if($votacionpublica || $etapa->etapa!=3)
         if(finalizar.responseText==2)
         {
             $.notify({
-                message: 'Para cerrar debe tener mínimo un equipo finalizado' 
+                message: 'Para cerrar debe tener mínimo un proyecto finalizado' 
             },{
                 type: 'danger',
                 z_index: 1000000,

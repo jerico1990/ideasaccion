@@ -14,18 +14,11 @@ $this->title = 'Iniciar sesión';
 ?>
 
 <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
-<br>
-<div class="col-md-4" style="position: absolute;
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;">
-    <div class="panel panel-default" >
-        <div class="panel-heading">Ingresa a tu cuenta</div>
-        <div class="panel-body">
-            <?= \app\widgets\login\LoginWidget::widget(['tipo'=>2]); ?>
-        </div>
+<div class="form">
+    <div class="logo_proyecto">
+        <img src="../img/logo_ideas_en_accion.png" alt="" />
     </div>
+    <?= \app\widgets\login\LoginWidget::widget(['tipo'=>2]); ?>
 </div>
 <?php if (Yii::$app->session->hasFlash('registrar')): ?>
 <script>
