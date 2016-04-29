@@ -5,7 +5,6 @@ use yii\helpers\ArrayHelper;
 use app\models\Ubigeo ;
 use yii\web\JsExpression;
 use yii\widgets\Pjax;
-//var_dump($registrar->errors);
 ?>
 <style>
 .img-responsive {
@@ -24,168 +23,155 @@ use yii\widgets\Pjax;
 
 
 
-		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
-		<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
-		<script type="text/javascript" src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-                
-                
-<div class="col-xs-12 col-sm-3 col-md-3"></div>
-<div class="col-xs-12 col-sm-6 col-md-6">
-<?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
-<h2 class="text-center" style="margin-top:10px;margin-bottom: 10px">Formulario de Inscripción</h2>
-<hr class="colorgraph" style="margin-top:10px;margin-bottom: 10px">
-<div class="row">
-    <div class="col-xs-12 col-sm-8 col-md-8" style="padding-left:0px;padding-right:0px">
-    <div class="col-xs-12 col-sm-12 col-md-12" style="padding-right:0px">
-        <div class="form-group label-floating field-registrar-nombres required" style="margin-top: 15px">
-            <label for="registrar-nombres" class="control-label">Nombres</label>
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" required/>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-6 col-md-6" style="padding-right:10px;">
-        <div class="form-group label-floating field-registrar-apellido_paterno required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-apellido_paterno">Apellido paterno</label>
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_paterno" class="form-control texto" name="Registrar[apellido_paterno]" required/>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6" style="padding-right:0px">
-        <div class="form-group label-floating field-registrar-apellido_materno required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-apellido_materno">Apellido materno</label>
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_materno" class="form-control texto" name="Registrar[apellido_materno]" required/>
-        </div>
-    </div>
-    </div>
+            <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+            <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+            <script type="text/javascript" src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
     
-    <div class="col-xs-12 col-sm-4 col-md-4 text-center">
-        <div class="form-group label-floating field-registrar-foto required" style="margin-top: 15px">
-            <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen($(this))"/>
-            <img id="img_destino" class="" style="height: 80px;width: 80px;cursor: pointer" src="../foto_personal/no_disponible.jpg">
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data','class' => 'form_login']]); ?>
+        <div class="title_form">
+                <img src="../img/title/registro.png" alt="" />
         </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group label-floating field-registrar-sexo required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-sexo">Sexo</label>
-            <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-sexo" class="form-control" name="Registrar[sexo]" required/>
-                <option value=""></option>
-                <option value="F">Femenino</option>
-                <option value="M">Masculino</option>
-            </select>
+        <div class="content_form">
+            <div class="right_photo">
+                <div class="txt_upload">
+                    <div class="logo form-group label-floating field-registrar-foto required" style="margin-top: 15px">
+                         <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen($(this))"/>
+                         <img id="img_destino" class="" style="height: 80px;width: 80px;cursor: pointer" src="../foto_personal/no_disponible.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="left">
+                <div class="form-group label-floating field-registrar-nombres required" style="margin-top: 15px">
+                    <label for="registrar-nombres" class="control-label">Nombres</label>
+                    <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" required/>
+                </div>
+                <div class="last_name">
+                    <div class="form-group label-floating field-registrar-apellido_paterno required left" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-apellido_paterno">Apellido paterno</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_paterno" class="form-control texto" name="Registrar[apellido_paterno]" required/>
+                    </div>
+                    <div class="form-group label-floating field-registrar-apellido_materno required right" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-apellido_materno">Apellido materno</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_materno" class="form-control texto" name="Registrar[apellido_materno]" required/>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="form-group label-floating field-registrar-sexo required left" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-sexo">Sexo</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-sexo" class="form-control" name="Registrar[sexo]" required/>
+                            <option value=""></option>
+                            <option value="F">Femenino</option>
+                            <option value="M">Masculino</option>
+                        </select>
+                    </div>
+                    <div class="form-group label-floating field-registrar-dni required right" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-dni">DNI</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-dni" class="form-control numerico" name="Registrar[dni]" maxlength="8">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group label-floating field-registrar-email required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-email">Correo electrónico</label>
+                        <input  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="email" onpaste="return false;" onCopy="return false" id="registrar-email" class="form-control" name="Registrar[email]">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group label-floating field-registrar-celular required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-celular">Número de celular</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" >
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group label-floating field-registrar-fecha_nac required form-control-wrapper" style="margin-top: 15px">
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="registrar-fecha_nac" class="form-control label-floating" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group label-floating field-registrar-password required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-password">Contraseña</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="password" onpaste="return false;" onCopy="return false" id="registrar-password" class="form-control" name="Registrar[password]">
+                    </div>      
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group label-floating field-registrar-repassword required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-repassword">Repetir Contraseña</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="password" onpaste="return false;" onCopy="return false" id="registrar-repassword" class="form-control" name="Registrar[repassword]">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" id="example-progress-bar-container"></div>
+            </div>
+             <div class="clearfix"></div>
+            <div class="line_separator"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group label-floating field-registrar-departamento required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-departamento">Departamento</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-departamento" class="form-control" name="Registrar[departamento]" onchange='departamento($(this).val())'>
+                        <option value=""></option>
+                        <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
+                        <option value="<?= $departamento->department_id ?>"><?= $departamento->department ?></option>
+                        <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group label-floating field-registrar-provincia required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-provincia">Provincia</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-provincia" class="form-control" name="Registrar[provincia]" onchange='provincia($(this).val())'>
+                        <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group label-floating field-registrar-distrito required " style="margin-top: 15px">
+                        <label class="control-label" for="registrar-distrito">Distrito</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-distrito" class="form-control" name="Registrar[distrito]" onchange='distrito($(this).val())'>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group label-floating field-registrar-institucion required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-institucion">Institución</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-institucion" class="form-control" name="Registrar[institucion]">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group label-floating field-registrar-grado required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-grado">Grado de estudios</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
+                            <option value=""></option>
+                            <option value="1">1er</option>
+                            <option value="2">2do</option>
+                            <option value="3">3ro</option>
+                            <option value="4">3to</option>
+                            <option value="5">5to</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group btn_registro_submit">
+                <button type="submit" id="registrar"  class="btn btn-raised btn-default" >
+                    Regístrate >
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group label-floating field-registrar-dni required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-dni">DNI</label>
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-dni" class="form-control numerico" name="Registrar[dni]" maxlength="8">
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group  field-registrar-fecha_nac required form-control-wrapper" style="margin-top: 15px">
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="registrar-fecha_nac" class="form-control label-floating" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento">
-        </div>
-    </div>
-    
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-8 col-md-8">
-        <div class="form-group label-floating field-registrar-email required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-email">Correo electrónico</label>
-            <input  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="email" onpaste="return false;" onCopy="return false" id="registrar-email" class="form-control" name="Registrar[email]">
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group label-floating field-registrar-celular required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-celular">N°  celular</label>
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" >
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group label-floating field-registrar-password required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-password">Contraseña</label>
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="password" onpaste="return false;" onCopy="return false" id="registrar-password" class="form-control" name="Registrar[password]">
-        </div>      
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="form-group label-floating field-registrar-repassword required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-repassword">Repetir Contraseña</label>
-            <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="password" onpaste="return false;" onCopy="return false" id="registrar-repassword" class="form-control" name="Registrar[repassword]">
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-12 col-md-12" id="example-progress-bar-container"></div>
-    <div class="clearfix"></div>
-</div>
-<h2 class="text-center" style="margin-top:10px;margin-bottom: 10px">Datos de la Institución Educativa</h2>
-<hr class="colorgraph">
-<div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group label-floating field-registrar-departamento required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-departamento">Departamento</label>
-            <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-departamento" class="form-control" name="Registrar[departamento]" onchange='departamento($(this).val())'>
-            <option value=""></option>
-            <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
-            <option value="<?= $departamento->department_id ?>"><?= $departamento->department ?></option>
-            <?php } ?>
-            </select>
-        </div>
-        
-    </div>
-    <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group label-floating field-registrar-provincia required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-provincia">Provincia</label>
-            <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-provincia" class="form-control" name="Registrar[provincia]" onchange='provincia($(this).val())'>
-            <option value=""></option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group label-floating field-registrar-distrito required " style="margin-top: 15px">
-            <label class="control-label" for="registrar-distrito">Distrito</label>
-            <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-distrito" class="form-control" name="Registrar[distrito]" onchange='distrito($(this).val())'>
-                <option value=""></option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="clearfix"></div>
-    
-    <div class="col-xs-12 col-sm-8 col-md-8">
-        <div class="form-group label-floating field-registrar-institucion required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-institucion">Institución</label>
-            <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-institucion" class="form-control" name="Registrar[institucion]">
-                <option value=""></option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="col-xs-12 col-sm-4 col-md-4">
-        <div class="form-group label-floating field-registrar-grado required" style="margin-top: 15px">
-            <label class="control-label" for="registrar-grado">Grado de estudios</label>
-            <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
-                <option value=""></option>
-                <option value="1">1er</option>
-                <option value="2">2do</option>
-                <option value="3">3ro</option>
-                <option value="4">3to</option>
-                <option value="5">5to</option>
-            </select>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-</div>
-<div class="row pull-right">
-    <div class="col-xs-12 col-md-12 pull-right">
-        <input type="submit" id="registrar" value="Registrar" class="btn btn-raised btn-success" >
-    </div>
-    <div class="clearfix"></div>
-</div>
-<br>
-<div class="clearfix"></div>
-<?php ActiveForm::end(); ?>
-</div>
+        <div class="clearfix"></div>
+    <?php ActiveForm::end(); ?>
+
 <?php
     $validardni= Yii::$app->getUrlManager()->createUrl('registrar/validardni');
     $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
@@ -262,7 +248,6 @@ use yii\widgets\Pjax;
     }
     
     function mostrarImagen(input) {
-        console.log(input);
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {

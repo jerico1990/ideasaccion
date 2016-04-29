@@ -42,30 +42,30 @@ AppAssetInterno::register($this);
 
   <!-- jQuery -->
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
+  
   
     <?php $this->head() ?>
 </head>
-<body class="login">
-    <header>
-            <div class="franja_amarilla"></div>
-            <div class="content">
-                    <a href="#" class="logo">
-                            <img src="../img/logo.jpg" alt="" />
-                    </a>
-            </div>
-    </header>
-    <div class="body content">
-        <img src="../img/personaje_izquierda.png" class="personaje personaje_izquierda" alt="" />
-	<img src="../img/personaje_derecha.png" class="personaje personaje_derecha" alt="" />
-        <div class="form">
-            <div class="logo_proyecto">
-                <img src="../img/logo_ideas_en_accion.png" alt="" />
-            </div>
-            <?= $content ?>
-        </div>
-    </div>
+<body style="background-color: white">
+<?php $this->beginBody() ?>
 
+<div class="wrap"  >
+    
+    <div class="container">
+        <?= $content ?>
+    </div>
+</div>
+
+<!--
+<footer class="footer">
+    <div class="container">
+        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+
+        <p class="pull-right"><?= Yii::powered() ?></p>
+    </div>
+</footer>
+-->
+<?php $this->endBody() ?>
 
 <!-- Open source code -->
 <script>

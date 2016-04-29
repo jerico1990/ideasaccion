@@ -14,12 +14,9 @@ $this->title = 'Iniciar sesión';
 ?>
 
 <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
-<div class="form">
-    <div class="logo_proyecto">
-        <img src="../img/logo_ideas_en_accion.png" alt="" />
-    </div>
+
     <?= \app\widgets\login\LoginWidget::widget(['tipo'=>2]); ?>
-</div>
+
 <?php if (Yii::$app->session->hasFlash('registrar')): ?>
 <script>
     $.notify({
