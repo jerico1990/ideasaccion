@@ -18,7 +18,7 @@ class AppEstandarAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        //'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
+        'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
         //'http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css',
         //'AdminLTE/dist/css/AdminLTE.min.css',
         //'AdminLTE/dist/css/skins/_all-skins.min.css',
@@ -31,7 +31,7 @@ class AppEstandarAsset extends AssetBundle
         //'AdminLTE/plugins/fastclick/fastclick.min.js',
         //'AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js',
         //'AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
-        //'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',
+        ////'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',
         //'https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js',
         //'AdminLTE/dist/js/app.min.js',
         //'AdminLTE/dist/js/demo.js',

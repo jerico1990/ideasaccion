@@ -43,19 +43,19 @@ $btninscribir=$integrante
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt="">MI EQUIPO
 </div>
-<div class="box_content contenido_seccion_equipo">
+
     
 
 
 <?php if(!$integrante) { ?>
     <?php if(!$invitaciones){ ?>
+    <div class="box_content contenido_seccion_equipo">
     
-    
-    <div class="texto_final_equipo">
-        <p class="text-center"><b>No tienes invitaciones activas de otros equipos,</b></p>
-        <p class="text-center"><b>te invitamos a ser el coordinador de un equipo.</b></p>
+        <div class="texto_final_equipo">
+            <p class="text-center"><b>No tienes invitaciones activas de otros equipos,</b></p>
+            <p class="text-center"><b>te invitamos a ser el coordinador de un equipo.</b></p>
+        </div>
     </div>
-    
     <?php } else { ?>
     <p class="text-center">Haz recibido invitaciones para ser parte de otros equipos,</p>
     <p class="text-center">revisalas y confirma tu participacion</p>
@@ -99,100 +99,146 @@ $btninscribir=$integrante
 <?php } ?>
 
 <?php if($integrante){ ?>
-<div class="col-xs-12 col-sm-3 col-md-3"></div>
-<div class="col-xs-12 col-sm-4 col-md-4">
-    <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Nombre de tu equipo:</label> </h4>
-    <p class="text-justify" style="padding-bottom: 5px"><?= $equipo->descripcion_equipo ?></p>
-    <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Descripción de tu equipo:</label>  </h4>
-    <p class="text-justify" style="padding-bottom: 5px"><?= $equipo->descripcion ?></p>
-    <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Asunto público:</label>  </h4>
-    <p class="text-justify" style="padding-bottom: 5px"><?= $equipo->asunto->descripcion_cabecera ?></p>
-</div>
-<div class="col-xs-12 col-sm-2 col-md-2">
-    <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'img-responsive logo', 'alt'=>'Responsive image','style'=>"height: 158px;width: 158px"]) ?>
-</div>
-<div class="clearfix"></div>
-<div class="col-xs-12 col-sm-3 col-md-3"></div>
-<div class="col-xs-12 col-sm-6 col-md-6">
-<label style="padding-bottom: 5px">Los miembros de mi equipo:</label>
-<?php //if($equipo->estado==0){ ?>
-<table class="table table-striped table-hover ">
-    <thead>
-        <th>Nombres y apellidos</th>
-        <th>correo electrónico</th>
-        <th>Estado</th>
-        <?php if($equipo->estado==0){ ?>
-        <th class='text-center'></th>
-        <?php } ?>
-    </thead>
-    <tbody>
-<?php
-    $i=1;
-        foreach($equipoeinvitaciones as $equipoeinvitacion)
-        {
-            echo    "<tr>
-                        <td>".$equipoeinvitacion['nombres']." ".$equipoeinvitacion['apellido_paterno']." ".$equipoeinvitacion['apellido_materno']."</td>";
-            
-            echo "<td>".$equipoeinvitacion['email']."</td>";
+<div class="box_content contenido_seccion_crear_equipo">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group">
+                <label for="">Nombre de tu equipo:</label>
+                <div class="rpta">
+                    <?= $equipo->descripcion_equipo ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Danos una breve descripión de tu equipo:</label>
+                <div class="rpta">
+                    <?= $equipo->descripcion ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for=""> </label>
+                <div class="imagen_equipo">
+                    <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'img-responsive logo', 'alt'=>'Responsive image','style'=>"height: 158px;width: 158px"]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="">Selecciona el asunto del público sobrea el que trabajará tu equipo:</label>
+                <div class="rpta">
+                    <?= $equipo->asunto->descripcion_cabecera ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row lista_miembros_equipo">
+        <div class="col-md-12">
+                <label for="">Los miembros de tu equipo:</label>
+        </div>
+
+        <div class="col-md-12">
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <th>Nombres y apellidos</th>
+                    <th>correo electrónico</th>
+                    <th>Estado</th>
+                    <?php if($equipo->estado==0){ ?>
+                    <th class='text-center'></th>
+                    <?php } ?>
+                </thead>
+                <tbody>
+            <?php
+                $i=1;
+                    foreach($equipoeinvitaciones as $equipoeinvitacion)
+                    {
+                        echo    "<tr>
+                                    <td>".$equipoeinvitacion['nombres']." ".$equipoeinvitacion['apellido_paterno']." ".$equipoeinvitacion['apellido_materno']."</td>";
                         
-            if($integrante->rol==1)
-            {
-                if($equipoeinvitacion['rol']==1)
-                {
-                    echo    "<td>Coordinador</td>
-                            <td></td>";
-                }
-                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==1)
-                {
-                    echo    "<td>Integrante</td>
-                            <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='eliminarintegrante(".$equipoeinvitacion['estudiante_id'].")'></div></td>";
-                }
-                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==2)
-                {
-                    echo    "<td>Integrante</td>
-                            <td></td>";
-                }
-                elseif($equipoeinvitacion['rol']==0)
-                {
-                    echo    "<td>Invitado</td>
-                            <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='eliminarinvitado(".$equipoeinvitacion['estudiante_id'].",".$equipoeinvitacion['equipo_id'].")'></div></td>";
-                }
-            }
-            elseif($integrante->rol==2)
-            {
-                if($equipoeinvitacion['rol']==1)
-                {
-                    echo    "<td>Coordinador</td>
-                            <td></td>";
-                }
-                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id && $equipoeinvitacion['estado']==1)
-                {
-                    echo    "<td>Integrante</td>
-                            <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='dejarequipo(".$equipoeinvitacion['estudiante_id'].")'></div></td>";
-                }
-                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id&& $equipoeinvitacion['estado']==2)
-                {
-                    echo    "<td>Integrante</td>
-                            <td></td>";
-                }
-                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']!=$integrante->estudiante_id)
-                {
-                    echo    "<td>Integrante</td>
-                            <td></td>";
-                }
-                elseif($equipoeinvitacion['rol']==0)
-                {
-                    echo    "<td>Invitado</td>
-                            <td></td>";
-                }
-            }
-            
-            echo    "</tr>";
-            $i++;
-        }
-?>
-    </tbody>
-</table>
+                        echo "<td>".$equipoeinvitacion['email']."</td>";
+                                    
+                        if($integrante->rol==1)
+                        {
+                            if($equipoeinvitacion['rol']==1)
+                            {
+                                echo    "<td>Coordinador</td>
+                                        <td></td>";
+                            }
+                            elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==1)
+                            {
+                                echo    "<td>Integrante</td>
+                                        <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='eliminarintegrante(".$equipoeinvitacion['estudiante_id'].")'>dsddsfsdfds</div></td>";
+                            }
+                            elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==2)
+                            {
+                                echo    "<td>Integrante</td>
+                                        <td></td>";
+                            }
+                            elseif($equipoeinvitacion['rol']==0)
+                            {
+                                echo    "<td>Invitado</td>
+                                        <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='eliminarinvitado(".$equipoeinvitacion['estudiante_id'].",".$equipoeinvitacion['equipo_id'].")'></div></td>";
+                            }
+                        }
+                        elseif($integrante->rol==2)
+                        {
+                            if($equipoeinvitacion['rol']==1)
+                            {
+                                echo    "<td>Coordinador</td>
+                                        <td></td>";
+                            }
+                            elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id && $equipoeinvitacion['estado']==1)
+                            {
+                                echo    "<td>Integrante</td>
+                                        <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='dejarequipo(".$equipoeinvitacion['estudiante_id'].")'></div></td>";
+                            }
+                            elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id&& $equipoeinvitacion['estado']==2)
+                            {
+                                echo    "<td>Integrante</td>
+                                        <td></td>";
+                            }
+                            elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']!=$integrante->estudiante_id)
+                            {
+                                echo    "<td>Integrante</td>
+                                        <td></td>";
+                            }
+                            elseif($equipoeinvitacion['rol']==0)
+                            {
+                                echo    "<td>Invitado</td>
+                                        <td></td>";
+                            }
+                        }
+                        
+                        echo    "</tr>";
+                        $i++;
+                    }
+            ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row final_seccion_equipo">
+            <div class="col-md-4">
+                <?= Html::a('Modificar equipo',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-raised btn-default']); ?>
+            </div>
+            <div class="col-md-4">
+                <a class='btn btn-raised btn-default' onclick='dejarequipo(".$estudiante->id.")'>Cancelar equipo</a>
+            </div>
+            <div class="col-md-4">
+                <a class='btn btn-raised btn-default' onclick='finalizarequipo(".$integrante->equipo_id.")'>Finalizar equipo</a>
+            </div>
+    </div>
+</div> 
+
+
+<?php //if($equipo->estado==0){ ?>
+
 <?php /*} elseif($equipo->estado==1) {?>
     <?php
     $i=1;
@@ -208,29 +254,28 @@ $btninscribir=$integrante
 <?php } ?>
 <?php if(!$equipo->descripcion_equipo){?>
 <?php }?>
-    <div class="final_seccion_equipo">
-        <div class="row">
+    
             
         <?php
         if(!$integrante)
         {
-        echo '<div class="col-md-4">
-
-            </div>';
-        echo '<div class="col-md-4">';
-        echo Html::a('Crea tu equipo',['inscripcion/index'],['class'=>'btn btn-default btn-raised ']);
-        echo '</div>';
-        }
+        ?>
+        <div class="final_seccion_equipo">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <?= Html::a('Crea tu equipo',['inscripcion/index'],['class'=>'btn btn-default btn-raised ']); ?>
+            </div>
+        </div>
+        <?php }
         if( $integrante && $integrante->rol==1 && $integrante->estado==1)
         {
-        echo Html::a('Actualizar equipo',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-raised btn-success']);
-        echo " <button class='btn btn-raised btn-success' onclick='dejarequipo(".$estudiante->id.")'>Cancelar equipo</button>";
-        echo " <button class='btn btn-raised btn-success' onclick='finalizarequipo(".$integrante->equipo_id.")'>Finalizar equipo</button>";
+        //echo Html::a('Actualizar equipo',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-raised btn-success']);
+        //echo " <button class='btn btn-raised btn-success' onclick='dejarequipo(".$estudiante->id.")'>Cancelar equipo</button>";
+        //echo " <button class='btn btn-raised btn-success' onclick='finalizarequipo(".$integrante->equipo_id.")'>Finalizar equipo</button>";
         }
         ?>
-    </div>
-
-</div>
+    
 
 <?php
     $unirme= Yii::$app->getUrlManager()->createUrl('equipo/unirme');

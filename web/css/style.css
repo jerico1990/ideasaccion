@@ -29,30 +29,26 @@ header .logo{
 	margin-top: 23px;
 }
 
-.login .body,
-.registro .body{
+.body{
 	min-height: 585px;
 	min-width: 1096px;
 	position: relative;
 	padding-top: 25px;
 }
 
-.login .body .personaje,
-.registro .body .personaje{
+.body .personaje{
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	z-index: 1;
 }
 
-.login .body .personaje.personaje_derecha,
-.registro .body .personaje.personaje_derecha{
+.body .personaje.personaje_derecha{
 	right: 0;
 	left: auto;
 }
 
-.login .body .form,
-.registro .body .form{
+.body .form{
 	position: relative;
 	z-index: 0;
 	width: 826px;
@@ -64,6 +60,189 @@ header .logo{
 .registro .body .form{
 	height: 846px;
 	background-image: url(../img/bg_form_registro.png);
+}
+
+.mi_equipo .body{
+	min-width: 1246px;
+}
+
+.mi_equipo .body .form{
+	width: 1246px;
+	height: 1006px;
+	background-image: url(../img/bg_form_mi_equipo.png);
+}
+
+.mi_equipo .personaje.personaje_derecha{
+	right: -180px;
+	left: auto;
+}
+
+.mi_equipo .content_form{
+	padding: 90px 85px 0 70px;
+	font-family: 'Raleway', sans-serif;
+}
+
+.grid_box_line_blue{
+	border: 3px solid #1f2a69;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+	background: white;
+	color: #58585a;
+
+	margin: 20px 0;
+}
+
+.grid_box_line_blue .box_head{
+	border-bottom: 3px solid #1f2a69;
+}
+
+.grid_box_line_blue .box_head.link_close{
+	font-size: 11px;
+	text-align: right;
+	padding: 4px 10px;
+}
+
+.grid_box_line_blue .box_head.link_close a{
+	color: #1f2a69;
+}
+
+.grid_box_line_blue .box_head.link_close a b{
+	font-size: 12px;
+}
+
+.grid_box_line_blue .box_content{
+	padding: 13px 11px;
+	color: #1f2a69;
+}
+
+.table_div{
+	width: 100%;
+	display: table;
+}
+.table_div .row_div{
+	display: table-row;
+}
+
+.table_div .row_div .cell_div{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.table_div .row_div .cell_div.cell_image{
+	width: 37%;
+}
+
+.table_div .row_div .cell_div.cell_image .image_grupo{
+	width: 83px;
+	height: 83px;
+	border: 3px solid #1f2a69;
+
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+
+	overflow: hidden;
+
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.table_div .row_div .cell_div.cell_info{
+	width: 63%;
+}
+
+.body .form .form_login .content_form .table_div .row_div .cell_div.cell_info .line_separator{
+	margin-top: 5px;
+	padding-bottom: 5px;
+}
+
+.table_div .row_div .cell_div.cell_info .cell_info_content{
+	padding-left: 7px;
+}
+
+.menu_lateral{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.menu_lateral li{
+	border-bottom: 3px solid #1f2a69;
+}
+
+.menu_lateral li:last-child{
+	border-bottom: none;
+}
+
+.menu_lateral li a{
+	display: block;
+	padding: 15px 17px;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #1f2a69;
+}
+/* FLareon - Lapras */
+.menu_lateral li a .div_ia_icon{
+	width: 48px;
+	padding-right: 16px;
+}
+
+.menu_lateral li a .div_ia_icon .ia_icon{
+	height: 49px;
+	width: 48px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: top center;
+
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.menu_lateral li a.active,
+.menu_lateral li a:hover{
+	text-decoration: none;
+	background: #5e6798;
+	color: white;
+}
+
+.menu_lateral li a.active .div_ia_icon .ia_icon,
+.menu_lateral li a:hover .div_ia_icon .ia_icon{
+	background-position: bottom center;
+}
+
+.menu_lateral li a .div_ia_icon .ia_icon.ia_icon_idea{
+	background-image: url(../img/icon_idea.jpg);
+}
+
+.menu_lateral li a .div_ia_icon .ia_icon.ia_icon_team{
+	background-image: url(../img/icon_team.jpg);
+}
+
+.menu_lateral li a .div_ia_icon .ia_icon.ia_icon_project{
+	background-image: url(../img/icon_project.jpg);
+}
+
+.menu_lateral li a .div_ia_icon .ia_icon.ia_icon_foro{
+	background-image: url(../img/icon_foro.jpg);
+}
+
+.menu_lateral li a .div_ia_icon .ia_icon.ia_icon_delivery{
+	background-image: url(../img/icon_delivery.jpg);
+}
+
+.menu_lateral li a.active span.hide{
+	display: inline-block!important;
+	margin-left: 10px;
+}
+
+.uppercase{
+	text-transform: uppercase;
 }
 
 .login .body .form .logo_proyecto,
@@ -82,7 +261,7 @@ header .logo{
 .registro .body .form .form_login .content_form{
 	width: 265px;
 	margin: 0 auto;
-	text-align: left;
+	text-align: center;
 	color: #1f2a69;
 }
 
@@ -100,8 +279,7 @@ header .logo{
 	color: #1f2a69;
 }
 
-.login .body .form .form_login .content_form .btn-default,
-.registro .body .form .form_login .content_form .btn-default{
+.body .form .form_login .content_form .btn-default{
 	width: 100%;
 	background: #f6de34;
 	color: #1f2a69;
@@ -114,16 +292,215 @@ header .logo{
 	padding-bottom: 0;
 }
 
-.login .body .form .form_login .content_form .btn-default:hover,
-.registro .body .form .form_login .content_form .btn-default:hover{
+.body .form .form_login .content_form .btn-default:hover{
 	border-color: #1f2a69;
 }
 
-.login .body .form .form_login .content_form input,
-.registro .body .form .form_login .content_form input{
+.body .form .form_login .content_form input{
 	padding-top: 9px;
 	padding-bottom: 9px;
 	height: auto;
+}
+
+.body .form .form_login .content_form .btn-lateral{
+	margin-bottom: 20px;
+	font-size: 13px;
+	padding-top: 9px;
+	padding-bottom: 9px;
+}
+
+.body .form .form_login .content_form .btn-lateral .icon_download{
+	display: block;
+	background: url(../img/icon_download.png) no-repeat 95% 50%;
+}
+
+.title_content_box{
+	font-size: 26px;
+	font-weight: bold;
+	color: #1f2a69;
+	padding: 22px 0 22px 33px;
+}
+
+.title_content_box img{
+	margin-right: 15px;
+}
+
+.titulo_contenido_equipo{
+	font-size: 24px;
+	text-align: center;
+	padding: 0 40px 45px 40px;
+}
+
+.inputs_seccion_equipo{
+	padding-bottom: 75px;
+}
+
+.final_seccion_equipo{
+	font-size: 22px;
+	text-align: center;
+	border-top: 3px dotted #f6de34;
+}
+
+.final_seccion_equipo .texto_final_equipo{
+	padding: 45px 80px 35px 80px;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_equipo{
+	padding: 75px 45px 40px 45px;
+	min-height: 730px;
+}
+
+.mi_equipo .content{
+	max-width: 1246px;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo{
+	padding: 35px 45px;
+	max-height: 730px;
+	overflow-x: auto;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .rpta{
+	color: #59595b;
+	padding: 0px 5px 10px 10px;
+	border-bottom: 2px dotted #f6de34;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .lista_miembros_equipo .table_div{
+	margin-top: 20px;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .lista_miembros_equipo .cell_div{
+	color: #58585a;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .lista_miembros_equipo .cell_div.div_ia_icon{
+	width: 62px;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .imagen_perfil_miembro{
+	width: 52px;
+	height: 52px;
+	border: 3px solid #1f2a69;
+
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	overflow: hidden;
+
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .lista_miembros_equipo{
+	padding-bottom: 45px;
+}
+
+.personaje_derecha_fixed{
+	width: 160px;
+	position: fixed;
+	bottom: 0;
+	right: 1%;
+	z-index: 3;
+}
+
+.tabla_crear_equipo{
+	padding-top: 40px;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .imagen_equipo{
+	border: 1px solid #cecad1;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	overflow: hidden;
+	height: 160px;
+	position: relative;
+	text-align: center;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo label{
+	text-transform: uppercase;
+}
+
+.tabla_crear_equipo .table,
+.tabla_crear_equipo .table thead,
+.tabla_crear_equipo .table-bordered>thead>tr>td,
+.tabla_crear_equipo .table-bordered>thead>tr>th{
+	border-bottom-width: 1px;
+}
+
+.tabla_crear_equipo .table thead tr.filtros td{
+	padding: 0;
+}
+
+.tabla_crear_equipo .table thead tr.filtros td input{
+	outline: none!important;
+	border: none;
+	padding: 0 5% 0 35px;
+	width: 100%;
+	color: #cecad1;
+	font-weight: bold;
+	background: white url(../img/icon_search_input.jpg) no-repeat 10px 50%;
+}
+
+.tabla_crear_equipo .table thead tr.filtros td input::-webkit-input-placeholder {
+   color: #cecad1;
+}
+
+.tabla_crear_equipo .table thead tr.filtros td input:-moz-placeholder { /* Firefox 18- */
+   color: #cecad1;
+}
+
+.tabla_crear_equipo .table thead tr.filtros td input::-moz-placeholder {  /* Firefox 19+ */
+   color: #cecad1;
+}
+
+.tabla_crear_equipo .table thead tr.filtros td input:-ms-input-placeholder {
+   color: #cecad1;
+}
+
+.tabla_crear_equipo .table thead tr.cabecera_tabla td{
+	background: #5e6798;
+	color: white;
+	font-weight: bold;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .imagen_equipo a{
+	display: inline-block;
+	margin-top: 45px;
+	color: #1f2a69;
+}
+
+.grid_box_line_blue .box_content.contenido_seccion_crear_equipo .imagen_equipo input{
+	position: absolute;
+	top: -10000px;
+}
+
+.grid_box_line_blue .box_content .ia_icon{
+	color: white;
+	background: #1f2a69;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	overflow: hidden;
+	width: 32px;
+	height: 32px;
+	font-size: 14px;
+	line-height: 32px;
+	font-weight: bold;
+	display: inline-block;
+	text-align: center;
+	border: 1px solid #1f2a69;
+	margin-top: 5px;
+	margin-right: 10px;
+}
+
+.grid_box_line_blue .box_content .ia_icon:hover{
+	background: white;
+	color: #1f2a69;
+	text-decoration: none;
 }
 
 .registro .body .form .form_login .content_form input{
@@ -131,7 +508,7 @@ header .logo{
 	padding-right: 11px;
 }
 
-.registro .body .form .form_login .content_form select{
+.body .form .form_login .content_form select{
 	height: 40px;
 	color: #555;
 }
@@ -163,8 +540,7 @@ header .logo{
 	top: -1000px;
 }
 
-.login .body .form .form_login .content_form .line_separator,
-.registro .body .form .form_login .content_form .line_separator{
+.body .form .form_login .content_form .line_separator{
 	width: 100%;
 	border-top: 1px dotted #1f2a69;
 	padding-bottom: 15px;

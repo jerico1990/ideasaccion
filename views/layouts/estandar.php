@@ -57,7 +57,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <link href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
   
     <!-- Bootstrap Material Design -->
-    <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/bootstrap-material-design.css" rel="stylesheet">
+    <!--<link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/bootstrap-material-design.css" rel="stylesheet">-->
     <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/ripples.min.css" rel="stylesheet">
 
     <!-- Dropdown.js -->
@@ -86,6 +86,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     </header>
     <div class="body content">
         <div class="form">
+            <form class="form_login">
                 <div class="content_form">
                     <div class="row">
                         <div class="col-md-3">
@@ -98,7 +99,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                         <div class="table_div">
                                             <div class="row_div">
                                                 <div class="cell_div cell_image">
-                                                    <div class="image_grupo" style="background-image: url(../img/image_profile.jpg);"></div>
+                                                    <div class="image_grupo" style="background-image: url(../foto_personal/<?= $usuario->avatar?>);"></div>
                                                 </div>
                                                 <div class="cell_div cell_info">
                                                     <div class="cell_info_content">
@@ -247,6 +248,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                         </div>
                     </div>
                 </div>
+            </form>
         </div>
     </div>
 <!-- Open source code -->
