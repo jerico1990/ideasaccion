@@ -37,15 +37,15 @@ use yii\widgets\Pjax;
             <div class="right_photo">
                 <div class="txt_upload">
                     <div class="logo form-group label-floating field-registrar-foto required" style="margin-top: 15px">
-                         <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen($(this))"/>
-                         <img id="img_destino" class="" style="height: 80px;width: 80px;cursor: pointer" src="../foto_personal/no_disponible.jpg">
+                         <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen(this)"/>
+                         <img id="img_destino" class="" style="height: 130px;width: 120px;cursor: pointer" src="../foto_personal/no_disponible.jpg">
                     </div>
                 </div>
             </div>
             <div class="left">
                 <div class="form-group label-floating field-registrar-nombres required" style="margin-top: 15px">
                     <label for="registrar-nombres" class="control-label">Nombres</label>
-                    <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" required/>
+                    <input style="padding-bottom: 0px;padding-top: 0px;height: 30px" type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" required/>
                 </div>
                 <div class="last_name">
                     <div class="form-group label-floating field-registrar-apellido_paterno required left" style="margin-top: 15px">
@@ -88,7 +88,7 @@ use yii\widgets\Pjax;
                 </div>
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-fecha_nac required form-control-wrapper" style="margin-top: 15px">
-                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="registrar-fecha_nac" class="form-control label-floating" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento">
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;color: #BDBDBD" type="date" id="registrar-fecha_nac" class="form-control label-floating" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento">
                     </div>
                 </div>
             </div>
@@ -217,13 +217,13 @@ use yii\widgets\Pjax;
     
     
     function Imagen(elemento) {
-        var ext = elemento.val().split('.').pop().toLowerCase();
+        var ext = $(elemento).val().split('.').pop().toLowerCase();
         var error='';
         if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
             error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
         }
         if (error!='') {
-            /*$.notify({
+            $.notify({
                 message: error
             },{
                 // settings
@@ -233,11 +233,13 @@ use yii\widgets\Pjax;
                         from: 'bottom',
                         align: 'right'
                 },
-            });*/
+            });
             //fileupload = $('#equipo-foto_img');  
             //fileupload.replaceWith($fileupload.clone(true));
-            elemento.replaceWith(elemento.val('').clone(true));
-            //$('#equipo-foto_img').val('');
+            //elemento.replaceWith(elemento.val('').clone(true));
+            $('#registrar-foto').val('');
+            //$('#img_destino').val('');
+            $('#img_destino').attr('src', '../foto_personal/no_disponible.jpg');
             return false;
         }
         else
@@ -256,7 +258,7 @@ use yii\widgets\Pjax;
             reader.readAsDataURL(input.files[0]);
         }
     }
-    
+    /*
     $("#registrar-foto").change(function(){
         var ext = $('#registrar-foto').val().split('.').pop().toLowerCase();
         var error='';
@@ -275,6 +277,8 @@ use yii\widgets\Pjax;
                         align: 'right'
                 },
             });
+            console.log("aa");
+            $('#registrar-foto').val('');
             return false;
         }
         else
@@ -285,9 +289,9 @@ use yii\widgets\Pjax;
         
         
     });
+    */
     
-    
-    $('#registrar-fecha_nac').bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
+    //$('#registrar-fecha_nac').bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
     $('#registrar-password').focusout(function() {
         if($(this).val()!='')
         {

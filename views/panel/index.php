@@ -40,11 +40,22 @@ if($integrante)
 $btninscribir=$integrante
 ?>
 
+<div class="box_head title_content_box">
+    <img src="../img/icon_team_big.jpg" alt="">MI EQUIPO
+</div>
+<div class="box_content contenido_seccion_equipo">
+    
+
+
 <?php if(!$integrante) { ?>
-    <h1><b>Mi equipo</b></h1>
     <?php if(!$invitaciones){ ?>
-    <p class="text-center">No tienes invitaciones activas de otros equipos,</p>
-    <p class="text-center">te invitamos a ser el coordinador de un equipo.</p>
+    
+    
+    <div class="texto_final_equipo">
+        <p class="text-center"><b>No tienes invitaciones activas de otros equipos,</b></p>
+        <p class="text-center"><b>te invitamos a ser el coordinador de un equipo.</b></p>
+    </div>
+    
     <?php } else { ?>
     <p class="text-center">Haz recibido invitaciones para ser parte de otros equipos,</p>
     <p class="text-center">revisalas y confirma tu participacion</p>
@@ -88,7 +99,6 @@ $btninscribir=$integrante
 <?php } ?>
 
 <?php if($integrante){ ?>
-<h1><b>Mi equipo</b></h1>
 <div class="col-xs-12 col-sm-3 col-md-3"></div>
 <div class="col-xs-12 col-sm-4 col-md-4">
     <h4 style="margin-bottom: 0px;padding-bottom: 0px"><label>Nombre de tu equipo:</label> </h4>
@@ -198,23 +208,29 @@ $btninscribir=$integrante
 <?php } ?>
 <?php if(!$equipo->descripcion_equipo){?>
 <?php }?>
+    <div class="final_seccion_equipo">
+        <div class="row">
+            
+        <?php
+        if(!$integrante)
+        {
+        echo '<div class="col-md-4">
 
-<div class="text-center">
-<?php
-if(!$integrante)
-{
-    echo "<br>";
-echo Html::a('Crea tu equipo',['inscripcion/index'],['class'=>'btn btn-raised btn-success']);
-}
-if( $integrante && $integrante->rol==1 && $integrante->estado==1)
-{
-echo Html::a('Actualizar equipo',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-raised btn-success']);
-echo " <button class='btn btn-raised btn-success' onclick='dejarequipo(".$estudiante->id.")'>Cancelar equipo</button>";
-echo " <button class='btn btn-raised btn-success' onclick='finalizarequipo(".$integrante->equipo_id.")'>Finalizar equipo</button>";
-}
-?>
+            </div>';
+        echo '<div class="col-md-4">';
+        echo Html::a('Crea tu equipo',['inscripcion/index'],['class'=>'btn btn-default btn-raised ']);
+        echo '</div>';
+        }
+        if( $integrante && $integrante->rol==1 && $integrante->estado==1)
+        {
+        echo Html::a('Actualizar equipo',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-raised btn-success']);
+        echo " <button class='btn btn-raised btn-success' onclick='dejarequipo(".$estudiante->id.")'>Cancelar equipo</button>";
+        echo " <button class='btn btn-raised btn-success' onclick='finalizarequipo(".$integrante->equipo_id.")'>Finalizar equipo</button>";
+        }
+        ?>
+    </div>
+
 </div>
-
 
 <?php
     $unirme= Yii::$app->getUrlManager()->createUrl('equipo/unirme');

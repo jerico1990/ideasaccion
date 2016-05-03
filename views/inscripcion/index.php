@@ -12,35 +12,57 @@ if($equipo->id)
     $equipoid=$equipo->id;
 }
 ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        (function ($) {
+            $('#filtrar_nombres').keyup(function () {
+                var rex = new RegExp($(this).val(), 'i');
+                $('.buscar tr').hide();
+                $('.buscar tr').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            });
+            
+            $('#filtrar_grado').keyup(function () {
+                var rex = new RegExp($(this).val(), 'i');
+                $('.buscar tr').hide();
+                $('.buscar tr').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            })
+        }(jQuery));
+    });
+  </script>
 
+<div class="box_head title_content_box">
+    <img src="../img/icon_team_big.jpg" alt="">MI EQUIPO
+</div>
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
-<h1>Mi equipo</h1>
-<hr class="colorgraph">
+<div class="box_content contenido_seccion_crear_equipo">
+
     <div class="row">
-        <div class="row col-xs-12 col-sm-8 col-md-8">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group label-floating field-equipo-descripcion_equipo required" style="margin-top: 15px">
-                    <label class="control-label" for="equipo-descripcion_equipo">Nombre de equipo</label>
-                    <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" value="<?= $equipo->descripcion_equipo?>" type="text" id="equipo-descripcion_equipo" class="form-control texto" name="Equipo[descripcion_equipo]">
-                </div>
+        <div class="col-md-9">
+            <div class="form-group label-floating field-equipo-descripcion_equipo required" style="margin-top: 15px">
+                <label class="control-label" for="equipo-descripcion_equipo">Nombre de equipo</label>
+                <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" value="<?= $equipo->descripcion_equipo?>" type="text" id="equipo-descripcion_equipo" class="form-control texto" name="Equipo[descripcion_equipo]">
             </div>
-            <div class="clearfix"></div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group label-floating field-equipo-descripcion required" style="margin-top: 15px">
-                    <label class="control-label" for="equipo-descripcion">Danos una breve descripción de tu equipo</label>
-                    <textarea  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="equipo-descripcion" class="form-control" name="Equipo[descripcion]"><?= $equipo->descripcion?></textarea>
+            <div class="form-group label-floating field-equipo-descripcion required" style="margin-top: 15px">
+                <label class="control-label" for="equipo-descripcion">Danos una breve descripción de tu equipo</label>
+                <textarea  id="equipo-descripcion" class="form-control" name="Equipo[descripcion]" cols="30" rows="3"><?= $equipo->descripcion?></textarea>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for=""> </label>
+                <div class="imagen_equipo">
+                    <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="equipo-foto_img" class="form-control file" name="Equipo[foto_img]" onchange="Imagen(this)">
+                    <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 80px;width: 80px;align:center;cursor: pointer"]) ?>
                 </div>
             </div>
         </div>
-        <div class="row col-xs-12 col-sm-4 col-md-4 text-center">
-            <div class="form-group label-floating field-equipo-foto_img required text-center" style="margin-top: 15px">
-                
-                <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="equipo-foto_img" class="form-control file" name="Equipo[foto_img]" onchange="Imagen($(this))">
-                <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 80px;width: 80px;align:center;cursor: pointer"]) ?>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="col-xs-12 col-sm-7 col-md-5">
+    </div>
+    <div class="row">
+        <div class="col-md-10">
             <div class="form-group label-floating field-equipo-asunto_id required" style="margin-top: 15px">
                 <label class="control-label" for="equipo-asunto_id">Selecciona el Asunto de Público sobre el que trabajará tu equipo</label>
                 <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="equipo-asunto_id" class="form-control" name="Equipo[asunto_id]">
@@ -59,54 +81,68 @@ if($equipo->id)
                             }
                         }
                     ?>
-                    
                 </select>
             </div>
         </div>
-        
-        <div class="clearfix"></div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-        <p>Selecciona a los miembros de tu equipo.</p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <b class="uppercase">Selecciona a los miembros de tu equipo:</b>
         </div>
-        <div class="clearfix"></div>
-    
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            
-                <table class="table table-striped table-hover">
-                    <tbody>
-                        <tr>
-                            <th class="text-center"></th>
-                            <th>Apellidos y Nombre</th>
-                            <th>Grado</th>
-                        </tr>
-                            <?php
-                                $i=1;
-                                foreach($estudiantes as $estudiante)
-                                {
-                                    echo "<tr>
-                                            <td class='text-center'><div class='checkbox'><label><input name='Equipo[invitaciones][]' type='checkbox' value='$estudiante->id' onclick='validar($estudiante->id,$equipoid,$(this))'><span class='checkbox-material'></span></label></div></td>
-                                            
-                                            <td style='vertical-align:middle'>$estudiante->nombres $estudiante->apellido_paterno $estudiante->apellido_materno</td>
-                                            <td style='vertical-align:middle'>$estudiante->grado</td>
-                                    </tr>";
-                                     
-                                    $i++;
-                                }
-                            ?>
-                           
-                            
-                            
-                       
-                    </tbody>
-                </table>
-           
+    </div>
+    <div class="row tabla_crear_equipo">
+        <div class="col-md-12">
+            <table class="table table-bordered" height="100px !important">
+                <thead>
+                    <tr class="filtros">
+                            <td width="6%"> </td>
+                            <td width="60%" class="filtros">
+                                    <input id="filtrar_nombres" type="text"  placeholder="Filtro 01" class="">
+                            </td>
+                            <td width="34%" class="filtros">
+                                    <input id="filtrar_grado" type="text" placeholder="Filtro 02" class="">
+                            </td>
+                    </tr>
+                    <tr class="cabecera_tabla">
+                            <td> </td>
+                            <td>Apellidos y Nombres</td>
+                            <td align="center">Grados</td>
+                    </tr>
+                </thead>
+
+                <tbody class="buscar">
+                    <?php
+                        $i=1;
+                        foreach($estudiantes as $estudiante)
+                        {
+                            echo "<tr>
+                                    <td><div class='checkbox'><label><input name='Equipo[invitaciones][]' type='checkbox' value='$estudiante->id' onclick='validar($estudiante->id,$equipoid,$(this))'><span class='checkbox-material'></span></label></div></td>
+                                    
+                                    <td style='vertical-align:middle'>$estudiante->nombres $estudiante->apellido_paterno $estudiante->apellido_materno</td>
+                                    <td align='center' style='vertical-align:middle'> $estudiante->grado</td>
+                            </tr>";
+                             
+                            $i++;
+                        }
+                    ?>
+                </tbody>
+            </table>
         </div>
-        <div class="clearfix"></div>
-        <div class="modal-footer">
-           <button type="submit" id="btnequipo" class="btn btn-raised btn-success"><?= $equipo->isNewRecord ? Yii::t('app', 'Crear equipo') : Yii::t('app', 'Modificar equipo') ?></button>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+
         </div>
-    <?php ActiveForm::end(); ?>
-</div> 
+        <div class="col-md-4">
+                <button type="submit" id="btnequipo" class="btn btn-raised btn-default"><?= $equipo->isNewRecord ? Yii::t('app', 'Crea tu equipo') : Yii::t('app', 'Modifica tu equipo') ?></button>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
+<?php ActiveForm::end(); ?>
+
 
 
 
@@ -128,6 +164,8 @@ if($equipo->id)
 ?>
 
 <script>
+   
+                  
     function mostrarImagen(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -139,13 +177,13 @@ if($equipo->id)
     }
     
     function Imagen(elemento) {
-        var ext = elemento.val().split('.').pop().toLowerCase();
+        var ext = $(elemento).val().split('.').pop().toLowerCase();
         var error='';
         if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
             error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
         }
         if (error!='') {
-            /*$.notify({
+            $.notify({
                 message: error
             },{
                 // settings
@@ -155,20 +193,22 @@ if($equipo->id)
                         from: 'bottom',
                         align: 'right'
                 },
-            });*/
+            });
             //fileupload = $('#equipo-foto_img');  
             //fileupload.replaceWith($fileupload.clone(true));
-            elemento.replaceWith(elemento.val('').clone(true));
-            //$('#equipo-foto_img').val('');
+            //elemento.replaceWith(elemento.val('').clone(true));
+            $('#equipo-foto_img').val('');
+            $('#img_destino').attr('src', '../foto_equipo/no_disponible.jpg');
+            
             return false;
         }
         else
         {
-            mostrarImagen($('#equipo-foto_img'));
+            mostrarImagen(elemento);
             return true;
         }
     }
-    
+    /*
     $("#equipo-foto_img").change(function(){
         var ext = $('#equipo-foto_img').val().split('.').pop().toLowerCase();
         var error='';
@@ -199,7 +239,7 @@ if($equipo->id)
             return true;
         }
         
-    });
+    });*/
     
     var contador=<?= $invitacionContador ?>;
     
