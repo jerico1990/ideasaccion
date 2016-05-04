@@ -81,7 +81,7 @@ class RegistrarController extends Controller
                 
                 $usuario=new Usuario;
                 $usuario->username=$registrar->email;
-                $usuario->password=$registrar->password;
+                $usuario->password=crypt($registrar->password,"ideasenaccion");
                 $usuario->status=1;
                 $usuario->estudiante_id=$estudiante->id;
                 $usuario->save();

@@ -31,7 +31,7 @@ z-index:10;
 <!--
 <div class="col-lg-12 col-md-12 col-sm-12 visible-lg-block visible-md-block visible-sm-block">
     <div id="14" style="width: 100px;height: 100px;background: black;color: white">
-	<a href="#aboutModal" class="lima btn btn-circle btn-success">L</a>
+	<a href="#aboutModal" class="lima btn btn-circle btn-default">L</a>
 	<div class="po-content hidden">
 	    <div class="po-title">
 		Región Lima

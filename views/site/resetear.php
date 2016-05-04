@@ -47,7 +47,7 @@ use yii\web\JsExpression;
             <div class="clearfix"></div>
             <div class="col-lg-12 col-md-12 col-xs-12">
                 <div class="form-group pull-right">
-                   <button id="ingresar" type="submit" class="btn btn-raised btn-success">Ingresar</button>
+                   <button id="ingresar" type="submit" class="btn btn-raised btn-default">Ingresar</button>
                 </div>
             </div>
             <div class="clearfix"></div>

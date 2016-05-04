@@ -40,7 +40,7 @@ use yii\widgets\Pjax;
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-success pull-right']) ?>
+            <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-default pull-right']) ?>
         </div>
     </div>
     <div class="clearfix"></div>

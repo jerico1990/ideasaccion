@@ -74,65 +74,62 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
 
 <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+<link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     <?php $this->head() ?>
 </head>
-<body class="skin-blue">
-<?php $this->beginBody() ?>
-<div class="wrapper">
-      <header class="main-header">
-        <!-- Logo -->
-        <a href="index2.html" class="logo"><?= Html::img('../images/logo_ministerio_educacion.png',['class'=>'img-responsive logo', 'alt'=>'Responsive image']) ?></a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-        </nav>
-      </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-          <!-- Sidebar user panel -->
-          <div class="user-panel">
-            <div class="pull-left image">
-              <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
-            </div>
-            <div class="pull-left info">
-                <p style="font-size: 12px" class="pull-left">Administrador</p>
-                <br>
-              <!--<a href="#"><i class="fa fa-circle text-success"></i> En linea</a>-->
-            </div>
-            <br>
-            <div class="pull-right">
-                <?= Html::a('Cerrar sesión',['login/logout'],['class'=>'']);?>
-            </div>
-          </div>
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-            <li class="header">Menú</li>
-            
-          </ul>
-        </section>
-        <!-- /.sidebar -->
-      </aside>
-
-      <!-- Right side column. Contains the navbar and content of the page -->
-      <div class="content-wrapper" style="background-color: white !important">
-        <section class="content">
-        <?= $content ?>
-        </section>
-      </div><!-- /.content-wrapper -->
-      <!--<footer class="main-footer">
-        <div class="pull-right hidden-xs">
-         
+<body class="mi_equipo">
+    <?php $this->beginBody() ?>
+    <img src="../img/personaje_derecha_mi_equipo.png" class="personaje_derecha_fixed" alt="" />
+    <header>
+        <div class="franja_amarilla"></div>
+        <div class="content">
+            <a href="#" class="logo">
+                    <img src="../img/logo.jpg" alt="" />
+            </a>
         </div>
-        
-      </footer>-->
-    </div><!-- ./wrapper -->
-
+    </header>
+    <div class="body content">
+        <div class="form">
+            <div class="form_login">
+                <div class="content_form">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="grid_box_line_blue">
+                                <div class="box_head link_close">
+                                    <?= Html::a('Cerrar sesión <b>X</b>',['login/logout']);?>
+                                </div>
+                                <div class="box_content">
+                                    <div class="mis_datos">
+                                        <div class="table_div">
+                                            <div class="row_div">
+                                                <div class="cell_div cell_image">
+                                                    <div class="image_grupo" style="background-image: url(../foto_personal/<?= $usuario->avatar?>);"></div>
+                                                </div>
+                                                <div class="cell_div cell_info">
+                                                    <div class="cell_info_content">
+                                                        <b class="uppercase">Administrador</b>
+                                                    </div>
+                                                    <div class="line_separator"></div>
+                                                    <div class="cell_info_content">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="grid_box_line_blue">
+                                <?= $content ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
 <?php $this->endBody() ?>
 <!-- Open source code -->

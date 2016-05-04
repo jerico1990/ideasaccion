@@ -14,22 +14,23 @@ if($votacionpublica || $etapa->etapa!=3)
 }
 ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<br>
-<div class="col-md-4 col-lg-4 col-xs-12"></div>
-<div class="col-md-4 col-lg-4 col-xs-12">
+<div class="box_head title_content_box">
+    <img src="../img/icon_team_big.jpg" alt="">Acciones
+</div>
+<div class="box_content contenido_seccion_equipo">
     <div class="panel panel-default">
         <div class="panel-heading">Acciones</div>
         <div class="panel-body text-center">
             <div class="clearfix"></div>
-            <button class="btn btn-raised btn-success" id="cerrarvoto" <?= $resultados?'disabled':'' ?>>cerrar votación</button>
+            <button class="btn btn-raised btn-default" id="cerrarvoto" <?= $resultados?'disabled':'' ?>>cerrar votación</button>
             <div class="clearfix"></div><p></p>
-            <button class="btn btn-raised btn-success" id="cerrar1entrega" <?= ($etapa->etapa!=1 || !$resultados)?'disabled':'' ?> >cerrar 1era entrega</button>
+            <button class="btn btn-raised btn-default" id="cerrar1entrega" <?= ($etapa->etapa!=1 || !$resultados)?'disabled':'' ?> >cerrar 1era entrega</button>
             <div class="clearfix"></div><p></p>
-            <button class="btn btn-raised btn-success" id="cerrar2entrega" <?= ($etapa->etapa!=2)?'disabled':'' ?> >cerrar 2da entrega</button>
+            <button class="btn btn-raised btn-default" id="cerrar2entrega" <?= ($etapa->etapa!=2)?'disabled':'' ?> >cerrar 2da entrega</button>
             <div class="clearfix"></div><p></p>
-            <?= Html::a('Votación interna',['votacioninterna'],['id'=>'btnvotacioninterna','class'=>'btn btn-raised btn-success','disabled'=>$disabled]); ?>
+            <?= Html::a('Votación interna',['votacioninterna'],['id'=>'btnvotacioninterna','class'=>'btn btn-raised btn-default','disabled'=>$disabled]); ?>
             <div class="clearfix"></div><p></p>
-            <button class="btn btn-raised btn-success" id="cerrarvotacioninterna" <?= ($votacionpublica || $etapa->etapa!=3)?'disabled':'' ?> >cerrar votación interna</button>
+            <button class="btn btn-raised btn-default" id="cerrarvotacioninterna" <?= ($votacionpublica || $etapa->etapa!=3)?'disabled':'' ?> >cerrar votación interna</button>
         </div>
     </div>
 </div>

@@ -10,15 +10,23 @@ $this->title = $model->titulo;
 $this->params['breadcrumbs'][] = ['label' => 'Foros', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $usuario=$model->usuario;
-$posts = $model->posts;
+$posts = $model->getPosts($model->id);
 ?>
-<div class="foro-view">
+<div class="box_head title_content_box">
+    <img src="../img/icon_team_big.jpg" alt=""> <?= ($model->id==2)?'Foro de participación estudiantil':'Foro de asunto público' ?> 
+</div>
+<div class="box_content contenido_seccion_equipo">
+    <?php if($model->id==2){ ?>
+        <p class="text-justify">Te invitamos a ser parte del foro de participación estudiantil, comentanos tu experiencia en el concurso</p>
+            
+    <?php }elseif($model->id>=3 && $model->id<=35) { ?>
+        <h1><?= Html::encode($this->title) ?></h1>
+        <h3><?= $model->asunto->descripcion_corta ?></h3>
+        <p class="text-justify"><?= $model->asunto->descripcion_larga ?></p>
+    <?php }else{ ?>
+        <h1><?= Html::encode($this->title) ?></h1>
+    <?php } ?>
     
-    <article class="thread-view">
-        <header class="thread-head">
-            <h1><?= Html::encode($this->title) ?></h1>
-        </header>
-    </article>
     
     <?= $this->render('_posts', [
             'posts'=>$posts['posts'],
@@ -27,6 +35,7 @@ $posts = $model->posts;
             'postCount' => $model->post_count //评论数
         ]);
     ?>
+    <!--
     <article class="thread-view">
         <header class="thread-head">
             <div class="thread-info">
@@ -35,7 +44,7 @@ $posts = $model->posts;
                 </div>
             </div>
         </header>
-    </article>
+    </article>-->
     <!-- Post Form Begin -->
         <?= $this->render('/foro-comentario/_form',[
                 'model'=>$newComentario,

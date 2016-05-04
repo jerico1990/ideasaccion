@@ -36,33 +36,38 @@ use yii\widgets\Pjax;
         <div class="content_form">
             <div class="right_photo">
                 <div class="txt_upload">
-                    <div class="logo form-group label-floating field-registrar-foto required" >
-                         <input type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen(this)"/>
+                    <div class="logo form-group label-floating field-registrar-foto required" style="margin-top: 15px">
+                         <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen(this)"/>
                          <img id="img_destino" class="" style="height: 130px;width: 120px;cursor: pointer" src="../foto_personal/no_disponible.jpg">
                     </div>
                 </div>
             </div>
             <div class="left">
-                <div class="form-group label-floating field-registrar-nombres required" >
-                    <input  type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" placeholder="Nombres" required/>
+                <div class="form-group label-floating field-registrar-nombres required" style="margin-top: 15px">
+                    <label for="registrar-nombres" class="control-label">Nombres</label>
+                    <input style="padding-bottom: 0px;padding-top: 0px;height: 30px" type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" required/>
                 </div>
                 <div class="last_name">
-                    <div class="form-group label-floating field-registrar-apellido_paterno required left" >
-                        <input  type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_paterno" class="form-control texto"  placeholder="Apellido paterno" name="Registrar[apellido_paterno]" required/>
+                    <div class="form-group label-floating field-registrar-apellido_paterno required left" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-apellido_paterno">Apellido paterno</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_paterno" class="form-control texto" name="Registrar[apellido_paterno]" required/>
                     </div>
-                    <div class="form-group label-floating field-registrar-apellido_materno required right" >
-                        <input  onpaste="return false;" onCopy="return false" id="registrar-apellido_materno" class="form-control texto" name="Registrar[apellido_materno]" placeholder="Apellido materno" required/>
+                    <div class="form-group label-floating field-registrar-apellido_materno required right" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-apellido_materno">Apellido materno</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_materno" class="form-control texto" name="Registrar[apellido_materno]" required/>
                     </div>
                     <div class="clear"></div>
-                    <div class="form-group label-floating field-registrar-sexo required left">
-                        <select  id="registrar-sexo" class="form-control" name="Registrar[sexo]" required/>
-                            <option value="">Sexo</option>
+                    <div class="form-group label-floating field-registrar-sexo required left" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-sexo">Sexo</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-sexo" class="form-control" name="Registrar[sexo]" required/>
+                            <option value=""></option>
                             <option value="F">Femenino</option>
                             <option value="M">Masculino</option>
                         </select>
                     </div>
-                    <div class="form-group label-floating field-registrar-dni required right" >
-                        <input  type="text" onpaste="return false;" onCopy="return false" id="registrar-dni" class="form-control numerico" placeholder="DNI" name="Registrar[dni]" maxlength="8">
+                    <div class="form-group label-floating field-registrar-dni required right" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-dni">DNI</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-dni" class="form-control numerico" name="Registrar[dni]" maxlength="8">
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -70,43 +75,48 @@ use yii\widgets\Pjax;
             <div class="clear"></div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="form-group label-floating field-registrar-email required" >
-                        <input  placeholder="Correo electrónico" type="email" onpaste="return false;" onCopy="return false" id="registrar-email" class="form-control" name="Registrar[email]">
+                    <div class="form-group label-floating field-registrar-email required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-email">Correo electrónico</label>
+                        <input  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="email" onpaste="return false;" onCopy="return false" id="registrar-email" class="form-control" name="Registrar[email]">
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group label-floating field-registrar-celular required" >
-                        <input placeholder="Número de celular" type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" >
+                    <div class="form-group label-floating field-registrar-celular required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-celular">Número de celular</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" >
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group field-registrar-fecha_nac required " >
-                        <input  type="date" id="registrar-fecha_nac" class="form-control " name="Registrar[fecha_nac]">
+                    <div class="form-group label-floating field-registrar-fecha_nac required form-control-wrapper" style="margin-top: 15px">
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;color: #BDBDBD" type="date" id="registrar-fecha_nac" class="form-control label-floating" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group label-floating field-registrar-password required" >
-                        <input placeholder="Contraseña"  type="password" onpaste="return false;" onCopy="return false" id="registrar-password" class="form-control" name="Registrar[password]">
+                    <div class="form-group label-floating field-registrar-password required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-password">Contraseña</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="password" onpaste="return false;" onCopy="return false" id="registrar-password" class="form-control" name="Registrar[password]">
                     </div>      
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group label-floating field-registrar-repassword required" >
-                        <input placeholder="Repetir Contraseña"  type="password" onpaste="return false;" onCopy="return false" id="registrar-repassword" class="form-control" name="Registrar[repassword]">
+                    <div class="form-group label-floating field-registrar-repassword required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-repassword">Repetir Contraseña</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="password" onpaste="return false;" onCopy="return false" id="registrar-repassword" class="form-control" name="Registrar[repassword]">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12" id="example-progress-bar-container"></div>
+                <!--<div class="col-md-12" id="example-progress-bar-container"></div>-->
             </div>
              <div class="clearfix"></div>
             <div class="line_separator"></div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="form-group label-floating field-registrar-departamento required" >
-                        <select id="registrar-departamento" class="form-control" name="Registrar[departamento]" onchange='departamento($(this).val())'>
-                        <option value="">Departamento</option>
+                    <div class="form-group label-floating field-registrar-departamento required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-departamento">Departamento</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-departamento" class="form-control" name="Registrar[departamento]" onchange='departamento($(this).val())'>
+                        <option value=""></option>
                         <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
                         <option value="<?= $departamento->department_id ?>"><?= $departamento->department ?></option>
                         <?php } ?>
@@ -114,37 +124,42 @@ use yii\widgets\Pjax;
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group label-floating field-registrar-provincia required" >
-                        <select  id="registrar-provincia" class="form-control" name="Registrar[provincia]" onchange='provincia($(this).val())'>
-                        <option value="">Provincia</option>
+                    <div class="form-group label-floating field-registrar-provincia required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-provincia">Provincia</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-provincia" class="form-control" name="Registrar[provincia]" onchange='provincia($(this).val())'>
+                        <option value=""></option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group label-floating field-registrar-distrito required " >
-                        <select  id="registrar-distrito" class="form-control" name="Registrar[distrito]" onchange='distrito($(this).val())'>
-                            <option value="">Distrito</option>
+                    <div class="form-group label-floating field-registrar-distrito required " style="margin-top: 15px">
+                        <label class="control-label" for="registrar-distrito">Distrito</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-distrito" class="form-control" name="Registrar[distrito]" onchange='distrito($(this).val())'>
+                            <option value=""></option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group label-floating field-registrar-institucion required" >
-                        <select  id="registrar-institucion" class="form-control" name="Registrar[institucion]">
-                            <option value="">Institución</option>
+                    <div class="form-group label-floating field-registrar-institucion required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-institucion">Institución</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-institucion" class="form-control" name="Registrar[institucion]">
+                            <option value=""></option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group label-floating field-registrar-grado required">
-                        <select  id="registrar-grado" class="form-control" name="Registrar[grado]">
-                            <option value="">Grado de estudios</option>
+                    <div class="form-group label-floating field-registrar-grado required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-grado">Grado de estudios</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
+                            <option value=""></option>
                             <option value="1">1er</option>
                             <option value="2">2do</option>
                             <option value="3">3ro</option>
                             <option value="4">3to</option>
                             <option value="5">5to</option>
+                            <option value="6">Docente</option>
                         </select>
                     </div>
                 </div>

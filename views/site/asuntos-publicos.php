@@ -113,7 +113,7 @@ Hay un listado de 33 asuntos públicos. Cada uno debe tener:
 <br>
 <?php } ?>
 <br>
-<a href="resultados" class="btn btn-small btn-success">Resultados</a>
+<a href="resultados" class="btn btn-small btn-default">Resultados</a>
 <br><br>
 <?= $this->render('_mobile') ?>
 

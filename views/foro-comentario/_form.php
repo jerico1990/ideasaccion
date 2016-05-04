@@ -12,11 +12,16 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-   
-    <textarea id="foro_comentario-contenido" name="ForoComentario[contenido]" class="textarea" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid rgb(221, 221, 221); padding: 10px; " ></textarea>
+    <div class="form-group label-floating">
+        <label class="control-label " for="foro_comentario-contenido">Ingrese comentario</label>
+        <textarea id="foro_comentario-contenido" name="ForoComentario[contenido]" class="textarea form-control" style="width: 100%; height: 80px; font-size: 14px; line-height: 18px; padding: 10px; " ></textarea>
+    </div>
     
-    <?= Html::submitButton(Yii::t('app', 'Comentar'), ['id'=>'btncomentar','class' => 'btn btn-raised btn-success']) ?>
-
+    
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+    <?= Html::submitButton(Yii::t('app', 'Comentar'), ['id'=>'btncomentar','class' => 'btn btn-raised btn-default']) ?>
+    </div>
     <?php ActiveForm::end(); ?>
 
 </div>

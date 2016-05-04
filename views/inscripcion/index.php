@@ -87,12 +87,12 @@ if($equipo->id)
     </div>
     <div class="row">
         <div class="col-md-12">
-            <b class="uppercase">Selecciona a los miembros de tu equipo:</b>
+            <b>Selecciona a los miembros de tu equipo:</b>
         </div>
     </div>
     <div class="row tabla_crear_equipo">
         <div class="col-md-12">
-            <table class="table table-bordered" height="100px !important">
+            <table id="estudiantes" class="table table-bordered" >
                 <thead>
                     <tr class="filtros">
                             <td width="6%"> </td>

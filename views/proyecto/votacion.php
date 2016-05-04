@@ -42,7 +42,7 @@ use yii\widgets\Pjax;
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-success pull-right']) ?>
+            <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-default pull-right']) ?>
         </div>
     </div>
     <div class="clearfix"></div>
@@ -97,7 +97,7 @@ use yii\widgets\Pjax;
         <?php } ?>
     </table>
     <?php if (!$votacionesinternasfinalizadasCount){?>
-    <button type="button" id="btnfinalizarvotacion" class="btn btn-raised btn-success pull-right">Finalizar votación</button>
+    <button type="button" id="btnfinalizarvotacion" class="btn btn-raised btn-default pull-right">Finalizar votación</button>
     <?php } ?>
 </div>
 <div class="clearfix"></div>

@@ -10,7 +10,7 @@ if (isset($_GET['page']) >= 2)
 ?>
 <section class="posts">
     <div class="post-title">
-        <h3><?= Yii::t('app', '{postCount} comentarios', ['postCount' => $postCount]) ?></h3>
+        <!--<h3><?= Yii::t('app', '{postCount} comentarios', ['postCount' => $postCount]) ?></h3>-->
     </div>
     <div id="post-list">
         <?php foreach($posts as $post):
@@ -18,19 +18,21 @@ if (isset($_GET['page']) >= 2)
             ?>
             <div class="row post-item">
                 <div class="col-sm-12">
-                    <div class="post-meta">
-                        <span class="glyphicon glyphicon-user"></span> <?= $post['nombres']." ".$post['apellido_paterno'] ?>
-                        &nbsp;•&nbsp;
+                    <div class="post-content" >
+                        <?= HtmlPurifier::process($post['contenido']) ?>
+                    </div>
+                    <div class="post-meta pull-right">
+                        Comentario de <?= $post['nombres']." ".$post['apellido_paterno'] ?> hace <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?>
+                        <!--<span class="glyphicon glyphicon-user"></span> <?= $post['nombres']." ".$post['apellido_paterno'] ?>-->
+                        <!--&nbsp;•&nbsp;
                         <span class="post-time">
                             <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?>
                         </span>
                         <a class="floor-number" id="<?= $floor_number ?>" href="#<?= $floor_number ?>">
                            <span class="badge"><?= $floor_number ?>#</span>
-                        </a>
+                        </a>-->
                     </div>
-                    <div class="post-content">
-                        <?= HtmlPurifier::process($post['contenido']) ?>
-                    </div>
+                    
                 </div>
             </div>
         <?php endforeach; ?>

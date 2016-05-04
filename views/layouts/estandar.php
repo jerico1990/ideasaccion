@@ -42,6 +42,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    
     <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -57,7 +58,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <link href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
   
     <!-- Bootstrap Material Design -->
-    <!--<link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/bootstrap-material-design.css" rel="stylesheet">-->
+    <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/bootstrap-material-design.css" rel="stylesheet">
     <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/ripples.min.css" rel="stylesheet">
 
     <!-- Dropdown.js -->
@@ -69,7 +70,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 
     <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700' rel='stylesheet' type='text/css'>
-        <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+        
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     <?php $this->head() ?>
 </head>
@@ -86,7 +87,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     </header>
     <div class="body content">
         <div class="form">
-            <form class="form_login">
+            <div class="form_login">
                 <div class="content_form">
                     <div class="row">
                         <div class="col-md-3">
@@ -189,7 +190,11 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                         <ul class="treeview-menu">
                                         <?php foreach($foros as $foro): ?>
                                             <?php if($foro->id==2 || ($integrante && $foro->asunto_id==$equipo->asunto_id)){?>
-                                            <li><?= Html::a("$foro->titulo",['foro/view','id'=>$foro->id],[]);?></li>
+                                                <?php if($foro->id==2){ ?>
+                                                    <li><?= Html::a("Foro de participación estudiantil",['foro/view','id'=>$foro->id],[]);?></li>
+                                                <?php }else { ?>
+                                                    <li><?= Html::a("Foro de asunto público",['foro/view','id'=>$foro->id],[]);?></li>
+                                                <?php } ?>
                                             <?php } ?>
                                         <?php endforeach; ?>
                                         </ul>
@@ -248,7 +253,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 <!-- Open source code -->

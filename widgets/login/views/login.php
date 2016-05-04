@@ -35,23 +35,23 @@ use yii\web\JsExpression;
     </div>
     <div class="content_form">
         <div class="content_form">
-            <div class="form-group label-floating field-loginform-username required" >
-                
-                <input type="email" id="loginform-username" class="form-control" name="LoginForm[username]" placeholder="Correo electrónico">
+            <div class="form-group label-floating field-loginform-username required" style="margin: 0px">
+                <label class="control-label" for="loginform-username" style="text-align:left !important">Correo electrónico</label>
+                <input type="email" id="loginform-username" class="form-control" name="LoginForm[username]">
             </div>
-            <div class="form-group label-floating field-loginform-password required" >
-                
-                <input type="password" id="loginform-password" class="form-control" name="LoginForm[password]" placeholder="Contraseña">
+            <div class="form-group label-floating field-loginform-password required" style="margin: 0px">
+                <label class="control-label text-left" for="loginform-password" style="text-align:left !important">Contraseña</label>
+                <input type="password" id="loginform-password" class="form-control" name="LoginForm[password]">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin: 0px">
                <button id="ingresar" type="submit" class="btn btn-default">Ingresar</button>
             </div>
             <?php if($tipo==2 && $resultados){ ?>
-            <div class="form-group olvide_contrasena text-center">
+            <div class="form-group olvide_contrasena text-center" style="margin: 0px">
                 <u><?= Html::a('¿Olvido su contraseña?',['site/recuperar'],['class'=>'']);?></u>
             </div>
             <div class="line_separator"></div>
-            <div class="form-group no_apuntado text-center">
+            <div class="form-group no_apuntado text-center" style="margin: 0px">
             <p>¿Aún no te has apuntado?</p>
             <?= Html::a('Regístrate',['registrar/index'],['class'=>'btn btn-default']);?>
             </div>

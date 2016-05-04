@@ -61,8 +61,12 @@ class Foro extends \yii\db\ActiveRecord
         return $this->hasOne(Usuario::className(), ['id' => 'user_id']);
     }
     
+    public function getAsunto()
+    {
+        return $this->hasOne(Asunto::className(), ['id' => 'asunto_id']);
+    }
     
-    public function getPosts()
+    public function getPosts($id)
     {
         $query = new Query;
         $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno')
@@ -70,7 +74,16 @@ class Foro extends \yii\db\ActiveRecord
             ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
             ->join('INNER JOIN','{{%estudiante}} as es', 'es.id=u.estudiante_id')
             ->where('p.foro_id=:id', [':id' => $this->id]);
-        $result = Yii::$app->tools->Pagination($query,10);
+            
+        
+        
+        if($id==2){
+            $result = Yii::$app->tools->Pagination($query,5);
+        }elseif($id>=3 && $id<=35) {
+            $result = Yii::$app->tools->Pagination($query,3);
+        } else{
+            $result = Yii::$app->tools->Pagination($query,5);
+        }
         return ['posts' => $result['result'], 'pages' => $result['pages']];
     }
 }

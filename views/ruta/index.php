@@ -10,6 +10,7 @@ use app\models\Integrante;
 use app\models\VotacionInterna;
 
 ?>
+
 <h1>Ruta</h1>
 <div class="col-md-12">
     <h2>I. Equipo</h2>

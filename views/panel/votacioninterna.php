@@ -35,7 +35,7 @@ use yii\widgets\Pjax;
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-success']) ?>
+            <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-default']) ?>
         </div>
     </div>
     <div class="clearfix"></div>

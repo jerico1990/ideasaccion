@@ -45,7 +45,15 @@ class ProyectoWidget extends Widget
                     
             $countActividades1=count(array_filter($proyecto->actividades_1));
             $countActividades2=count(array_filter($proyecto->actividades_2));
-            $countActividades3=count(array_filter($proyecto->actividades_3));
+            if(isset($proyecto->actividades_3))
+            {
+                $countActividades3=count(array_filter($proyecto->actividades_3));
+            }
+            else
+            {
+                $countActividades3=0;
+            }
+            
             
             if($proyecto->objetivo_especifico_1!=='')
             {
@@ -81,7 +89,7 @@ class ProyectoWidget extends Widget
                 }
             }
             
-            if($proyecto->objetivo_especifico_3!=='')
+            if($countActividades3>0)
             {
                 $objetivoespecifico3=new ObjetivoEspecifico;
                 $objetivoespecifico3->proyecto_id=$proyecto->id;
