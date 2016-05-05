@@ -173,7 +173,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     <?php }?>
                                     <!--Fin mi proyecto-->
                                     <!--Foro-->
-                                    <?php if ($integrante && $equipo){ ?>
+                                    <?php if ($integrante && $equipo && $estudiante->grado!=6){ ?>
                                     <li>
                                         <a href="#">
                                             <div class="table_div">
@@ -201,7 +201,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     </li>
                                     <?php } ?>
                                     <!--Fin Foro-->
-                                    <?php if($integrante && $equipo && $proyecto && ($integrante->rol==1 || $integrante->rol==2)){ ?>
+                                    <?php if($integrante && $equipo && $proyecto && ($integrante->rol==1 || $integrante->rol==2) && $estudiante->grado!=6){ ?>
                                         <?php if($integrante && $equipo && $proyecto && ($equipo->etapa==1 || $equipo->etapa==2 || $equipo->etapa==3)){?>
                                         <li><?= Html::a('<div class="table_div">
                                                 <div class="row_div">
@@ -228,8 +228,22 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                             </div>',['entrega/segunda'],[]);?>
                                         </li>
                                         <?php }?>
+                                        
+                                        <?php if($integrante && $equipo && $etapa2 && ($equipo->etapa==1 || $equipo->etapa==2) && $estudiante->grado!=6){?>
+                                        <li><?= Html::a('<div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_delivery"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Búsqueda de proyectos <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>',['proyecto/buscar'],[]);?>
+                                        </li>
+                                        <?php }?>
+                                        
                                     <?php } ?>
-                                    
                                 </ul>
                             </div>
     

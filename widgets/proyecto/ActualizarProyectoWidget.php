@@ -18,6 +18,7 @@ use app\models\Cronograma;
 use app\models\Video;
 use app\models\VideoCopia;
 use app\models\Etapa;
+use app\models\Estudiante;
 use app\models\ForoComentario;
 use app\models\Foro;
 
@@ -38,6 +39,7 @@ class ActualizarProyectoWidget extends Widget
         $newComentario = new ForoComentario();
         $usuario=Usuario::findOne(\Yii::$app->user->id);
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+        $estudiante=Estudiante::find()->where('id=:id',[':id'=>$integrante->estudiante_id])->one();
         $equipo=Equipo::findOne($integrante->equipo_id);
         $disabled='';
         if($integrante->rol==2)
@@ -93,7 +95,11 @@ class ActualizarProyectoWidget extends Widget
                     ->where('proyecto_id=:proyecto_id and actividad.estado=1 and objetivo_especifico.id=:id',[':proyecto_id'=>$proyecto->id,':id'=>$proyecto->objetivo_especifico_3_id])->all();
                     
         $reflexion=Reflexion::find()->where('proyecto_id=:proyecto_id and user_id=:user_id',[':user_id'=>$usuario->id,':proyecto_id'=>$proyecto->id])->one();
-        $proyecto->reflexion=$reflexion->reflexion;
+        if($reflexion)
+        {
+            $proyecto->reflexion=$reflexion->reflexion;
+        }
+        
         //var_dump($proyecto->reflexion);die;
         if($equipo->etapa==1 || $equipo->etapa==2)
         {
@@ -104,9 +110,15 @@ class ActualizarProyectoWidget extends Widget
         
         
         if ($proyecto->load(\Yii::$app->request->post())) {
+            
+            if($reflexion)
+            {
+                $reflexion->reflexion=$proyecto->reflexion;
+                $reflexion->update();
+            }
+            
             //var_dump(\Yii::$app->request->post());die;
-            $reflexion->reflexion=$proyecto->reflexion;
-            $reflexion->update();
+            
             $proyecto->update();
             if(!$proyecto->actividades_1)
             {
@@ -406,7 +418,8 @@ class ActualizarProyectoWidget extends Widget
                               'videoprimera'=>$videoprimera,
                               'videosegunda'=>$videosegunda,
                               'entrega'=>$this->entrega,
-                              'etapa'=>$etapa]);
+                              'etapa'=>$etapa,
+                              'estudiante'=>$estudiante]);
     }
     
     public function rename_win($oldfile,$newfile) {

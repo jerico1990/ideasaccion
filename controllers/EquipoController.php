@@ -274,9 +274,13 @@ class EquipoController extends Controller
     
     public function actionFinalizarequipo($id)
     {
-        $integrante=Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$id])->count();
-        //var_dump($integrante);die;
-        if($integrante>=4)
+        $integrantesEstudiantes=Integrante::find()
+                                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                                ->where('integrante.equipo_id=:equipo_id and estudiante.grado!=6',[':equipo_id'=>$id])->count();
+        $integrantesDocentes=Integrante::find()
+                                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                                ->where('integrante.equipo_id=:equipo_id and estudiante.grado=6',[':equipo_id'=>$id])->count();
+        if($integrantesEstudiantes>=4 && $integrantesDocentes==1)
         {
             $equipo=Equipo::findOne($id);
             $equipo->estado=1;
@@ -291,10 +295,47 @@ class EquipoController extends Controller
             
             echo 1;
         }
-        elseif($integrante<4)
+        elseif($integrantesEstudiantes<4)
         {
             echo 2; 
         }
+        elseif($integrantesDocentes<1)
+        {
+            echo 3; 
+        }
+    }
+    
+    public function actionFinalizarequipovalidar($id)
+    {
+        $bandera=0;
+        $integrantesEstudiantes=Integrante::find()
+                                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                                ->where('integrante.equipo_id=:equipo_id and estudiante.grado!=6',
+                                        [':equipo_id'=>$id])->count();
+                             
+        $integrantesDocentes=Integrante::find()
+                                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                                ->where('integrante.equipo_id=:equipo_id and estudiante.grado=6',
+                                        [':equipo_id'=>$id])->count();
+                                
+        if($integrantesEstudiantes>=4 && $integrantesDocentes==1)
+        {
+            $bandera=1;
+        }
+        elseif($integrantesEstudiantes<4 && $integrantesDocentes<1)
+        {
+            $bandera=4; 
+        }
+        elseif($integrantesEstudiantes<4)
+        {
+            $bandera=2; 
+        }
+        elseif($integrantesDocentes<1)
+        {
+            $bandera=3;
+        }
+        
+        echo $bandera;
     }
     
     public function actionValidarintegrante2()
@@ -329,14 +370,26 @@ class EquipoController extends Controller
             $equipo=$lider_integrante->equipo_id;
         }
         
-        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante])->one();
-        $invitacion=Invitacion::find()->where('estudiante_invitado_id=:estudiante_invitado_id and estado=1 and equipo_id=:equipo_id ',
-                                              [':estudiante_invitado_id'=>(integer) $estudiante,':equipo_id'=>(integer) $equipo])->one();
+        $integrante=Integrante::find()
+                    ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                    ->where('integrante.estudiante_id=:estudiante_id and estudiante.grado!=6',
+                            [':estudiante_id'=>$estudiante])
+                    ->one();
+        $invitacion=Invitacion::find()
+                    ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_id')
+                    ->where('invitacion.estudiante_invitado_id=:estudiante_invitado_id and
+                            invitacion.estado=1 and invitacion.equipo_id=:equipo_id and estudiante.grado!=6',
+                            [':estudiante_invitado_id'=>(integer) $estudiante,
+                            ':equipo_id'=>(integer) $equipo])->one();
         
-        $invitacionContador=Invitacion::find()->where('estado=1 and equipo_id=:equipo_id ',
+        $invitacionContador=Invitacion::find()
+                            ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_id')
+                            ->where('invitacion.estado=1 and invitacion.equipo_id=:equipo_id and estudiante.grado!=6',
                                               [':equipo_id'=>(integer) $equipo])->count();
         
-        $integranteContador=Integrante::find()->where('equipo_id=:equipo_id ',
+        $integranteContador=Integrante::find()
+                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                            ->where('integrante.equipo_id=:equipo_id and estudiante.grado!=6',
                                               [':equipo_id'=>(integer) $equipo])->count();
         $invitacionContador=$invitacionContador+$integranteContador;
         $bandera=0;
@@ -349,7 +402,7 @@ class EquipoController extends Controller
         {
             $bandera=2;
         }
-        if($invitacionContador>=5)
+        if($invitacionContador>=6)
         {
             $bandera=3;
         }
@@ -357,6 +410,56 @@ class EquipoController extends Controller
         echo $bandera;
     }
     
+    public function actionValidarinvitacioneintegrantedocente($docente,$equipo)
+    {
+        $lider=Usuario::findOne(\Yii::$app->user->id);
+        
+        $lider_integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$lider->estudiante_id])->one();
+        
+        if($lider_integrante && $equipo==0)
+        {
+            $equipo=$lider_integrante->equipo_id;
+        }
+        
+        $integrante=Integrante::find()
+                    ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                    ->where('integrante.estudiante_id=:estudiante_id and estudiante.grado=6',
+                            [':estudiante_id'=>$docente])
+                    ->one();
+        $invitacion=Invitacion::find()
+                    ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_id')
+                    ->where('invitacion.estudiante_invitado_id=:estudiante_invitado_id and
+                            invitacion.estado=1 and invitacion.equipo_id=:equipo_id and estudiante.grado=6',
+                            [':estudiante_invitado_id'=>(integer) $docente,
+                            ':equipo_id'=>(integer) $equipo])->one();
+        
+        $invitacionContador=Invitacion::find()
+                            ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_id')
+                            ->where('invitacion.estado=1 and equipo_id=:equipo_id and estudiante.grado=6',
+                                              [':equipo_id'=>(integer) $equipo])->count();
+        
+        $integranteContador=Integrante::find()
+                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                            ->where('integrante.equipo_id=:equipo_id and estudiante.grado=6',
+                                              [':equipo_id'=>(integer) $equipo])->count();
+        $invitacionContador=$invitacionContador+$integranteContador;
+        $bandera=0;
+        if($integrante)
+        {
+            $bandera=1;
+        }
+        
+        if($invitacion)
+        {
+            $bandera=2;
+        }
+        if($invitacionContador>=2)
+        {
+            $bandera=3;
+        }
+        
+        echo $bandera;
+    }
     
     public function actionValidarinvitacioneintegrante2()
     {

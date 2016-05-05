@@ -83,12 +83,20 @@ class ProyectoPrimeraEntregaWidget extends Widget
                     ->where('proyecto_id=:proyecto_id and actividad_copia.estado=1 and objetivo_especifico_copia.id=:id  and actividad_copia.etapa=1',[':proyecto_id'=>$proyecto->id,':id'=>$proyecto->objetivo_especifico_3_id])->all();
                     
         $reflexion=Reflexion::find()->where('proyecto_id=:proyecto_id and user_id=:user_id',[':user_id'=>$usuario->id,':proyecto_id'=>$proyecto->id])->one();
-        $proyecto->reflexion=$reflexion->reflexion;
+        if($reflexion)
+        {
+            $proyecto->reflexion=$reflexion->reflexion;
+        }
+        
         //var_dump($proyecto->reflexion);die;
         if($equipo->etapa==1 || $equipo->etapa==2)
         {
             $evaluacion=Evaluacion::find()->where('proyecto_id=:proyecto_id and user_id=:user_id',[':user_id'=>$usuario->id,':proyecto_id'=>$proyecto->id])->one();
-            $proyecto->evaluacion=$evaluacion->evaluacion;
+            if($evaluacion)
+            {
+                $proyecto->evaluacion=$evaluacion->evaluacion;
+            }
+            
         }
         
         

@@ -43,8 +43,10 @@ $acti3=0;
                 <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Presupuesto</a></li>
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi Video</a></li>
+                <?php if($estudiante->grado!=6){?>
                 <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
-                <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
+                <?php } ?>
+                <?php if(($etapa->etapa==2 || $etapa->etapa==3) && $estudiante->grado!=6){ ?>
                 <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>
                 <li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Foro</a></li>
                 <?php } ?>
@@ -108,7 +110,7 @@ $acti3=0;
                             <div id="mostrar_oe_actividades">
                                 <div id="oe_1" class='col-xs-12 col-sm-12 col-md-12'>
                                     <?php if($proyecto->objetivo_especifico_1){ ?>
-                                        <li><b><?= $proyecto->objetivo_especifico_1 ?></b> <button type='button' onclick='Editar(1)'>editar</button></li>
+                                        <li><b><?= $proyecto->objetivo_especifico_1 ?></b> <?= ($disabled=='disabled')?'':"<button type='button' onclick='Editar(1)'>editar</button>" ?>  </li>
                                             <input type='hidden' value='<?= $proyecto->objetivo_especifico_1 ?>' name='Proyecto[objetivo_especifico_1]'>
                                         <ul>
                                             <?php foreach($actividades as $actividad){ ?>
@@ -124,7 +126,7 @@ $acti3=0;
                                 
                                 <div id="oe_2" class='col-xs-12 col-sm-12 col-md-12'>
                                     <?php if($proyecto->objetivo_especifico_2){  ?>
-                                        <li><b><?= $proyecto->objetivo_especifico_2 ?></b> <button type='button' onclick='Editar(2)'>editar</button></li>
+                                        <li><b><?= $proyecto->objetivo_especifico_2 ?></b> <?= ($disabled=='disabled')?'':"<button type='button' onclick='Editar(2)'>editar</button>" ?> </li>
                                             <input type='hidden' value='<?= $proyecto->objetivo_especifico_2 ?>' name='Proyecto[objetivo_especifico_2]'>
                                         <ul>
                                             <?php foreach($actividades as $actividad){ ?>
@@ -140,7 +142,7 @@ $acti3=0;
                                 
                                 <div id="oe_3" class='col-xs-12 col-sm-12 col-md-12'>
                                     <?php if($proyecto->objetivo_especifico_3) { ?>
-                                        <li><b><?= $proyecto->objetivo_especifico_3 ?></b> <button type='button' onclick='Editar(3)'>editar</button></li>
+                                        <li><b><?= $proyecto->objetivo_especifico_3 ?></b> <?= ($disabled=='disabled')?'':"<button type='button' onclick='Editar(3)'>editar</button>" ?> </li>
                                             <input type='hidden' value='<?= $proyecto->objetivo_especifico_3 ?>' name='Proyecto[objetivo_especifico_3]'>
                                         <ul>
                                             <?php foreach($actividades as $actividad){ ?>
@@ -340,7 +342,7 @@ $acti3=0;
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
             
-        <?php if($entrega!=1){ ?>    
+        <?php if($entrega!=1 && $estudiante->grado!=6){ ?>    
             <?php if($disabled=='' && $equipo->etapa==0){ ?>
             <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
             <button type="submit" id="btnproyecto" class="btn btn-raised btn-default">Guardar</button>
@@ -848,11 +850,25 @@ $acti3=0;
     
     function MostrarOeActividades() {
         oe=<?= ($contoe+1) ?>;
+        var oe_es_1=$('input[name=\'Proyecto[objetivo_especifico_1]\']').length;
+        var oe_es_2=$('input[name=\'Proyecto[objetivo_especifico_2]\']').length;
+        var oe_es_3=$('input[name=\'Proyecto[objetivo_especifico_3]\']').length;
+        
         var body="";
         var error='';
         var temp_objetivo_especifico=$("#proyecto-temp_objetivo_especifico").val();
         var temp_actividades=$('input[name=\'Proyecto[temp_actividades][]\']').length;
         var bodyactividades="";
+        
+        if (oe_es_1>0) {
+            oe=2;
+        }
+        
+        if (oe_es_2>0) {
+            oe=3;
+        }
+        
+        
         if(jQuery.trim(temp_objetivo_especifico)=='')
         {
             error=error+'Ingrese descripción en Objetivo especifico <br>';
@@ -1041,7 +1057,7 @@ $acti3=0;
             //console.log($("#proyecto-actividades_ids_"+oe+"_"+acti+"").val());
             input="";
             if ($("#proyecto-actividades_ids_"+oe+"_"+acti+"").length > 0) {
-                input="<input id='proyecto-actividades_ids_"+oe+"_"+acti+"' type='hidden' name='Proyecto[actividades_ids][]' value='"+$("#proyecto-actividades_ids_"+oe+"_"+acti+"").val()+"' >";
+                input="<input id='proyecto-actividades_ids_"+oe+"_"+acti+"' type='hidden' name='Proyecto[actividades_ids_"+oe+"][]' value='"+$("#proyecto-actividades_ids_"+oe+"_"+acti+"").val()+"' >";
             }
             
             bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>"+

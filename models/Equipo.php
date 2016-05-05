@@ -25,6 +25,7 @@ class Equipo extends \yii\db\ActiveRecord
     public $participante;
     public $id_participante;
     public $invitaciones;
+    public $invitaciones_docente;
     public $tipo;
     public $foto_img;
     public static function tableName()
@@ -40,7 +41,7 @@ class Equipo extends \yii\db\ActiveRecord
         return [
             [['asunto_id','descripcion_equipo','descripcion'], 'required'],
             [['asunto_id', 'estado','id','tipo'], 'integer'],
-            [['fecha_registro','invitaciones'], 'safe'],
+            [['fecha_registro','invitaciones','invitaciones_docente'], 'safe'],
             [['descripcion_equipo'], 'string', 'max' => 250],
             [['descripcion'], 'string', 'max' => 500],
             [['foto_img'], 'file'],

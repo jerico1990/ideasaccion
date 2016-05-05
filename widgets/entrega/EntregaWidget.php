@@ -59,25 +59,27 @@ class EntregaWidget extends Widget
                
         $asuntosprivados=Integrante::find()
                 ->innerJoin('usuario','usuario.estudiante_id=integrante.estudiante_id')
-                ->where('integrante.equipo_id=:equipo_id and usuario.id not in (select user_id from foro_comentario where foro_id=2)',[':equipo_id'=>$integrante->equipo_id])
+                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id and usuario.id not in (select user_id from foro_comentario where foro_id=2)',[':equipo_id'=>$integrante->equipo_id])
                 ->all();
         $errorasuntoprivado='';
         foreach($asuntosprivados as $asuntoprivado)
         {
-            $errorasuntoprivado='Falta comentar en el foro de "Asuntos Privados" ha '.$asuntoprivado->estudiante->nombres.' '.$asuntoprivado->estudiante->apellido_paterno.' '.$asuntoprivado->estudiante->apellido_materno.' <br>'.$errorasuntoprivado;
+            $errorasuntoprivado='Falta comentar en el "Foro de Participación estudiantil" ha '.$asuntoprivado->estudiante->nombres.' '.$asuntoprivado->estudiante->apellido_paterno.' '.$asuntoprivado->estudiante->apellido_materno.' <br>'.$errorasuntoprivado;
         }
         
         $asuntospublicos=Integrante::find()
                 ->innerJoin('usuario','usuario.estudiante_id=integrante.estudiante_id')
+                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
-                ->where('integrante.equipo_id=:equipo_id and usuario.id not in
+                ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id and usuario.id not in
                         (select foro_comentario.user_id from foro inner join foro_comentario on foro.id=foro_comentario.foro_id
                             where foro.asunto_id=equipo.asunto_id)',[':equipo_id'=>$integrante->equipo_id])
                 ->all();
         $errorasuntopublico='';
         foreach($asuntospublicos as $asuntopublico)
         {
-            $errorasuntopublico='Falta comentar en el foro de "Asuntos Públicos" ha '.$asuntopublico->estudiante->nombres.' '.$asuntopublico->estudiante->apellido_paterno.' '.$asuntopublico->estudiante->apellido_materno.' <br>'.$errorasuntopublico;
+            $errorasuntopublico='Falta comentar en el "Foro de Asunto Público" ha '.$asuntopublico->estudiante->nombres.' '.$asuntopublico->estudiante->apellido_paterno.' '.$asuntopublico->estudiante->apellido_materno.' <br>'.$errorasuntopublico;
             
         }
         
@@ -104,7 +106,8 @@ class EntregaWidget extends Widget
         
         $recomendaciones=Integrante::find()
                 ->innerJoin('usuario','usuario.estudiante_id=integrante.estudiante_id')
-                ->where('integrante.equipo_id=:equipo_id and usuario.id not in (select user_id from foro_comentario where foro_id>35)',[':equipo_id'=>$integrante->equipo_id])
+                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id and usuario.id not in (select user_id from foro_comentario where foro_id>35)',[':equipo_id'=>$integrante->equipo_id])
                 ->all();
         $errorrecomendaciones='';
         foreach($recomendaciones as $recomendacion)

@@ -35,10 +35,10 @@ if($integrante)
                 ORDER BY AA.orden ASC,AA.ROL ASC
                 
                ");
-    $equipoinvitaciones = $command->queryAll();
+    $equipoeinvitaciones = $command->queryAll();
     $integrantestotales=[];
     //cont=0;
-    foreach($equipoinvitaciones as $equipoinvitacion)
+    foreach($equipoeinvitaciones as $equipoinvitacion)
     {
         array_push($integrantestotales,['nombres'=>$equipoinvitacion['nombres']." ".$equipoinvitacion['apellido_paterno']." ".$equipoinvitacion['apellido_materno'],'grado'=>$equipoinvitacion['grado'],'avatar'=>$equipoinvitacion['avatar']]);
     }
@@ -112,23 +112,25 @@ $btninscribir=$integrante
                 </tbody>
             </table>
         </div>
-
-        <div class="final_seccion_equipo">
-            <div class="texto_final_equipo">
-                <b>Si no te gusta ninguno de los equipos puedes crear el tuyo</b>
+        <?php if($estudiante->grado!=6){ ?>
+            <div class="final_seccion_equipo">
+                <div class="texto_final_equipo">
+                    <b>Si no te gusta ninguno de los equipos puedes crear el tuyo</b>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+    
+                    </div>
+                    <div class="col-md-4">
+                        <?= Html::a('Crea tu equipo',['inscripcion/index'],['class'=>'btn btn-default btn-raised ']); ?>
+                    </div>
+                    <div class="col-md-4">
+    
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-
-                </div>
-                <div class="col-md-4">
-                    <?= Html::a('Crea tu equipo',['inscripcion/index'],['class'=>'btn btn-default btn-raised ']); ?>
-                </div>
-                <div class="col-md-4">
-
-                </div>
-            </div>
-        </div>
+        <?php } ?>
+        
     </div>
     
     <?php } ?>
@@ -201,7 +203,7 @@ $btninscribir=$integrante
                             echo    "<tr>
                                         <td>".$equipoeinvitacion['nombres']." ".$equipoeinvitacion['apellido_paterno']." ".$equipoeinvitacion['apellido_materno']."</td>";
                             
-                            echo "<td>".$equipoeinvitacion['email']."</td>";
+                            echo    "<td>".$equipoeinvitacion['email']."</td>";
                                         
                             if($integrante->rol==1)
                             {
@@ -210,14 +212,24 @@ $btninscribir=$integrante
                                     echo    "<td>Coordinador</td>
                                             <td></td>";
                                 }
-                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==1)
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==1 && $equipoeinvitacion['grado']!=6)
                                 {
                                     echo    "<td>Integrante</td>
                                             <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='eliminarintegrante(".$equipoeinvitacion['estudiante_id'].")'></div></td>";
                                 }
-                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==2)
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==2 && $equipoeinvitacion['grado']!=6)
                                 {
                                     echo    "<td>Integrante</td>
+                                            <td></td>";
+                                }
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==1 && $equipoeinvitacion['grado']==6)
+                                {
+                                    echo    "<td>Docente</td>
+                                            <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='eliminarintegrante(".$equipoeinvitacion['estudiante_id'].")'></div></td>";
+                                }
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==2 && $equipoeinvitacion['grado']==6)
+                                {
+                                    echo    "<td>Docente</td>
                                             <td></td>";
                                 }
                                 elseif($equipoeinvitacion['rol']==0)
@@ -233,19 +245,34 @@ $btninscribir=$integrante
                                     echo    "<td>Coordinador</td>
                                             <td></td>";
                                 }
-                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id && $equipoeinvitacion['estado']==1)
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id && $equipoeinvitacion['estado']==1 && $equipoeinvitacion['grado']!=6)
                                 {
                                     echo    "<td>Integrante</td>
                                             <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='dejarequipo(".$equipoeinvitacion['estudiante_id'].")'></div></td>";
                                 }
-                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id&& $equipoeinvitacion['estado']==2)
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id && $equipoeinvitacion['estado']==2 && $equipoeinvitacion['grado']!=6)
                                 {
                                     echo    "<td>Integrante</td>
                                             <td></td>";
                                 }
-                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']!=$integrante->estudiante_id)
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']!=$integrante->estudiante_id && $equipoeinvitacion['grado']!=6)
                                 {
                                     echo    "<td>Integrante</td>
+                                            <td></td>";
+                                }
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id && $equipoeinvitacion['estado']==1 && $equipoeinvitacion['grado']==6)
+                                {
+                                    echo    "<td>Docente</td>
+                                            <td class='text-center'><div style='color:red;font-size:24px;cursor:pointer'  class='fa fa-times-circle-o fa-6' onclick='dejarequipo(".$equipoeinvitacion['estudiante_id'].")'></div></td>";
+                                }
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id&& $equipoeinvitacion['estado']==2 && $equipoeinvitacion['grado']==6)
+                                {
+                                    echo    "<td>Docente</td>
+                                            <td></td>";
+                                }
+                                elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']!=$integrante->estudiante_id && $equipoeinvitacion['grado']==6)
+                                {
+                                    echo    "<td>Docente</td>
                                             <td></td>";
                                 }
                                 elseif($equipoeinvitacion['rol']==0)
@@ -371,6 +398,7 @@ $btninscribir=$integrante
     $eliminarintegrante= Yii::$app->getUrlManager()->createUrl('equipo/eliminarintegrante');
     $validarequipo= Yii::$app->getUrlManager()->createUrl('equipo/validarequipo');
     $finalizarequipo= Yii::$app->getUrlManager()->createUrl('equipo/finalizarequipo');
+    $finalizarequipovalidar= Yii::$app->getUrlManager()->createUrl('equipo/finalizarequipovalidar');
     $validarparafinalizar= Yii::$app->getUrlManager()->createUrl('equipo/validarparafinalizar');
 ?>
 <script>
@@ -609,6 +637,7 @@ function eliminarintegrante(id) {
 
 function finalizarequipo(id) {
     var texto="";
+    var error="";
     var validarparafinalizar=$.ajax({
         url: '<?php echo $validarparafinalizar ?>',
         type: 'GET',
@@ -616,6 +645,42 @@ function finalizarequipo(id) {
         data: {id:id},
         success: function(data){}
     });
+    
+    var finalizarequipovalidar=$.ajax({
+        url: '<?php echo $finalizarequipovalidar ?>',
+        type: 'GET',
+        async: false,
+        data: {id:id},
+        success: function(data){}
+    });
+    
+    if (finalizarequipovalidar.responseText==2) {
+        error="No tienes la cantidad suficiente de integrantes para finalizar el equipo, deben ser 4 integrantes como mínimo";
+    }
+    else if (finalizarequipovalidar.responseText==3) {
+        error="Necesitas invitar a un docente para finalizar el equipo";
+    }
+    else if (finalizarequipovalidar.responseText==4) {
+        error=  "No tienes la cantidad suficiente de integrantes para finalizar el equipo, deben ser 4 integrantes como mínimo <br>"+
+                "Necesitas invitar a un docente para finalizar el equipo";
+    }
+    
+    if (error!="") {
+        $.notify({
+            // options
+            message: error
+        },{
+            // settings
+            type: 'danger',
+            z_index: 1000000,
+            placement: {
+                    from: 'bottom',
+                    align: 'right'
+            },
+        });//code
+        return false;
+    }
+                
     
     
     if (validarparafinalizar.responseText==1) {
@@ -648,22 +713,6 @@ function finalizarequipo(id) {
                         },
                     });
                 }
-                else if (data==2) {
-                    
-                    $.notify({
-                        // options
-                        message: 'No tiene la cantidad suficiente para finalizar el equipo, deben ser 4 integrantes como mínimo' 
-                    },{
-                        // settings
-                        type: 'danger',
-                        z_index: 1000000,
-                        placement: {
-                                from: 'bottom',
-                                align: 'right'
-                        },
-                    });
-                }
-                
                 setTimeout(function(){
                     window.location.reload(1);
                 }, 2000);

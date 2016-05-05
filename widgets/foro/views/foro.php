@@ -8,10 +8,10 @@ use yii\widgets\DetailView;
 
 $this->title = $model->titulo;
 $usuario=$model->usuario;
-$posts = $model->posts;
+$posts = $model->getPosts($model->id);
 ?>
-<div class="foro-view">
-    
+
+<div class="box_content contenido_seccion_equipo">
     <article class="thread-view">
         <header class="thread-head">
             <h1><?= Html::encode($this->title) ?></h1>
@@ -25,15 +25,6 @@ $posts = $model->posts;
             'postCount' => $model->post_count //???
         ]);
     ?>
-    <article class="thread-view">
-        <header class="thread-head">
-            <div class="thread-info">
-                <div class="pull-right">
-                    <span class="glyphicon glyphicon-comment"></span> <?= $model->post_count ?>
-                </div>
-            </div>
-        </header>
-    </article>
     <!-- Post Form Begin -->
     <?= $this->render('/foro-comentario/_form',[
             'model'=>$newComentario,

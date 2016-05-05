@@ -91,8 +91,7 @@ use yii\web\JsExpression;
         
         
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-               <button type="submit" id="btnproyecto" class="btn btn-raised btn-default">Guardar</button>
-            
+            <button type="submit" id="btnproyecto" class="btn btn-raised btn-default">Guardar</button>
         </div>
     </div>
 </div>
@@ -593,13 +592,6 @@ use yii\web\JsExpression;
     });
     var oe=1;
     var actividad=1;
-    /*
-    $('#objetivo_especifico_general').on('hidden.bs.modal', function (e) {
-        actividad=1;
-        console.log("aa");
-    });*/
-    
-    
     function agregarObjetivoActividad() {        
         
         
@@ -647,7 +639,6 @@ use yii\web\JsExpression;
         var error='';
         //var temp_actividad=$("proyecto-temp_actividad_"+(actividad-1)).val();
         var temp_actividades=$('input[name=\'Proyecto[temp_actividades][]\']').length;
-        console.log(temp_actividades);
         for (var i=1; i<=temp_actividades; i++) {
             if(jQuery.trim($('#proyecto-temp_actividad_'+i).val())=='')
             {
@@ -688,11 +679,24 @@ use yii\web\JsExpression;
     }
     
     function MostrarOeActividades() {
+        //console.log(oe);
+        var oe_es_1=$('input[name=\'Proyecto[objetivo_especifico_1]\']').length;
+        var oe_es_2=$('input[name=\'Proyecto[objetivo_especifico_2]\']').length;
+        var oe_es_3=$('input[name=\'Proyecto[objetivo_especifico_3]\']').length; 
         var body="";
         var error='';
         var temp_objetivo_especifico=$("#proyecto-temp_objetivo_especifico").val();
         var temp_actividades=$('input[name=\'Proyecto[temp_actividades][]\']').length;
         var bodyactividades="";
+        
+        if (oe_es_1>0) {
+            oe=2;
+        }
+        
+        if (oe_es_2>0) {
+            oe=3;
+        }
+        
         if(jQuery.trim(temp_objetivo_especifico)=='')
         {
             error=error+'Ingrese descripción en Objetivo especifico <br>';
@@ -739,7 +743,6 @@ use yii\web\JsExpression;
         
         $("#actividades input").each(function( index ) {
             bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
-            console.log( $( this ).val() );
         });
         
         
@@ -771,7 +774,6 @@ use yii\web\JsExpression;
                                                     "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+a+"' name='Proyecto[temp_actividades_copia][]' class='form-control' value='"+$(this).val()+"'>"+
                                                 "</div>"+
                                             "</div>";
-            console.log(a );
             a++;
         });
         
@@ -799,12 +801,15 @@ use yii\web\JsExpression;
     }
     
     function MostrarOeActividadesCopia(identificador) {
+        
+        
         oe=identificador;
+        
+        
         var body="";
         var error='';
         var temp_objetivo_especifico=$("#proyecto-temp_objetivo_especifico_"+identificador+"").val();
         var temp_actividades=$('input[name=\'Proyecto[temp_actividades_copia][]\']').length;
-        console.log(temp_actividades);
         var bodyactividades="";
         if(jQuery.trim(temp_objetivo_especifico)=='')
         {
@@ -852,7 +857,6 @@ use yii\web\JsExpression;
         
         $("#actividades_copia input").each(function( index ) {
             bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
-            console.log( $( this ).val() );
         });
         
         
@@ -876,7 +880,6 @@ use yii\web\JsExpression;
         var error='';
         //var temp_actividad=$("proyecto-temp_actividad_"+(actividad-1)).val();
         var temp_actividades=$('input[name=\'Proyecto[temp_actividades_copia][]\']').length;
-        console.log(temp_actividades);
         for (var i=1; i<=temp_actividades; i++) {
             if(jQuery.trim($('#proyecto-temp_actividad_'+i).val())=='')
             {

@@ -30,6 +30,14 @@ if($equipo->id)
                     return rex.test($(this).text());
                 }).show();
             })
+            
+            $('#filtrar_nombres_docente').keyup(function () {
+                var rex = new RegExp($(this).val(), 'i');
+                $('.buscar_docente tr').hide();
+                $('.buscar_docente tr').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            });
         }(jQuery));
     });
   </script>
@@ -129,6 +137,45 @@ if($equipo->id)
             </table>
         </div>
     </div>
+    
+    
+    <div class="row tabla_crear_equipo">
+        <div class="col-md-12">
+            <table id="docentes" class="table table-bordered" >
+                <thead>
+                    <tr class="filtros">
+                            <td width="6%"> </td>
+                            <td width="60%" class="filtros">
+                                    <input id="filtrar_nombres_docente" type="text"  placeholder="Filtro 01" class="">
+                            </td>
+                    </tr>
+                    <tr class="cabecera_tabla">
+                            <td> </td>
+                            <td>Apellidos y Nombres</td>
+                    </tr>
+                </thead>
+
+                <tbody class="buscar_docente">
+                    <?php
+                        $i=1;
+                        foreach($docentes as $docente)
+                        {
+                            echo "<tr>
+                                    <td><div class='checkbox'><label><input name='Equipo[invitaciones_docente][]' type='checkbox' value='$docente->id' onclick='validardocente($docente->id,$equipoid,$(this))'><span class='checkbox-material'></span></label></div></td>
+                                    
+                                    <td style='vertical-align:middle'>$docente->nombres $docente->apellido_paterno $docente->apellido_materno</td>
+                                    
+                            </tr>";
+                             
+                            $i++;
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    
     <div class="row">
         <div class="col-md-4">
 
@@ -150,6 +197,7 @@ if($equipo->id)
 <?php
     //$validarintegrante= Yii::$app->getUrlManager()->createUrl('equipo/validarintegrante');
     $validarinvitacioneintegrante= Yii::$app->getUrlManager()->createUrl('equipo/validarinvitacioneintegrante');
+    $validarinvitacioneintegrantedocente= Yii::$app->getUrlManager()->createUrl('equipo/validarinvitacioneintegrantedocente');
     $validarinvitacioneintegrante2= Yii::$app->getUrlManager()->createUrl('equipo/validarinvitacioneintegrante2');
     $validarinvitacioneintegrante5= Yii::$app->getUrlManager()->createUrl('equipo/validarinvitacioneintegrante5');
     $validarintegrante2= Yii::$app->getUrlManager()->createUrl('equipo/validarintegrante2');
@@ -244,6 +292,10 @@ if($equipo->id)
     var contador=<?= $invitacionContador ?>;
     
     var equipo=<?= $invitacionContador ?>;
+    
+    var contadordocente=<?= $invitacionContadorDocente ?>;
+    
+    var equipodocente=<?= $invitacionContadorDocente ?>;
     $( '#btnequipo' ).click(function( event ) {
         var error='';
         var bandera=true;
@@ -386,8 +438,98 @@ if($equipo->id)
     function validar(estudiante,equipo,elemento)
     {
         var invitaciones=($('input[name=\'Equipo[invitaciones][]\']:checked').length) + contador;
-        console.log(invitaciones);
-        if (invitaciones>=6) {
+        
+        if (invitaciones>6) {
+            elemento.prop( "checked", false );
+            $.notify({
+                // options
+                message: 'No puede realizar mas invitaciones' 
+            },{
+                // settings
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                        from: 'bottom',
+                        align: 'right'
+                },
+            });
+            
+            return false;
+        }
+        
+        $.ajax({
+            url: '<?= $validarinvitacioneintegrante ?>',
+            type: 'GET',
+            async: true,
+            data: {estudiante:estudiante,equipo:equipo},
+            success: function(data){
+                if(data==1)
+                {
+                    $.notify({
+                        // options
+                        message: 'Ya pertenece a un equipo ' 
+                    },{
+                        // settings
+                        type: 'danger',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                    setTimeout(function(){
+                        window.location.reload(1);
+                    }, 2000);
+                }
+                else if (data==2)
+                {
+                    $.notify({
+                        // options
+                        message: 'Ya le has enviado una invitación ' 
+                    },{
+                        // settings
+                        type: 'danger',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                    setTimeout(function(){
+                        window.location.reload(1);
+                    }, 2000);
+                }
+                else if (data==3)
+                {
+                    $.notify({
+                        // options
+                        message: 'Solo se permite 5 invitaciones como máximo' 
+                    },{
+                        // settings
+                        type: 'danger',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                    setTimeout(function(){
+                        window.location.reload(1);
+                    }, 2000);
+                }
+                return false;
+            }
+        });
+        return true;
+    }
+    
+    
+    
+    function validardocente(docente,equipo,elemento)
+    {
+        var invitaciones=($('input[name=\'Equipo[invitaciones_docente][]\']:checked').length) + contadordocente;
+        
+        if (invitaciones>=2) {
             elemento.prop( "checked", false );
             $.notify({
                 // options
@@ -405,10 +547,10 @@ if($equipo->id)
         }
         
         $.ajax({
-            url: '<?= $validarinvitacioneintegrante ?>',
+            url: '<?= $validarinvitacioneintegrantedocente ?>',
             type: 'GET',
             async: true,
-            data: {estudiante:estudiante,equipo:equipo},
+            data: {docente:docente,equipo:equipo},
             success: function(data){
                 if(data==1)
                 {

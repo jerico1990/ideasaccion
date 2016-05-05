@@ -65,18 +65,33 @@ class InscripcionController extends Controller
                     ->one();
         
         $estudiantes=Estudiante::find()
-                    ->where('estudiante.institucion_id=:institucion_id and estudiante.id
-                            not in (select estudiante_id from integrante) and estudiante.id!=:id
+                    ->where('estudiante.grado!=6 and estudiante.institucion_id=:institucion_id and estudiante.id
+                            not in (select integrante.estudiante_id from integrante
+                                    inner join estudiante on estudiante.id=integrante.estudiante_id
+                                    where estudiante.grado!=6)
+                            and estudiante.id!=:id
                             ',[':institucion_id'=>$institucion->id,':id'=>$institucion->estudiante_id])
                     ->orderBy('grado asc')->all();
+        
+        
+        $docentes=Estudiante::find()
+                    ->where('estudiante.grado=6 and estudiante.institucion_id=:institucion_id and estudiante.id
+                            not in (select integrante.estudiante_id from integrante
+                                    inner join estudiante on estudiante.id=integrante.estudiante_id
+                                    where estudiante.grado=6)
+                            and estudiante.id!=:id
+                            ',[':institucion_id'=>$institucion->id,':id'=>$institucion->estudiante_id])
+                    ->orderBy('grado asc')->all();
+                    
+                    
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$institucion->estudiante_id])->one();
         if($integrante)
         {
             return $this->redirect(['panel/index']);
         }
         
-        $invitacionContador=0;
-        
+        $invitacionContador=1;
+        $invitacionContadorDocente=0;
         if ($equipo->load(Yii::$app->request->post()) && $equipo->validate() ) {
             $equipo->foto_img = UploadedFile::getInstance($equipo, 'foto_img');
             
@@ -125,6 +140,29 @@ class InscripcionController extends Controller
                     }
                 }
             }
+            
+            if(isset($equipo->invitaciones_docente))
+            {
+                $countInvitaciones=count($equipo->invitaciones_docente);
+                for($i=0;$i<$countInvitaciones;$i++)
+                {
+                    $invitacion=new Invitacion;
+                    $integrante=Integrante::find()
+                    ->select('estudiante.nombres_apellidos')
+                    ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                    ->where('integrante.estudiante_id=:estudiante_id',[':estudiante_id'=>$equipo->invitaciones[$i]])->one();
+                    if(!$integrante)
+                    {
+                        $invitacion->estudiante_id=$institucion->estudiante_id;
+                        $invitacion->equipo_id=$equipo->id;
+                        $invitacion->estudiante_invitado_id=$equipo->invitaciones_docente[$i];
+                        $invitacion->estado=1;
+                        $invitacion->fecha_invitacion=date("Y-m-d H:i:s");
+                        $invitacion->save();
+                    }
+                }
+            }
+            
             if($equipo->foto_img)
             {
                 $equipo->foto_img->saveAs('foto_equipo/' . $equipo->id . '.' . $equipo->foto_img->extension);
@@ -139,7 +177,10 @@ class InscripcionController extends Controller
         return $this->render('index',[
                                       'equipo'=>$equipo,
                                       'estudiantes'=>$estudiantes,
-                                      'invitacionContador'=>$invitacionContador,'institucion'=>$institucion]);
+                                      'invitacionContador'=>$invitacionContador,
+                                      'invitacionContadorDocente'=>$invitacionContadorDocente,
+                                      'institucion'=>$institucion,
+                                      'docentes'=>$docentes]);
     }
     
     public function actionParticipante($q = null) {
@@ -173,23 +214,52 @@ class InscripcionController extends Controller
                     ->one();
                     
         $estudiantes=Estudiante::find()
-                    ->where('estudiante.institucion_id=:institucion_id and estudiante.id
-                            not in (select estudiante_invitado_id from invitacion where estudiante_id='.$institucion->estudiante_id.' and estado=1)
+                    ->where('estudiante.grado!=6 and estudiante.institucion_id=:institucion_id and estudiante.id
+                            not in (select invitacion.estudiante_invitado_id from invitacion
+                                    inner join estudiante on estudiante.id=invitacion.estudiante_invitado_id
+                                    where invitacion.equipo_id='.$equipo->id.' and invitacion.estado=1 and estudiante.grado!=6)
                             and estudiante.id
-                            not in (select estudiante_id from integrante) and estudiante.id!=:id
+                            not in (select estudiante_id from integrante where equipo_id='.$equipo->id.') and estudiante.id!=:id
                             ',[':institucion_id'=>$institucion->id,':id'=>$institucion->estudiante_id])
                     ->orderBy('grado asc')->all();
-        
-        $invitacionContador=Invitacion::find()->where('estado=1 and equipo_id=:equipo_id ',
+                    
+        $docentes=Estudiante::find()
+                    ->where('estudiante.grado=6 and estudiante.institucion_id=:institucion_id and estudiante.id
+                            not in (select invitacion.estudiante_invitado_id from invitacion
+                                    inner join estudiante on estudiante.id=invitacion.estudiante_invitado_id
+                                    where invitacion.equipo_id='.$equipo->id.' and invitacion.estado=1 and estudiante.grado=6)
+                            and estudiante.id
+                            not in (select estudiante_id from integrante where equipo_id='.$equipo->id.') and estudiante.id!=:id
+                            ',[':institucion_id'=>$institucion->id,':id'=>$institucion->estudiante_id])
+                    ->orderBy('grado asc')->all();
+                    
+                    
+                    
+        $invitacionContadorDocente=Invitacion::find()
+                            ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_invitado_id')
+                            ->where('invitacion.estado=1 and invitacion.equipo_id=:equipo_id and estudiante.grado=6',
                                               [':equipo_id'=>$equipo->id])->count();
         
-        $integranteContador=Integrante::find()->where('equipo_id=:equipo_id ',
+        $integranteContadorDocente=Integrante::find()
+                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                            ->where('integrante.equipo_id=:equipo_id and estudiante.grado=6',
+                                              [':equipo_id'=>$equipo->id])->count();
+                            
+        $invitacionContadorDocente=$invitacionContadorDocente+$integranteContadorDocente;                    
+                    
+        $invitacionContador=Invitacion::find()
+                            ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_invitado_id')
+                            ->where('invitacion.estado=1 and invitacion.equipo_id=:equipo_id and estudiante.grado!=6',
+                                              [':equipo_id'=>$equipo->id])->count();
+        
+        $integranteContador=Integrante::find()
+                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                            ->where('integrante.equipo_id=:equipo_id and estudiante.grado!=6',
                                               [':equipo_id'=>$equipo->id])->count();
         
         $invitacionContador=$invitacionContador+$integranteContador;
         if ($equipo->load(Yii::$app->request->post()) && $equipo->validate()) {
             $equipo->foto_img = UploadedFile::getInstance($equipo, 'foto_img');
-            //var_dump($equipo->foto_img);die;
             if($equipo->foto_img)
             {
                 $equipo->foto=$equipo->id. '.' . $equipo->foto_img->extension; 
@@ -215,6 +285,22 @@ class InscripcionController extends Controller
                     $invitacion->save();
                 }
             }
+            
+            if(isset($equipo->invitaciones_docente))
+            {
+                $countInvitaciones=count($equipo->invitaciones_docente);
+                for($i=0;$i<$countInvitaciones;$i++)
+                {
+                    $invitacion=new Invitacion;
+                    $invitacion->estudiante_id=$institucion->estudiante_id;
+                    $invitacion->equipo_id=$equipo->id;
+                    $invitacion->estudiante_invitado_id=$equipo->invitaciones_docente[$i];
+                    $invitacion->estado=1;
+                    $invitacion->fecha_invitacion=date("Y-m-d H:i:s");
+                    $invitacion->save();
+                }
+            }
+            
             if($equipo->foto_img)
             {
                 $equipo->foto_img->saveAs('foto_equipo/' . $equipo->id . '.' . $equipo->foto_img->extension);
@@ -227,7 +313,9 @@ class InscripcionController extends Controller
                                       'equipo'=>$equipo,
                                       'estudiantes'=>$estudiantes,
                                       'invitacionContador'=>$invitacionContador,
-                                      'institucion'=>$institucion]);
+                                      'invitacionContadorDocente'=>$invitacionContadorDocente,
+                                      'institucion'=>$institucion,
+                                      'docentes'=>$docentes]);
     }
 
 }
