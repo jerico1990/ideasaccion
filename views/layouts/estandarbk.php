@@ -12,12 +12,15 @@ use app\models\Integrante;
 use app\models\Equipo;
 use app\models\Proyecto;
 use app\models\Etapa;
+use app\models\Estudiante;
+
 use app\models\Invitacion;
 AppEstandarAsset::register($this);
 if (!\Yii::$app->user->isGuest) {
 $etapa2=Etapa::find()->where('etapa=2')->one();
 $etapa3=Etapa::find()->where('etapa=3')->one();
 $usuario=Usuario::find()->where('id=:id',[':id'=>\Yii::$app->user->id])->one();
+$estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
 //$invitacion=Invitacion::find()->where('equipo_id=:equipo_id and estado=1',[':equipo_id'=>$equipo->id])->one();
 $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
 if($integrante)
@@ -39,135 +42,236 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
-        
-        
-
-  <!-- jQuery -->
-  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-  <!-- Material Design fonts -->
+    
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <title><?= Html::encode($this->title) ?></title>
     <!-- Bootstrap -->
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     
     
     <link href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
   
-  <!-- Bootstrap Material Design -->
-  <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/bootstrap-material-design.css" rel="stylesheet">
-  <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/ripples.min.css" rel="stylesheet">
+    <!-- Bootstrap Material Design -->
+    <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/bootstrap-material-design.css" rel="stylesheet">
+    <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/ripples.min.css" rel="stylesheet">
 
-  <!-- Dropdown.js -->
-  <link href="http://cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
+    <!-- Dropdown.js -->
+    <link href="http://cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
 
-  <!-- Page style -->
-  <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/index.css" rel="stylesheet">
+    <!-- Page style -->
+    <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/index.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
 
-<script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700' rel='stylesheet' type='text/css'>
+        
+    <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     <?php $this->head() ?>
 </head>
-<body class="skin-blue">
-<?php $this->beginBody() ?>
-<div class="wrapper">
-      <header class="main-header">
-        <!-- Logo -->
-        <a href="index2.html" class="logo"><?= Html::img('../images/logo_ministerio_educacion.png',['class'=>'img-responsive logo', 'alt'=>'Responsive image']) ?></a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-        </nav>
-      </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-          <!-- Sidebar user panel -->
-          <div class="user-panel ">
-                <div class="pull-left image col-md-4">
-                    <img src="../foto_personal/<?= $usuario->avatar?>" class="img-circle" alt="User Image" />
-                </div>
-                <div class="pull-left info col-md-8">
-                    <p style="font-size: 12px" class="pull-left text-left"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></p>
-                <!--<a href="#"><i class="fa fa-circle text-success"></i> En linea</a>-->
-                </div>
-                <div class="clearfix"></div>
-                <div class="pull-right col-md-12 text-right">
-                    <?= Html::a('Cerrar sesión',['login/logout'],['class'=>'']);?>
+<body class="mi_equipo">
+    <?php $this->beginBody() ?>
+    <img src="../img/personaje_derecha_mi_equipo.png" class="personaje_derecha_fixed" alt="" />
+    <header>
+        <div class="franja_amarilla"></div>
+        <div class="content">
+            <a href="#" class="logo">
+                    <img src="../img/logo.jpg" alt="" />
+            </a>
+        </div>
+    </header>
+    <div class="body content">
+        <div class="form">
+            <div class="form_login">
+                <div class="content_form">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="grid_box_line_blue">
+                                <div class="box_head link_close">
+                                    <?= Html::a('Cerrar sesión <b>X</b>',['login/logout']);?>
+                                </div>
+                                <div class="box_content">
+                                    <div class="mis_datos">
+                                        <div class="table_div">
+                                            <div class="row_div">
+                                                <div class="cell_div cell_image">
+                                                    <div class="image_grupo" style="background-image: url(../foto_personal/<?= $usuario->avatar?>);"></div>
+                                                </div>
+                                                <div class="cell_div cell_info">
+                                                    <div class="cell_info_content">
+                                                        <b class="uppercase"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></b>
+                                                    </div>
+                                                    <div class="line_separator"></div>
+                                                    <div class="cell_info_content">
+                                                        <b><?= $estudiante->institucion->denominacion ?></b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="grid_box_line_blue">
+                                <ul class="menu_lateral">
+                                    <li>
+                                        <?= Html::a('<div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_idea"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Ideas en acción <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>',['panel/ideas-accion'],[]);?>
+                                    </li>
+                                    <li>
+                                        <?= Html::a('<div class="table_div">
+                                                        <div class="row_div">
+                                                                <div class="cell_div div_ia_icon">
+                                                                        <span class="ia_icon ia_icon_team"></span>
+                                                                </div>
+                                                                <div class="cell_div">
+                                                                        Mi equipo <span class="hide">></span>
+                                                                </div>
+                                                        </div>
+                                                </div>',['panel/index'],[]);?>
+                                    </li>
+                                    <!--Mi proyecto-->
+                                    <?php if($integrante && $equipo && !$proyecto && $integrante->rol==1){ ?>
+                                    <li>
+                                        <?= Html::a('<div class="table_div">
+                                            <div class="row_div">
+                                                <div class="cell_div div_ia_icon">
+                                                    <span class="ia_icon ia_icon_project"></span>
+                                                </div>
+                                                <div class="cell_div">
+                                                    Mi proyecto <span class="hide">></span>
+                                                </div>
+                                            </div>
+                                        </div>',['proyecto/index'],[]);?>
+                                    </li>
+                                    <?php } elseif($integrante && $equipo && $proyecto && ($integrante->rol==1 || $integrante->rol==2)){ ?>
+                                    <li>
+                                        <?= Html::a('<div class="table_div">
+                                            <div class="row_div">
+                                                <div class="cell_div div_ia_icon">
+                                                    <span class="ia_icon ia_icon_project"></span>
+                                                </div>
+                                                <div class="cell_div">
+                                                    Mi proyecto <span class="hide">></span>
+                                                </div>
+                                            </div>
+                                        </div>',['proyecto/actualizar'],[]);?>
+                                    </li>
+                                    <?php }?>
+                                    <!--Fin mi proyecto-->
+                                    <!--Foro-->
+                                    <?php if ($integrante && $equipo && $estudiante->grado!=6){ ?>
+                                    <li>
+                                        <a href="#">
+                                            <div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_foro"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Foros <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                        <?php foreach($foros as $foro): ?>
+                                            <?php if($foro->id==2 || ($integrante && $foro->asunto_id==$equipo->asunto_id)){?>
+                                                <?php if($foro->id==2){ ?>
+                                                    <li><?= Html::a("Foro de participación estudiantil",['foro/view','id'=>$foro->id],[]);?></li>
+                                                <?php }else { ?>
+                                                    <li><?= Html::a("Foro de asunto público",['foro/view','id'=>$foro->id],[]);?></li>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        <?php endforeach; ?>
+                                        </ul>
+                                    </li>
+                                    <?php } ?>
+                                    <!--Fin Foro-->
+                                    <?php if($integrante && $equipo && $proyecto && ($integrante->rol==1 || $integrante->rol==2) && $estudiante->grado!=6){ ?>
+                                        <?php if($integrante && $equipo && $proyecto && ($equipo->etapa==1 || $equipo->etapa==2 || $equipo->etapa==3)){?>
+                                        <li><?= Html::a('<div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_delivery"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Mi primera entrega <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>',['entrega/primera'],[]);?>
+                                        </li>
+                                        <?php }?>
+                                        <?php if($integrante && $equipo && $proyecto && ($equipo->etapa==2 || $equipo->etapa==3)){?>
+                                        <li><?= Html::a('<div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_delivery"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Mi segunda entrega <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>',['entrega/segunda'],[]);?>
+                                        </li>
+                                        <?php }?>
+                                        
+                                        <?php if($integrante && $equipo && $etapa2 && ($equipo->etapa==1 || $equipo->etapa==2) && $estudiante->grado!=6){?>
+                                        <li><?= Html::a('<div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_delivery"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Búsqueda de proyectos <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>',['proyecto/buscar'],[]);?>
+                                        </li>
+                                        <?php }?>
+                                        
+                                    <?php } ?>
+                                </ul>
+                            </div>
+    
+                            <a href="#" class="btn btn-default btn-lateral">
+                                <span class="icon_download"> bases del concurso</span>
+                            </a>
+    
+                            <a href="#" class="btn btn-default btn-lateral">
+                                <span class="icon_download"> GUÍA PARA EL DOCENTE</span>
+                            </a>
+    
+                            <a href="#" class="btn btn-default btn-lateral">
+                                <span class="icon_download"> GUÍA PARA EL ESTUDIANTE</span>
+                            </a>
+                        </div>
+    
+                        <div class="col-md-9">
+                            <div class="grid_box_line_blue">
+                                <?= $content ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-            <li class="header">Menú</li>
-            <?php //if($integrante){ ?>
-            <li><?= Html::a('<i class="fa fa-book"></i> Ideas en acción',['panel/ideas-accion'],[]);?></li>
-            <?php //} ?>
-            <li><?= Html::a('<i class="fa fa-book"></i> Mi equipo',['panel/index'],[]);?></li>
-            <?php if($integrante){ ?>
-            <!--<li><?= Html::a('<i class="fa fa-book"></i> Ruta',['ruta/index'],[]);?></li>-->
-            <?php } ?>
-            <?php if ($integrante && $equipo){ ?>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-share"></i> <span>Foros</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                <?php foreach($foros as $foro): ?>
-                    <?php if($foro->id==2 || ($integrante && $foro->asunto_id==$equipo->asunto_id)){?>
-                    <li><?= Html::a("$foro->titulo",['foro/view','id'=>$foro->id],[]);?></li>
-                    <?php } ?>
-                <?php endforeach; ?>
-                </ul>
-            </li>
-            <?php } ?>
-            <?php if($integrante && $equipo && !$proyecto && $integrante->rol==1){ ?>
-            <li><?= Html::a("Mi proyecto",['proyecto/index'],[]);?> </li>
-            <?php } elseif($integrante && $equipo && $proyecto && ($integrante->rol==1 || $integrante->rol==2)){ ?>
-            <li><?= Html::a("Mi proyecto",['proyecto/actualizar'],[]);?></li>
-            <?php if($integrante && $equipo && $proyecto && ($equipo->etapa==1 || $equipo->etapa==2 || $equipo->etapa==3)){?>
-            <li><?= Html::a("Mi primera entrega",['entrega/primera'],[]);?></li>
-            <?php }?>
-            <?php if($integrante && $equipo && $proyecto && ($equipo->etapa==2 || $equipo->etapa==3)){?>
-            <li><?= Html::a("Mi segunda entrega",['entrega/segunda'],[]);?></li>
-            <?php }?>
-            <?php } ?>
-            <?php if($integrante && $equipo && $etapa2 && ($equipo->etapa==1 || $equipo->etapa==2)){?>
-            <li><?= Html::a("Búsqueda de proyectos",['proyecto/buscar'],[]);?></li>
-            <?php } ?>
-            <?php if($integrante && $equipo && $etapa3 && ($equipo->etapa==2)){?>
-            <li><?= Html::a("Votación interna",['proyecto/votacion'],[]);?></li>
-            <?php } ?>
-          </ul>
-        </section>
-        <!-- /.sidebar -->
-      </aside>
-
-      <!-- Right side column. Contains the navbar and content of the page -->
-      <div class="content-wrapper" style="background-color: white !important">
-        <section class="content">
-        <?= $content ?>
-        </section>
-      </div><!-- /.content-wrapper -->
-      <!--<footer class="main-footer">
-        <div class="pull-right hidden-xs">
-         
         </div>
-        
-      </footer>-->
-    </div><!-- ./wrapper -->
-
-
-<?php $this->endBody() ?>
+    </div>
 <!-- Open source code -->
+<?php $this->endBody() ?>
 <script>
   window.page = window.location.hash || "#about";
   $(document).ready(function () {

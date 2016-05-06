@@ -20,8 +20,8 @@ class AppAssetInterno extends AssetBundle
     public $css = [
         //'css/site.css',
         //'css/default.css',
-        'css/index.css',
-        'css/jquery.fullPage.css'
+        //'css/index.css',
+        //'css/jquery.fullPage.css'
         //'http://fonts.googleapis.com/css?family=Headland+One|Open+Sans:400italic,400,700',
     ];
     public $js = [

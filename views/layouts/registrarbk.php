@@ -28,7 +28,7 @@ AppAssetInterno::register($this);
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     
     
-    <link href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+ <link href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
   
   <!-- Bootstrap Material Design -->
   <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/css/bootstrap-material-design.css" rel="stylesheet">
@@ -42,19 +42,30 @@ AppAssetInterno::register($this);
 
   <!-- jQuery -->
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  
+  <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
   
     <?php $this->head() ?>
 </head>
-<body style="background-color: white">
+<body class="registro">
 <?php $this->beginBody() ?>
-
-<div class="wrap"  >
-    
-    <div class="container">
-        <?= $content ?>
+    <header>
+        <div class="franja_amarilla"></div>
+        <div class="content">
+                <a href="#" class="logo">
+                        <img src="../img/logo.jpg" alt="" />
+                </a>
+        </div>
+    </header>
+    <div class="body content"  >
+        <img src="../img/personaje_izquierda.png" class="personaje personaje_izquierda" alt="" />
+	<img src="../img/personaje_derecha.png" class="personaje personaje_derecha" alt="" />
+        <div class="form">
+            <div class="logo_proyecto">
+                    <img src="../img/logo_ideas_en_accion.png" alt="" />
+            </div>
+            <?= $content ?>
+        </div>
     </div>
-</div>
 
 <!--
 <footer class="footer">
