@@ -21,6 +21,9 @@ class Foro extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     public $nombres_apellidos;
+    public $total_comentario;
+    public $falta_valorar;
+    public $valorado;
     public static function tableName()
     {
         return 'foro';
@@ -32,7 +35,7 @@ class Foro extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['creado_at', 'actualizado_at', 'user_id', 'post_count'], 'integer'],
+            [['creado_at', 'actualizado_at', 'user_id', 'post_count','id'], 'integer'],
             [['titulo'], 'string', 'max' => 250],
             [['descripcion'], 'string', 'max' => 1500]
         ];
@@ -84,6 +87,23 @@ class Foro extends \yii\db\ActiveRecord
         } else{
             $result = Yii::$app->tools->Pagination($query,5);
         }
+        return ['posts' => $result['result'], 'pages' => $result['pages']];
+    }
+    
+    
+    public function getPostsAdmin($id)
+    {
+        $query = new Query;
+        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno , p.valoracion')
+            ->from('{{%foro_comentario}} as p')
+            ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
+            ->join('INNER JOIN','{{%estudiante}} as es', 'es.id=u.estudiante_id')
+            ->where('p.foro_id=:id', [':id' => $this->id]);
+            
+        
+        
+        $result = Yii::$app->tools->Pagination($query,8);
+        
         return ['posts' => $result['result'], 'pages' => $result['pages']];
     }
 }

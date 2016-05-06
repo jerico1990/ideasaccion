@@ -118,6 +118,34 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     </div>
                                 </div>
                             </div>
+                            <div class="grid_box_line_blue">
+                                <ul class="menu_lateral">
+                                    <!--control de acciones-->
+                                    <li>
+                                        <?= Html::a('<div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_idea"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Control de acciones <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>',['panel/acciones'],[]);?>
+                                    </li>
+                                    <!--fin control de acciones-->
+                                    <!--Foro-->
+                                    <li>
+                                        <?= Html::a("Foros",['panel/foros'],[]);?>
+                                    </li>
+                                    <!--Fin Foro-->
+                                    <!--Foro proyectos-->
+                                    <li>
+                                        <?= Html::a("Foros proyectos",['panel/forosproyectos'],[]);?>
+                                    </li>
+                                    <!--Fin Foro proyectos-->
+                                </ul>
+                            </div>
                         </div>
                         <div class="col-md-9">
                             <div class="grid_box_line_blue">

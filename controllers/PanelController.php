@@ -8,6 +8,8 @@ use app\models\Estudiante;
 use app\models\Integrante;
 use app\models\Usuario;
 use app\models\Voto;
+use app\models\Foro;
+use app\models\Asunto;
 use app\models\Ubigeo;
 use app\models\Participante;
 use app\models\Invitacion;
@@ -21,6 +23,10 @@ use app\models\Etapa;
 use app\models\VotacionInternaSearch;
 use app\models\VotacionInterna;
 use app\models\VotacionPublica;
+use app\models\Proyecto;
+use app\models\ForoComentario;
+
+
 
 
 /**
@@ -174,6 +180,103 @@ class PanelController extends Controller
                                         'countInterna'=>$countInterna]);
     }
     
+    public function actionForos()
+    {
+        $this->layout='administrador';
+        $forospublicos= Foro::find()
+                ->select([
+                        'foro.id',
+                        'foro.titulo',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total_comentario',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0) falta_valorar',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado'
+                        ]) 
+                ->innerJoin('asunto','foro.asunto_id=asunto.id')
+                ->groupBy('foro.titulo,total_comentario')
+                ->orderBy('total_comentario DESC,falta_valorar DESC,valorado DESC')
+                ->all();
+        
+        $foroparticipacion= Foro::find()
+                ->select([
+                        'foro.id',
+                        'foro.titulo',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=2) total_comentario',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=2 and foro_comentario.valoracion=0) falta_valorar',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=2 and foro_comentario.valoracion!=0) valorado'
+                        ])
+                ->where('foro.id=2')
+                ->groupBy('foro.titulo,total_comentario')
+                ->orderBy('total_comentario DESC,falta_valorar DESC,valorado DESC')
+                ->one();
+        
+        return $this->render('foros',['forospublicos'=>$forospublicos,'foroparticipacion'=>$foroparticipacion]);
+    }
     
-
+    
+    public function actionResultadosasuntospublicos($asunto)
+    {
+        $data=[];
+        
+        //var_dump($asunto);
+        /*$proyectos= Proyecto::find()
+                    ->select([
+                              'proyecto.titulo',
+                              '(select count(foro_comentario.id) from foro_comentario 
+                                inner join usuario on usuario.id=foro_comentario.user_id 
+                                inner join integrante on integrante.estudiante_id=usuario.estudiante_id
+                                where integrante.equipo_id=proyecto.equipo_id and foro_comentario.valoracion!=0) as valorados',
+                                '(select count(foro_comentario.id) from foro_comentario 
+                                inner join usuario on usuario.id=foro_comentario.user_id 
+                                inner join integrante on integrante.estudiante_id=usuario.estudiante_id
+                                where integrante.equipo_id=proyecto.equipo_id and foro_comentario.valoracion=0) as faltan_valorar'])
+                    ->innerJoin('asunto','asunto.id=proyecto.asunto_id')
+                    ->innerJoin('foro','foro.asunto_id=asunto.id')
+                    ->where('foro.asunto_id=:asunto_id',[':asunto_id'=>$asunto])
+                    ->groupBy('proyecto.titulo,valorados,faltan_valorar')
+                    ->orderBy('valorados desc,proyecto.id asc')
+                    ->all();*/
+        $connection = \Yii::$app->db;
+        $proyectos = $connection->createCommand('
+                    select 
+                        proyecto.titulo,
+                        (select count(foro_comentario.id) from foro_comentario 
+                        inner join usuario on usuario.id=foro_comentario.user_id 
+                        inner join integrante on integrante.estudiante_id=usuario.estudiante_id
+                        where integrante.equipo_id=proyecto.equipo_id and foro_comentario.valoracion!=0) as valorado,
+                        (select count(foro_comentario.id) from foro_comentario 
+                        inner join usuario on usuario.id=foro_comentario.user_id 
+                        inner join integrante on integrante.estudiante_id=usuario.estudiante_id
+                        where integrante.equipo_id=proyecto.equipo_id and foro_comentario.valoracion=0) as falta_valorar
+                    from proyecto
+                    inner join asunto on asunto.id=proyecto.asunto_id
+                    inner join foro on foro.asunto_id=asunto.id 
+                    where foro.asunto_id='.$asunto.'
+                    group by proyecto.titulo,valorado,falta_valorar
+                    order by valorado desc,proyecto.id asc')
+                ->queryAll();
+        
+        foreach( $proyectos as $proyecto)
+        {
+            array_push($data,['titulo'=>$proyecto["titulo"],'valorado'=>$proyecto["valorado"],'falta_valorar'=>$proyecto["falta_valorar"]]);
+        }
+        
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        
+    }
+    
+    public function actionRating($rating,$comentario_id)
+    {
+        $foro_comentario=ForoComentario::findOne($comentario_id);
+        $foro_comentario->valoracion=$rating;
+        $foro_comentario->update();
+    }
+    
+    
+    public function actionForosproyectos()
+    {
+        $this->layout='administrador';
+        
+        
+        return $this->render('forosproyectos',[]);
+    }
 }

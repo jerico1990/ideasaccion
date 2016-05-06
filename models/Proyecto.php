@@ -28,6 +28,9 @@ class Proyecto extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $valorados;
+    public $faltan_valorar;
+    
     public $objetivo_especifico_1;
     public $objetivo_especifico_1_id;
     public $objetivo_especifico_2;

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-04-2016 a las 15:16:35
+-- Tiempo de generación: 06-05-2016 a las 02:14:20
 -- Versión del servidor: 5.6.24
 -- Versión de PHP: 5.6.8
 
@@ -333,7 +333,7 @@ CREATE TABLE IF NOT EXISTS `foro` (
 
 INSERT INTO `foro` (`id`, `titulo`, `descripcion`, `proyecto_id`, `asunto_id`, `creado_at`, `actualizado_at`, `user_id`, `post_count`) VALUES
 (1, 'Asunto Público', '', NULL, NULL, 1460153182, 1460153263, 1, 0),
-(2, 'Asunto Privado', '', NULL, NULL, 1460153182, 1460153263, 1, 0),
+(2, 'Foro de participación estudiantil', '', NULL, NULL, 1460153182, 1460153263, 1, 0),
 (3, 'No somos rebeldes, somos adolescentes', 'Existen ciertos mitos sobre cómo somos nosotros. Dicen que somos de tal modo y que actuamos de tal forma; como si todos fuéramos iguales, como si nos hubieran sacado de un solo molde. Creemos que ya es hora de romper esas falsas creencias y hablar de lo que realmente significa ser adolescente. ', NULL, 1, NULL, NULL, 1, 0),
 (4, 'Mujeres y varones sin etiquetas', 'La sociedad quiere imponer ciertos comportamientos, capacidades y atributos a los varones y mujeres. Si salimos de esa dirección se nos trata perjudicialmente distinto. Si un varón es muy sensible o si una mujer es hábil con las herramientas parece que todos se les vienen encima. ¿Pero acaso debemos actuar como nos imponen que actuemos?', NULL, 2, NULL, NULL, 1, 0),
 (5, 'Soy cultura viva, respétame', 'En nuestro territorio existen diversas culturas autóctonas. Cuando pertenecemos a alguna de ellas o cuando nos involucramos con sus problemas, descubrimos que no siempre reciben el respeto que merecen, a veces se les da un trato diferenciado o excluyente, como si las miraran por encima del hombro, y eso impide que hagan valer sus derechos en el campo político, económico, social y cultural. ', NULL, 3, NULL, NULL, 1, 0),
@@ -377,6 +377,7 @@ INSERT INTO `foro` (`id`, `titulo`, `descripcion`, `proyecto_id`, `asunto_id`, `
 CREATE TABLE IF NOT EXISTS `foro_comentario` (
   `id` int(11) NOT NULL,
   `contenido` varchar(1500) DEFAULT NULL,
+  `valoracion` int(11) DEFAULT '0',
   `foro_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `creado_at` int(11) DEFAULT NULL
@@ -4061,7 +4062,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `username`, `password`, `status`, `auth`, `verification_code`, `estudiante_id`, `avatar`) VALUES
-(1, 'administrador@gmail.com', '123456', 1, NULL, NULL, NULL, 'no_disponible.jpg');
+(1, 'administrador@gmail.com', 'idnxRs2/i6eqM', 1, NULL, NULL, NULL, 'no_disponible.jpg');
 
 -- --------------------------------------------------------
 
@@ -4087,7 +4088,7 @@ CREATE TABLE IF NOT EXISTS `video_copia` (
   `proyecto_id` int(11) DEFAULT NULL,
   `ruta` varchar(150) DEFAULT NULL,
   `etapa` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=419 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -4461,7 +4462,7 @@ ALTER TABLE `video`
 -- AUTO_INCREMENT de la tabla `video_copia`
 --
 ALTER TABLE `video_copia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=419;
 --
 -- AUTO_INCREMENT de la tabla `votacion_final`
 --

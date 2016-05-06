@@ -138,7 +138,11 @@ if($equipo->id)
         </div>
     </div>
     
-    
+    <div class="row">
+        <div class="col-md-12">
+            <b>Selecciona a tu docente:</b>
+        </div>
+    </div>
     <div class="row tabla_crear_equipo">
         <div class="col-md-12">
             <table id="docentes" class="table table-bordered" >

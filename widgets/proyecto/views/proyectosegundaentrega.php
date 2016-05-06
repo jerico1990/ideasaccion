@@ -14,9 +14,10 @@ use yii\web\JsExpression;
 ?>
 
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
-<h1><b>Segunda Entrega</b></h1>
-<hr class="colorgraph">
-<div class="row">
+<div class="box_head title_content_box">
+    <img src="../img/icon_team_big.jpg" alt="">SEGUNDA ENTREGA
+</div>
+<div class="box_content contenido_seccion_equipo">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs" style="background: white;">
             <li class="active"><a href="#tab_11" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Datos generales</a></li>
