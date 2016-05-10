@@ -8,16 +8,13 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Cronogramas';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cronograma-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Filtros</h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Cronograma', ['create'], ['class' => 'btn btn-default']) ?>
-    </p>
+    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'actividad_id',
             'fecha_inicio',
             'fecha_fin',

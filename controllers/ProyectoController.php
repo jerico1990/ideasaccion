@@ -185,19 +185,19 @@ class ProyectoController extends Controller
             \Yii::$app->db->createCommand($actividadcopia)->execute();
             
             
-            $planpresupuestalcopia =    'insert into plan_presupuestal_copia (id,actividad_id,recurso,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa)
+            $planpresupuestalcopia =    'insert into plan_presupuestal_copia (id,actividad_id,recurso,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa,dirigido,recurso_descripcion,unidad)
                                 select plan_presupuestal.id,plan_presupuestal.actividad_id,plan_presupuestal.recurso,
                                         plan_presupuestal.como_conseguirlo,plan_presupuestal.precio_unitario,plan_presupuestal.cantidad,
-                                        plan_presupuestal.subtotal,plan_presupuestal.estado,1
+                                        plan_presupuestal.subtotal,plan_presupuestal.estado,1,plan_presupuestal.dirigido,plan_presupuestal.recurso_descripcion,plan_presupuestal.unidad
                                 from plan_presupuestal
                                 inner join actividad on plan_presupuestal.actividad_id=actividad.id
                                 inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
                                 where objetivo_especifico.proyecto_id='.$proyecto->id.' and plan_presupuestal.estado=1  ';
             \Yii::$app->db->createCommand($planpresupuestalcopia)->execute();
             
-            $cronogramacopia =    'insert into cronograma_copia (id,actividad_id,fecha_inicio,fecha_fin,duracion,responsable_id,estado,etapa)
+            $cronogramacopia =    'insert into cronograma_copia (id,actividad_id,fecha_inicio,fecha_fin,duracion,responsable_id,estado,etapa,tarea)
                                 select cronograma.id,cronograma.actividad_id,cronograma.fecha_inicio,cronograma.fecha_fin,
-                                cronograma.duracion,cronograma.responsable_id,cronograma.estado,1
+                                cronograma.duracion,cronograma.responsable_id,cronograma.estado,1,cronograma.tarea
                                 from cronograma
                                 inner join actividad on cronograma.actividad_id=actividad.id
                                 inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
@@ -265,19 +265,19 @@ class ProyectoController extends Controller
             \Yii::$app->db->createCommand($actividadcopia)->execute();
             
             
-            $planpresupuestalcopia =    'insert into plan_presupuestal_copia (id,actividad_id,recurso,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa)
+            $planpresupuestalcopia =    'insert into plan_presupuestal_copia (id,actividad_id,recurso,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa,dirigido,recurso_descripcion,unidad)
                                 select plan_presupuestal.id,plan_presupuestal.actividad_id,plan_presupuestal.recurso,
                                         plan_presupuestal.como_conseguirlo,plan_presupuestal.precio_unitario,plan_presupuestal.cantidad,
-                                        plan_presupuestal.subtotal,plan_presupuestal.estado,2
+                                        plan_presupuestal.subtotal,plan_presupuestal.estado,2,plan_presupuestal.dirigido,plan_presupuestal.recurso_descripcion,plan_presupuestal.unidad
                                 from plan_presupuestal
                                 inner join actividad on plan_presupuestal.actividad_id=actividad.id
                                 inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
                                 where objetivo_especifico.proyecto_id='.$proyecto->id.' and plan_presupuestal.estado=1  ';
             \Yii::$app->db->createCommand($planpresupuestalcopia)->execute();
             
-            $cronogramacopia =    'insert into cronograma_copia (id,actividad_id,fecha_inicio,fecha_fin,duracion,responsable_id,estado,etapa)
+            $cronogramacopia =    'insert into cronograma_copia (id,actividad_id,fecha_inicio,fecha_fin,duracion,responsable_id,estado,etapa,tarea)
                                 select cronograma.id,cronograma.actividad_id,cronograma.fecha_inicio,cronograma.fecha_fin,
-                                cronograma.duracion,cronograma.responsable_id,cronograma.estado,2
+                                cronograma.duracion,cronograma.responsable_id,cronograma.estado,2,cronograma.tarea
                                 from cronograma
                                 inner join actividad on cronograma.actividad_id=actividad.id
                                 inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id

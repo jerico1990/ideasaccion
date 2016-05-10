@@ -66,6 +66,7 @@ class Proyecto extends \yii\db\ActiveRecord
     /*cronograma*/
     public $cronogramas_objetivos;
     public $cronogramas_actividades;
+    public $cronogramas_tareas;
     public $cronogramas_responsables;
     public $cronogramas_fechas_inicios;
     public $cronogramas_fechas_fines;
@@ -94,7 +95,7 @@ class Proyecto extends \yii\db\ActiveRecord
                 'planes_presupuestales_comos_conseguirlos','planes_presupuestales_precios_unitarios',
                 'planes_presupuestales_cantidades','planes_presupuestales_subtotales','planes_presupuestal_ids',
                 'planes_presupuestales_dirigidos','planes_presupuestales_unidades','planes_presupuestales_recursos_descripciones'],'safe'],
-            [['id','actividades_1','actividades_2','actividades_3','actividades_ids_1','actividades_ids_2','actividades_ids_3'],'safe'],
+            [['id','actividades_1','actividades_2','actividades_3','actividades_ids_1','actividades_ids_2','actividades_ids_3','cronogramas_tareas'],'safe'],
             [['user_id','asunto_id','objetivo_especifico_1_id','objetivo_especifico_2_id','objetivo_especifico_3_id','equipo_id','region_id'], 'integer'],
             [['titulo'], 'string', 'max' => 200],
             [['resumen','beneficiario','evaluacion'], 'string', 'max' => 25000],

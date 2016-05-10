@@ -312,6 +312,7 @@ class ActualizarProyectoWidget extends Widget
                 {
                     $cronograma=Cronograma::find()->where('id=:id',[':id'=>$proyecto->cronogramas_ids[$i]])->one();
                     $cronograma->actividad_id=$proyecto->cronogramas_actividades;
+                    $cronograma->tarea=$proyecto->cronogramas_tareas[$i];
                     $cronograma->responsable_id=$proyecto->cronogramas_responsables[$i];
                     $cronograma->fecha_inicio=$proyecto->cronogramas_fechas_inicios[$i];
                     $cronograma->fecha_fin=$proyecto->cronogramas_fechas_fines[$i];
@@ -321,6 +322,7 @@ class ActualizarProyectoWidget extends Widget
                 {
                     $cronograma=new Cronograma;
                     $cronograma->actividad_id=$proyecto->cronogramas_actividades;
+                    $cronograma->tarea=$proyecto->cronogramas_tareas[$i];
                     $cronograma->responsable_id=$proyecto->cronogramas_responsables[$i];
                     $cronograma->fecha_inicio=$proyecto->cronogramas_fechas_inicios[$i];
                     $cronograma->fecha_fin=$proyecto->cronogramas_fechas_fines[$i];

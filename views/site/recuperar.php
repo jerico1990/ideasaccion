@@ -11,35 +11,41 @@ use yii\widgets\Pjax;
 use yii\web\JsExpression;
 ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<br>
-<div class="col-md-4" style="position: absolute;
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;">
-    <div class="panel panel-default" >
-        <div class="panel-heading">Recuperar contraseña</div>
+
+
+<div class="form_login" >
+    <div class="title_form">
+        <img src="../img/title/registro.png" alt="" />¿Olvido su contraseña?
+    </div> 
+    
+    <div class="content_form" >
+        
         <div class="panel-body">
         <?php $form = ActiveForm::begin(); ?>
-            
-            <div class="col-lg-12 col-md-12 col-xs-12">
-                <div class="form-group label-floating field-loginform-username required">
-                    <label class="control-label" for="loginform-username">Correo electrónico</label>
-                    <input type="email" id="loginform-username" class="form-control" name="LoginForm[username]">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                <p class="text-justify">Luego de hacer clic en el botón "Enviar", se enviará un mensaje con instrucciones a su cuenta de correo registrado. Si no recibe el mensaje en su bandeja de entrada sírvase revisar la bandeja de correos no deseados</p>
                 </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="col-lg-12 col-md-12 col-xs-12">
-                <div class="form-group pull-right">
-                   <button id="ingresar" type="submit" class="btn btn-raised btn-default">Ingresar</button>
+                <div class="clearfix"></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="form-group label-floating field-loginform-username required">
+                        <label class="control-label" for="loginform-username">Correo electrónico</label>
+                        <input type="email" id="loginform-username" class="form-control" name="LoginForm[username]">
+                    </div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <div class="form-group btn_registro_submit">
+                       <button id="ingresar" type="submit" class="btn btn-default">Reestablecer ></button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
         <?php ActiveForm::end(); ?>
-        
-         </div>
+        </div>
     </div>
-</div>
 <?php 
 $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
 ?>

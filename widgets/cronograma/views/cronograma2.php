@@ -40,6 +40,7 @@ foreach($objetivos as $objetivo){
 	<div class="col-xs-12 col-sm-12 col-md-12">
 	    <table class="table table-striped table-hover" id="cronograma" style="display: none">
 		<thead>
+		    <th>Tarea</th>
 		    <th>Responsable</th>
 		    <th>Fecha inicio</th>
 		    <th>Fecha fin</th>
@@ -109,6 +110,16 @@ foreach($objetivos as $objetivo){
 	cron=parseInt($("#contador1").val());
 	var cronogramas=$('input[name=\'Proyecto[cronogramas_fechas_inicios][]\']').length;
         for (var i=0; i<cronogramas; i++) {
+	    if($('#proyecto-cronograma_tarea_'+i).val()=='')
+            {
+                error=error+'ingrese la tarea '+i+' <br>';
+                $('.field-proyecto-cronograma_tarea_'+i).addClass('has-error');
+            }
+            else
+            {
+                $('.field-proyecto-cronograma_tarea_'+i).addClass('has-success');
+                $('.field-proyecto-cronograma_tarea_'+i).removeClass('has-error');
+            }
 	    
             if($('#proyecto-cronograma_responsable_'+i).val()=='')
             {
@@ -159,6 +170,11 @@ foreach($objetivos as $objetivo){
         else
         {
 	    $('#cronograma_'+cron).html(
+		    "<td style='padding: 2px'>"+
+			"<div class='form-group field-proyecto-cronograma_tarea_"+cron+" required' style='margin-top: 0px'>"+
+			    "<input type='text'   id='proyecto-cronograma_tarea_"+cron+"' class='form-control' name='Proyecto[cronogramas_tareas][]' placeholder='Tarea' />"+
+			"</div>"+
+		    "</td>"+
 		    "<td style='padding: 2px'>"+
 			"<div class='form-group field-proyecto-cronograma_responsable_"+cron+" required' style='margin-top: 0px'>"+
 			    "<select id='proyecto-cronograma_responsable_"+cron+"' class='form-control' name='Proyecto[cronogramas_responsables][]' >"+
@@ -217,6 +233,11 @@ foreach($objetivos as $objetivo){
 			    }
 			<?php } ?>
 			tebody=tebody+"<tr id='cronograma_"+i+"' class='demo'>"+
+					"<td style='padding: 2px'>"+
+					    "<div class='form-group field-proyecto-cronograma_tarea_"+i+" required form-control-wrapper' style='margin-top: 0px'>"+
+						"<input type='text'  id='proyecto-cronograma_tarea_"+i+"' class='form-control label-floating' name='Proyecto[cronogramas_tareas][]' placeholder='Fecha inicio' value='"+star.tarea+"' <?= $disabled?> />"+
+					    "</div>"+
+					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_responsable_"+i+" required' style='margin-top: 0px'>"+
 						"<select id='proyecto-cronograma_responsable_"+i+"' class='form-control' name='Proyecto[cronogramas_responsables][]' <?= $disabled?>>"+

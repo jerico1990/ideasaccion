@@ -134,7 +134,6 @@ Hay un listado de 33 asuntos públicos. Cada uno debe tener:
 			<label class="control-label" for="voto-dni">DNI: *</label>
 			<input type="text" id="voto-dni" class="form-control numerico" name="Voto[dni]" placeholder="DNI" maxlength="8" pattern=".{8,8}">
 		    </div>
-		</div>
 		<div class="clearfix"></div>
 		<div class="col-xs-12 col-sm-12 col-md-12">
 		    <div class="form-group field-voto-region required">
@@ -203,7 +202,7 @@ Hay un listado de 33 asuntos públicos. Cada uno debe tener:
 	
         var myNumeracion=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33];
 	jQuery.each(myNumeracion , function(index, value){
-            
+            console.log(value);
 	    $( '#proyecto'+value+'c' ).click(function() { myfunction(value,'proyecto'+value); });
         });
         

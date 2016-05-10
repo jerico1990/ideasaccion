@@ -12,7 +12,7 @@ use app\models\Ubigeo ;
     <div class="col-md-4">
         <div class="form-group label-floating field-registrar-departamento required" style="margin-top: 15px">
             <label class="control-label" for="registrar-departamento">Departamento</label>
-            <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-departamento" class="form-control" name="Registrar[departamento]" onchange='departamento($(this).val())'>
+            <select  class="form-control"  onchange='ResultadosProyectos($(this).val())'>
             <option value=""></option>
             <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
             <option value="<?= $departamento->department_id ?>"><?= $departamento->department ?></option>
@@ -21,15 +21,10 @@ use app\models\Ubigeo ;
         </div>
     </div>
     
-    
-    <div id="resultados_asuntos_publicos" style="display: none">
-        <div class="clearfix"></div>
-        <div class="col-md-6">Asunto</div>
-        <div class="col-md-2">Total de comentarios</div>
-        <div class="col-md-2">Comentarios valorados</div>
-        <div class="col-md-2">Falta valorar</div>
-        <div class="clearfix"></div>
-        <hr>
+    <div class="clearfix"></div>
+    <div id="resultados_proyectos" style="display: none">
+        
+        
     </div>
     
 </div>
@@ -37,22 +32,38 @@ use app\models\Ubigeo ;
 
 
 <?php
-    $ResultadosAsuntosPublicos= Yii::$app->getUrlManager()->createUrl('panel/resultadosasuntospublicos');
+    $ResultadosProyectos= Yii::$app->getUrlManager()->createUrl('panel/resultadosproyectos');
+    $link= Yii::$app->getUrlManager()->createUrl('foro/viewadmin?id');
 ?>
 <script>
-function ResultadosAsuntosPublicos(valor) {
+function ResultadosProyectos(valor) {
     $.ajax({
-        url: '<?= $ResultadosAsuntosPublicos ?>',
-        //type: 'GET',
+        url: '<?= $ResultadosProyectos ?>',
+        type: 'GET',
         dataType: "json",
         async: true,
-        data: {asunto:valor},
+        data: {region:valor},
         success: function(data){
-            $("#resultados_asuntos_publicos").html("");
+            $("#resultados_proyectos").html("");
+           
             if (data) {
+                 $("#resultados_proyectos").append("<div class='col-md-6'>Asunto</div>"+
+                                            "<div class='col-md-2'>Total de comentarios</div>"+
+                                            "<div class='col-md-2'>Comentarios valorados</div>"+
+                                            "<div class='col-md-2'>Falta valorar</div>"+
+                                            "<div class='clearfix'></div>"+
+                                            "<hr>");
                 $.each( data, function( index, value ){
-                    $("#resultados_asuntos_publicos").append("<div class='col-md-4'>"+value["titulo"]+"</div><div class='col-md-4'>"+value["valorado"]+"</div><div class='col-md-4'>"+value["falta_valorar"]+"</div><div class='clearfix'></div>");
-                    console.log("bien");
+                    //var falta_valorar=value["falta_valorar"];
+                    //var foro=value["foro"];
+                    //var link='<?= Html::a("'+falta_valorar+'",["foro/viewadmin?id='+foro+'"]) ?>';
+                    $("#resultados_proyectos").show();
+                    $("#resultados_proyectos").append("<div class='col-md-6'>"+value["titulo"]+"</div>"+
+                                                      "<div class='col-md-2'>"+value["total_comentario"]+"</div>"+
+                                                      "<div class='col-md-2'>"+value["valorado"]+"</div>"+
+                                                      "<div class='col-md-2'><a href='../foro/viewadmin?id="+value["foro"]+"'>"+value["falta_valorar"]+"</a></div>"+
+                                                      "<div class='clearfix'></div>");
+                    
                 }); 
             }
             

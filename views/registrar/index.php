@@ -165,7 +165,7 @@ use yii\widgets\Pjax;
                 </div>
             </div>
             <div class="form-group btn_registro_submit">
-                <button type="submit" id="registrar"  class="btn btn-raised btn-default" >
+                <button type="submit" id="registrar"  class="btn  btn-default" >
                     Regístrate >
                 </button>
             </div>

@@ -72,7 +72,7 @@ class Foro extends \yii\db\ActiveRecord
     public function getPosts($id)
     {
         $query = new Query;
-        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno')
+        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno , p.valoracion')
             ->from('{{%foro_comentario}} as p')
             ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
             ->join('INNER JOIN','{{%estudiante}} as es', 'es.id=u.estudiante_id')

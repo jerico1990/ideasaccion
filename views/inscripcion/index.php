@@ -332,7 +332,7 @@ if($equipo->id)
         });
         
         if (validarinvitaciones.responseText==1) {
-            error=error+'Solo se permite 5 invitaciones como máximo';
+            error=error+'Ya no tienes permitido enviar mas invitaciones';
         }
         //console.log(validarinvitaciones);
         //return false;

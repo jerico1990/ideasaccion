@@ -279,4 +279,31 @@ class PanelController extends Controller
         
         return $this->render('forosproyectos',[]);
     }
+    
+    public function actionResultadosproyectos($region)
+    {
+        $data=[];
+        $connection = \Yii::$app->db;
+        
+        $forosproyectos= Foro::find()
+                ->select([
+                        'foro.id',
+                        'foro.titulo',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total_comentario',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0) falta_valorar',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado'
+                        ]) 
+                ->innerJoin('proyecto','proyecto.id=foro.proyecto_id')
+                ->where('proyecto.region_id=:region_id',[':region_id'=>$region])
+                ->groupBy('foro.titulo,total_comentario')
+                ->orderBy('id desc,total_comentario DESC,falta_valorar DESC,valorado DESC')
+                ->all();
+        
+        foreach( $forosproyectos as $proyecto)
+        {
+            array_push($data,['titulo'=>$proyecto["titulo"],'total_comentario'=>$proyecto["total_comentario"],'falta_valorar'=>$proyecto["falta_valorar"],'valorado'=>$proyecto["valorado"],'foro'=>$proyecto["id"]]);
+        }
+        
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+    }
 }

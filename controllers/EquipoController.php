@@ -518,17 +518,35 @@ class EquipoController extends Controller
     }
     public function actionValidarinvitacioneintegrante5($equipo)
     {
-        $invitacionContador=Invitacion::find()->where('estado=1 and equipo_id=:equipo_id ',
+        $bandera=0;
+        $invitacionContador=Invitacion::find()
+                            ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_id')
+                            ->where('estado=1 and equipo_id=:equipo_id  and estudiante.grado!=6',
                                               [':equipo_id'=>(integer) $equipo])->count();
         
-        $integranteContador=Integrante::find()->where('equipo_id=:equipo_id ',
+        $integranteContador=Integrante::find()
+                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                            ->where('equipo_id=:equipo_id  and estudiante.grado!=6',
                                               [':equipo_id'=>(integer) $equipo])->count();
         $invitacionContador=$invitacionContador+$integranteContador;
         
-        if($invitacionContador==5)
+        $invitacionContadorDocente=Invitacion::find()
+                            ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_id')
+                            ->where('estado=1 and equipo_id=:equipo_id  and estudiante.grado=6',
+                                              [':equipo_id'=>(integer) $equipo])->count();
+        
+        $integranteContadorDocente=Integrante::find()
+                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                            ->where('equipo_id=:equipo_id  and estudiante.grado=6',
+                                              [':equipo_id'=>(integer) $equipo])->count();
+        $invitacionContadorDocente=$invitacionContadorDocente+$integranteContadorDocente;
+        
+        if($invitacionContador==6 && $invitacionContadorDocente==1)
         {
-            echo 1;
+            $bandera=1;
         }
+        
+        echo $bandera;
         
     }
     

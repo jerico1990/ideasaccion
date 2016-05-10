@@ -133,7 +133,7 @@ class CronogramaController extends Controller
         array_push($dataTabla,$countcronogramas);
         foreach($cronogramas as $cronograma)
         {
-            array_push($dataTabla,['id'=>$cronograma->id,'responsable'=>$cronograma->responsable_id,'fecha_inicio'=>date("Y-m-d", strtotime($cronograma->fecha_inicio)),'fecha_fin'=>date("Y-m-d", strtotime($cronograma->fecha_fin))]);
+            array_push($dataTabla,['id'=>$cronograma->id,'tarea'=>$cronograma->tarea,'responsable'=>$cronograma->responsable_id,'fecha_inicio'=>date("Y-m-d", strtotime($cronograma->fecha_inicio)),'fecha_fin'=>date("Y-m-d", strtotime($cronograma->fecha_fin))]);
         }
         
         //array_push($dataTabla,['cronograma'=>$cronogramaArray]);

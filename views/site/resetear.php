@@ -19,41 +19,40 @@ use yii\web\JsExpression;
 <script src="../bootstrap-strength-meter-master/password-score/password-score.js"></script>
 <script src="../bootstrap-strength-meter-master/password-score/password-score-options.js"></script>
 <br>
-<div class="col-md-4" style="position: absolute;
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;">
-    <div class="panel panel-default" >
-        <div class="panel-heading">Nueva contraseña</div>
+<div class="form_login" >
+    <div class="title_form">
+        <img src="../img/title/registro.png" alt="" />Reestablece tu contraseña
+    </div>
+    <div class="content_form" >
         <div class="panel-body">
-        <?php $form = ActiveForm::begin(); ?>
-            
-            <div class="clearfix"></div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group label-floating field-loginform-password ">
-                    <label class="control-label" for="loginform-password">Contraseña</label>
-                    <input ng-model="loginform.password" type="password" onpaste="return false;" onCopy="return false" id="loginform-password" class="form-control" name="LoginForm[password]">
-                </div>      
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group label-floating field-loginform-repassword ">
-                    <label class="control-label" for="loginform-repassword">Repetir Contraseña</label>
-                    <input ng-model="loginform.repassword" type="password" onpaste="return false;" onCopy="return false" id="loginform-repassword" class="form-control" name="LoginForm[repassword]"  ng-focus="validarRecontrasena()">
+            <?php $form = ActiveForm::begin(); ?>
+            <div class="row">
+                <div class="clearfix"></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="form-group label-floating field-loginform-password ">
+                        <label class="control-label" for="loginform-password">Contraseña</label>
+                        <input ng-model="loginform.password" type="password" onpaste="return false;" onCopy="return false" id="loginform-password" class="form-control" name="LoginForm[password]">
+                    </div> 
                 </div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="col-xs-12 col-sm-12 col-md-12" id="example-progress-bar-container"></div>
-            <div class="clearfix"></div>
-            <div class="col-lg-12 col-md-12 col-xs-12">
-                <div class="form-group pull-right">
-                   <button id="ingresar" type="submit" class="btn btn-raised btn-default">Ingresar</button>
+                <div class="clearfix"></div>
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="form-group label-floating field-loginform-repassword ">
+                        <label class="control-label" for="loginform-repassword">Repetir Contraseña</label>
+                        <input ng-model="loginform.repassword" type="password" onpaste="return false;" onCopy="return false" id="loginform-repassword" class="form-control" name="LoginForm[repassword]"  ng-focus="validarRecontrasena()">
+                    </div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <div class="form-group btn_registro_submit">
+                       <button id="ingresar" type="submit" class="btn btn-default">Cambiar ></button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
-        <?php ActiveForm::end(); ?>
-        
-         </div>
+            <?php ActiveForm::end(); ?>
+        </div>
     </div>
 </div>
 <?php 

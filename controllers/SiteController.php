@@ -127,7 +127,7 @@ class SiteController extends Controller
     
     public function actionAsuntosPublicos()
     {
-        $this->layout='minedu';
+        $this->layout='minedubk';
         return $this->render('asuntos-publicos');
     }
     public function actionResultados()
@@ -196,5 +196,12 @@ class SiteController extends Controller
             $key .= $str[rand($start, $limit)];
         }
         return $key;
+    }
+    
+    
+    public function actionVotacion()
+    {
+        $this->layout='minedu';
+        return $this->render('votacion');
     }
 }
