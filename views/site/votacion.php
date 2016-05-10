@@ -132,7 +132,7 @@ use yii\widgets\ActiveForm;
 
 <div class="popup">
     <div class="popup_content">
-        <a href="#" class="close_popup"><img src="../images/vote_popup_close.png" alt=""></a>
+        <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
         <?php $form = ActiveForm::begin(); ?>
                 <div class="form-group label-floating field-voto-dni required">
 			<label class="control-label" for="voto-dni">DNI</label>
