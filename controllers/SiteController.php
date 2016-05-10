@@ -9,7 +9,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Usuario;
-
+use app\models\Resultados;
 class SiteController extends Controller
 {
     public function behaviors()
@@ -202,6 +202,15 @@ class SiteController extends Controller
     public function actionVotacion()
     {
         $this->layout='minedu';
-        return $this->render('votacion');
+        $resultados=Resultados::find()->all();
+        if($resultados)
+        {
+            return $this->redirect(['site/resultados']);
+        }
+        else
+        {
+            return $this->render('votacion');
+        }
+        
     }
 }
