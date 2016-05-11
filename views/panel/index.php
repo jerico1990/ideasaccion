@@ -102,7 +102,7 @@ $btninscribir=$integrante
                     echo "<tr>
                             <td style='vertical-align:middle'>$invitacion->descripcion_equipo</td>
                             <td style='vertical-align:middle'><div class='row-picture'>
-                            <img class='circle' src='../../web/foto_personal/".$invitacion->avatar."' alt='icon' style='height: 30px;width: 30px'>
+                            <img class='circle' src='".\Yii::$app->request->BaseUrl."/foto_personal/".$invitacion->avatar."' alt='icon' style='height: 30px;width: 30px'>
                         ".$invitacion->nombres." ".$invitacion->apellido_paterno." ".$invitacion->apellido_materno."
                       </div> </td>
                             <td class='text-center' style='vertical-align:middle'><div style='color:green;font-size:24px;cursor:pointer'  class='fa  fa-check-circle-o fa-6' onclick='unirme($invitacion->id)'></div></td>
