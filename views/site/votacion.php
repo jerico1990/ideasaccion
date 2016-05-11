@@ -225,6 +225,48 @@ use yii\widgets\ActiveForm;
 		</form>
 	</div>
 </div>
+
+<div class="popup" id="faltan_datos_dni">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				Ingrese DNI
+			</div>
+			<div class="form-group">
+				<button type="button" id="aceptar_faltan_datos_dni" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="popup" id="faltan_datos_region">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				Ingrese Región
+			</div>
+			<div class="form-group">
+				<button type="button" id="aceptar_faltan_datos_region" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="popup" id="faltan_datos">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				Ingrese DNI y Región
+			</div>
+			<div class="form-group">
+				<button type="button" id="aceptar_faltan_datos" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
 <?php
 $url= Yii::$app->getUrlManager()->createUrl('voto/validardni');
 $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
@@ -342,10 +384,41 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                 
     function Votar() {
         var error='';
+        if($('#voto-dni').val()=='' && $('#voto-region').val()=='')
+        {
+            error='Ingrese DNI <br>';
+            error=error+'Ingrese Región <br>';
+            
+            $('#faltan_datos').show();
+            $('#form_votar').hide();
+            return false;
+        }
+        
         if($('#voto-dni').val()=='')
         {
             error='Ingrese DNI <br>';
+            error=error+'Ingrese Región <br>';
+            
+            $('#faltan_datos_dni').show();
+            $('#form_votar').hide();
+            return false;
+        }
+        
+        if($('#voto-region').val()=='')
+        {
+            error='Ingrese DNI <br>';
+            error=error+'Ingrese Región <br>';
+            
+            $('#faltan_datos_region').show();
+            $('#form_votar').hide();
+            return false;
+        }
+        
+        /*if($('#voto-dni').val()=='')
+        {
+            error='Ingrese DNI <br>';
             $('.field-voto-dni').addClass('has-error');
+            
         }
         else
         {
@@ -362,11 +435,11 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
         {
             $('.field-voto-region').addClass('has-success');
             $('.field-voto-region').removeClass('has-error');
-        }
+        }*/
         
         if(error!='')
         {
-            $.notify({
+            /*$.notify({
                 message: error 
             },{
                 type: 'danger',
@@ -375,7 +448,7 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                     from: 'bottom',
                     align: 'right'
                 },
-            });
+            });*/
             return false;
         }
         else
@@ -506,5 +579,21 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
         $('#dni_duplicado').hide();
     });
    
+    $("#aceptar_faltan_datos").on('click', function (e) {
+        e.preventDefault();
+        $('#form_votar').show();
+        $('#faltan_datos').hide();
+    });
     
+    $("#aceptar_faltan_datos_dni").on('click', function (e) {
+        e.preventDefault();
+        $('#form_votar').show();
+        $('#faltan_datos_dni').hide();
+    });
+    
+    $("#aceptar_faltan_datos_region").on('click', function (e) {
+        e.preventDefault();
+        $('#form_votar').show();
+        $('#faltan_datos_region').hide();
+    });
 </script>
