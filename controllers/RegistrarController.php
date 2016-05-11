@@ -93,7 +93,7 @@ class RegistrarController extends Controller
                          <br><br>
                          Los datos de su cuenta son:<br><br>
                          <b>Usuario:</b> $usuario->username <br>
-                         <b>Contraseña:</b> $usuario->password<br><br>
+                         <b>Contraseña:</b> $registrar->password<br><br>
                          Saludos cordiales,<br><br>
                          <br>
                          ";
