@@ -143,6 +143,15 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                         <?= Html::a("Foros proyectos",['panel/forosproyectos'],[]);?>
                                     </li>
                                     <!--Fin Foro proyectos-->
+                                    
+                                    <!--Foro proyectos-->
+                                    <li>
+                                        <?= Html::a("Reportes",['#'],[]);?>
+                                        <ul>
+                                            <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/'],[]);?></li>
+                                        </ul>
+                                    </li>
+                                    <!--Fin Foro proyectos-->
                                 </ul>
                             </div>
                         </div>
