@@ -560,6 +560,9 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
         e.preventDefault();
         var _popup = $(this).parents('.popup');
         _popup.hide();
+        $('#voto-dni').val('');
+        $('#voto-region').val('');
+        
     });
     
     $("#voto_registrado").on('click', function (e) {
