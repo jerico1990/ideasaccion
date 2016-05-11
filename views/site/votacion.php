@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
                                 {
                             ?>
                                 <li>
-                                    <a href="#" id="a<?= $categoria1->id ?>" data-id="<?= $a ?>" onclick="Seleccionar(<?= $categoria1->id ?>)">
+                                    <a href="#" id="a<?= $categoria1->id ?>" data-id="<?= $a ?>" onclick="Seleccionar(<?= $categoria1->id ?>,event)">
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
@@ -56,7 +56,7 @@ use yii\widgets\ActiveForm;
                                 {
                             ?>
                                 <li>
-                                    <a href="#" id="a<?= $categoria2->id ?>" data-id="<?= $b ?>" onclick="Seleccionar(<?= $categoria2->id ?>)">
+                                    <a href="#" id="a<?= $categoria2->id ?>" data-id="<?= $b ?>" onclick="Seleccionar(<?= $categoria2->id ?>,event)">
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
@@ -86,7 +86,7 @@ use yii\widgets\ActiveForm;
                                 {
                             ?>
                                 <li>
-                                    <a href="#" id="a<?= $categoria3->id ?>" data-id="<?= $c ?>" onclick="Seleccionar(<?= $categoria3->id ?>)" >
+                                    <a href="#" id="a<?= $categoria3->id ?>" data-id="<?= $c ?>" onclick="Seleccionar(<?= $categoria3->id ?>,event)" >
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
@@ -107,7 +107,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="vote_submit">
-            <a class="btn btn-default" onclick="BtnVotar()" href="#" role="button">VOTAR</a>
+            <a class="btn btn-default" onclick="BtnVotar(event)" href="#" role="button">VOTAR</a>
     </div>
 </div>
 <div class="col-md-5">
@@ -176,7 +176,7 @@ use yii\widgets\ActiveForm;
 				Tu voto a sido registrado.
 			</div>
 			<div class="form-group">
-				<button type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
+				<button id="voto_registrado" type="button" class="btn btn-default">ACEPTAR</button>
 			</div>
 		</form>
 	</div>
@@ -196,6 +196,35 @@ use yii\widgets\ActiveForm;
 	</div>
 </div>
 
+
+<div class="popup" id="dni_incompleto">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				El DNI debe contener 8 caracteres.
+			</div>
+			<div class="form-group">
+				<button type="button" id="aceptar_dni_incompleto" class="btn btn-default">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<div class="popup" id="dni_duplicado">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				El DNI ya existe
+			</div>
+			<div class="form-group">
+				<button type="button" id="aceptar_dni_duplicado" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
 <?php
 $url= Yii::$app->getUrlManager()->createUrl('voto/validardni');
 $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
@@ -236,23 +265,27 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
         _popup.hide();
     });
                 
-    function BtnVotar()
+    function BtnVotar(event)
     {
+        event.preventDefault();
+        var completado=true;
+        
         if(myArray.length<3)
         {
-            $('#form_incomplete').show();
-
-            return false;
+            completado=false;
+        }
+        
+        if (completado) {
+            $('#form_votar').show();
         }
         else
         {
-            $('#form_votar').show();
-
-            return true;
+            $('#form_incomplete').show();
         }
     };
     
-    function Seleccionar(asunto) {
+    function Seleccionar(asunto,event) {
+        event.preventDefault();
         Agregar(asunto,'proyecto'+asunto);
         
     }
@@ -394,7 +427,10 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
         {
             if($(elemento).val().length<8)
             {
-                $.notify({
+                
+                $('#dni_incompleto').show();
+                $('#form_votar').hide();
+                /*$.notify({
                     // options
                     message: 'El DNI debe contener 8 caracteres' 
                 },{
@@ -405,8 +441,8 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                             from: 'bottom',
                             align: 'right'
                     },
-                });
-                $('.field-voto-dni').addClass('has-error');
+                });*/
+                //$('.field-voto-dni').addClass('has-error');
                 $('#voto-dni').val('');
                 return false;
             }
@@ -420,7 +456,9 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                 success: function(data){
                     if(data==1)
                     {
-                        $('.field-voto-dni').addClass('has-error');
+                        $('#dni_duplicado').show();
+                        $('#form_votar').hide();
+                        /*$('.field-voto-dni').addClass('has-error');
                         $.notify({
                             // options
                             message: 'El DNI ya existe' 
@@ -432,7 +470,7 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                                     from: 'bottom',
                                     align: 'right'
                             },
-                        });
+                        });*/
                         $('#voto-dni').val('');
                         
                         
@@ -446,8 +484,27 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
     }
     
     $(".popup .close_popup,.popup .btn_close_popup").on('click', function (e) {
-			e.preventDefault();
-			var _popup = $(this).parents('.popup');
-			_popup.hide();
-		});
+        e.preventDefault();
+        var _popup = $(this).parents('.popup');
+        _popup.hide();
+    });
+    
+    $("#voto_registrado").on('click', function (e) {
+        e.preventDefault();
+        location.reload();
+    });
+    
+    $("#aceptar_dni_incompleto").on('click', function (e) {
+        e.preventDefault();
+        $('#form_votar').show();
+        $('#dni_incompleto').hide();
+    });
+    
+    $("#aceptar_dni_duplicado").on('click', function (e) {
+        e.preventDefault();
+        $('#form_votar').show();
+        $('#dni_duplicado').hide();
+    });
+   
+    
 </script>
