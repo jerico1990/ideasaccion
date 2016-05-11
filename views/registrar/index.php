@@ -36,9 +36,9 @@ use yii\widgets\Pjax;
         <div class="content_form">
             <div class="right_photo">
                 <div class="txt_upload">
-                    <div class="logo form-group label-floating field-registrar-foto required" style="margin-top: 15px">
-                         <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="registrar-foto" class="form-control img-responsive" name="Registrar[foto]" onchange="Imagen(this)"/>
-                         <img id="img_destino" class="" style="height: 130px;width: 120px;cursor: pointer" src="../foto_personal/no_disponible.jpg">
+                    <div class=" form-group " >
+                         <input  type="file" id="registrar-foto" class="form-control  file" name="Registrar[foto]" onchange="Imagen(this)"/>
+                         <?= Html::img('../foto_personal/no_disponible.jpg',['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 150px;width: 120px;align:center;cursor: pointer"]) ?>
                     </div>
                 </div>
             </div>
@@ -176,6 +176,9 @@ use yii\widgets\Pjax;
 <?php
     $validardni= Yii::$app->getUrlManager()->createUrl('registrar/validardni');
     $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
+    $provincias= Yii::$app->getUrlManager()->createUrl('ubigeo/provincias');
+    $distritos= Yii::$app->getUrlManager()->createUrl('ubigeo/distritos');
+    $instituciones= Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
 ?>
 
 <?php if (Yii::$app->session->hasFlash('emailexistente')): ?>
@@ -259,38 +262,6 @@ use yii\widgets\Pjax;
             reader.readAsDataURL(input.files[0]);
         }
     }
-    /*
-    $("#registrar-foto").change(function(){
-        var ext = $('#registrar-foto').val().split('.').pop().toLowerCase();
-        var error='';
-        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-            error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
-        }
-        if (error!='') {
-            $.notify({
-                message: error
-            },{
-                // settings
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                        from: 'bottom',
-                        align: 'right'
-                },
-            });
-            console.log("aa");
-            $('#registrar-foto').val('');
-            return false;
-        }
-        else
-        {
-            mostrarImagen(this);
-            return true;
-        }
-        
-        
-    });
-    */
     
     //$('#registrar-fecha_nac').bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
     $('#registrar-password').focusout(function() {
@@ -616,83 +587,9 @@ use yii\widgets\Pjax;
         
         
         
-        /*
-        if (p1==0) {
-            error=error+'Seleccione al menos 1 opción en la primera pregunta <br>';
-            $('.field-registrar-p1').addClass('has-error');
-        }
-        else
-        {
-            $('.field-registrar-p1').addClass('has-success');
-            $('.field-registrar-p1').removeClass('has-error');
-        }
-        
-        if (p2==0) {
-            error=error+'Seleccione al menos 1 opción en la segunda pregunta <br>';
-            $('.field-registrar-p2').addClass('has-error');
-        }
-        else
-        {
-            $('.field-registrar-p2').addClass('has-success');
-            $('.field-registrar-p2').removeClass('has-error');
-        }
-        
-        
-        if (p3==0) {
-            error=error+'Seleccione al menos 1 opción en la tercera pregunta <br>';
-            $('.field-registrar-p3').addClass('has-error');
-        }
-        else
-        {
-            $('.field-registrar-p3').addClass('has-success');
-            $('.field-registrar-p3').removeClass('has-error');
-        }
-        
-        if (p4==0) {
-            error=error+'Seleccione al menos 1 opción en la cuarta pregunta <br>';
-            $('.field-registrar-p4').addClass('has-error');
-        }
-        else
-        {
-            $('.field-registrar-p4').addClass('has-success');
-            $('.field-registrar-p4').removeClass('has-error');
-        }
-        
-        if (p5==0) {
-            error=error+'Seleccione al menos 1 opción en la quinta pregunta <br>';
-            $('.field-registrar-p5').addClass('has-error');
-        }
-        else
-        {
-            $('.field-registrar-p5').addClass('has-success');
-            $('.field-registrar-p5').removeClass('has-error');
-        }
-        
-        if (p6==0) {
-            error=error+'Seleccione al menos 1 opción en la sexta pregunta <br>';
-            $('.field-registrar-p6').addClass('has-error');
-        }
-        else
-        {
-            $('.field-registrar-p6').addClass('has-success');
-            $('.field-registrar-p6').removeClass('has-error');
-        }
-        */
         if($('#registrar-password').val()!='' && $('#registrar-password').val().length<8)
         {
             error=error+'La contraseña debe contener mínimo 8 caracteres <br>';
-            /*$.notify({
-                // options
-                message: 'La contraseña debe contener mínimo 8 caracteres' 
-            },{
-                // settings
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                        from: 'bottom',
-                        align: 'right'
-                },
-            });*/
             $('.field-registrar-password').addClass('has-error');
         }
         
@@ -744,19 +641,6 @@ use yii\widgets\Pjax;
             });
             return false;
         }
-        /*else
-        {
-            $.notify({
-                message: 'Tus datos han sido registrados' 
-            },{
-                type: 'success',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-        }*/
         return true;
     });
     
@@ -772,18 +656,18 @@ use yii\widgets\Pjax;
     }
     
     function distrito(value) {
-        $.post( "/mineduproyecto/web/ubigeo/instituciones?distrito="+value, function( data ) {
+        $.post( "<?= $instituciones ?>?distrito="+value, function( data ) {
         $( "#registrar-institucion" ).html( data );});
     }
     
     function provincia(value) {
-        $.post( "/mineduproyecto/web/ubigeo/distritos?provincia="+value, function( data ) {$( "#registrar-distrito" ).html( data );});
+        $.post( "<?= $distritos ?>?provincia="+value, function( data ) {$( "#registrar-distrito" ).html( data );});
         $("#registrar-distrito").find("option").remove().end().append("<option value></option>").val("");
         $("#registrar-institucion").find("option").remove().end().append("<option value></option>").val("");
     }
     
     function departamento(value) {
-        $.post( "/mineduproyecto/web/ubigeo/provincias?departamento="+value, function( data ) {$( "#registrar-provincia" ).html( data );});
+        $.post( "<?= $provincias ?>?departamento="+value, function( data ) {$( "#registrar-provincia" ).html( data );});
         $("#registrar-provincia").find("option").remove().end().append("<option value></option>").val("");
         $("#registrar-distrito").find("option").remove().end().append("<option value></option>").val("");
         $("#registrar-institucion").find("option").remove().end().append("<option value></option>").val("");
