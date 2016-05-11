@@ -166,4 +166,10 @@ class SiteController extends Controller
         }
         
     }
+    
+    public function actionError()
+    {
+        $this->layout='prueba';
+        return $this->render('error');
+    }
 }
