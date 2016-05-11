@@ -334,13 +334,13 @@ $btninscribir=$integrante
     <?php if( $integrante && $integrante->rol==1 && $integrante->estado==1) { ?>
     <div class="row">
             <div class="col-md-4">
-                <?= Html::a('Modificar equipo',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-raised btn-default']); ?>
+                <?= Html::a('Modificar equipo',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-default']); ?>
             </div>
             <div class="col-md-4">
-                <button class='btn btn-raised btn-default' onclick='dejarequipo(<?= $estudiante->id ?>)'>Cancelar equipo</button>
+                <button class='btn btn-default' onclick='dejarequipo(<?= $estudiante->id ?>)'>Cancelar equipo</button>
             </div>
             <div class="col-md-4">
-                <button class='btn btn-raised btn-default' onclick='finalizarequipo(<?=  $integrante->equipo_id ?>)'>Finalizar equipo</button>
+                <button class='btn btn-default' onclick='finalizarequipo(<?=  $integrante->equipo_id ?>)'>Finalizar equipo</button>
             </div>
     </div>
     

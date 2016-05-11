@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
             Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-md-5">
     <div class="vote_options">
         <div class="vote_options_content">
             <div class="options_form options_day_to_day" data-option="1">
@@ -110,19 +110,19 @@ use yii\widgets\ActiveForm;
             <a class="btn btn-default" onclick="BtnVotar()" href="#" role="button">VOTAR</a>
     </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-5">
     <div class="col-md-6">
         <div class="options_selected">
             <div class="option_items options_alternative_1">
-                <div class="icon_alternative"><div class="num_alternative">01</div></div>
+                <div class="icon_alternative"><div class="num_alternative">1</div></div>
                 <div class="text_alternative"></div>
             </div>
             <div class="option_items options_alternative_2">
-                <div class="icon_alternative"><div class="num_alternative">02</div></div>
+                <div class="icon_alternative"><div class="num_alternative">2</div></div>
                 <div class="text_alternative"></div>
             </div>
             <div class="option_items options_alternative_3">
-                <div class="icon_alternative"><div class="num_alternative">03</div></div>
+                <div class="icon_alternative"><div class="num_alternative">3</div></div>
                 <div class="text_alternative"></div>
             </div>
         </div>
@@ -130,18 +130,16 @@ use yii\widgets\ActiveForm;
 </div>
 <!-- Modal Votar -->
 
-<div class="popup">
+<div class="popup" id="form_votar">
     <div class="popup_content">
         <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(['options'=>['id'=>'form_vote_send']]); ?>
                 <div class="form-group label-floating field-voto-dni required">
-			<label class="control-label" for="voto-dni">DNI</label>
-			<input type="text" id="voto-dni" class="form-control numerico" name="Voto[dni]"  onfocusout="CambioDNI(this)" maxlength="8">
+			<input type="text" id="voto-dni" placeholder="Ingresa tu DNI" class="form-control numerico" name="Voto[dni]"  onfocusout="CambioDNI(this)" maxlength="8">
 		</div>
                 <div class="form-group label-floating field-voto-region required">
-			<label class="control-label" for="voto-region">Región</label>
 			<select id="voto-region" class="form-control" name="Voto[region]" >
-			    <option value></option>
+			    <option value>Selecciona tu región</option>
 			    <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
 				<option value="<?= $departamento->department_id ?>"><?= $departamento->department ?></option>
 			    <?php } ?>
@@ -153,6 +151,51 @@ use yii\widgets\ActiveForm;
         <?php ActiveForm::end(); ?>
     </div>
 </div>
+
+<div class="popup" id="alert_error">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				Solo se pueden agregar 3 opciones.
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<div class="popup" id="form_send">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				<b>!LISTO!</b><br>
+				Tu voto a sido registrado.
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="popup" id="form_incomplete">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				Debes seleccionar 3 asuntos públicos para ingresar tu voto.
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
+
 <?php
 $url= Yii::$app->getUrlManager()->createUrl('voto/validardni');
 $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
@@ -197,23 +240,14 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
     {
         if(myArray.length<3)
         {
-            $.notify({
-                // options
-                message: 'Debe seleccionar 3 proyectos' 
-            },{
-                // settings
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                        from: 'bottom',
-                        align: 'right'
-                },
-            });
+            $('#form_incomplete').show();
+
             return false;
         }
         else
         {
-            $('.popup').show();
+            $('#form_votar').show();
+
             return true;
         }
     };
@@ -230,11 +264,7 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
         var _a = $('#a'+value);
         var _p = _a.parents('.options_form');
         var _n = _p.data("option");
-        //var _f = $(".options_alternative_"+cont);
         indices.sort();
-        
-        
-        
         notificacion=jQuery.inArray( value, myArray );
         
         if(notificacion!=-1)
@@ -254,18 +284,7 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
         
         if(myArray.length>2)
         {
-            $.notify({
-                // options
-                message: 'Solo se puede votar por 3 proyectos' 
-            },{
-                // settings
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                        from: 'bottom',
-                        align: 'right'
-                },
-            });
+            $("#alert_error").show();
             return false;
         }
         else
@@ -341,22 +360,10 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                 
                     if(data==1)
                     {
-                        $.notify({
-                            // options
-                            message: 'Gracias por registrar su voto' 
-                        },{
-                            // settings
-                            type: 'success',
-                            z_index: 1000000,
-                            placement: {
-                                from: 'bottom',
-                                align: 'right'
-                            },
-                        });
+                        $('#form_vote_send').parent().parent().hide();
+
+                        $('#form_send').show();
                         
-                        setTimeout(function(){
-                            window.location.reload(1);
-                        }, 2000);
                     }
                     else
                     {
@@ -436,5 +443,11 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
             
         }
         return false;
-    }   
+    }
+    
+    $(".popup .close_popup,.popup .btn_close_popup").on('click', function (e) {
+			e.preventDefault();
+			var _popup = $(this).parents('.popup');
+			_popup.hide();
+		});
 </script>

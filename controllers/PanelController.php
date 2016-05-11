@@ -79,7 +79,7 @@ class PanelController extends Controller
     }
     public function actionIndex()
     {
-        $this->layout='estandar';
+        $this->layout='panel';
         if(\Yii::$app->user->can('administrador'))
         {
             return $this->redirect(['acciones']);

@@ -50,11 +50,11 @@ if($equipo->id)
 
     <div class="row">
         <div class="col-md-9">
-            <div class="form-group label-floating field-equipo-descripcion_equipo required" style="margin-top: 15px">
-                <label class="control-label" for="equipo-descripcion_equipo">Nombre de equipo</label>
-                <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" value="<?= $equipo->descripcion_equipo?>" type="text" id="equipo-descripcion_equipo" class="form-control texto" name="Equipo[descripcion_equipo]">
+            <div class="form-group label-floating field-equipo-descripcion_equipo required" >
+                <label class="control-label" for="equipo-descripcion_equipo">Nombre del equipo</label>
+                <input value="<?= $equipo->descripcion_equipo?>" type="text" id="equipo-descripcion_equipo" class="form-control texto" name="Equipo[descripcion_equipo]">
             </div>
-            <div class="form-group label-floating field-equipo-descripcion required" style="margin-top: 15px">
+            <div class="form-group label-floating field-equipo-descripcion required">
                 <label class="control-label" for="equipo-descripcion">Danos una breve descripción de tu equipo</label>
                 <textarea  id="equipo-descripcion" class="form-control" name="Equipo[descripcion]" cols="30" rows="3"><?= $equipo->descripcion?></textarea>
             </div>
@@ -63,17 +63,17 @@ if($equipo->id)
             <div class="form-group">
                 <label for=""> </label>
                 <div class="imagen_equipo">
-                    <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="equipo-foto_img" class="form-control file" name="Equipo[foto_img]" onchange="Imagen(this)">
-                    <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 80px;width: 80px;align:center;cursor: pointer"]) ?>
+                    <input type="file" id="equipo-foto_img" class="form-control file" name="Equipo[foto_img]" onchange="Imagen(this)">
+                    <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 160px;width: 150px;align:center;cursor: pointer"]) ?>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-10">
-            <div class="form-group label-floating field-equipo-asunto_id required" style="margin-top: 15px">
+            <div class="form-group label-floating field-equipo-asunto_id required" >
                 <label class="control-label" for="equipo-asunto_id">Selecciona el Asunto de Público sobre el que trabajará tu equipo</label>
-                <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="equipo-asunto_id" class="form-control" name="Equipo[asunto_id]">
+                <select id="equipo-asunto_id" class="form-control" name="Equipo[asunto_id]">
                     <option value=""></option>
                     <?php
                         $resultados=Resultados::find()->where('region_id=:region_id',['region_id'=>$institucion->department_id])->all();
@@ -95,7 +95,9 @@ if($equipo->id)
     </div>
     <div class="row">
         <div class="col-md-12">
-            <b>Selecciona a los miembros de tu equipo:</b>
+            <div class="form-group">
+                <label for="">Selecciona a los miembros de tu equipo:</label>
+            </div>
         </div>
     </div>
     <div class="row tabla_crear_equipo">
@@ -137,10 +139,11 @@ if($equipo->id)
             </table>
         </div>
     </div>
-    
     <div class="row">
         <div class="col-md-12">
-            <b>Selecciona a tu docente:</b>
+            <div class="form-group">
+                <label for="">Selecciona a tu docente:</label>
+            </div>
         </div>
     </div>
     <div class="row tabla_crear_equipo">
@@ -185,7 +188,7 @@ if($equipo->id)
 
         </div>
         <div class="col-md-4">
-                <button type="submit" id="btnequipo" class="btn btn-raised btn-default"><?= $equipo->isNewRecord ? Yii::t('app', 'Crea tu equipo') : Yii::t('app', 'Modifica tu equipo') ?></button>
+                <button type="submit" id="btnequipo" class="btn btn-default"><?= $equipo->isNewRecord ? Yii::t('app', 'Crea tu equipo') : Yii::t('app', 'Modifica tu equipo') ?></button>
         </div>
         <div class="col-md-4">
 

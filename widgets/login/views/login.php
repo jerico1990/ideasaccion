@@ -36,7 +36,7 @@ use yii\web\JsExpression;
     <div class="content_form">
         <div class="content_form">
             <div class="form-group label-floating field-loginform-username required" style="margin: 0px">
-                <label class="control-label" for="loginform-username" style="text-align:left !important">Correo electrónico</label>
+                <label class="control-label" for="loginform-username" >Correo electrónico</label>
                 <input type="email" id="loginform-username" class="form-control" name="LoginForm[username]">
             </div>
             <div class="form-group label-floating field-loginform-password required" style="margin: 0px">

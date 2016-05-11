@@ -1,7 +1,7 @@
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt=""> Ideas en acción
 </div>
-<div ng-app="ideasaccion" class="box_content contenido_seccion_equipo">
+<div ng-app="ideasaccion" class="box_content contenido_seccion_crear_equipo">
     <div ng-controller="PrimeroController">
         <h3>¡Comenzamos, nos informamos!</h3>
         <section >
