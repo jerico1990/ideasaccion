@@ -71,9 +71,10 @@ $btninscribir=$integrante
         <?php if(!$integrante && $estudiante->grado!=6){ ?>
             <div class="final_seccion_equipo">
                 <div class="row">
+                    <p></p>
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
-                        <?= Html::a('Crea tu equipo',['inscripcion/index'],['class'=>'btn btn-default btn-raised ']); ?>
+                        <?= Html::a('Crea tu equipo',['inscripcion/index'],['class'=>'btn btn-default ']); ?>
                     </div>
                 </div>
             </div>

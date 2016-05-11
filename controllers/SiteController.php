@@ -51,11 +51,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $this->layout='index';
-        if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['panel/index']);
-        }
-        return $this->render('index');
+        return $this->redirect(['panel/votacion']);
     }
 
     public function actionLogin()
@@ -87,49 +83,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-    
-    public function actionPrueba()
-    {
-        return $this->render('prueba');
-    }
-    public function actionQueEs()
-    {
-        $this->layout='minedu';
-        return $this->render('que-es');
-    }
-    public function actionBases()
-    {
-        $this->layout='minedu';
-        return $this->render('bases');
-    }
-    public function actionEtapas()
-    {
-        $this->layout='minedu';
-        return $this->render('etapas');
-    }
-    
-    public function actionAsuntosPublicos()
-    {
-        $this->layout='minedubk';
-        return $this->render('asuntos-publicos');
-    }
     public function actionResultados()
     {
         $this->layout='minedu';
