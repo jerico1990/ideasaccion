@@ -42,8 +42,9 @@ if($integrante)
     {
         array_push($integrantestotales,['nombres'=>$equipoinvitacion['nombres']." ".$equipoinvitacion['apellido_paterno']." ".$equipoinvitacion['apellido_materno'],'grado'=>$equipoinvitacion['grado'],'avatar'=>$equipoinvitacion['avatar']]);
     }
-    $primeras3elementos = array_slice($integrantestotales, 0, 3);
-    $otros3elementos= array_slice($integrantestotales, 3,6);
+    $primeros3elementos = array_slice($integrantestotales, 0, 3);
+    $segundos3elementos= array_slice($integrantestotales, 3,6);
+    $terceros3elementos= array_slice($integrantestotales, 3,6);
 }
 $btninscribir=$integrante
 ?>
@@ -290,20 +291,20 @@ $btninscribir=$integrante
                 </tbody>
             </table>
             <?php } elseif($equipo->estado==1){ ?>
-            
+            <div class="clearfix"></div>
             <div class="col-md-1">
                     &nbsp;
             </div>
 
             <div class="col-md-5">
-                <?php for($i=0;$i<count($primeras3elementos);$i++){?>
+                <?php for($i=0;$i<count($primeros3elementos);$i++){?>
                     <div class="table_div">
                             <div class="row_div">
                                     <div class="cell_div div_ia_icon">
-                                            <div class="imagen_perfil_miembro" style="background-image: url(../foto_personal/<?= $primeras3elementos[$i]['avatar'] ?>);"></div>
+                                            <div class="imagen_perfil_miembro" style="background-image: url(../foto_personal/<?= $primeros3elementos[$i]['avatar'] ?>);"></div>
                                     </div>
                                     <div class="cell_div uppercase">
-                                            <b><?= $primeras3elementos[$i]['nombres'] ?></b><br>
+                                            <b><?= $primeros3elementos[$i]['nombres'] ?></b><br>
                                     </div>
                             </div>
                     </div>
@@ -315,19 +316,38 @@ $btninscribir=$integrante
             </div>
 
             <div class="col-md-5">
-                <?php for($i=0;$i<count($otros3elementos);$i++){?>
+                <?php for($i=0;$i<count($segundos3elementos);$i++){?>
                     <div class="table_div">
                             <div class="row_div">
                                     <div class="cell_div div_ia_icon">
-                                            <div class="imagen_perfil_miembro" style="background-image: url(../foto_personal/<?= $otros3elementos[$i]['avatar'] ?>);"></div>
+                                            <div class="imagen_perfil_miembro" style="background-image: url(../foto_personal/<?= $segundos3elementos[$i]['avatar'] ?>);"></div>
                                     </div>
                                     <div class="cell_div uppercase">
-                                            <b><?= $otros3elementos[$i]['nombres'] ?></b><br>
+                                            <b><?= $segundos3elementos[$i]['nombres'] ?></b><br>
                                     </div>
                             </div>
                     </div>
                 <?php } ?>
             </div>
+            <div class="clearfix"></div>
+            <div class="col-md-1">
+                    &nbsp;
+            </div>
+            <div class="col-md-5">
+                <?php for($i=0;$i<count($terceros3elementos);$i++){?>
+                    <div class="table_div">
+                            <div class="row_div">
+                                    <div class="cell_div div_ia_icon">
+                                            <div class="imagen_perfil_miembro" style="background-image: url(../foto_personal/<?= $terceros3elementos[$i]['avatar'] ?>);"></div>
+                                    </div>
+                                    <div class="cell_div uppercase">
+                                            <b><?= $terceros3elementos[$i]['nombres'] ?></b><br>
+                                    </div>
+                            </div>
+                    </div>
+                <?php } ?>
+            </div>
+            <div class="clearfix"></div>
             
             <?php } ?>
         </div>
