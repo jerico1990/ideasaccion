@@ -158,4 +158,18 @@ class UsuarioController extends Controller
         }
         
     }
+    
+    public function actionCambiar()
+    {
+        $this->layout='administrador';
+        $model=Usuario::findOne(\Yii::$app->user->id);
+        if($model->load(Yii::$app->request->post()))
+        {
+            $model->password=crypt($model->password,"ideasenaccion");
+            $model->update();
+            Yii::$app->session->setFlash('contrasena');
+            return $this->refresh();
+        }
+        return $this->render('cambiar',['model'=>$model]);
+    }
 }

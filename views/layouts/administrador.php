@@ -143,7 +143,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     </li>
                                     <!--Fin Foro proyectos-->
                                     
-                                    <!--Foro proyectos-->
+                                    <!--Reportes-->
                                     <li>
                                         <?= Html::a("Reportes",['#'],[]);?>
                                         <ul>
@@ -151,7 +151,13 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                             <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
                                         </ul>
                                     </li>
-                                    <!--Fin Foro proyectos-->
+                                    <!--Fin Reportes-->
+                                    
+                                    <!--Contraseña-->
+                                    <li>
+                                        <?= Html::a("Cambio de contraseña",['usuario/cambiar'],[]);?>
+                                    </li>
+                                    <!--Fin Contraseña-->
                                 </ul>
                             </div>
                         </div>
