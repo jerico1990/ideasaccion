@@ -157,7 +157,8 @@ use yii\widgets\ActiveForm;
 		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
 		<form action="#" method="get">
 			<div class="form-group">
-				Solo se pueden agregar 3 opciones.
+				¡Solo puedes seleccionar tres asuntos públicos!<br>
+                                Si deseas cambiar tu selección, presiona el corazón azul y se liberará el espacio.
 			</div>
 			<div class="form-group">
 				<button type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
@@ -187,7 +188,8 @@ use yii\widgets\ActiveForm;
 		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
 		<form action="#" method="get">
 			<div class="form-group">
-				Debes seleccionar 3 asuntos públicos para ingresar tu voto.
+                            ¡Ya casi estamos listos!<br>
+			    Para votar necesitas seleccionar tres asuntos públicos.
 			</div>
 			<div class="form-group">
 				<button type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
