@@ -233,7 +233,7 @@ class VotoController extends Controller
         
         $div="
             <div class=\"text_deparment\">
-		Región de <span>$departamento->department</span>
+		Región <span>$departamento->department</span>
             </div>
             <div class=\"row result_map\">
             <table width=\"100%\">";

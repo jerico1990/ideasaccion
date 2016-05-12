@@ -678,7 +678,7 @@
 			
 			<div id="info_lima" style="display: none">
 			    <div class="text_deparment">
-				    Región de <span>LIMA</span>
+				    Región <span>LIMA</span>
 			    </div>
 			    <div class="col-md-12">
 				<select id="selector" class="form-control" onchange="Resultados(this)">
@@ -2924,9 +2924,10 @@
 		console.log( _st.attr("data-id"));
 		
 		if (_st.attr("data-id")=='15') {
+		    $("#selector").val("");
 		    $('#info').html("");
 		    $("#info_lima").show();
-		   
+		    $('.result_map').html("");
 		}
 		else
 		{
@@ -2953,7 +2954,7 @@
 		data: {region:$(element).val()},
 		success: function(data){
 		   $('.result_map').html(data);
-		   $('.text_deparment').html('Región de <span>'+$("#selector option:selected").text()+'</span>');
+		   $('.text_deparment').html('Región <span>'+$("#selector option:selected").text()+'</span>');
 		}
 	    });
 	}

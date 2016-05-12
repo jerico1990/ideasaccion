@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 <div class="col-md-2">
     <div class="text_results">
-        <?= Html::a('<img src='.\Yii::$app->request->BaseUrl.'/images/text_results_title.png" alt="">',['site/resultados'],[]);?>
+        <?= Html::a('<img src="'.\Yii::$app->request->BaseUrl.'/images/text_results_title.png" alt="">',['site/resultados']);?>
             
             <div class="line_separator"></div>
             ¡Conoce los asuntos públicos que lideran en tu región aquí!
