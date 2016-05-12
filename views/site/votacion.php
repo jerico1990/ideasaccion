@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
     <div class="text_results">
             <img src="<?= \Yii::$app->request->BaseUrl ?>/images/text_results_title.png" alt="">
             <div class="line_separator"></div>
-            Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
+            ¡Conoce los asuntos públicos que lideran en tu región aquí!
     </div>
 </div>
 <div class="col-md-5">

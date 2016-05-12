@@ -6,7 +6,7 @@ use yii\helpers\Html;
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt="">Foro
 </div>
-<div class="box_content contenido_seccion_equipo" >
+<div class="box_content contenido_seccion_crear_equipo" >
     
     <div class="clearfix"></div>
     <div class="col-md-6">Asunto</div>
