@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\db\Query;
 use app\models\Voto;
+use yii\data\Sort;
 /**
  * ProyectoController implements the CRUD actions for Proyecto model.
  */
@@ -44,10 +45,29 @@ class ReporteController extends Controller
     public function actionIndex()
     {
         $this->layout='administrador';
+        
+        $sort = new Sort([
+            'attributes' => [
+                'descripcion_cabecera' => [
+                    'asc' => ['descripcion_cabecera' => SORT_ASC, ],
+                    'desc' => ['descripcion_cabecera' => SORT_DESC,],
+                    'default' => SORT_DESC,
+                    'label' => 'Asunto público',
+                ],
+                'voto_emitido' => [
+                    'asc' => ['voto_emitido' => SORT_ASC, ],
+                    'desc' => ['voto_emitido' => SORT_DESC,],
+                    'default' => SORT_DESC,
+                    'label' => 'Votos emitidos',
+                ],
+            ],
+        ]);
+        
         $model = new Voto();
         $model->load(Yii::$app->request->queryParams);
         return $this->render('index', [
             'model' => $model,
+            'sort' => $sort,
         ]);
     }
     

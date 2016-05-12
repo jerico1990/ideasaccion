@@ -65,14 +65,15 @@ class Voto extends \yii\db\ActiveRecord
         return $this->hasOne(Asunto::className(), ['id' => 'asunto_id']);
     }
     
-    public function getVotos($region)
+    public function getVotos($region,$sort)
     {
         $query = new Query;
         $query->select('a.descripcion_cabecera, count(v.asunto_id) voto_emitido')
             ->from('{{%voto}} as v')
             ->join('INNER JOIN','{{%asunto}} as a', 'a.id=v.asunto_id')
             ->where('v.region_id=:region_id',['region_id'=>$region])
-            ->groupBy('a.descripcion_cabecera');
+            ->groupBy('a.descripcion_cabecera')
+            ->orderBy($sort);
         $result = Yii::$app->tools->Pagination($query,33);
         
         return ['votos' => $result['result'], 'pages' => $result['pages']];

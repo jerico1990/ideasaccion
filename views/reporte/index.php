@@ -1,5 +1,5 @@
 <?php 
-$votos = $model->getVotos($model->region_id);
+$votos = $model->getVotos($model->region_id,$sort->orders);
 
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
@@ -10,8 +10,6 @@ use app\models\Ubigeo;
 $floor = 1;
 if (isset($_GET['page']) >= 2)
     $floor += ($votos['pages']->pageSize * $_GET['page']) - $votos['pages']->pageSize;
-
-
 
 ?>
 <div class="box_head title_content_box">
@@ -37,8 +35,8 @@ if (isset($_GET['page']) >= 2)
     
     <table class="table">
         <thead style="background: #D9D9D9">
-            <th><b>Asunto público</b></th>
-            <th align="center"><b>Votos emitidos</b></th>
+            <th><b><?= $sort->link('descripcion_cabecera')?></b></th>
+            <th align="center"><b><?= $sort->link('voto_emitido')?></b></th>
         </thead>
         <tbody>
         <?php foreach($votos['votos'] as $voto):
@@ -58,9 +56,9 @@ if (isset($_GET['page']) >= 2)
         ]);?>
         
         <div class='clearfix'></div>
-        <div class="col-md-4">
-            <?= Html::a('Descargar',['reporte/index_descargar','region'=>$model->region_id],['class'=>'btn btn-default']);?>
-        </div>
+            <div class="form-group pull-rigth col-md-4" >
+            <?= Html::a('Descargar',['reporte/index_descargar','region'=>$model->region_id],['class'=>' btn btn-default']);?>
+            </div>
         <div class='clearfix'></div>
         
         
