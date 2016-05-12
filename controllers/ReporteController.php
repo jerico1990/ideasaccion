@@ -48,18 +48,13 @@ class ReporteController extends Controller
         
         $sort = new Sort([
             'attributes' => [
-                'descripcion_cabecera' => [
-                    'asc' => ['descripcion_cabecera' => SORT_ASC, ],
-                    'desc' => ['descripcion_cabecera' => SORT_DESC,],
-                    'default' => SORT_DESC,
-                    'label' => 'Asunto público',
-                ],
                 'voto_emitido' => [
-                    'asc' => ['voto_emitido' => SORT_ASC, ],
-                    'desc' => ['voto_emitido' => SORT_DESC,],
-                    'default' => SORT_DESC,
                     'label' => 'Votos emitidos',
                 ],
+                'descripcion_cabecera' => [
+                    'label' => 'Asunto público',
+                ],
+                
             ],
         ]);
         

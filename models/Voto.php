@@ -68,12 +68,26 @@ class Voto extends \yii\db\ActiveRecord
     public function getVotos($region,$sort)
     {
         $query = new Query;
-        $query->select('a.descripcion_cabecera, count(v.asunto_id) voto_emitido')
-            ->from('{{%voto}} as v')
-            ->join('INNER JOIN','{{%asunto}} as a', 'a.id=v.asunto_id')
-            ->where('v.region_id=:region_id',['region_id'=>$region])
-            ->groupBy('a.descripcion_cabecera')
-            ->orderBy($sort);
+        if(count($sort)>0)
+        {
+            
+            $query->select('a.descripcion_cabecera, count(v.asunto_id) voto_emitido')
+                ->from('{{%voto}} as v')
+                ->join('INNER JOIN','{{%asunto}} as a', 'a.id=v.asunto_id')
+                ->where('v.region_id=:region_id',['region_id'=>$region])
+                ->groupBy('a.descripcion_cabecera')
+                ->orderBy($sort);
+            
+        }
+        else
+        {
+            $query->select('a.descripcion_cabecera, count(v.asunto_id) voto_emitido')
+                ->from('{{%voto}} as v')
+                ->join('INNER JOIN','{{%asunto}} as a', 'a.id=v.asunto_id')
+                ->where('v.region_id=:region_id',['region_id'=>$region])
+                ->groupBy('a.descripcion_cabecera')
+                ->orderBy('voto_emitido desc');
+        }
         $result = Yii::$app->tools->Pagination($query,33);
         
         return ['votos' => $result['result'], 'pages' => $result['pages']];
