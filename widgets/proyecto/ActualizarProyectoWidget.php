@@ -353,7 +353,7 @@ class ActualizarProyectoWidget extends Widget
                 $videoup=Video::findOne($video->id);
                 $videoup->ruta=$video->id. '.' . $video->archivo->extension;
                 $videoup->update();
-                if (file_exists(\Yii::$app->basePath."/web/video_carga/".$videoup->ruta)) {
+                if (file_exists(\Yii::$app->request->BaseUrl."/video_carga/".$videoup->ruta)) {
                     //$this->rename_win(\Yii::$app->basePath."/web/video_carga/".$videoup->ruta,\Yii::$app->basePath."/web/video_carga/$videoup->ruta.old");
                     //rename(\Yii::$app->basePath."/web/video_carga/$videoup->ruta", \Yii::$app->basePath."/web/video_carga/$videoup->ruta.old");
                 }

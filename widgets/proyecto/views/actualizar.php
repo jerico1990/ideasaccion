@@ -216,7 +216,7 @@ $acti3=0;
                         <div class="col-xs-4 col-sm-4 col-md-4 text-center">
                             <div class="form-group label-floating field-registrar-foto required" style="margin-top: 15px">
                                 <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video($(this))"/>
-                                <img id="img_destino" class="" style="height: 240px;width:320px;cursor: pointer" src="../images/video.jpg">
+                                <img  class="" style="height: 240px;width:320px;cursor: pointer" src="../images/video.jpg">
                             </div>
                         </div>
                         <?php } ?>
