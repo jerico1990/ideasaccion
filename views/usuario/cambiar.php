@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 </div>
 <div  class="box_content contenido_seccion_crear_equipo">
     <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label('Contraseña') ?>
         
         <div class="form-group">
             <?= Html::submitButton('cambiar', ['class' => 'btn btn-default' ]) ?>
