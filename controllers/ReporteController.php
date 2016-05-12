@@ -70,6 +70,7 @@ class ReporteController extends Controller
     {
         return $this->render('index_descargar', [
             'region' => $region,
+            'sort'=>$sort
         ]);
     }
 

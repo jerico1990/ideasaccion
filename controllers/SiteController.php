@@ -85,7 +85,7 @@ class SiteController extends Controller
 
     public function actionResultados()
     {
-        $this->layout='minedu';
+        $this->layout='mapa';
         return $this->render('resultados');
     }
     

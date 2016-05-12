@@ -267,6 +267,7 @@ section.vote .options_selected .option_items.selected .icon_alternative{
 	background-image: url(../images/vote_icon_heart.png);
 	background-position: center;
 	background-repeat: no-repeat;
+	cursor: pointer;
 }
 
 section.vote .options_selected .option_items.selected .icon_alternative .num_alternative{
@@ -290,6 +291,105 @@ section.vote .vote_character{
 	top: 50%;
 	right: 2%;
 	margin-top: -28%;
+}
+
+/*
+ * SECTION MAP
+ */
+section.map{
+	color: #253063;
+	font-family: 'Exo 2', sans-serif;
+	padding-top: 61px;
+}
+
+section.map .text_top{
+	text-align: center;
+	font-size: 21px;
+	font-weight: 600;
+}
+
+section.map .text_deparment{
+	text-align: center;
+	font-size: 30px;
+	padding: 25px 0;
+	font-weight: 300;
+}
+
+section.map .text_deparment span{
+	text-transform: uppercase;
+}
+
+section.map .result_map{
+	color: #009DBA;
+	font-size: 20px;
+}
+
+section.map .result_map{
+	color: #009DBA;
+	font-size: 20px;
+	padding-bottom: 20px;
+	border-bottom: 3px dotted #FFD405;
+}
+
+section.map .result_map .ia_icon_heart_small{
+	display: block;
+	padding-left: 30px;
+	background: url(../images/map_icon_heart_small.png) no-repeat left center;
+}
+
+section.map .result_map td{
+	padding: 5px 0;
+}
+
+section.map .result_map .show_percent{
+	display: inline-block;
+	width: 75%;
+	border: 1px solid #1D1D1C;
+	background: #F2F1F2;
+	position: relative;
+	height: 30px;
+	float: left;
+	margin-right: 5px;
+}
+
+section.map .result_map .show_percent .percent_bar{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	background: #009DBA;
+}
+
+section.map .result_map .ia_right{
+	line-height: 30px;
+}
+
+section.map .text_end{
+	padding: 15px 0 0 0;
+	font-size: 21px;
+	text-align: center;
+}
+
+section.map .text_end .btn{
+	display: inline-block;
+	margin: 30px 0;
+	color: #FFFFFF;
+	font-size: 20px;
+	font-weight: 600;
+	padding: 10px 55px;
+	background: #FFD400;
+	border-color: #FFD400;
+	font-family: 'Exo 2', sans-serif;
+}
+
+section.map .info_deptos>div{
+	display: none;
+}
+
+section.map .info_deptos .active,
+section.map .info_deptos .text_top,
+section.map .info_deptos .text_end{
+	display: block;
 }
 
 .popup{

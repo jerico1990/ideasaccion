@@ -34,7 +34,8 @@ if($region){
                 from voto as v
                 inner join asunto a on a.id=v.asunto_id
                 where v.region_id='.$region.'
-                group by a.descripcion_cabecera')
+                group by a.descripcion_cabecera
+                ')
             ->queryAll();
                 
 }

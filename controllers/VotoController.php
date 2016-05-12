@@ -11,7 +11,7 @@ use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
 use app\models\VotacionPublica;
 use app\models\VotacionFinal;
-
+use app\models\Ubigeo;
 /**
  * VotoController implements the CRUD actions for Voto model.
  */
@@ -213,8 +213,7 @@ class VotoController extends Controller
     
     public function actionResultados($region)
     {
-        //var_dump($_REQUEST);die;
-        $table="";
+        $div="";
         $resultados=Voto::find()
                     ->limit(3)
                     ->select(['asunto.descripcion_cabecera as asuntod','asunto_id','COUNT(asunto_id) contador'])
@@ -226,32 +225,97 @@ class VotoController extends Controller
         $total=Voto::find()->select(['COUNT(asunto_id) contador'])
                     ->where('region_id=:region_id',[':region_id'=>$region])
                     ->one();
-        $table="
-        <table class=\"table table-hover\" id=\"dev-table\">
-            <thead>
-                <tr>
-                        <th>#</th>
-                        <th>Asunto</th>
-                        <th>Resultado</th>
-                </tr>
-            </thead>
-            <tbody>
-            ";
-        $i=1;
+        $departamento=Ubigeo::find()
+                        ->select('department')
+                        ->where('department_id=:department_id',[':department_id'=>$region])
+                        ->groupBy('department')
+                        ->one();
+        
+        $div="
+            <div class=\"text_deparment\">
+		Departamento de <span>$departamento->department</span>
+            </div>
+            <div class=\"row result_map\">
+            <table width=\"100%\">";
+        $total=0;
+        
         foreach($resultados as $resultado)
         {
-            $table=$table." <tr>
-                                <td>$i</td>
-                                <td>".$resultado->asuntod."</td>
-                                <td>".$resultado->contador."</td>
-                            </tr>";
-            $i++;
+                                                
+            $total=$total+$resultado->contador;
         }
         
-        $table=$table."</tbody>
-        </table>";
         
-        echo $table;
+        foreach($resultados as $resultado)
+        {
+                                                
+            $div=$div." <tr>
+                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."</span></td>
+                                <td class=\"ia_right\" align=\"middle\">
+                                    <div class=\"show_percent\">
+                                        <div class=\"percent_bar\" style=\"width:".number_format((($resultado->contador*100)/$total), 1, '.', '')."%;\"></div>
+                                    </div>".number_format((($resultado->contador*100)/$total), 1, '.', '')."%
+                                </td>
+                            </tr>";
+        }
+        
+        $div=$div."</table></div>";
+        
+        echo $div;
+        
+        
+    }
+    
+    
+    public function actionResultadoslima($region)
+    {
+        $div="";
+        $resultados=Voto::find()
+                    ->limit(3)
+                    ->select(['asunto.descripcion_cabecera as asuntod','asunto_id','COUNT(asunto_id) contador'])
+                    ->innerJoin('asunto','voto.asunto_id=asunto.id')
+                    ->where('region_id=:region_id',[':region_id'=>$region])
+                    ->groupBy('asuntod ,asunto_id')
+                    ->orderBy('contador desc ')
+                    ->all();
+        $total=Voto::find()->select(['COUNT(asunto_id) contador'])
+                    ->where('region_id=:region_id',[':region_id'=>$region])
+                    ->one();
+        $departamento=Ubigeo::find()
+                        ->select('department')
+                        ->where('department_id=:department_id',[':department_id'=>$region])
+                        ->groupBy('department')
+                        ->one();
+        
+        $div="
+            <table width=\"100%\">";
+        $total=0;
+        
+        foreach($resultados as $resultado)
+        {
+                                                
+            $total=$total+$resultado->contador;
+        }
+        
+        
+        foreach($resultados as $resultado)
+        {
+                                                
+            $div=$div." <tr>
+                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."</span></td>
+                                <td class=\"ia_right\" align=\"middle\">
+                                    <div class=\"show_percent\">
+                                        <div class=\"percent_bar\" style=\"width:".number_format((($resultado->contador*100)/$total), 1, '.', '')."%;\"></div>
+                                    </div>".number_format((($resultado->contador*100)/$total), 1, '.', '')."%
+                                </td>
+                            </tr>";
+        }
+        
+        $div=$div."</table>";
+        
+        echo $div;
+        
+        
     }
     
     public function actionMostrarvotacionpublica($region)
