@@ -678,10 +678,10 @@
 			
 			<div id="info_lima" style="display: none">
 			    <div class="text_deparment">
-				    Departamento de <span>LIMA</span>
+				    Región de <span>LIMA</span>
 			    </div>
 			    <div class="col-md-12">
-				<select class="form-control" onchange="Resultados($(this).val())">
+				<select id="selector" class="form-control" onchange="Resultados(this)">
 				    <option value>Seleccionar</option>
 				    <option value="15">Lima Metropolitana</option>
 				    <option value="26">Lima Provincias</option>
@@ -2945,13 +2945,14 @@
 	
     });
     
-    function Resultados(value) {
+    function Resultados(element) {
 	    $.ajax({
 		url: '<?= $resultadoslima ?>',
 		type: 'GET',
-		data: {region:value},
+		data: {region:$(element).val()},
 		success: function(data){
 		   $('.result_map').html(data);
+		   $('.text_deparment').html('Región de <span>'+$("#selector option:selected").text()+'</span>');
 		}
 	    });
 	}
