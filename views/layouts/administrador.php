@@ -76,9 +76,8 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     <?php $this->head() ?>
 </head>
-<body class="mi_equipo">
+<body class="mi_equipo" >
     <?php $this->beginBody() ?>
-    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/personaje_derecha_mi_equipo.png" class="personaje_derecha_fixed" alt="" />
     <header>
         <div class="franja_amarilla"></div>
         <div class="content">

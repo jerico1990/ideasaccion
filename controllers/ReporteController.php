@@ -45,7 +45,7 @@ class ReporteController extends Controller
     {
         $this->layout='administrador';
         $model = new Voto();
-        $model->load(Yii::$app->request->post());
+        $model->load(Yii::$app->request->queryParams);
         return $this->render('index', [
             'model' => $model,
         ]);

@@ -10,6 +10,9 @@ use app\models\Ubigeo;
 $floor = 1;
 if (isset($_GET['page']) >= 2)
     $floor += ($votos['pages']->pageSize * $_GET['page']) - $votos['pages']->pageSize;
+
+
+
 ?>
 <div class="box_head title_content_box">
     <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_team_big.jpg" alt=""> Reporte 
@@ -17,26 +20,25 @@ if (isset($_GET['page']) >= 2)
 <div ng-app="ideasaccion" class="box_content contenido_seccion_crear_equipo">
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
-        'method' => 'post',
+        'method' => 'get',
     ]); ?>
-    <div class="form-group label-floating field-voto-region required">
-        <select id="voto-region_id" class="form-control" name="Voto[region_id]" >
-            <option value>Selecciona tu región</option>
-            <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
-                <option value="<?= $departamento->department_id ?>"><?= $departamento->department ?></option>
-            <?php } ?>
-        </select>
-    </div>
-    <div class="form-group">
-        <?= Html::submitButton('Buscar', ['class' => 'btn btn-default']) ?>
-    </div>
+        <div class="md-col-6">
+            <div class="form-group label-floating field-voto-region required">
+                <select id="voto-region_id" class="form-control" name="Voto[region_id]" onchange="Region(event)">
+                    <option value>Selecciona tu región</option>
+                    <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
+                        <option value="<?= $departamento->department_id ?>" <?= ($model->region_id==$departamento->department_id)?'selected':'' ?>  ><?= $departamento->department ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
     <?php ActiveForm::end(); ?>
     
     
     <table class="table">
-        <thead>
-            <th>Asunto público</th>
-            <th>Votos emitidos</th>
+        <thead style="background: #D9D9D9">
+            <th><b><a href="<?= $url ?>">Asunto público</a></b></th>
+            <th align="center"><b>Votos emitidos</b></th>
         </thead>
         <tbody>
         <?php foreach($votos['votos'] as $voto):
@@ -44,7 +46,7 @@ if (isset($_GET['page']) >= 2)
             ?>
             <tr>
                 <td><?= $voto['descripcion_cabecera'] ?></td>
-                <td><?= $voto['voto_emitido'] ?></td>
+                <td align="center"><?= $voto['voto_emitido'] ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -55,9 +57,18 @@ if (isset($_GET['page']) >= 2)
             'firstPageLabel' => true
         ]);?>
         
-        <br>
-        <?= Html::a('Descargar',['reporte/index_descargar','region'=>$model->region_id]);?>
+        <div class='clearfix'></div>
+        <div class="col-md-4">
+            <?= Html::a('Descargar',['reporte/index_descargar','region'=>$model->region_id],['class'=>'btn btn-default']);?>
+        </div>
+        <div class='clearfix'></div>
+        
         
     
 </div>
-
+<script>
+    function Region(event) {
+        event.preventDefault();
+        $( "#w0" ).submit();
+    }
+</script>

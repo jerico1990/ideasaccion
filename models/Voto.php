@@ -73,7 +73,7 @@ class Voto extends \yii\db\ActiveRecord
             ->join('INNER JOIN','{{%asunto}} as a', 'a.id=v.asunto_id')
             ->where('v.region_id=:region_id',['region_id'=>$region])
             ->groupBy('a.descripcion_cabecera');
-        $result = Yii::$app->tools->Pagination($query,8);
+        $result = Yii::$app->tools->Pagination($query,33);
         
         return ['votos' => $result['result'], 'pages' => $result['pages']];
     }
