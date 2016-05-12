@@ -2,11 +2,13 @@
 use app\models\Asunto;
 use app\models\Ubigeo;
 use yii\widgets\ActiveForm;
+use yii\helpers\Html;
 ?>
 
 <div class="col-md-2">
     <div class="text_results">
-            <img src="<?= \Yii::$app->request->BaseUrl ?>/images/text_results_title.png" alt="">
+        <?= Html::a('<img src='.\Yii::$app->request->BaseUrl.'/images/text_results_title.png" alt="">',['site/resultados'],[]);?>
+            
             <div class="line_separator"></div>
             ¡Conoce los asuntos públicos que lideran en tu región aquí!
     </div>
@@ -219,7 +221,7 @@ use yii\widgets\ActiveForm;
 		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
 		<form action="#" method="get">
 			<div class="form-group">
-				El DNI ya existe
+				El DNI ingresado ya ha sido registrado anteriormente.
 			</div>
 			<div class="form-group">
 				<button type="button" id="aceptar_dni_duplicado" class="btn btn-default btn_close_popup">ACEPTAR</button>

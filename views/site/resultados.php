@@ -2925,7 +2925,7 @@
 		
 		if (_st.attr("data-id")=='15') {
 		    $('#info').html("");
-		   $("#info_lima").show();
+		    $("#info_lima").show();
 		   
 		}
 		else
@@ -2936,6 +2936,7 @@
 			data: {region:_st.attr("data-id")},
 			success: function(data){
 			   $('#info').html(data);
+			   $("#info_lima").hide();
 			}
 		    });	
 		}
