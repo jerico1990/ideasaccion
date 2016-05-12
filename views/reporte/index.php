@@ -37,7 +37,7 @@ if (isset($_GET['page']) >= 2)
     
     <table class="table">
         <thead style="background: #D9D9D9">
-            <th><b><a href="<?= $url ?>">Asunto público</a></b></th>
+            <th><b>Asunto público</b></th>
             <th align="center"><b>Votos emitidos</b></th>
         </thead>
         <tbody>
