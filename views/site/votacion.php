@@ -138,13 +138,13 @@ use yii\widgets\ActiveForm;
 			<input type="text" id="voto-dni" placeholder="Ingresa tu DNI" class="form-control numerico" name="Voto[dni]"  onfocusout="CambioDNI(this)" maxlength="8">
 		</div>
                 <div class="form-group label-floating field-voto-region required">
-			<select id="voto-region" class="form-control" name="Voto[region]" >
-			    <option value>Selecciona tu región</option>
-			    <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
-				<option value="<?= $departamento->department_id ?>"><?= $departamento->department ?></option>
-			    <?php } ?>
-			</select>
-		    </div>
+                    <select id="voto-region" class="form-control" name="Voto[region]" >
+                        <option value>Selecciona tu región</option>
+                        <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
+                            <option value="<?= $departamento->department_id ?>"><?= $departamento->department ?></option>
+                        <?php } ?>
+                    </select>
+		</div>
                 <div class="form-group">
                         <button type="button" class="btn btn-default" onclick="Votar()">VOTAR</button>
                 </div>

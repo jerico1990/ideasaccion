@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-
+use yii\db\Query;
 use Yii;
 
 /**
@@ -23,6 +23,7 @@ class Voto extends \yii\db\ActiveRecord
     public $dni;
     public $contador;
     public $asuntod;
+    public $voto_emitido;
     public static function tableName()
     {
         return 'voto';
@@ -62,5 +63,18 @@ class Voto extends \yii\db\ActiveRecord
     public function getAsunto()
     {
         return $this->hasOne(Asunto::className(), ['id' => 'asunto_id']);
+    }
+    
+    public function getVotos($region)
+    {
+        $query = new Query;
+        $query->select('a.descripcion_cabecera, count(v.asunto_id) voto_emitido')
+            ->from('{{%voto}} as v')
+            ->join('INNER JOIN','{{%asunto}} as a', 'a.id=v.asunto_id')
+            ->where('v.region_id=:region_id',['region_id'=>$region])
+            ->groupBy('a.descripcion_cabecera');
+        $result = Yii::$app->tools->Pagination($query,8);
+        
+        return ['votos' => $result['result'], 'pages' => $result['pages']];
     }
 }

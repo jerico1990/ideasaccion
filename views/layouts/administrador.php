@@ -50,7 +50,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
   <!-- jQuery -->
   <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+   
   <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -78,12 +78,12 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 </head>
 <body class="mi_equipo">
     <?php $this->beginBody() ?>
-    <img src="../img/personaje_derecha_mi_equipo.png" class="personaje_derecha_fixed" alt="" />
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/personaje_derecha_mi_equipo.png" class="personaje_derecha_fixed" alt="" />
     <header>
         <div class="franja_amarilla"></div>
         <div class="content">
             <a href="#" class="logo">
-                    <img src="../img/logo.jpg" alt="" />
+                    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/logo.jpg" alt="" />
             </a>
         </div>
     </header>
@@ -102,7 +102,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                         <div class="table_div">
                                             <div class="row_div">
                                                 <div class="cell_div cell_image">
-                                                    <div class="image_grupo" style="background-image: url(../foto_personal/<?= $usuario->avatar?>);"></div>
+                                                    <div class="image_grupo" style="background-image: url(<?= \Yii::$app->request->BaseUrl ?>/foto_personal/<?= $usuario->avatar?>);"></div>
                                                 </div>
                                                 <div class="cell_div cell_info">
                                                     <div class="cell_info_content">
