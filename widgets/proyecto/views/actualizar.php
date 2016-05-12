@@ -747,7 +747,7 @@ $acti3=0;
         }
         else
         {
-            mostrarImagen(this);
+            //mostrarImagen(this);
             return true;
         }
     }
