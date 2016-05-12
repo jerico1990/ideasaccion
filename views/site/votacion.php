@@ -176,7 +176,7 @@ use yii\helpers\Html;
 		<form action="#" method="get">
 			<div class="form-group">
 				<b>!LISTO!</b><br>
-				Tu voto a sido registrado.
+				Tu voto ha sido registrado.
 			</div>
 			<div class="form-group">
 				<button id="voto_registrado" type="button" class="btn btn-default">ACEPTAR</button>
