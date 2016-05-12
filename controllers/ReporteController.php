@@ -66,11 +66,41 @@ class ReporteController extends Controller
         ]);
     }
     
+    public function actionRegion()
+    {
+        $this->layout='administrador';
+        
+        $sort = new Sort([
+            'attributes' => [
+                'voto_emitido' => [
+                    'label' => 'Votos emitidos',
+                ],
+                'region_id' => [
+                    'label' => 'Región',
+                ],
+                
+            ],
+        ]);
+        
+        $model = new Voto();
+        $model->load(Yii::$app->request->queryParams);
+        return $this->render('region', [
+            'model' => $model,
+            'sort' => $sort,
+        ]);
+    }
+    
     public function actionIndex_descargar($region=null)
     {
         return $this->render('index_descargar', [
             'region' => $region,
-            'sort'=>$sort
+        ]);
+    }
+    
+    public function actionRegion_descargar($region=null)
+    {
+        return $this->render('region_descargar', [
+            'region' => $region,
         ]);
     }
 

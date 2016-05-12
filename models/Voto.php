@@ -92,4 +92,28 @@ class Voto extends \yii\db\ActiveRecord
         
         return ['votos' => $result['result'], 'pages' => $result['pages']];
     }
+    
+    public function getRegion($sort)
+    {
+        $query = new Query;
+        if(count($sort)>0)
+        {
+            
+            $query->select('(select department from ubigeo where department_id=v.region_id group by department) region_id, count(v.asunto_id) voto_emitido')
+                ->from('{{%voto}} as v')
+                ->groupBy('region_id')
+                ->orderBy($sort);
+            
+        }
+        else
+        {
+            $query->select('(select department from ubigeo where department_id=v.region_id group by department) region_id, count(v.asunto_id) voto_emitido')
+                ->from('{{%voto}} as v')
+                ->groupBy('region_id')
+                ->orderBy('voto_emitido desc');
+        }
+        $result = Yii::$app->tools->Pagination($query,27);
+        
+        return ['regiones' => $result['result'], 'pages' => $result['pages']];
+    }
 }
