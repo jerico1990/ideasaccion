@@ -334,7 +334,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 </script>
 
 <!-- Twitter Bootstrap -->
-<script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!-- Material Design for Bootstrap -->
 <script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/material.js"></script>
