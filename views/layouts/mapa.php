@@ -27,8 +27,10 @@ use yii\helpers\Html;
 	<div class="bar_yellow"></div>
 
 	<div class="container">
+            
+            
 		<a href="#" class="logos"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/logo.jpg" alt=""></a>
-		<a href="#" class="logos ideas"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/logo_ideas_en_accion.png" alt=""></a>
+		<a href="http://minedu.gob.pe/ideasenaccion/" class="logos ideas"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/logo_ideas_en_accion.png" alt=""></a>
 	</div>
 </header>
 <section class="map container">

@@ -2904,7 +2904,7 @@
 			</div>
 			-->
 			<div class="text_end">
-				No te quedes en los planes. ¡Pone tus ideas en acción!<br>
+				No te quedes en los planes. ¡Pon tus ideas en acción!<br>
 
 			</div>
 		</div>
