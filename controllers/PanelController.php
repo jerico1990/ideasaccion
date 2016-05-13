@@ -71,6 +71,10 @@ class PanelController extends Controller
         $this->layout='estandar';
         if(\Yii::$app->user->can('administrador'))
         {
+            return $this->redirect(['panel/acciones']);
+        }
+        elseif(\Yii::$app->user->can('monitor'))
+        {
             return $this->redirect(['reporte/index']);
         }
         
@@ -81,6 +85,10 @@ class PanelController extends Controller
     {
         $this->layout='panel';
         if(\Yii::$app->user->can('administrador'))
+        {
+            return $this->redirect(['panel/acciones']);
+        }
+        elseif(\Yii::$app->user->can('monitor'))
         {
             return $this->redirect(['reporte/index']);
         }

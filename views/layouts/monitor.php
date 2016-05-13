@@ -105,13 +105,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                 </div>
                                                 <div class="cell_div cell_info">
                                                     <div class="cell_info_content">
-                                                        <b class="uppercase">
-                                                            <?php if(\Yii::$app->user->can('administrador')){ ?>    
-                                                            Administrador
-                                                            <?php }elseif(\Yii::$app->user->can('monitor')){ ?>
-                                                            Monitor
-                                                            <?php } ?>
-                                                        </b>
+                                                        <b class="uppercase">Administrador</b>
                                                     </div>
                                                     <div class="line_separator"></div>
                                                     <div class="cell_info_content">
@@ -123,11 +117,10 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                 </div>
                             </div>
                             <div class="grid_box_line_blue">
-                                <?php if(\Yii::$app->user->can('administrador')){ ?> 
                                 <ul class="menu_lateral">
-                                    <!--control de acciones-->
+                                    <!--control de acciones
                                     <li>
-                                        <?= Html::a('<div class="table_div">
+                                        <?php /*= Html::a('<div class="table_div">
                                                 <div class="row_div">
                                                     <div class="cell_div div_ia_icon">
                                                         <span class="ia_icon ia_icon_idea"></span>
@@ -136,18 +129,18 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                         Control de acciones <span class="hide">></span>
                                                     </div>
                                                 </div>
-                                            </div>',['panel/acciones'],[]); ?>
-                                    </li>
+                                            </div>',['panel/acciones'],[]);*/ ?>
+                                    </li>-->
                                     <!--fin control de acciones-->
-                                    <!--Foro-->
+                                    <!--Foro
                                     <li>
                                         <?= Html::a("Foros",['panel/foros'],[]);?>
-                                    </li>
+                                    </li>-->
                                     <!--Fin Foro-->
-                                    <!--Foro proyectos-->
+                                    <!--Foro proyectos
                                     <li>
                                         <?= Html::a("Foros proyectos",['panel/forosproyectos'],[]);?>
-                                    </li>
+                                    </li>-->
                                     <!--Fin Foro proyectos-->
                                     
                                     <!--Reportes-->
@@ -166,27 +159,6 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     </li>
                                     <!--Fin Contraseña-->
                                 </ul>
-                                
-                                
-                                <?php }elseif(\Yii::$app->user->can('monitor')){ ?>
-                                <ul class="menu_lateral">
-                                    <!--Reportes-->
-                                    <li>
-                                        <?= Html::a("Reportes",['#'],[]);?>
-                                        <ul>
-                                            <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
-                                            <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
-                                        </ul>
-                                    </li>
-                                    <!--Fin Reportes-->
-                                    
-                                    <!--Contraseña-->
-                                    <li>
-                                        <?= Html::a("Cambio de contraseña",['usuario/cambiar'],[]);?>
-                                    </li>
-                                    <!--Fin Contraseña-->
-                                </ul>
-                                <?php } ?>
                             </div>
                         </div>
                         <div class="col-md-9">

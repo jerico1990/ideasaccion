@@ -10,6 +10,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Usuario;
 use app\models\Resultados;
+use app\models\LogSesion;
 class SiteController extends Controller
 {
     public function behaviors()
@@ -69,6 +70,10 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $log=new LogSesion();
+            $log->user_id=\Yii::$app->user->id;
+            $log->hora_logeo=date("Y-m-d H:i:s");
+            $log->save();
             return $this->redirect(['panel/ideas-accion']);
         }
         return $this->render('login', [
