@@ -148,6 +148,10 @@ class VotoController extends Controller
         $dni=$_GET['Voto']['dni'];
         $region=$_GET['Voto']['region'];
         $asuntos=$_GET['Asuntos'];
+        
+        $validandodni=Voto::find()->where('participante_id=:participante_id',[':participante_id'=>$dni])->all();
+        if(!$validandodni)
+        {
             foreach($asuntos as $asunto => $key)
             {
                 $voto=new Voto;
@@ -158,16 +162,12 @@ class VotoController extends Controller
                 $voto->fecha_registro=date("Y-m-d H:i:s");
                 $voto->estado=1;
                 $voto->save();
+                
             }
-            
-        try {
-            
-            
             $bandera=1;
-        } catch(StaleObjectException  $e) {
-            //$transaction->rollBack();
+        }
+        else{
             $bandera=0;
-            //throw $e;
         }
         echo $bandera;
         

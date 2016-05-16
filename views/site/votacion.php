@@ -235,7 +235,7 @@ use yii\helpers\Html;
         <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
         <?php $form = ActiveForm::begin(['options'=>['id'=>'form_vote_send']]); ?>
                 <div class="form-group label-floating field-voto-dni required">
-			<input type="text" id="voto-dni" placeholder="Ingresa tu DNI" class="form-control numerico" name="Voto[dni]"  onfocusout="CambioDNI(this)" maxlength="8">
+			<input type="text" id="voto-dni" placeholder="Ingresa tu DNI" onpaste="return false;" onCopy="return false" class="form-control numerico" name="Voto[dni]"  onfocusout="CambioDNI(this)" maxlength="8">
 		</div>
                 <div class="form-group label-floating field-voto-region required">
                     <select id="voto-region" class="form-control" name="Voto[region]" >
@@ -545,23 +545,10 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                         $('#form_send').show();
                         
                     }
-                    else
-                    {
-                        $.notify({
-                            // options
-                            message: 'Hubo un problema en el registro' 
-                        },{
-                            // settings
-                            type: 'danger',
-                            z_index: 1000000,
-                            placement: {
-                                from: 'bottom',
-                                align: 'right'
-                            },
-                        });
-                        setTimeout(function(){
-                            window.location.reload(1);
-                        }, 2000);
+                    else if (data==0) {
+                        $('#dni_duplicado').show();
+                        $('#form_votar').hide();
+                        $('#voto-dni').val('');
                     }
                 }
             });

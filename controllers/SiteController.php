@@ -114,7 +114,7 @@ class SiteController extends Controller
                      <br>
                      ";
             Yii::$app->mail->compose('@app/mail/layouts/html',['content'=>$content])
-           ->setFrom('cesar.gago.egocheaga@gmail.com')
+           ->setFrom('info@e-labs.pe')
            ->setTo($usuario->username)
            ->setSubject($subject)
            ->send();

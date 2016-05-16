@@ -98,7 +98,7 @@ class RegistrarController extends Controller
                          <br>
                          ";
                 Yii::$app->mail->compose('@app/mail/layouts/html',['content'=>$content])
-               ->setFrom('info@ideasenaccion.pe')
+               ->setFrom('info@e-labs.pe')
                ->setTo($registrar->email)
                ->setSubject($subject)
                ->send();
