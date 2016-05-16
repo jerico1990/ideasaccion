@@ -3,6 +3,7 @@ use app\models\Asunto;
 use app\models\Ubigeo;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+$this->title="Ideas en acción";
 ?>
 <style>
     .popup .popup_content2
