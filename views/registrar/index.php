@@ -154,11 +154,11 @@ use yii\widgets\Pjax;
                         <label class="control-label" for="registrar-grado">Grado de estudios</label>
                         <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
                             <option value=""></option>
-                            <option value="1">1er</option>
-                            <option value="2">2do</option>
-                            <option value="3">3ro</option>
-                            <option value="4">3to</option>
-                            <option value="5">5to</option>
+                            <option value="1">Primero</option>
+                            <option value="2">Segundo</option>
+                            <option value="3">Tercero</option>
+                            <option value="4">Cuarto</option>
+                            <option value="5">Quinto</option>
                             <option value="6">Docente</option>
                         </select>
                     </div>
@@ -166,7 +166,7 @@ use yii\widgets\Pjax;
             </div>
             <div class="form-group btn_registro_submit">
                 <button type="submit" id="registrar"  class="btn  btn-default" >
-                    Regístrate >
+                    Regístrate
                 </button>
             </div>
         </div>

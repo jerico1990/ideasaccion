@@ -27,6 +27,10 @@ use yii\widgets\Breadcrumbs;
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style_votacion.css" rel="stylesheet">
     <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
     <script src="<?= \Yii::$app->request->BaseUrl ?>/js/jquery.custom-scrollbar.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
+
+    <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+	
 </head>
 <body>
 <?php $this->beginBody() ?>

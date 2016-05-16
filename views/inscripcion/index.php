@@ -188,7 +188,7 @@ if($equipo->id)
 
         </div>
         <div class="col-md-4">
-                <button type="submit" id="btnequipo" class="btn btn-default"><?= $equipo->isNewRecord ? Yii::t('app', 'Crea tu equipo') : Yii::t('app', 'Modifica tu equipo') ?></button>
+                <button type="submit" id="btnequipo" class="btn btn-default"><?= $equipo->isNewRecord ? Yii::t('app', 'Crea tu equipo') : Yii::t('app', 'Actualizar') ?></button>
         </div>
         <div class="col-md-4">
 

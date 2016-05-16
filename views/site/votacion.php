@@ -4,7 +4,66 @@ use app\models\Ubigeo;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 ?>
-
+<style>
+    .popup .popup_content2
+    {
+        position: absolute;
+	top: 50%;
+	left: 50%;
+	background: white;
+	border: 4px solid #13266B;
+	width: 500px;
+	margin-top: -130px;
+	margin-left: -200px;
+    }
+    .popup .popup_content2 .close_popup{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+    }
+    .popup .btn1
+    {
+        color: #FFFFFF;
+	font-size: 20px;
+	font-weight: 600;
+        padding:15px 55px;
+        margin-bottom: 25px;
+        margin-top: 15px;
+        vertical-align:middle;
+	background: #FFD400;
+	border-color: #FFD400;
+	font-family: 'Exo 2', sans-serif;
+    }
+    .popuptitle1
+    {
+        font-family: 'Exo 2', sans-serif;
+	font-weight: 600;
+	font-size: 20px;
+	text-align: center;
+	padding: 18px 25px 0px 0px;
+	color: #13266B;
+    }
+    
+    .popuptitle2
+    {
+        font-family: 'Exo 2', sans-serif;
+	font-weight: 600;
+	font-size: 20px;
+	text-align: center;
+	padding: 18px 25px 0px 0px;
+	color: #13266B;
+    }
+    
+    .popuptitle3
+    {
+        font-family: 'Exo 2', sans-serif;
+	font-weight: 600;
+	font-size: 20px;
+	text-align: center;
+	padding: 18px 25px 0px 0px;
+	color: #13266B;
+    }
+</style>
 <div class="col-md-2">
     <div class="text_results">
         <?= Html::a('<img src="'.\Yii::$app->request->BaseUrl.'/images/text_results_title.png" alt="">',['site/resultados']);?>
@@ -28,15 +87,28 @@ use yii\helpers\Html;
                                 {
                             ?>
                                 <li>
-                                    <a href="#" id="a<?= $categoria1->id ?>" data-id="<?= $a ?>" onclick="Seleccionar(<?= $categoria1->id ?>,event)">
+                                    <a href="#"  id="a<?= $categoria1->id ?>" data-id="<?= $a ?>" onclick="Popup(<?= $categoria1->id ?>,event)" >
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
-                                                <div class="ia_cell"><?= $categoria1->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria1->id ?>" ></div>
+                                                <div class="ia_cell" ><?= $categoria1->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria1->id ?>" ></div>
                                             </div>
                                         </div>
                                     </a>
                                 </li>
+                                
+                                <div class="popup" id="popup<?= $categoria1->id ?>">
+                                    <div class="popup_content2" align="center">
+                                            <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+                                            <div class="popuptitle1 "><?= $categoria1->descripcion_cabecera ?></div>
+                                            <div class=" "><?= $categoria1->descripcion_corta ?></div>
+                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= $categoria1->descripcion_larga ?></p>
+                                            
+                                            <button class="btn1 btn-default"" onclick="Seleccionar(<?= $categoria1->id ?>,event)" id="btnpopup<?= $categoria1->id ?>">SELECCIONAR</button>
+                                            
+                                            <div class="clearfix"></div>
+                                    </div>
+                                </div>
                             <?php
                                 $a++;
                                 }
@@ -58,15 +130,28 @@ use yii\helpers\Html;
                                 {
                             ?>
                                 <li>
-                                    <a href="#" id="a<?= $categoria2->id ?>" data-id="<?= $b ?>" onclick="Seleccionar(<?= $categoria2->id ?>,event)">
+                                    <a href="#" id="a<?= $categoria2->id ?>" data-id="<?= $b ?>" onclick="Popup(<?= $categoria2->id ?>,event)">
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
-                                                <div class="ia_cell"><?= $categoria2->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria2->id ?>" ></div>
+                                                <div class="ia_cell" ><?= $categoria2->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria2->id ?>" ></div>
                                             </div>
                                         </div>
                                     </a>
                                 </li>
+                                
+                                <div class="popup" id="popup<?= $categoria2->id ?>">
+                                    <div class="popup_content">
+                                            <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+                                            <div class="popuptitle2 "><?= $categoria2->descripcion_cabecera ?></div>
+                                            <div class=" "><?= $categoria2->descripcion_corta ?></div>
+                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= $categoria2->descripcion_larga ?></p>
+                                            <div class="form-control ">
+                                                <button class="pull-right btn1 btn-default" onclick="Seleccionar(<?= $categoria2->id ?>,event)" id="btnpopup<?= $categoria2->id ?>">SELECCIONAR</button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                    </div>
+                                </div>
                             <?php
                                 $b++;
                                 }
@@ -88,15 +173,28 @@ use yii\helpers\Html;
                                 {
                             ?>
                                 <li>
-                                    <a href="#" id="a<?= $categoria3->id ?>" data-id="<?= $c ?>" onclick="Seleccionar(<?= $categoria3->id ?>,event)" >
+                                    <a href="#" id="a<?= $categoria3->id ?>" data-id="<?= $c ?>" onclick="Popup(<?= $categoria3->id ?>,event)" >
                                         <div class="ia_table">
                                             <div class="ia_row">
                                                 <div class="ia_cell"><span class="ia_icon_heart"></span></div>
-                                                <div class="ia_cell"><?= $categoria3->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria3->id ?>" ></div>
+                                                <div class="ia_cell" ><?= $categoria3->descripcion_cabecera ?> <input type="hidden" id="ocultar<?= $categoria3->id ?>" ></div>
                                             </div>
                                         </div>
                                     </a>
                                 </li>
+                                
+                                <div class="popup" id="popup<?= $categoria3->id ?>">
+                                    <div class="popup_content">
+                                            <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>  
+                                            <p class="popuptitle3 "><?= $categoria3->descripcion_cabecera ?></p>
+                                            <div class=" "><?= $categoria3->descripcion_corta ?></div>
+                                            <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= $categoria3->descripcion_larga ?></p>
+                                            <div class="form-control ">
+                                                <button class="pull-right btn1 btn-default" onclick="Seleccionar(<?= $categoria3->id ?>,event)" id="btnpopup<?= $categoria3->id ?>">SELECCIONAR</button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                    </div>
+                                </div>
                             <?php
                                 $c++;
                                 }
@@ -175,7 +273,7 @@ use yii\helpers\Html;
 		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
 		<form action="#" method="get">
 			<div class="form-group">
-				<b>!LISTO!</b><br>
+				<b>¡LISTO!</b><br>
 				Tu voto ha sido registrado.
 			</div>
 			<div class="form-group">
@@ -277,6 +375,7 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
 
 ?>
 <script type="text/javascript">
+    $('.popover1').webuiPopover({trigger:'hover'});
     var myArray = [];
     var indices=[1,2,3];
     
@@ -330,6 +429,11 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
         }
     };
     
+    function Popup(asunto,event) {
+        event.preventDefault();
+        $('#popup'+asunto).show();
+    }
+    
     function Seleccionar(asunto,event) {
         event.preventDefault();
         Agregar(asunto,'proyecto'+asunto);
@@ -357,20 +461,18 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
             $(".options_alternative_"+$("#ocultar"+value).val()).removeClass(" selected");
             $(".options_alternative_"+$("#ocultar"+value).val()).children(".text_alternative").html("");
             
-            //console.log(indices);
+            $("#btnpopup"+value).html('SELECCIONAR');
             return false;
         }
         
         if(myArray.length>2)
         {
             $("#alert_error").show();
+            $('#popup'+value).hide();
             return false;
         }
         else
         {
-            
-            //console.log(indices);
-            //indices.first();
             _a.addClass("active");
             $(".options_alternative_"+indices[0]).addClass("selected");
             $(".options_alternative_"+indices[0]).children(".text_alternative").html($(".ia_table .ia_row .ia_cell", _a).last().html());
@@ -378,8 +480,9 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
             $("#ocultar"+value).val(indices[0]);
             indices.splice(0,1);
             myArray.push(value);
-            //cont++;
-            //prueba++;
+            $("#btnpopup"+value).html('ANULAR SELECCIÓN');
+            
+            
             return true;
             
         }
@@ -418,41 +521,8 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
             return false;
         }
         
-        /*if($('#voto-dni').val()=='')
-        {
-            error='Ingrese DNI <br>';
-            $('.field-voto-dni').addClass('has-error');
-            
-        }
-        else
-        {
-            $('.field-voto-dni').addClass('has-success');
-            $('.field-voto-dni').removeClass('has-error');
-        }
-        
-        if($('#voto-region').val()=='')
-        {
-            error=error+'Ingrese Región <br>';
-            $('.field-voto-region').addClass('has-error');
-        }
-        else
-        {
-            $('.field-voto-region').addClass('has-success');
-            $('.field-voto-region').removeClass('has-error');
-        }*/
-        
         if(error!='')
         {
-            /*$.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });*/
             return false;
         }
         else
@@ -507,26 +577,12 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                 
                 $('#dni_incompleto').show();
                 $('#form_votar').hide();
-                /*$.notify({
-                    // options
-                    message: 'El DNI debe contener 8 caracteres' 
-                },{
-                    // settings
-                    type: 'danger',
-                    z_index: 1000000,
-                    placement: {
-                            from: 'bottom',
-                            align: 'right'
-                    },
-                });*/
-                //$('.field-voto-dni').addClass('has-error');
                 $('#voto-dni').val('');
                 return false;
             }
             
             $.ajax({
                 url: '<?= $url ?>',
-                //dataType: 'json',
                 type: 'GET',
                 async: true,
                 data: {dni:$(elemento).val()},
@@ -535,19 +591,6 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
                     {
                         $('#dni_duplicado').show();
                         $('#form_votar').hide();
-                        /*$('.field-voto-dni').addClass('has-error');
-                        $.notify({
-                            // options
-                            message: 'El DNI ya existe' 
-                        },{
-                            // settings
-                            type: 'danger',
-                            z_index: 1000000,
-                            placement: {
-                                    from: 'bottom',
-                                    align: 'right'
-                            },
-                        });*/
                         $('#voto-dni').val('');
                         
                         

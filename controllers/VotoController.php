@@ -148,10 +148,6 @@ class VotoController extends Controller
         $dni=$_GET['Voto']['dni'];
         $region=$_GET['Voto']['region'];
         $asuntos=$_GET['Asuntos'];
-        
-            //$participante=new Participante;
-            //$participante->dni=$dni;
-            //$participante->save();
             foreach($asuntos as $asunto => $key)
             {
                 $voto=new Voto;
@@ -164,8 +160,6 @@ class VotoController extends Controller
                 $voto->save();
             }
             
-        //$participante=new Participante;
-        //$transaction = Participante::getDb()->beginTransaction();
         try {
             
             
@@ -176,37 +170,6 @@ class VotoController extends Controller
             //throw $e;
         }
         echo $bandera;
-        /*
-        try {
-            $participante=new Participante;
-            $participante->dni=$dni;
-            $participante->save();
-            $bandera=1;
-        }
-        catch (Exception $e) {
-            $bandera=0;
-        }
-        
-        echo $bandera=1;*/
-        /*
-        try {
-            $participante=new Participante;
-            $participante->dni=$dni;
-            $participante->save();
-            
-            foreach($asuntos as $asunto => $key)
-            {
-                $votacion=new Voto;
-                $votacion->participante_id=$participante->id;
-                $votacion->region_id=$region;
-                $votacion->asunto_id=$key;
-                $votacion->save();
-            }
-            echo 1;
-        }
-        catch (Exception $e) {
-            echo 0;
-        }*/
         
     }
     

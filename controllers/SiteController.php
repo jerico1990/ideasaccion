@@ -131,7 +131,7 @@ class SiteController extends Controller
         if($usuario){
             if($loginForm->load(Yii::$app->request->post())){
                 $usuario->verification_code="";
-                $usuario->password=$loginForm->password;
+                $usuario->password=crypt($loginForm->password,"ideasenaccion");
                 $usuario->update();
                 return $this->refresh();
             }

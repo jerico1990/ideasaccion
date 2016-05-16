@@ -31,7 +31,7 @@ use yii\web\JsExpression;
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="form-group label-floating field-loginform-password ">
-                        <label class="control-label" for="loginform-password">Contraseña</label>
+                        <label class="control-label" for="loginform-password">Nueva contraseña</label>
                         <input ng-model="loginform.password" type="password" onpaste="return false;" onCopy="return false" id="loginform-password" class="form-control" name="LoginForm[password]">
                     </div> 
                 </div>
@@ -39,7 +39,7 @@ use yii\web\JsExpression;
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="form-group label-floating field-loginform-repassword ">
-                        <label class="control-label" for="loginform-repassword">Repetir Contraseña</label>
+                        <label class="control-label" for="loginform-repassword">Repetir nueva contraseña</label>
                         <input ng-model="loginform.repassword" type="password" onpaste="return false;" onCopy="return false" id="loginform-repassword" class="form-control" name="LoginForm[repassword]"  ng-focus="validarRecontrasena()">
                     </div>
                 </div>

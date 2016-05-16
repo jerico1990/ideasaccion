@@ -190,7 +190,7 @@ $btninscribir=$integrante
             <table class="table table-striped table-hover ">
                 <thead>
                     <th>Nombres y apellidos</th>
-                    <th>correo electrónico</th>
+                    <th>Correo electrónico</th>
                     <th>Estado</th>
                     <?php if($equipo->estado==0){ ?>
                     <th class='text-center'></th>
@@ -355,13 +355,13 @@ $btninscribir=$integrante
     <?php if( $integrante && $integrante->rol==1 && $integrante->estado==1) { ?>
     <div class="row">
             <div class="col-md-4">
-                <?= Html::a('Modificar equipo',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-default']); ?>
+                <?= Html::a('Actualizar',['inscripcion/actualizar','id'=>$estudiante->id],['class'=>'btn btn-default']); ?>
             </div>
             <div class="col-md-4">
-                <button class='btn btn-default' onclick='dejarequipo(<?= $estudiante->id ?>)'>Cancelar equipo</button>
+                <button class='btn btn-default' onclick='dejarequipo(<?= $estudiante->id ?>)'>Eliminar equipo</button>
             </div>
             <div class="col-md-4">
-                <button class='btn btn-default' onclick='finalizarequipo(<?=  $integrante->equipo_id ?>)'>Finalizar equipo</button>
+                <button class='btn btn-default' onclick='finalizarequipo(<?=  $integrante->equipo_id ?>)'>Finalizar registro</button>
             </div>
     </div>
     

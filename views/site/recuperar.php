@@ -38,7 +38,7 @@ use yii\web\JsExpression;
                 <div class="clearfix"></div>
                 <div class="col-lg-12 col-md-12 col-xs-12">
                     <div class="form-group btn_registro_submit">
-                       <button id="ingresar" type="submit" class="btn btn-default">Reestablecer</button>
+                       <button id="ingresar" type="submit" class="btn btn-default">Enviar</button>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -71,6 +71,9 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
             $('.field-loginform-username').addClass('has-error');
         }
         
+        
+                
+        
         if(error!='')
         {
             $.notify({
@@ -98,6 +101,8 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
                 },
             });
         }
+        
+        
         return true;
     });
     
@@ -139,6 +144,8 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
                                     align: 'right'
                             },
                         });
+                        $(this).val('');
+                        
                     }
                 }
             });
