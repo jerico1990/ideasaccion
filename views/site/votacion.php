@@ -462,6 +462,7 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
             $(".options_alternative_"+$("#ocultar"+value).val()).children(".text_alternative").html("");
             
             $("#btnpopup"+value).html('SELECCIONAR');
+            $('#popup'+value).hide();
             return false;
         }
         
@@ -481,7 +482,7 @@ $urlinsert= Yii::$app->getUrlManager()->createUrl('voto/registrar');
             indices.splice(0,1);
             myArray.push(value);
             $("#btnpopup"+value).html('ANULAR SELECCIÓN');
-            
+            $('#popup'+value).hide();
             
             return true;
             
