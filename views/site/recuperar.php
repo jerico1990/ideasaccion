@@ -144,7 +144,7 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
                                     align: 'right'
                             },
                         });
-                        $(this).val('');
+                        $('#loginform-username').val('');
                         
                     }
                 }

@@ -141,14 +141,14 @@ use yii\helpers\Html;
                                 </li>
                                 
                                 <div class="popup" id="popup<?= $categoria2->id ?>">
-                                    <div class="popup_content">
+                                    <div class="popup_content2" align="center">
                                             <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
                                             <div class="popuptitle2 "><?= $categoria2->descripcion_cabecera ?></div>
                                             <div class=" "><?= $categoria2->descripcion_corta ?></div>
                                             <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= $categoria2->descripcion_larga ?></p>
-                                            <div class="form-control ">
-                                                <button class="pull-right btn1 btn-default" onclick="Seleccionar(<?= $categoria2->id ?>,event)" id="btnpopup<?= $categoria2->id ?>">SELECCIONAR</button>
-                                            </div>
+                                            
+                                            <button class="btn1 btn-default" onclick="Seleccionar(<?= $categoria2->id ?>,event)" id="btnpopup<?= $categoria2->id ?>">SELECCIONAR</button>
+                                            
                                             <div class="clearfix"></div>
                                     </div>
                                 </div>
@@ -184,14 +184,14 @@ use yii\helpers\Html;
                                 </li>
                                 
                                 <div class="popup" id="popup<?= $categoria3->id ?>">
-                                    <div class="popup_content">
+                                    <div class="popup_content2" align="center">
                                             <a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>  
                                             <p class="popuptitle3 "><?= $categoria3->descripcion_cabecera ?></p>
                                             <div class=" "><?= $categoria3->descripcion_corta ?></div>
                                             <p class="text-justify" style="padding-left: 25px;padding-right: 25px;padding-top: 10px"><?= $categoria3->descripcion_larga ?></p>
-                                            <div class="form-control ">
-                                                <button class="pull-right btn1 btn-default" onclick="Seleccionar(<?= $categoria3->id ?>,event)" id="btnpopup<?= $categoria3->id ?>">SELECCIONAR</button>
-                                            </div>
+                                            
+                                            <button class="btn1 btn-default" onclick="Seleccionar(<?= $categoria3->id ?>,event)" id="btnpopup<?= $categoria3->id ?>">SELECCIONAR</button>
+                                            
                                             <div class="clearfix"></div>
                                     </div>
                                 </div>
