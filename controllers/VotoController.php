@@ -149,9 +149,10 @@ class VotoController extends Controller
         $region=$_GET['Voto']['region'];
         $asuntos=$_GET['Asuntos'];
         $Countdni=strlen($_GET['Voto']['dni']);
+        $Countasuntos=count($_GET['Asuntos']);
         
         $validandodni=Voto::find()->where('participante_id=:participante_id',[':participante_id'=>$dni])->all();
-        if(!$validandodni && is_numeric($dni) && $Countdni==8)
+        if(!$validandodni && is_numeric($dni) && $Countdni==8 && $Countasuntos==3)
         {
             foreach($asuntos as $asunto => $key)
             {
