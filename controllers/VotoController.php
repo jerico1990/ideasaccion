@@ -148,9 +148,10 @@ class VotoController extends Controller
         $dni=$_GET['Voto']['dni'];
         $region=$_GET['Voto']['region'];
         $asuntos=$_GET['Asuntos'];
+        $Countdni=count($_GET['Voto']['dni']);
         
         $validandodni=Voto::find()->where('participante_id=:participante_id',[':participante_id'=>$dni])->all();
-        if(!$validandodni)
+        if(!$validandodni && $Countdni==8 && is_numeric($dni))
         {
             foreach($asuntos as $asunto => $key)
             {
@@ -190,8 +191,9 @@ class VotoController extends Controller
                     ->one();
         $departamento=Ubigeo::find()
                         ->select('department')
+                        ->distinct()
                         ->where('department_id=:department_id',[':department_id'=>$region])
-                        ->groupBy('department')
+                        //->groupBy('department')
                         ->one();
         
         $div="
@@ -246,8 +248,9 @@ class VotoController extends Controller
                     ->one();
         $departamento=Ubigeo::find()
                         ->select('department')
+                        ->distinct()
                         ->where('department_id=:department_id',[':department_id'=>$region])
-                        ->groupBy('department')
+                        //->groupBy('department')
                         ->one();
         
         $div="
