@@ -15,14 +15,17 @@ $posts = $model->getPostsAdmin($model->id);
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt=""> <?= ($model->id==2)?'Foro de participación estudiantil':'Foro de asunto público' ?> 
 </div>
-<div class="box_content contenido_seccion_equipo">
+<div class="box_content contenido_seccion_crear_equipo">
     <?php if($model->id==2){ ?>
-        <p class="text-justify">Te invitamos a ser parte del foro de participación estudiantil, comentanos tu experiencia en el concurso</p>
-            
+        <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
+            Te invitamos a ser parte del foro de participación estudiantil, comentanos tu experiencia en el concurso.
+        </div>   
     <?php }elseif($model->id>=3 && $model->id<=35) { ?>
-        <h1><?= Html::encode($this->title) ?></h1>
-        <h3><?= $model->asunto->descripcion_corta ?></h3>
-        <p class="text-justify"><?= $model->asunto->descripcion_larga ?></p>
+        <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
+            <h4><b><?= Html::encode($this->title) ?></b></h4>
+            <h4><?= $model->asunto->descripcion_corta ?></h4>
+            <p class="text-justify"><?= $model->asunto->descripcion_larga ?></p>
+        </div>
     <?php }else{ ?>
         <h1><?= Html::encode($this->title) ?></h1>
     <?php } ?>
@@ -35,5 +38,12 @@ $posts = $model->getPostsAdmin($model->id);
             'postCount' => $model->post_count //评论数
         ]);
     ?>
-   
+    <?php if(\Yii::$app->user->can('monitor')){ ?>
+    <!-- Post Form Begin -->
+        <?= $this->render('/foro-comentario/admin_form',[
+                'model'=>$newComentario,
+            ]);
+        ?>
+    <!-- Post Form End -->
+    <?php } ?>
 </div>

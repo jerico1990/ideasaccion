@@ -106,11 +106,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                 <div class="cell_div cell_info">
                                                     <div class="cell_info_content">
                                                         <b class="uppercase">
-                                                            <?php if(\Yii::$app->user->can('administrador')){ ?>    
-                                                            Administrador
-                                                            <?php }elseif(\Yii::$app->user->can('monitor')){ ?>
-                                                            Monitor
-                                                            <?php } ?>
+                                                            <?= $usuario->name_temporal ?>
                                                         </b>
                                                     </div>
                                                     <div class="line_separator"></div>
@@ -123,9 +119,11 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                 </div>
                             </div>
                             <div class="grid_box_line_blue">
-                                <?php if(\Yii::$app->user->can('administrador')){ ?> 
+                                
                                 <ul class="menu_lateral">
                                     <!--control de acciones-->
+                                    <?php if(\Yii::$app->user->can('administrador')){ ?>
+                                    
                                     <li>
                                         <?= Html::a('<div class="table_div">
                                                 <div class="row_div">
@@ -138,6 +136,9 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                 </div>
                                             </div>',['panel/acciones'],[]); ?>
                                     </li>
+                                    <?php }elseif(\Yii::$app->user->can('monitor')){ ?>
+                                    
+                                    <?php } ?>
                                     <!--fin control de acciones-->
                                     <!--Foro-->
                                     <li>
@@ -152,7 +153,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     
                                     <!--Reportes-->
                                     <li>
-                                        <?= Html::a("Reportes",['#'],[]);?>
+                                        <?= Html::a("Reportes",['#'],['class'=>'sub_menu']);?>
                                         <ul>
                                             <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
                                             <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
@@ -168,25 +169,10 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                 </ul>
                                 
                                 
-                                <?php }elseif(\Yii::$app->user->can('monitor')){ ?>
-                                <ul class="menu_lateral">
-                                    <!--Reportes-->
-                                    <li>
-                                        <?= Html::a("Reportes",['#'],[]);?>
-                                        <ul>
-                                            <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
-                                            <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
-                                        </ul>
-                                    </li>
-                                    <!--Fin Reportes-->
-                                    
-                                    <!--Contraseña-->
-                                    <li>
-                                        <?= Html::a("Cambio de contraseña",['usuario/cambiar'],[]);?>
-                                    </li>
-                                    <!--Fin Contraseña-->
-                                </ul>
-                                <?php } ?>
+                                
+                                
+                                
+                                
                             </div>
                         </div>
                         <div class="col-md-9">
@@ -204,6 +190,15 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 <?php $this->endBody() ?>
 <!-- Open source code -->
 <script>
+    $(".menu_lateral li a.sub_menu").on("click", function (e) {
+		e.preventDefault();
+		var _a  = $(this);
+		var _li = _a.parent();
+
+		_a.toggleClass("active");
+		$("ul", _li).stop(true).slideToggle();
+	});
+    
   window.page = window.location.hash || "#about";
 
   $(document).ready(function () {

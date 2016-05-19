@@ -20,8 +20,7 @@ use yii\web\JsExpression;
 <script src="../bootstrap-strength-meter-master/password-score/password-score-options.js"></script>
 <br>
 <div class="form_login" >
-    <div class="title_form">
-        <img src="../img/title/registro.png" alt="" />Reestablece tu contraseña
+    <div class="title_form">Reestablece tu contraseña
     </div>
     <div class="content_form" >
         <div class="panel-body">

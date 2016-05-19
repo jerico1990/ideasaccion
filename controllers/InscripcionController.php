@@ -65,6 +65,7 @@ class InscripcionController extends Controller
                     ->one();
         
         $estudiantes=Estudiante::find()
+                    //->select(['id','nombres','apellido_paterno','apellido_materno', 'case grado when 1 then "Primero" else  0 end as grado'])
                     ->where('estudiante.grado!=6 and estudiante.institucion_id=:institucion_id and estudiante.id
                             not in (select integrante.estudiante_id from integrante
                                     inner join estudiante on estudiante.id=integrante.estudiante_id

@@ -68,7 +68,7 @@ class PanelController extends Controller
      */
     public function actionIdeasAccion()
     {
-        $this->layout='estandar';
+        $this->layout='ideas';
         if(\Yii::$app->user->can('administrador'))
         {
             return $this->redirect(['panel/acciones']);
@@ -195,26 +195,28 @@ class PanelController extends Controller
                 ->select([
                         'foro.id',
                         'foro.titulo',
-                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total_comentario',
-                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0) falta_valorar',
-                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado'
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and not foro_comentario.user_id between 2 and 8) pendiente',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and foro_comentario.user_id between 2 and 8) emitido'
                         ]) 
                 ->innerJoin('asunto','foro.asunto_id=asunto.id')
-                ->groupBy('foro.titulo,total_comentario')
-                ->orderBy('total_comentario DESC,falta_valorar DESC,valorado DESC')
+                ->groupBy('foro.titulo,total')
+                ->orderBy('total DESC,pendiente DESC,valorado DESC')
                 ->all();
         
         $foroparticipacion= Foro::find()
                 ->select([
                         'foro.id',
                         'foro.titulo',
-                        '(select count(*) from foro_comentario where foro_comentario.foro_id=2) total_comentario',
-                        '(select count(*) from foro_comentario where foro_comentario.foro_id=2 and foro_comentario.valoracion=0) falta_valorar',
-                        '(select count(*) from foro_comentario where foro_comentario.foro_id=2 and foro_comentario.valoracion!=0) valorado'
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and not foro_comentario.user_id between 2 and 8) pendiente',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and foro_comentario.user_id between 2 and 8) emitido'
                         ])
                 ->where('foro.id=2')
-                ->groupBy('foro.titulo,total_comentario')
-                ->orderBy('total_comentario DESC,falta_valorar DESC,valorado DESC')
+                ->groupBy('foro.titulo,total')
+                ->orderBy('total DESC,pendiente DESC,valorado DESC')
                 ->one();
         
         return $this->render('foros',['forospublicos'=>$forospublicos,'foroparticipacion'=>$foroparticipacion]);

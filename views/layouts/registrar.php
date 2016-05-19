@@ -40,7 +40,6 @@ AppAssetInterno::register($this);
     
     <!-- Material Design fonts -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <title><?= Html::encode($this->title) ?></title>
     
@@ -52,8 +51,10 @@ AppAssetInterno::register($this);
     <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700' rel='stylesheet' type='text/css'>
     
-  
+    
+    <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
     <?php $this->head() ?>
+    
 </head>
 <body class="registro">
 <?php $this->beginBody() ?>
@@ -163,7 +164,7 @@ AppAssetInterno::register($this);
 
 <!-- Twitter Bootstrap -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+<script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
 <!-- Material Design for Bootstrap -->
 <script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/material.js"></script>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/ripples.min.js"></script>

@@ -13,22 +13,11 @@ use yii\widgets\Pjax;
     display: block;
 }
 </style>
-<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-strength-meter-master/docs/js/jquery-2.1.1.min.js"></script>
-<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-strength-meter-master/docs/js/bootstrap-3.2.0.min.js"></script>
-<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-strength-meter-master/docs/js/prettify.js"></script>
-<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-strength-meter-master/dist/js/bootstrap-strength-meter.js"></script>
-
-<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-strength-meter-master/password-score/password-score.js"></script>
-<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-strength-meter-master/password-score/password-score-options.js"></script>
-
-
-
-            <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
-            <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
-            <script type="text/javascript" src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-
-    
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.8.2.js"></script>
+  <script src="//code.jquery.com/ui/1.8.24/jquery-ui.js"></script>
+  
+ 
     <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data','class' => 'form_login']]); ?>
         <div class="title_form">
                 <img src="../img/title/registro.png" alt="" />
@@ -87,8 +76,9 @@ use yii\widgets\Pjax;
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group label-floating field-registrar-fecha_nac required form-control-wrapper" style="margin-top: 15px">
-                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;color: #BDBDBD" type="date" id="registrar-fecha_nac" class="form-control label-floating" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento">
+                    <div class="form-group label-floating field-registrar-fecha_nac required has-error" style="margin-top: 15px">
+                        
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="registrar-fecha_nac" class="form-control"  name="Registrar[fecha_nac]" maxlength="10" placeholder="Fecha nacimiento">
                     </div>
                 </div>
             </div>
@@ -218,7 +208,25 @@ use yii\widgets\Pjax;
 
 
 <script>
-    
+    $.datepicker.regional['es'] = {
+      changeMonth: true,
+      changeYear: true,
+      closeText: 'Cerrar',
+      prevText: 'Previo',
+      nextText: 'Próximo',
+      monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+      'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+      monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+      'Jul','Ago','Sep','Oct','Nov','Dic'],
+      monthStatus: 'Ver otro mes', yearStatus: 'Ver otro año',
+      dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+      dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'],
+      dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+      dateFormat: 'dd/mm/yy', firstDay: 0,
+      initStatus: 'Selecciona la fecha', isRTL: false};
+      $.datepicker.setDefaults($.datepicker.regional['es']);
+      
+      $( '#registrar-fecha_nac' ).datepicker();
     
     function Imagen(elemento) {
         var ext = $(elemento).val().split('.').pop().toLowerCase();
@@ -290,11 +298,12 @@ use yii\widgets\Pjax;
             }
         }
     });
+    /*
     $('#registrar-password').strengthMeter('progressBar', {
         
             container: $('#example-progress-bar-container'),
             
-    });
+    });*/
     
     $( '#registrar-dni' ).focusout(function() {
         if($(this).val()!='')

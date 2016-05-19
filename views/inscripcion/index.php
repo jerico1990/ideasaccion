@@ -129,7 +129,7 @@ if($equipo->id)
                                     <td><div class='checkbox'><label><input name='Equipo[invitaciones][]' type='checkbox' value='$estudiante->id' onclick='validar($estudiante->id,$equipoid,$(this))'><span class='checkbox-material'></span></label></div></td>
                                     
                                     <td style='vertical-align:middle'>$estudiante->nombres $estudiante->apellido_paterno $estudiante->apellido_materno</td>
-                                    <td align='center' style='vertical-align:middle'> $estudiante->grado</td>
+                                    <td align='center' style='vertical-align:middle'> ".$estudiante->getGrado() ."</td>
                             </tr>";
                              
                             $i++;
@@ -263,38 +263,6 @@ if($equipo->id)
             return true;
         }
     }
-    /*
-    $("#equipo-foto_img").change(function(){
-        var ext = $('#equipo-foto_img').val().split('.').pop().toLowerCase();
-        var error='';
-        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-            error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
-        }
-        if (error!='') {
-            $.notify({
-                message: error
-            },{
-                // settings
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                        from: 'bottom',
-                        align: 'right'
-                },
-            });
-            //fileupload = $('#equipo-foto_img');  
-            //fileupload.replaceWith($fileupload.clone(true));
-            $('#equipo-foto_img').replaceWith($('#equipo-foto_img').val('').clone(true));
-            //$('#equipo-foto_img').val('');
-            return false;
-        }
-        else
-        {
-            mostrarImagen(this);
-            return true;
-        }
-        
-    });*/
     
     var contador=<?= $invitacionContador ?>;
     
@@ -450,7 +418,7 @@ if($equipo->id)
             elemento.prop( "checked", false );
             $.notify({
                 // options
-                message: 'No puede realizar mas invitaciones' 
+                message: 'Solo se permite 5 invitaciones como máximo' 
             },{
                 // settings
                 type: 'danger',

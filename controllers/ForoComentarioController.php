@@ -118,4 +118,25 @@ class ForoComentarioController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    public function actionVisible()
+    {
+        if(isset($_POST["id"]))
+        {
+            $id=$_POST["id"];
+            $ForoComentario=ForoComentario::findOne($id);
+            if($ForoComentario->estado==1)
+            {
+                $ForoComentario->estado=0;
+            }
+            else{
+                $ForoComentario->estado=1;
+            }
+            $ForoComentario->update();
+            echo $ForoComentario->estado;
+        }
+        else
+        {
+            $this->redirect(['site/resultados']);
+        }
+    }
 }

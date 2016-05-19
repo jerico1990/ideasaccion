@@ -15,14 +15,17 @@ $posts = $model->getPosts($model->id);
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt=""> <?= ($model->id==2)?'Foro de participación estudiantil':'Foro de asunto público' ?> 
 </div>
-<div class="box_content contenido_seccion_equipo">
+<div class="box_content contenido_seccion_crear_equipo">
     <?php if($model->id==2){ ?>
-        <p class="text-justify">Te invitamos a ser parte del foro de participación estudiantil, comentanos tu experiencia en el concurso</p>
-            
+        <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
+        Te invitamos a ser parte del foro de participación estudiantil, comentanos tu experiencia en el concurso.
+        </div> 
     <?php }elseif($model->id>=3 && $model->id<=35) { ?>
-        <h1><?= Html::encode($this->title) ?></h1>
-        <h3><?= $model->asunto->descripcion_corta ?></h3>
+    <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
+        <h4><b><?= Html::encode($this->title) ?></b></h4>
+        <h4><?= $model->asunto->descripcion_corta ?></h4>
         <p class="text-justify"><?= $model->asunto->descripcion_larga ?></p>
+    </div>
     <?php }else{ ?>
         <h1><?= Html::encode($this->title) ?></h1>
     <?php } ?>
@@ -35,16 +38,6 @@ $posts = $model->getPosts($model->id);
             'postCount' => $model->post_count //评论数
         ]);
     ?>
-    <!--
-    <article class="thread-view">
-        <header class="thread-head">
-            <div class="thread-info">
-                <div class="pull-right">
-                    <span class="glyphicon glyphicon-comment"></span> <?= $model->post_count ?>
-                </div>
-            </div>
-        </header>
-    </article>-->
     <!-- Post Form Begin -->
         <?= $this->render('/foro-comentario/_form',[
                 'model'=>$newComentario,

@@ -73,10 +73,12 @@ class ForoController extends Controller
         $newComentario = new ForoComentario();
         $model=$this->findModel($id);
         if ($newComentario->load(Yii::$app->request->post())) {
+            
             $newComentario->foro_id = $model->id;
+            //var_dump($newComentario->foro_id);die;
             if ($newComentario->save()){
                 Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Create successfully.'));
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['viewadmin', 'id' => $model->id]);
             }
         }
         

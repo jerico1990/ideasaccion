@@ -30,7 +30,7 @@ class ForoComentario extends \yii\db\ActiveRecord
     {
         return [
             //[['id'], 'required'],
-            [['id', 'foro_id', 'user_id', 'creado_at'], 'integer'],
+            [['id', 'foro_id', 'user_id', 'creado_at','estado'], 'integer'],
             [['contenido'], 'string', 'max' => 1500]
         ];
     }
@@ -56,6 +56,7 @@ class ForoComentario extends \yii\db\ActiveRecord
             if ($this->isNewRecord) {
             	$this->user_id = Yii::$app->user->id;
             	$this->creado_at = time();
+                $this->estado=1;
             }
             return true;
         } else {

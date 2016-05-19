@@ -43,38 +43,16 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    
-    <!-- Dropdown.js -->
-    <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
-    
-    <link href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
-    
-    <!-- Page style -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
-
-    <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700' rel='stylesheet' type='text/css'>
-        
-    <!-- Page style -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
-        
-    <!-- Material Design fonts -->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title><?= Html::encode($this->title) ?></title>
-    <link rel="stylesheet" href="<?= \Yii::$app->request->BaseUrl ?>/css/bootstrap.min.css" media="screen" charset="utf-8">
-    
-    
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+   
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
-    <style>
-        .alert.alert-danger
-        {
-            background: #f44336;
-            color:rgba(255,255,255, 0.84);
-        }
-    </style>
+    
     <?php $this->head() ?>
 </head>
 <body class="mi_equipo">
@@ -178,7 +156,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     <!--Foro-->
                                     <?php if ($integrante && $equipo && $estudiante->grado!=6){ ?>
                                     <li>
-                                        <a href="#">
+                                        <a href="#" class="sub_menu">
                                             <div class="table_div">
                                                 <div class="row_div">
                                                     <div class="cell_div div_ia_icon">
@@ -190,7 +168,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                 </div>
                                             </div>
                                         </a>
-                                        <ul class="treeview-menu">
+                                        <ul>
                                         <?php foreach($foros as $foro): ?>
                                             <?php if($foro->id==2 || ($integrante && $foro->asunto_id==$equipo->asunto_id)){?>
                                                 <?php if($foro->id==2){ ?>
@@ -264,7 +242,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                         </div>
     
                         <div class="col-md-9">
-                            <div class="grid_box_line_blue">
+                            <div class="grid_box_line_blue content_infografia">
                                 <?= $content ?>
                             </div>
                         </div>
@@ -276,78 +254,15 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 <!-- Open source code -->
 <?php $this->endBody() ?>
 <script>
-  window.page = window.location.hash || "#about";
-  $(document).ready(function () {
-    if (window.page != "#about") {
-      $(".menu").find("li[data-target=" + window.page + "]").trigger("click");
-    }
-  });
-  $(window).on("resize", function () {
-    $("html, body").height($(window).height());
-    $(".main, .menu").height($(window).height() - $(".header-panel").outerHeight());
-    $(".pages").height($(window).height());
-  }).trigger("resize");
-  $(".menu li").click(function () {
-    // Menu
-    if (!$(this).data("target")) return;
-    if ($(this).is(".active")) return;
-    $(".menu li").not($(this)).removeClass("active");
-    $(".page").not(page).removeClass("active").hide();
-    window.page = $(this).data("target");
-    var page = $(window.page);
-    window.location.hash = window.page;
-    $(this).addClass("active");
-    page.show();
-    var totop = setInterval(function () {
-      $(".pages").animate({scrollTop: 0}, 0);
-    }, 1);
-    setTimeout(function () {
-      page.addClass("active");
-      setTimeout(function () {
-        clearInterval(totop);
-      }, 1000);
-    }, 100);
-  });
-  function cleanSource(html) {
-    var lines = html.split(/\n/);
-    lines.shift();
-    lines.splice(-1, 1);
-    var indentSize = lines[0].length - lines[0].trim().length,
-        re = new RegExp(" {" + indentSize + "}");
-    lines = lines.map(function (line) {
-      if (line.match(re)) {
-        line = line.substring(indentSize);
-      }
-      return line;
-    });
-    lines = lines.join("\n");
-    return lines;
-  }
-  $("#opensource").click(function () {
-    $.get(window.location.href, function (data) {
-      var html = $(data).find(window.page).html();
-      html = cleanSource(html);
-      $("#source-modal pre").text(html);
-      $("#source-modal").modal();
-    });
-  });
-</script>
+    $(".menu_lateral li a.sub_menu").on("click", function (e) {
+		e.preventDefault();
+		var _a  = $(this);
+		var _li = _a.parent();
 
-<!-- Twitter Bootstrap -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootbox.min.js"></script>
-<!-- Material Design for Bootstrap -->
-<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/material.js"></script>
-<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/ripples.min.js"></script>
-<script>
-  $.material.init();
-</script>
-
-
-<!-- Dropdown.js -->
-<script src="https://cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.js"></script>
-<script>
-  $("#dropdown-menu select").dropdown();
+		_a.toggleClass("active");
+		$("ul", _li).stop(true).slideToggle();
+	});
+    
 </script>
 
 </body>

@@ -116,4 +116,31 @@ class Estudiante extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Usuario::className(), ['alumno_id' => 'id']);
     }
+    
+    public function getGrado()
+    {
+        $descripcion="";
+        if($this->grado==1)
+        {
+            $descripcion="Primero";
+        }
+        elseif($this->grado==2)
+        {
+            $descripcion="Segundo";
+        }
+        elseif($this->grado==3)
+        {
+            $descripcion="Tercero";
+        }
+        elseif($this->grado==4)
+        {
+            $descripcion="Cuarto";
+        }
+        elseif($this->grado==5)
+        {
+            $descripcion="Quinto";
+        }
+        
+        return $descripcion;
+    }
 }

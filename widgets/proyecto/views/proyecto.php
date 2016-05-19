@@ -27,8 +27,7 @@ use yii\web\JsExpression;
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                    <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-titulo required" style="margin-top: 15px">
                                 <label class="control-label" for="proyecto-titulo" title="Máximo 200 palabras">Título</label>
@@ -62,8 +61,7 @@ use yii\web\JsExpression;
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
                     <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">

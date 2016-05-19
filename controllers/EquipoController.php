@@ -135,16 +135,19 @@ class EquipoController extends Controller
                               [':estudiante_invitado_id'=>$invitacion->estudiante_invitado_id,':id'=>$id]);
         
         
-        
-        $integrante=new Integrante;
-        $integrante->equipo_id=$invitacion->equipo_id;
-        $integrante->estudiante_id=$invitacion->estudiante_invitado_id;
-        $integrante->rol=2;
-        $integrante->estado=1;
-        $integrante->save();
-        /*$ruta=Ruta::find()->where('user_id=:user_id',[':user_id'=>\Yii::$app->user->id])->one();
-        $ruta->etapa_3=1;
-        $ruta->update();*/
+        $validarIntegrante=Integrante::find()
+                            ->where('equipo_id=:equipo_id and estudiante_id=:estudiante_id and rol=2 and estado=1',
+                                    [':equipo_id'=>$invitacion->equipo_id,':estudiante_id'=>$invitacion->estudiante_invitado_id])
+                            ->one();
+        if(!$validarIntegrante){
+            
+            $integrante=new Integrante;
+            $integrante->equipo_id=$invitacion->equipo_id;
+            $integrante->estudiante_id=$invitacion->estudiante_invitado_id;
+            $integrante->rol=2;
+            $integrante->estado=1;
+            $integrante->save();
+        }
         echo 1;
     }
     
@@ -383,12 +386,12 @@ class EquipoController extends Controller
                             ':equipo_id'=>(integer) $equipo])->one();
         
         $invitacionContador=Invitacion::find()
-                            ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_id')
+                            ->innerJoin('estudiante','estudiante.id=invitacion.estudiante_invitado_id')
                             ->where('invitacion.estado=1 and invitacion.equipo_id=:equipo_id and estudiante.grado!=6',
                                               [':equipo_id'=>(integer) $equipo])->count();
         
         $integranteContador=Integrante::find()
-                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                            ->innerJoin('estudiante','estudiante.id=integrante.estudiante_invitado_id')
                             ->where('integrante.equipo_id=:equipo_id and estudiante.grado!=6',
                                               [':equipo_id'=>(integer) $equipo])->count();
         $invitacionContador=$invitacionContador+$integranteContador;

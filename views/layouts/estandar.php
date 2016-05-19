@@ -72,7 +72,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/bootstrap-material-design.css" rel="stylesheet">
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/ripples.min.css" rel="stylesheet">
 
-
+    <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootbox.min.js"></script>
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     
     <?php $this->head() ?>
@@ -178,7 +178,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     <!--Foro-->
                                     <?php if ($integrante && $equipo && $estudiante->grado!=6){ ?>
                                     <li>
-                                        <a href="#">
+                                        <a href="#" class="sub_menu">
                                             <div class="table_div">
                                                 <div class="row_div">
                                                     <div class="cell_div div_ia_icon">
@@ -190,7 +190,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                 </div>
                                             </div>
                                         </a>
-                                        <ul class="treeview-menu">
+                                        <ul>
                                         <?php foreach($foros as $foro): ?>
                                             <?php if($foro->id==2 || ($integrante && $foro->asunto_id==$equipo->asunto_id)){?>
                                                 <?php if($foro->id==2){ ?>
@@ -276,6 +276,15 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 <!-- Open source code -->
 <?php $this->endBody() ?>
 <script>
+    $(".menu_lateral li a.sub_menu").on("click", function (e) {
+		e.preventDefault();
+		var _a  = $(this);
+		var _li = _a.parent();
+
+		_a.toggleClass("active");
+		$("ul", _li).stop(true).slideToggle();
+	});
+    
   window.page = window.location.hash || "#about";
   $(document).ready(function () {
     if (window.page != "#about") {

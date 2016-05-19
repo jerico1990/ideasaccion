@@ -15,18 +15,16 @@ use yii\web\JsExpression;
 
 <div class="form_login" >
     <div class="title_form">
-        <img src="../img/title/registro.png" alt="" />¿Olvido su contraseña?
+        REESTABLECER DE CONTRASEÑA
     </div> 
-    
+    <div class="content_olvide_clave">Para recuperar tu contraseña, ingresa la dirección de correo electrónico con el que te inscribiste a Ideas en Acción.</div>
     <div class="content_form" >
         
         <div class="panel-body">
         <?php $form = ActiveForm::begin(); ?>
             <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                <p class="text-justify">Luego de hacer clic en el botón "Enviar", se enviará un mensaje con instrucciones a su cuenta de correo registrado. Si no recibe el mensaje en su bandeja de entrada sírvase revisar la bandeja de correos no deseados</p>
-                </div>
+                
+                
                 <div class="clearfix"></div>
                 <div class="col-md-2"></div>
                 <div class="col-md-8">

@@ -308,24 +308,29 @@ class ActualizarProyectoWidget extends Widget
             /*Cronograma*/
             for($i=0;$i<$countCronogramasFechasInicios;$i++)
             {
+                var_dump($proyecto->cronogramas_fechas_inicios[$i]);
+                var_dump(date_create($proyecto->cronogramas_fechas_inicios[$i]));
+                var_dump(date("Y", $proyecto->cronogramas_fechas_inicios[$i]));die;
+               /// var_dump(date_format($proyecto->cronogramas_fechas_fines[$i],'y-m-d'));die;
                 if(isset($proyecto->cronogramas_ids[$i]))
                 {
                     $cronograma=Cronograma::find()->where('id=:id',[':id'=>$proyecto->cronogramas_ids[$i]])->one();
                     $cronograma->actividad_id=$proyecto->cronogramas_actividades;
                     $cronograma->tarea=$proyecto->cronogramas_tareas[$i];
                     $cronograma->responsable_id=$proyecto->cronogramas_responsables[$i];
-                    $cronograma->fecha_inicio=$proyecto->cronogramas_fechas_inicios[$i];
-                    $cronograma->fecha_fin=$proyecto->cronogramas_fechas_fines[$i];
+                    $cronograma->fecha_inicio=date("Y-m-d", strtotime($proyecto->cronogramas_fechas_inicios[$i]));
+                    $cronograma->fecha_fin=date("Y-m-d", strtotime($proyecto->cronogramas_fechas_fines[$i]));
                     $cronograma->save();
                 }
                 else
                 {
+                    
                     $cronograma=new Cronograma;
                     $cronograma->actividad_id=$proyecto->cronogramas_actividades;
                     $cronograma->tarea=$proyecto->cronogramas_tareas[$i];
                     $cronograma->responsable_id=$proyecto->cronogramas_responsables[$i];
-                    $cronograma->fecha_inicio=$proyecto->cronogramas_fechas_inicios[$i];
-                    $cronograma->fecha_fin=$proyecto->cronogramas_fechas_fines[$i];
+                    $cronograma->fecha_inicio=date("Y-m-d", strtotime($proyecto->cronogramas_fechas_inicios[$i]));
+                    $cronograma->fecha_fin=date("Y-m-d", strtotime($proyecto->cronogramas_fechas_fines[$i]));
                     $cronograma->estado=1;
                     $cronograma->save();
                 }

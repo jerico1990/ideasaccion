@@ -53,8 +53,7 @@ $acti3=0;
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                    <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">    
+                    <div class="col-xs-12 col-sm-12 col-md-12">    
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-titulo required">
                                 <label class="control-label" for="proyecto-titulo">Título</label>
@@ -88,8 +87,7 @@ $acti3=0;
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_9">
                     <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="clearfix"></div>
                          <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-objetivo_general required" style="margin-top: 15px">

@@ -1,7 +1,65 @@
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt=""> Ideas en acción
 </div>
-<div ng-app="ideasaccion" class="box_content contenido_seccion_crear_equipo">
+<div ng-app="ideasaccion" class="box_content">
+    <div class="mapa_infografia">
+        <div class="cuadros paso_1">
+                <div class="titulo_cuadro">¡Comenzamos, nos informamos!</div>
+                <div class="contenido_cuadro">
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" class="form-control" value=""> Video
+                                </label>
+                        </div>
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" class="form-control" value=""> Base
+                                </label>
+                        </div>
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" class="form-control" value=""> Asuntos Públicos
+                                </label>
+                        </div>
+                </div>
+        </div>
+        <div class="cuadros paso_2">
+                <div class="titulo_cuadro">¡Arranca<br>la votación!</div>
+                <div class="contenido_cuadro">
+                        Los asuntos públicos
+                        seleccionados
+                </div>
+        </div>
+        <div class="cuadros paso_3">
+                <div class="titulo_cuadro">¡Nos inscribimos!</div>
+        </div>
+        <div class="cuadros paso_4">
+                <div class="titulo_cuadro">Revisamos los materiales</div>
+        </div>
+
+        <div class="cuadros paso_5">
+                <div class="titulo_cuadro">¡Participamos!</div>
+        </div>
+        <div class="cuadros paso_6">
+                <div class="titulo_cuadro">Primera orden<br>a la entrega</div>
+        </div>
+        <div class="cuadros paso_7">
+                <div class="titulo_cuadro">Aportamos y mejoramos</div>
+        </div>
+
+        <div class="cuadros paso_8">
+                <div class="titulo_cuadro">Segunda entrega<br>¡Ah­ vamos!</div>
+        </div>
+        <div class="cuadros paso_9">
+                <div class="titulo_cuadro">Reconocemos los 3 mejores proyectos</div>
+        </div>
+        <div class="cuadros paso_10">
+                <div class="titulo_cuadro">Elegimos a los mejores</div>
+        </div>
+        <img src="<?= \Yii::$app->request->BaseUrl ?>/img/mapa_infografia.png" alt="">
+    </div>
+									
+    <!--
     <div ng-controller="PrimeroController">
         <h3>¡Comenzamos, nos informamos!</h3>
         <section >
@@ -72,7 +130,7 @@
             </div>
         </section>
     </div>
-    
+    -->
     
 </div>
 
@@ -152,8 +210,8 @@
     
     
     app.controller('TerceroController',function($scope,$http) {
-        $scope.tercero=false;
-        $scope.titulo3="";
+        $scope.tercero=true;
+        $scope.titulo3="Aún no cuentas con un equipo";
         $scope.texto3="";
         $scope.icono3="";
         $scope.TerceroEtapa=function (){
@@ -166,7 +224,7 @@
                     }
                     else if (data[0].estado=='2') {
                         $scope.icono3="fa fa-fw fa-check-square";
-                        $scope.texto3="Tu equipo ya se encuentra inscrito";
+                        $scope.texto3="Tu equipo ya esta registrado";
                     }
                     $scope.tercero=true;
                 }

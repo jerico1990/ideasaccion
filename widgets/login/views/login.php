@@ -31,7 +31,7 @@ use yii\web\JsExpression;
 
 <?php $form = ActiveForm::begin(['options' => ['class' => 'form_login']]); ?>
     <div class="title_form">
-        <img src="../img/title/login.png" alt="" />
+        INGRESA A TU CUENTA
     </div>
     <div class="content_form">
         <div class="content_form">

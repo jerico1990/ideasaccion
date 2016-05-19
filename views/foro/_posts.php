@@ -22,35 +22,44 @@ if (isset($_GET['page']) >= 2)
             $floor_number=$floor++; //楼层数减少
             ?>
             <div class="row post-item">
-                <div class="col-sm-12">
-                    <div class="post-content" >
+                <div class="col-sm-12 col-md-12">
+                    <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">
                         <?= HtmlPurifier::process($post['contenido']) ?>
-                    </div>
-                    <div class="post-meta pull-right">
-                        <div class="br-wrapper br-theme-fontawesome-stars">
-                            <select class="disabled" disabled> <!-- now hidden -->
-                              <option value></option>
-                              <option value="1" <?= ($post['valoracion']==1)?'selected':'' ?> >1</option>
-                              <option value="2" <?= ($post['valoracion']==2)?'selected':'' ?> >2</option>
-                              <option value="3" <?= ($post['valoracion']==3)?'selected':'' ?> >3</option>
-                              <option value="4" <?= ($post['valoracion']==4)?'selected':'' ?> >4</option>
-                              <option value="5" <?= ($post['valoracion']==5)?'selected':'' ?> >5</option>
-                            </select>
+                        <div class="post-meta">
+                            <?php if($post['user_id']>=2 and $post['user_id']<=8){ ?>
+                            <div class="col-sm-12 col-md-12"></div>
+                            <?php }else{ ?>
+                            <div class="col-sm-12 col-md-12">
+                                <div class="br-wrapper br-theme-fontawesome-stars pull-right">
+                                    <select class="disabled" disabled> <!-- now hidden -->
+                                      <option value></option>
+                                      <option value="1" <?= ($post['valoracion']==1)?'selected':'' ?> >1</option>
+                                      <option value="2" <?= ($post['valoracion']==2)?'selected':'' ?> >2</option>
+                                      <option value="3" <?= ($post['valoracion']==3)?'selected':'' ?> >3</option>
+                                      <option value="4" <?= ($post['valoracion']==4)?'selected':'' ?> >4</option>
+                                      <option value="5" <?= ($post['valoracion']==5)?'selected':'' ?> >5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12 col-md-12">
+                                <div class="pull-right">
+                                    <?php if($post['user_id']>=2 and $post['user_id']<=8){ ?>
+                                    <div class="col-sm-12 col-md-12">
+                                        Comentario de <?= $post['nombres'] ?> <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?> 
+                                    </div>
+                                    <?php } else{ ?>
+                                        Comentario de <?= $post['nombres']." ".$post['apellido_paterno'] ?> <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?> 
+                                    <?php } ?>
+                                </div>
+                            </div>
                         </div>
-                        
-                        Comentario de <?= $post['nombres']." ".$post['apellido_paterno'] ?> hace <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?>
-                        <!--<span class="glyphicon glyphicon-user"></span> <?= $post['nombres']." ".$post['apellido_paterno'] ?>-->
-                        <!--&nbsp;•&nbsp;
-                        <span class="post-time">
-                            <span class="glyphicon glyphicon-time"></span> <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?>
-                        </span>
-                        <a class="floor-number" id="<?= $floor_number ?>" href="#<?= $floor_number ?>">
-                           <span class="badge"><?= $floor_number ?>#</span>
-                        </a>-->
+                        <div class="clearfix"></div>
                     </div>
-                    
                 </div>
             </div>
+            <div class="clearfix"></div>
         <?php endforeach; ?>
         <?= LinkPager::widget([
             'pagination' => $pages,

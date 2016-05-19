@@ -21,9 +21,11 @@ class Foro extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     public $nombres_apellidos;
-    public $total_comentario;
-    public $falta_valorar;
+    public $total;
+    public $pendiente;
     public $valorado;
+    public $emitido;
+    
     public static function tableName()
     {
         return 'foro';
@@ -72,20 +74,31 @@ class Foro extends \yii\db\ActiveRecord
     public function getPosts($id)
     {
         $query = new Query;
-        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno , p.valoracion')
+        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno , p.valoracion , p.estado')
             ->from('{{%foro_comentario}} as p')
             ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
             ->join('INNER JOIN','{{%estudiante}} as es', 'es.id=u.estudiante_id')
-            ->where('p.foro_id=:id', [':id' => $this->id]);
-            
+            ->where('p.foro_id=:id and estado=1', [':id' => $this->id])
+            ->orderBy('p.id desc');
+        
+        $query1 = new Query;
+        $query1->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , u.name_temporal as nombres , u.username , p.valoracion , p.estado')
+            ->from('{{%foro_comentario}} as p')
+            ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
+            ->where('p.foro_id=:id and estado=1 and u.id between 2 and 8', [':id' => $this->id]);
+        
+        $query->union($query1);
+        $expenses = new Query();
+        $expenses->select('*')->from(['u' => $query])->orderBy('u.id desc');
+        
         
         
         if($id==2){
-            $result = Yii::$app->tools->Pagination($query,5);
+            $result = Yii::$app->tools->Pagination($expenses,5);
         }elseif($id>=3 && $id<=35) {
-            $result = Yii::$app->tools->Pagination($query,3);
+            $result = Yii::$app->tools->Pagination($expenses,3);
         } else{
-            $result = Yii::$app->tools->Pagination($query,5);
+            $result = Yii::$app->tools->Pagination($expenses,5);
         }
         return ['posts' => $result['result'], 'pages' => $result['pages']];
     }
@@ -94,15 +107,23 @@ class Foro extends \yii\db\ActiveRecord
     public function getPostsAdmin($id)
     {
         $query = new Query;
-        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno , p.valoracion')
+        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno , p.valoracion , p.estado')
             ->from('{{%foro_comentario}} as p')
             ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
             ->join('INNER JOIN','{{%estudiante}} as es', 'es.id=u.estudiante_id')
             ->where('p.foro_id=:id', [':id' => $this->id]);
-            
         
+        $query1 = new Query;
+        $query1->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , u.name_temporal as nombres , u.username , p.valoracion , p.estado')
+            ->from('{{%foro_comentario}} as p')
+            ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
+            ->where('p.foro_id=:id and u.id between 2 and 8', [':id' => $this->id]);
         
-        $result = Yii::$app->tools->Pagination($query,8);
+        $query->union($query1);
+        $expenses = new Query();
+        $expenses->select('*')->from(['u' => $query])->orderBy('u.id desc');
+
+        $result = Yii::$app->tools->Pagination($expenses,3);
         
         return ['posts' => $result['result'], 'pages' => $result['pages']];
     }

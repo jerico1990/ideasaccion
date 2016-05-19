@@ -314,7 +314,8 @@ class RutaController extends Controller
             if($equipo)
             {
                 $proyecto=Proyecto::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$equipo->id])->one();
-                
+                if($proyecto)
+                {
                 
                 $video=Video::find()->where('proyecto_id=:proyecto_id and etapa in (0,2)',[':proyecto_id'=>$proyecto->id])->one();
                 $videoregistrado=0;
@@ -344,6 +345,7 @@ class RutaController extends Controller
                 }
                 
                 array_push($data,['evaluaciones'=>$evaluacionArray]);
+                }
             }
             
         }
