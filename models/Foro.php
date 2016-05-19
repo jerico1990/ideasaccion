@@ -123,7 +123,7 @@ class Foro extends \yii\db\ActiveRecord
         $expenses = new Query();
         $expenses->select('*')->from(['u' => $query])->orderBy('u.id desc');
 
-        $result = Yii::$app->tools->Pagination($expenses,3);
+        $result = Yii::$app->tools->Pagination($expenses,10);
         
         return ['posts' => $result['result'], 'pages' => $result['pages']];
     }
