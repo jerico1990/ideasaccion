@@ -308,9 +308,7 @@ class ActualizarProyectoWidget extends Widget
             /*Cronograma*/
             for($i=0;$i<$countCronogramasFechasInicios;$i++)
             {
-                var_dump($proyecto->cronogramas_fechas_inicios[$i]);
-                var_dump(date_create($proyecto->cronogramas_fechas_inicios[$i]));
-                var_dump(date("Y", $proyecto->cronogramas_fechas_inicios[$i]));die;
+                
                /// var_dump(date_format($proyecto->cronogramas_fechas_fines[$i],'y-m-d'));die;
                 if(isset($proyecto->cronogramas_ids[$i]))
                 {
