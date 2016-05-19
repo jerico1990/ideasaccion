@@ -147,7 +147,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     <!--Fin Foro-->
                                     <!--Foro proyectos-->
                                     <li>
-                                        <?= Html::a("Foros proyectos",['panel/forosproyectos'],[]);?>
+                                        <?= Html::a("Comentario de proyectos",['panel/forosproyectos'],[]);?>
                                     </li>
                                     <!--Fin Foro proyectos-->
                                     

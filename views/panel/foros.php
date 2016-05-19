@@ -21,7 +21,7 @@ use yii\helpers\Html;
     <div class="col-md-2">Emitidos</div>
     <div class="clearfix"></div>
     <hr>
-    <div class="col-md-4"><?= Html::a('Asunto de participación estudiantil',['foro/viewadmin','id'=>$foroparticipacion->id],[]);?>  </div>
+    <div class="col-md-4"><?= Html::a('Participación estudiantil',['foro/viewadmin','id'=>$foroparticipacion->id],[]);?>  </div>
     <div class="col-md-2"><?= $foroparticipacion->total ?></div>
     <div class="col-md-2"><?= $foroparticipacion->valorado ?></div>
     <div class="col-md-2"><?= $foroparticipacion->pendiente ?></div>
