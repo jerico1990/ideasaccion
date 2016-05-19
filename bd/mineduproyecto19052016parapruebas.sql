@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2016 a las 10:57:31
+-- Tiempo de generación: 19-05-2016 a las 08:55:17
 -- Versión del servidor: 5.6.24
 -- Versión de PHP: 5.6.8
 
@@ -32,7 +32,17 @@ CREATE TABLE IF NOT EXISTS `actividad` (
   `descripcion` varchar(150) DEFAULT NULL,
   `resultado_esperado` varchar(150) DEFAULT NULL,
   `estado` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `actividad`
+--
+
+INSERT INTO `actividad` (`id`, `objetivo_especifico_id`, `descripcion`, `resultado_esperado`, `estado`) VALUES
+(1, 1, 'Prueba 1', NULL, 1),
+(2, 1, 'Prueba 2', NULL, 1),
+(3, 1, 'Prueba 3', NULL, 1),
+(4, 2, 'aaaaa', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -194,7 +204,14 @@ CREATE TABLE IF NOT EXISTS `cronograma` (
   `duracion` int(11) DEFAULT NULL,
   `responsable_id` int(11) DEFAULT NULL,
   `estado` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cronograma`
+--
+
+INSERT INTO `cronograma` (`id`, `actividad_id`, `tarea`, `fecha_inicio`, `fecha_fin`, `duracion`, `responsable_id`, `estado`) VALUES
+(19, 1, 'ceasr', '2016-01-05 00:00:00', '1969-12-31 00:00:00', NULL, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -363,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `foro` (
 
 INSERT INTO `foro` (`id`, `titulo`, `descripcion`, `proyecto_id`, `asunto_id`, `creado_at`, `actualizado_at`, `user_id`, `post_count`) VALUES
 (1, 'Asunto Público', '', NULL, NULL, 1460153182, 1460153263, 1, 0),
-(2, 'Foro de participación estudiantil', '', NULL, NULL, 1460153182, 1460153263, 1, 21),
+(2, 'Foro de participación estudiantil', '', NULL, NULL, 1460153182, 1460153263, 1, 74),
 (3, 'No somos rebeldes, somos adolescentes', 'Existen ciertos mitos sobre cómo somos nosotros. Dicen que somos de tal modo y que actuamos de tal forma; como si todos fuéramos iguales, como si nos hubieran sacado de un solo molde. Creemos que ya es hora de romper esas falsas creencias y hablar de lo que realmente significa ser adolescente. ', NULL, 1, NULL, NULL, 1, 0),
 (4, 'Mujeres y varones sin etiquetas', 'La sociedad quiere imponer ciertos comportamientos, capacidades y atributos a los varones y mujeres. Si salimos de esa dirección se nos trata perjudicialmente distinto. Si un varón es muy sensible o si una mujer es hábil con las herramientas parece que todos se les vienen encima. ¿Pero acaso debemos actuar como nos imponen que actuemos?', NULL, 2, NULL, NULL, 1, 0),
 (5, 'Soy cultura viva, respétame', 'En nuestro territorio existen diversas culturas autóctonas. Cuando pertenecemos a alguna de ellas o cuando nos involucramos con sus problemas, descubrimos que no siempre reciben el respeto que merecen, a veces se les da un trato diferenciado o excluyente, como si las miraran por encima del hombro, y eso impide que hagan valer sus derechos en el campo político, económico, social y cultural. ', NULL, 3, NULL, NULL, 1, 0),
@@ -389,7 +406,7 @@ INSERT INTO `foro` (`id`, `titulo`, `descripcion`, `proyecto_id`, `asunto_id`, `
 (25, 'Ciudadanos en acción', 'La mayoría de personas parecen que fueran ciudadanos en modo “apagado”. Son pocos los que  buscan el bien común y se comprometen con lo público participando en el fortalecimiento de las instituciones de la democracia. Pocos están dispuestos a enfrentar una sociedad autoritaria, discriminadora, desigual, etc. No obstante, es necesario que nos activemos e involucremos para lograr una sociedad más justa y humana. ', NULL, 23, NULL, NULL, 1, 0),
 (26, 'Dale calidad a tu vida', 'Muchas personas piensan que la calidad de vida se relaciona con sus ingresos y  la tranquilidad social, otras piensan que se trata del acceso a  bienes y servicios que el Estado debe asegurar; incluso hay quienes creen que depende del bienestar mental y emocional. Cada quien parece tener un concepto distinto, ¿guardarán estos alguna relación?', NULL, 24, NULL, NULL, 1, 0),
 (27, 'Túmbate a la corrupción', 'Pareciera que la gente ya se ha acostumbrado a la corrupción, incluso algunos la aceptan como normal y no la combaten. ¡Qué contradictorio con lo que nos quieren inculcar! Será acaso que la corrupción ha aprendido a camuflar lo que produce: obras públicas mal hechas, malos conductores con licencia, delincuentes impunes,  pérdida del dinero público, etc.', NULL, 25, NULL, NULL, 1, 0),
-(28, 'Sismos, huaycos, heladas, inundaciones… ¿Estás preparado? ', 'En nuestro país se dan varios fenómenos naturales, tales como sismos, inundaciones, heladas, huaicos, etc. Por lo que resulta importante prever y considerar los peligros a los que se enfrenta la población para tomar decisiones y actuar antes de que ocurran los desastres. Para esto, también  se necesita la organización de distintos actores y acciones.', NULL, 26, NULL, NULL, 1, 4),
+(28, 'Sismos, huaycos, heladas, inundaciones… ¿Estás preparado? ', 'En nuestro país se dan varios fenómenos naturales, tales como sismos, inundaciones, heladas, huaicos, etc. Por lo que resulta importante prever y considerar los peligros a los que se enfrenta la población para tomar decisiones y actuar antes de que ocurran los desastres. Para esto, también  se necesita la organización de distintos actores y acciones.', NULL, 26, NULL, NULL, 1, 17),
 (29, 'Camina seguro, camina sin miedos… ¿es posible?', 'Pasear sin preocupación y temor por los lugares públicos debería ser algo común; sin embargo actualmente las medidas para evitar los delitos y asegurar el bienestar de los ciudadanos no han dado frutos. Pero las acciones de seguridad ciudadana no solo las debe llevar a cabo el Estado, sino que deben colaborar también otras organizaciones y nosotros, la ciudadanía.', NULL, 27, NULL, NULL, 1, 0),
 (30, 'Para tus hijos, y los hijos de tus hijos', 'Sabemos que detrás de nosotros vienen nuevas generaciones que también necesitarán satisfacer sus necesidades, por eso resulta importante procurar que la naturaleza pueda renovarse y revierta los efectos de nuestras actividades de manera simultánea. Además, para lograr la prosperidad de las generaciones futuras, debemos asegurar la calidad de vida de todas las personas y su bienestar social.', NULL, 28, NULL, NULL, 1, 0),
 (31, 'No se compra, no se vende', 'Las personas no somos objetos a los que se les puede comprar, vender o usar. Sin embargo, algunos piensan que pueden hacer eso, y violando los derechos fundamentales de las personas comercian con ellas como si fueran mercancía. Muchas veces las víctimas facilitan su propia desgracia al caer en engaños, creer en falsas promesas y no conocer sus derechos.', NULL, 29, NULL, NULL, 1, 0),
@@ -412,7 +429,7 @@ CREATE TABLE IF NOT EXISTS `foro_comentario` (
   `user_id` int(11) DEFAULT NULL,
   `creado_at` int(11) DEFAULT NULL,
   `estado` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `foro_comentario`
@@ -421,29 +438,31 @@ CREATE TABLE IF NOT EXISTS `foro_comentario` (
 INSERT INTO `foro_comentario` (`id`, `contenido`, `valoracion`, `foro_id`, `user_id`, `creado_at`, `estado`) VALUES
 (1, 'Prueba de comentario', 0, 28, 11, 1463520824, 1),
 (2, 'Prueba de comentario', 0, 2, 11, 1463520892, 1),
-(3, 'Prueba 2 de comentario', 0, 2, 17, 1463522073, 1),
-(4, 'Pruab trader', 0, 28, 11, 1463522097, 1),
-(5, 'Prueba monitor', 0, 2, 2, 1463526594, 1),
-(6, 'Prueba monitor', 0, 2, 2, 1463526614, 1),
-(7, 'dd', 0, 2, 2, 1463526689, 1),
-(8, 'ddd', 0, 2, 2, 1463526717, 1),
-(9, 'dasds ad asda', 0, 2, 2, 1463526839, 1),
-(10, 'ss', 0, 2, 2, 1463528639, 1),
-(11, 'as', 0, 2, 2, 1463528649, 1),
-(12, 'ss', 0, 2, 2, 1463528655, 1),
-(13, 'asddddd', 0, 2, 2, 1463528660, 1),
-(14, 'dasdasd', 0, 2, 2, 1463528665, 1),
-(15, '234dda', 0, 2, 2, 1463528670, 1),
-(16, 'fddfsdf', 0, 2, 2, 1463528675, 1),
-(17, 'dfsdf', 0, 2, 2, 1463528679, 1),
-(18, 'sdfd333', 0, 2, 2, 1463528684, 1),
-(19, 'asda2', 0, 2, 2, 1463528690, 1),
-(20, 'adas2', 0, 2, 2, 1463528695, 1),
-(21, 'sdad', 0, 2, 2, 1463528699, 1),
-(22, 'asdasd', 0, 2, 2, 1463528704, 1),
-(23, 'sdad', 0, 2, 2, 1463528708, 1),
+(3, 'Prueba 2 de comentario', 4, 2, 17, 1463522073, 1),
+(4, 'Pruab trader', 0, 28, 11, 1463522097, 0),
+(23, 'Prueba Monitor', 0, 2, 2, 1463528708, 0),
 (24, 'Hola', 0, 28, 2, 1463531570, 1),
-(25, 'dddd', 0, 28, 11, 1463544225, 1);
+(26, 'Nos estamos apoyando con la tecnología, para poder realizar prevenciones cuando ocurra y...', 0, 28, 11, 1463665347, 1),
+(27, 'Hay que utilizar modelos de integración social de otros paises, para mejorar nuestra ....', 0, 28, 15, 1463665501, 1),
+(28, 'Muy buenas ideas, capaz con este link podran tener mejores ideas y asi nutrir su modelo de negocio.', 0, 28, 2, 1463665596, 1),
+(29, 'Ohh buen aporte, Vanesa ...', 0, 28, 11, 1463665667, 1),
+(30, 'Entendemos la situación', 0, 28, 2, 1463665687, 1),
+(31, 'Gracias, podemos emprender con tecnologia cerca a los indicentes recurrentes', 0, 28, 15, 1463665718, 1),
+(32, 'Ohhh me parece genial poder compartir ideas', 0, 2, 15, 1463665753, 1),
+(33, 'si buenas ideas que super', 0, 2, 11, 1463665850, 1),
+(34, 'Bien todo se mejora compartiendo', 0, 2, 2, 1463665868, 1),
+(35, 'Prueba cambiando de tema', 0, 2, 11, 1463665888, 1),
+(36, 'Si comparten mas link, nose digamos', 0, 2, 15, 1463665902, 1),
+(37, 'En que momento ocurrio el problema del ...', 0, 2, 11, 1463665926, 1),
+(38, 'Bueno muchachos, hablen con moderación, si no el comentario no se ,,,', 0, 2, 2, 1463665967, 1),
+(39, 'Todos somos ganadores', 0, 2, 11, 1463665981, 1),
+(40, 'Yo puedo empezar a realizr maso una coti..', 0, 2, 15, 1463666005, 1),
+(41, 'Ohhh comomomo', 0, 28, 11, 1463666024, 1),
+(42, 'MEnos temblores', 0, 28, 15, 1463666045, 1),
+(43, 'Apoyemo el cambio climatico', 0, 28, 15, 1463666055, 1),
+(44, 'Ah pero este', 0, 28, 11, 1463666064, 1),
+(45, 'Tratemos de dar capacitaciones a nuestras comunidades', 0, 28, 11, 1463666081, 1),
+(46, 'mmm ya pero como', 0, 28, 15, 1463666091, 1);
 
 -- --------------------------------------------------------
 
@@ -9652,7 +9671,7 @@ CREATE TABLE IF NOT EXISTS `log_sesion` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `hora_logeo` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `log_sesion`
@@ -9690,7 +9709,23 @@ INSERT INTO `log_sesion` (`id`, `user_id`, `hora_logeo`) VALUES
 (29, 2, '2016-05-17 17:46:05'),
 (30, 1, '2016-05-17 17:53:29'),
 (31, 11, '2016-05-17 19:29:39'),
-(32, 11, '2016-05-17 23:03:33');
+(32, 11, '2016-05-17 23:03:33'),
+(33, 2, '2016-05-18 11:56:57'),
+(34, 11, '2016-05-18 13:49:35'),
+(35, 10, '2016-05-18 14:06:45'),
+(36, 12, '2016-05-18 14:07:02'),
+(37, 11, '2016-05-18 14:22:02'),
+(38, 2, '2016-05-18 14:34:37'),
+(39, 11, '2016-05-18 14:41:42'),
+(40, 11, '2016-05-19 01:38:40'),
+(41, 11, '2016-05-19 02:17:49'),
+(42, 1, '2016-05-19 02:38:36'),
+(43, 11, '2016-05-19 02:42:06'),
+(44, 11, '2016-05-19 02:52:22'),
+(45, 1, '2016-05-19 08:38:38'),
+(46, 13, '2016-05-19 08:43:06'),
+(47, 15, '2016-05-19 08:43:27'),
+(48, 2, '2016-05-19 08:45:39');
 
 -- --------------------------------------------------------
 
@@ -9702,7 +9737,16 @@ CREATE TABLE IF NOT EXISTS `objetivo_especifico` (
   `id` int(11) NOT NULL,
   `proyecto_id` int(11) DEFAULT NULL,
   `descripcion` varchar(250) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `objetivo_especifico`
+--
+
+INSERT INTO `objetivo_especifico` (`id`, `proyecto_id`, `descripcion`) VALUES
+(1, 1, 'Prueba 1'),
+(2, 1, 'Prueba 2'),
+(3, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -9735,7 +9779,15 @@ CREATE TABLE IF NOT EXISTS `plan_presupuestal` (
   `cantidad` int(11) DEFAULT NULL,
   `subtotal` double(11,2) DEFAULT NULL,
   `estado` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `plan_presupuestal`
+--
+
+INSERT INTO `plan_presupuestal` (`id`, `actividad_id`, `dirigido`, `recurso`, `recurso_descripcion`, `unidad`, `como_conseguirlo`, `precio_unitario`, `cantidad`, `subtotal`, `estado`) VALUES
+(1, 1, 'a cesarin', NULL, 'pruebaa', 'prueba', 1, 0.00, 4, 0.00, 1),
+(2, 1, 'jorge', NULL, 'cambio', 'ddd', 3, 4.00, 5, 20.00, 1);
 
 -- --------------------------------------------------------
 
@@ -9777,7 +9829,14 @@ CREATE TABLE IF NOT EXISTS `proyecto` (
   `region_id` int(11) DEFAULT NULL,
   `valor_porcentual_administrador` int(11) DEFAULT NULL,
   `resultado` double(11,0) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `proyecto`
+--
+
+INSERT INTO `proyecto` (`id`, `titulo`, `resumen`, `objetivo_general`, `beneficiario`, `user_id`, `asunto_id`, `equipo_id`, `etapa`, `region_id`, `valor_porcentual_administrador`, `resultado`) VALUES
+(1, 'Prueba Proyecto', 'Ohhh hay que cuidar el presente para poder tener un bune futuro como lo indica el asunto ustedes que piensan?', 'Objetivo General prueba', 'sdfsd fsd sf dsf claro los beneficiados seremos los alumnos y/o niños de la nueva generación para ello debemos poner nuestro en base a la información que ya existe des cuando nos volvimos lenots e inadecuados, comocreess aeehhea', 11, 26, 2, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -9808,7 +9867,17 @@ CREATE TABLE IF NOT EXISTS `reflexion` (
   `proyecto_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `reflexion` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `reflexion`
+--
+
+INSERT INTO `reflexion` (`id`, `proyecto_id`, `user_id`, `reflexion`) VALUES
+(1, 1, 12, ''),
+(2, 1, 15, ''),
+(3, 1, 17, ''),
+(4, 1, 11, '');
 
 -- --------------------------------------------------------
 
@@ -11872,6 +11941,8 @@ CREATE TABLE IF NOT EXISTS `voto` (
 --
 
 INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
+(1, '01', '23432432', '2016-05-18 17:57:53', 1),
+(1, '01', '23433222', '2016-05-18 17:58:32', 1),
 (1, '01', '43126567', '2016-05-15 20:19:16', 1),
 (1, '01', '46307134', '2016-05-13 18:22:59', 1),
 (1, '01', '62183694', '2016-05-13 11:38:28', 1),
@@ -12494,6 +12565,8 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (1, '25', '87914896', '2016-05-16 13:35:03', 1),
 (1, '26', '15438522', '2016-05-13 13:27:25', 1),
 (1, '26', '72641675', '2016-05-12 19:37:16', 1),
+(2, '01', '23432432', '2016-05-18 17:57:53', 1),
+(2, '01', '23433222', '2016-05-18 17:58:32', 1),
 (2, '01', '72128175', '2016-05-13 09:52:26', 1),
 (2, '01', '72158658', '2016-05-13 10:08:37', 1),
 (2, '01', '72240395', '2016-05-13 10:13:12', 1),
@@ -12729,6 +12802,7 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (2, '25', '78205136', '2016-05-16 12:40:43', 1),
 (2, '25', '78960535', '2016-05-16 12:38:09', 1),
 (2, '25', '80463930', '2016-05-16 12:57:03', 1),
+(3, '01', '23432432', '2016-05-18 17:57:53', 1),
 (3, '01', '72128175', '2016-05-13 09:52:26', 1),
 (3, '01', '72245255', '2016-05-13 10:10:19', 1),
 (3, '01', '72627253', '2016-05-16 09:17:05', 1),
@@ -12927,13 +13001,13 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (3, '19', '73100030', '2016-05-16 10:40:02', 1),
 (3, '19', '75220287', '2016-05-16 10:55:02', 1),
 (3, '20', '03093018', '2016-05-13 14:40:53', 1),
-(3, '20', '18115593', '2016-05-12 18:43:49', 1),
+(3, '20', '18115593', '2016-05-12 18:43:49', 1);
+INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
 (3, '20', '61368488', '2016-05-13 19:56:58', 1),
 (3, '20', '70499598', '2016-05-14 15:09:58', 1),
 (3, '20', '70934883', '2016-05-16 11:03:58', 1),
 (3, '20', '70943680', '2016-05-13 12:44:26', 1),
-(3, '20', '71146847', '2016-05-13 17:21:00', 1);
-INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
+(3, '20', '71146847', '2016-05-13 17:21:00', 1),
 (3, '20', '71465743', '2016-05-16 10:39:12', 1),
 (3, '20', '72218878', '2016-05-13 12:26:10', 1),
 (3, '20', '72230406', '2016-05-16 11:46:42', 1),
@@ -13989,13 +14063,13 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (6, '25', '72627234', '2016-05-16 09:17:08', 1),
 (6, '25', '72667653', '2016-05-16 11:30:38', 1),
 (6, '25', '73181484', '2016-05-16 08:40:50', 1),
-(6, '25', '73276807', '2016-05-16 08:36:48', 1),
+(6, '25', '73276807', '2016-05-16 08:36:48', 1);
+INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
 (6, '25', '74073755', '2016-05-16 08:45:04', 1),
 (6, '25', '74183894', '2016-05-16 09:20:31', 1),
 (6, '25', '74367584', '2016-05-16 09:44:03', 1),
 (6, '25', '74720928', '2016-05-16 09:23:52', 1),
-(6, '25', '74885397', '2016-05-16 09:55:55', 1);
-INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
+(6, '25', '74885397', '2016-05-16 09:55:55', 1),
 (6, '25', '74898335', '2016-05-16 10:15:05', 1),
 (6, '25', '75032931', '2016-05-16 09:42:03', 1),
 (6, '25', '75196144', '2016-05-16 11:43:25', 1),
@@ -15039,12 +15113,12 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (13, '11', '76238583', '2016-05-13 12:49:30', 1),
 (13, '12', '53872548', '2016-05-13 11:47:24', 1),
 (13, '12', '69682552', '2016-05-16 10:22:19', 1),
-(13, '12', '70106487', '2016-05-16 09:45:05', 1),
+(13, '12', '70106487', '2016-05-16 09:45:05', 1);
+INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
 (13, '12', '70934380', '2016-05-16 09:47:43', 1),
 (13, '12', '71065233', '2016-05-13 18:58:19', 1),
 (13, '12', '71102000', '2016-05-16 11:48:58', 1),
-(13, '12', '71110638', '2016-05-16 12:49:57', 1);
-INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
+(13, '12', '71110638', '2016-05-16 12:49:57', 1),
 (13, '12', '71212343', '2016-05-16 11:17:31', 1),
 (13, '12', '71275855', '2016-05-16 09:20:06', 1),
 (13, '12', '71348014', '2016-05-16 11:46:16', 1),
@@ -16079,12 +16153,12 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (17, '01', '73145442', '2016-05-16 09:52:34', 1),
 (17, '01', '73182914', '2016-05-16 09:45:57', 1),
 (17, '01', '73182942', '2016-05-16 08:55:12', 1),
-(17, '01', '73211555', '2016-05-16 09:47:06', 1),
+(17, '01', '73211555', '2016-05-16 09:47:06', 1);
+INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
 (17, '01', '73686989', '2016-05-16 09:35:15', 1),
 (17, '01', '73688664', '2016-05-16 08:40:25', 1),
 (17, '01', '73697415', '2016-05-16 09:01:29', 1),
-(17, '01', '73876757', '2016-05-16 08:59:29', 1);
-INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
+(17, '01', '73876757', '2016-05-16 08:59:29', 1),
 (17, '01', '73894750', '2016-05-16 09:50:51', 1),
 (17, '01', '74154467', '2016-05-16 08:32:33', 1),
 (17, '01', '74234078', '2016-05-16 08:58:00', 1),
@@ -17119,12 +17193,12 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (21, '02', '75787292', '2016-05-16 11:37:52', 1),
 (21, '02', '75791990', '2016-05-16 12:13:05', 1),
 (21, '02', '75801036', '2016-05-16 12:07:17', 1),
-(21, '02', '75807162', '2016-05-16 12:05:00', 1),
+(21, '02', '75807162', '2016-05-16 12:05:00', 1);
+INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
 (21, '02', '75812246', '2016-05-16 11:20:45', 1),
 (21, '02', '75899773', '2016-05-16 12:10:52', 1),
 (21, '02', '75899774', '2016-05-16 11:38:24', 1),
-(21, '02', '75915109', '2016-05-16 11:30:09', 1);
-INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
+(21, '02', '75915109', '2016-05-16 11:30:09', 1),
 (21, '02', '75915110', '2016-05-16 11:29:49', 1),
 (21, '02', '75952813', '2016-05-16 11:43:42', 1),
 (21, '02', '76022303', '2016-05-16 12:00:31', 1),
@@ -18159,12 +18233,12 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (23, '16', '73332469', '2016-05-13 15:41:21', 1),
 (23, '16', '74022919', '2016-05-13 15:46:55', 1),
 (23, '16', '74529165', '2016-05-13 16:33:34', 1),
-(23, '16', '74529235', '2016-05-13 16:41:54', 1),
+(23, '16', '74529235', '2016-05-13 16:41:54', 1);
+INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
 (23, '16', '74594571', '2016-05-13 16:23:38', 1),
 (23, '16', '74832895', '2016-05-13 16:41:37', 1),
 (23, '16', '76297182', '2016-05-13 15:36:21', 1),
-(23, '16', '76328198', '2016-05-13 16:43:14', 1);
-INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
+(23, '16', '76328198', '2016-05-13 16:43:14', 1),
 (23, '16', '76392836', '2016-05-13 16:23:37', 1),
 (23, '16', '76432714', '2016-05-13 15:14:43', 1),
 (23, '16', '76904536', '2016-05-13 16:19:51', 1),
@@ -19199,12 +19273,12 @@ INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro
 (32, '04', '71841098', '2016-05-13 13:58:39', 1),
 (32, '04', '72901032', '2016-05-13 13:59:56', 1),
 (32, '04', '73029183', '2016-05-16 12:15:18', 1),
-(32, '04', '73112767', '2016-05-16 12:14:17', 1),
+(32, '04', '73112767', '2016-05-16 12:14:17', 1);
+INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
 (32, '04', '73212387', '2016-05-13 11:54:54', 1),
 (32, '04', '73245812', '2016-05-16 08:38:00', 1),
 (32, '04', '73645284', '2016-05-16 08:38:42', 1),
-(32, '04', '73696203', '2016-05-13 13:43:59', 1);
-INSERT INTO `voto` (`asunto_id`, `region_id`, `participante_id`, `fecha_registro`, `estado`) VALUES
+(32, '04', '73696203', '2016-05-13 13:43:59', 1),
 (32, '04', '73802716', '2016-05-16 08:35:58', 1),
 (32, '04', '73894159', '2016-05-16 12:24:32', 1),
 (32, '04', '74532042', '2016-05-13 14:02:20', 1),
@@ -19527,12 +19601,12 @@ ALTER TABLE `voto`
 -- AUTO_INCREMENT de la tabla `actividad`
 --
 ALTER TABLE `actividad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `cronograma`
 --
 ALTER TABLE `cronograma`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `encuesta`
 --
@@ -19567,7 +19641,7 @@ ALTER TABLE `foro`
 -- AUTO_INCREMENT de la tabla `foro_comentario`
 --
 ALTER TABLE `foro_comentario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT de la tabla `institucion`
 --
@@ -19587,27 +19661,27 @@ ALTER TABLE `invitacion`
 -- AUTO_INCREMENT de la tabla `log_sesion`
 --
 ALTER TABLE `log_sesion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT de la tabla `objetivo_especifico`
 --
 ALTER TABLE `objetivo_especifico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `plan_presupuestal`
 --
 ALTER TABLE `plan_presupuestal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `proyecto`
 --
 ALTER TABLE `proyecto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `reflexion`
 --
 ALTER TABLE `reflexion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `resultados`
 --
