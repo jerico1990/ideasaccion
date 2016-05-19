@@ -148,7 +148,7 @@ class VotoController extends Controller
         $dni=$_GET['Voto']['dni'];
         $region=$_GET['Voto']['region'];
         $asuntos=$_GET['Asuntos'];
-        $Countdni=strlen($_GET['Voto']['dni']);
+        $Countdni=strlen(trim($_GET['Voto']['dni']));
         $Countasuntos=count($_GET['Asuntos']);
         
         $validandodni=Voto::find()->where('participante_id=:participante_id',[':participante_id'=>$dni])->all();

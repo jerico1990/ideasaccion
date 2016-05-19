@@ -1,8 +1,11 @@
 <div class="box_head title_content_box">
-    <img src="../img/icon_team_big.jpg" alt=""> Ideas en acción
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_team_big.jpg" alt=""> Ideas en acción
 </div>
 <div ng-app="ideasaccion" class="box_content">
     <div class="mapa_infografia">
+        <img src="<?= \Yii::$app->request->BaseUrl ?>/img/person_1_infografia.png" class="person_1">
+        <img src="<?= \Yii::$app->request->BaseUrl ?>/img/person_2_infografia.png" class="person_2">
+
         <div class="cuadros paso_1">
                 <div class="titulo_cuadro">¡Comenzamos, nos informamos!</div>
                 <div class="contenido_cuadro">
@@ -32,32 +35,114 @@
         </div>
         <div class="cuadros paso_3">
                 <div class="titulo_cuadro">¡Nos inscribimos!</div>
+                <div class="contenido_cuadro">
+                        <div class="iai_icon">
+                                <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png" alt="">
+                        </div>
+                        Tu equipo no ha finalizado su registro.
+                </div>
         </div>
         <div class="cuadros paso_4">
                 <div class="titulo_cuadro">Revisamos los materiales</div>
+                <div class="contenido_cuadro">
+                        <b>Tutoriales</b><br>
+                        <a href="#">www.minedu.gob.pe</a><br>
+                        <a href="#">www.minedu.gob.pe</a><br>
+                        <a href="#">www.minedu.gob.pe</a>
+                </div>
         </div>
 
         <div class="cuadros paso_5">
                 <div class="titulo_cuadro">¡Participamos!</div>
+                <div class="contenido_cuadro">
+                        <a href="#" class="open_popup_foros_asuntos">Foros de asuntos</a><br>
+                        <span class="">
+                                <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png" height="12">
+                                Foro abierto
+                        </span>
+                </div>
         </div>
         <div class="cuadros paso_6">
                 <div class="titulo_cuadro">Primera orden<br>a la entrega</div>
+                <div class="contenido_cuadro">
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" value="">
+                                        Registro del proyecto
+                                </label>
+                        </div>
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" value="">
+                                        Reflexión del concurso
+                                </label>
+                        </div>
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" value="">
+                                        Publicación del video
+                                </label>
+                        </div>
+                </div>
         </div>
         <div class="cuadros paso_7">
                 <div class="titulo_cuadro">Aportamos y mejoramos</div>
+                <div class="contenido_cuadro">
+                        Aun no han aportado todos los miembros del equipo.
+                        <div class="options">
+                                <div class="checkbox">
+                                        <label>
+                                                <input type="checkbox" value="">
+                                                Realizar el aporte
+                                        </label>
+                                </div>
+                        </div>
+                </div>
         </div>
 
         <div class="cuadros paso_8">
-                <div class="titulo_cuadro">Segunda entrega<br>¡Ah­ vamos!</div>
+                <div class="titulo_cuadro">Segunda entrega<br>¡Ahí­ vamos!</div>
+                <div class="contenido_cuadro">
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" value="">
+                                        Publicación<br>
+                                        del video
+                                </label>
+                        </div>
+
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" value="">
+                                        Reflexión<br>
+                                        de aportes
+                                </label>
+                        </div>
+                </div>
         </div>
         <div class="cuadros paso_9">
                 <div class="titulo_cuadro">Reconocemos los 3 mejores proyectos</div>
+                <div class="contenido_cuadro">
+                        <div class="checkbox">
+                                <label>
+                                        <input type="checkbox" value="">
+                                        Votación<br>
+                                        regional
+                                </label>
+                        </div>
+                </div>
         </div>
         <div class="cuadros paso_10">
                 <div class="titulo_cuadro">Elegimos a los mejores</div>
+                <div class="contenido_cuadro">
+                        <a href="#" class="btn btn-default">
+                                VOTAR >
+                        </a>
+                </div>
         </div>
         <img src="<?= \Yii::$app->request->BaseUrl ?>/img/mapa_infografia.png" alt="">
-    </div>
+</div>
+
 									
     <!--
     <div ng-controller="PrimeroController">

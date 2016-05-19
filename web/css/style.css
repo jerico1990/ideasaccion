@@ -644,15 +644,101 @@ header .logo{
 	background: #ffffff;
 }
 
+.grid_box_line_blue.content_infografia .person_1,
+.grid_box_line_blue.content_infografia .person_2{
+	position: absolute;
+	z-index: 6;
+	bottom: 0;
+}
+
+.grid_box_line_blue.content_infografia .person_1{
+	height: 135px;
+	bottom: -27px;
+	left: 12px;
+}
+
+
+.grid_box_line_blue.content_infografia .person_2{
+	right: 35px;
+	bottom: -20px;
+}
+
 .grid_box_line_blue.content_infografia .box_content{
 	background: url(../img/bg_banner_cuadros.jpg);
-	padding: 0;
+	padding: 0 0 20px 0;
 }
 
 .grid_box_line_blue.content_infografia .box_content:after{
 	content: " ";
 	display: block;
 	clear: both;
+}
+
+.popup{
+	position: fixed;
+	display: none;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0, 0.7);
+	z-index: 999;
+}
+
+.popup .close_popup{
+	font-weight: 900;
+	font-size: 30px;
+	color: #13266b;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	line-height: 26px;
+}
+
+.popup .close_popup:hover{
+	text-decoration: none;
+}
+
+.popup .popup_content{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: #ffffff;
+	border: 5px solid #13266b;
+	width: 450px;
+	padding: 25px;
+	margin-top: 0;
+	margin-left: -225px;
+	color: #13266b;
+	font-family: 'Raleway', sans-serif;
+}
+
+.popup .popup_content .popup_title{
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	border-bottom: 2px dotted #13266b;
+	padding-bottom: 10px;
+}
+
+.popup .popup_content .popup_detail{
+	font-size: 14px;
+	padding: 14px 0;
+	text-align: center;
+}
+
+.popup .popup_content .popup_detail label{
+	font-weight: normal;
+}
+
+.popup.popup_foro_asuntos_publicos .popup_content{
+	width: 350px;
+	margin-top: calc(-270px/2);
+	margin-left: calc(-350px/2);
+}
+
+.section_mapa_infografia .content_form{
+	padding-top: 65px;
 }
 
 .mapa_infografia{
@@ -671,9 +757,7 @@ header .logo{
 .mapa_infografia .cuadros{
 	position: absolute;
 	z-index: 2;
-
 	background: none;
-	border: 1px solid red;
 }
 
 .mapa_infografia .cuadros.paso_1{
@@ -712,10 +796,10 @@ header .logo{
 }
 
 .mapa_infografia .cuadros.paso_6{
-	width: 146px;
+	width: 152px;
 	height: 125px;
 	top: 408px;
-	left: 565px;
+	left: 562px;
 }
 
 .mapa_infografia .cuadros.paso_7{
@@ -814,6 +898,10 @@ header .logo{
 	margin-bottom: 0;
 }
 
+.mapa_infografia .cuadros a{
+	color: #13266b;
+}
+
 .mapa_infografia .cuadros .contenido_cuadro .checkbox label{
 	min-height: auto;
 }
@@ -826,4 +914,72 @@ header .logo{
 .mapa_infografia .cuadros.paso_2 .contenido_cuadro{
 	padding: 21px 0 0 0;
 	text-align: center;
+}
+
+.mapa_infografia .cuadros.paso_3 .contenido_cuadro{
+	padding: 0px 0 0 0;
+	text-align: center;
+}
+
+.mapa_infografia .cuadros.paso_3 .contenido_cuadro .iai_icon{
+	padding: 6px 0 3px 0;
+}
+
+.mapa_infografia .cuadros.paso_4 .contenido_cuadro{
+	padding: 16px 0 0px 0;
+	text-align: center;
+}
+
+.mapa_infografia .cuadros.paso_5 .contenido_cuadro{
+	padding: 15px 0 0 0;
+}
+
+.mapa_infografia .cuadros.paso_6 .contenido_cuadro{
+	padding: 6px 0 0 0;
+}
+
+.mapa_infografia .cuadros.paso_6 .contenido_cuadro .checkbox{
+	padding: 2px 0;
+}
+
+.mapa_infografia .cuadros.paso_6 .contenido_cuadro .checkbox input{
+	margin-left: -16px;
+}
+
+.mapa_infografia .cuadros.paso_7 .contenido_cuadro{
+	text-align: right;
+	padding: 12px 0 0 0;
+}
+
+.mapa_infografia .cuadros.paso_7 .contenido_cuadro .checkbox label{
+	padding-left: 0;
+}
+
+.mapa_infografia .cuadros.paso_7 .contenido_cuadro .checkbox input{
+	margin-left: -16px;
+}
+
+.mapa_infografia .cuadros.paso_7 .contenido_cuadro .options{
+	padding-top: 7px;
+}
+
+.mapa_infografia .cuadros.paso_8 .contenido_cuadro{
+	padding:  7px 0 0 15px;
+}
+
+.mapa_infografia .cuadros.paso_9 .contenido_cuadro{
+	padding: 4px 0 0 6px;
+}
+
+.mapa_infografia .cuadros.paso_10 .contenido_cuadro .btn-default{
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.mapa_infografia .cuadros.paso_10 .contenido_cuadro{
+	padding: 10px 0 0 0;
+}
+
+.mapa_infografia .cuadros.paso_10 .contenido_cuadro .btn-default:hover{
+	border-color: #f6de34;
 }
