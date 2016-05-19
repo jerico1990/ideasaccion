@@ -231,9 +231,14 @@ use yii\widgets\Pjax;
     function Imagen(elemento) {
         var ext = $(elemento).val().split('.').pop().toLowerCase();
         var error='';
+        
         if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
             error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
         }
+        if (error=='' && elemento.files[0].size/1024/1024>=5) {
+            error=error+'Solo se permite archivos hasta 5MB';
+        }
+        
         if (error!='') {
             $.notify({
                 message: error

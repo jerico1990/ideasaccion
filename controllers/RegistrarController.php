@@ -65,6 +65,7 @@ class RegistrarController extends Controller
             }
             else
             {*/
+                $fecha_nacimiento=str_replace("/", "-", $registrar->fecha_nac);
                 $registrar->foto = UploadedFile::getInstance($registrar, 'foto');
                 $estudiante =new Estudiante;
                 $estudiante->nombres=$registrar->nombres;
@@ -72,7 +73,7 @@ class RegistrarController extends Controller
                 $estudiante->apellido_materno=$registrar->apellido_materno;
                 $estudiante->sexo=$registrar->sexo;
                 $estudiante->dni=$registrar->dni;
-                $estudiante->fecha_nac=date("Y-m-d",strtotime($registrar->fecha_nac));
+                $estudiante->fecha_nac=date("Y-m-d",strtotime($fecha_nacimiento));
                 $estudiante->email=$registrar->email;
                 $estudiante->celular=$registrar->celular;
                 $estudiante->institucion_id=$registrar->institucion;
@@ -317,29 +318,41 @@ class RegistrarController extends Controller
     
     public function actionValidardni()
     {
-        $dni=$_POST['dni'];
-        $estudiante=Estudiante::find()->where('dni=:dni',[':dni'=>$dni])->one();
-        if($estudiante)
-        {
-            echo 1;
+        if(isset($_POST['dni'])){
+            $dni=$_POST['dni'];
+            $estudiante=Estudiante::find()->where('dni=:dni',[':dni'=>$dni])->one();
+            if($estudiante)
+            {
+                echo 1;
+            }
+            else
+            {
+                echo 0;
+            }
         }
         else
         {
-            echo 0;
+            $this->redirect(['registrar/index']);
         }
     }
     
     public function actionValidaremail()
     {
-        $email=$_POST['email'];
-        $estudiante=Estudiante::find()->where('email=:email',[':email'=>$email])->one();
-        if($estudiante)
-        {
-            echo 1;
+        if(isset($_POST['email'])){
+            $email=$_POST['email'];
+            $estudiante=Estudiante::find()->where('email=:email',[':email'=>$email])->one();
+            if($estudiante)
+            {
+                echo 1;
+            }
+            else
+            {
+                echo 0;
+            }
         }
         else
         {
-            echo 0;
+            $this->redirect(['registrar/index']);
         }
     }
     
