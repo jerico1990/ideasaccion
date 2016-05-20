@@ -56,73 +56,50 @@
                         <a style="cursor: pointer"  data-toggle="modal" data-target="#orientacion4">{{orientacion4}}<div class="ripple-container"></div></a>
                 </div>
         </div>
-
-        <div class="cuadros paso_5">
-                <div class="titulo_cuadro">¡Participamos!</div>
+        <div class="cuadros paso_5" ng-controller="QuintoController" ng-show="quinto">
+                <div class="titulo_cuadro">{{titulo5}}</div>
                 <div class="contenido_cuadro">
-                        <a href="#" class="open_popup_foros_asuntos">Foros de asuntos</a><br>
-                        <span class="">
-                                <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png" height="12">
-                                Foro abierto
-                        </span>
+                        <section>
+                            <div>
+                                <i class="{{checkforoasunto5}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Foro de asuntos públicos" data-content="{{txtforo_asunto}}" data-placement="horizontal">{{txtcheckforoasunto5}}<div class="ripple-container"></div></a>  <br>
+                                <i class="{{checkforoabierto5}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Foro Abierto" data-content="{{txtforo_abierto}}" data-placement="horizontal">{{txtcheckforoabierto5}}<div class="ripple-container"></div></a>  
+                            </div>
+                        </section>
                 </div>
         </div>
-        <div class="cuadros paso_6">
-                <div class="titulo_cuadro">Primera orden<br>a la entrega</div>
+        
+        <div class="cuadros paso_6" ng-controller="SextoController" ng-show="sexto">
+                <div class="titulo_cuadro">{{titulo6}}</div>
                 <div class="contenido_cuadro">
-                        <div class="checkbox">
-                                <label>
-                                        <input type="checkbox" value="">
-                                        Registro del proyecto
-                                </label>
-                        </div>
-                        <div class="checkbox">
-                                <label>
-                                        <input type="checkbox" value="">
-                                        Reflexión del concurso
-                                </label>
-                        </div>
-                        <div class="checkbox">
-                                <label>
-                                        <input type="checkbox" value="">
-                                        Publicación del video
-                                </label>
-                        </div>
+                        <section>
+                            <div>
+                                <i class="{{checkproyectoregistrado6}}"></i> {{txtproyectoregistrado6}} <br>
+                                <i class="{{checkreflexion6}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Reflexiones" data-content="{{txtreflexionesusuarios6}}" data-placement="horizontal">{{txtreflexiones6}}<div class="ripple-container"></div></a>  <br>
+                                <i class="{{checkvideo6}}"></i> {{txtvideo6}} <br>
+                            </div>
+                        </section>
                 </div>
         </div>
-        <div class="cuadros paso_7">
-                <div class="titulo_cuadro">Aportamos y mejoramos</div>
+        
+        <div class="cuadros paso_7" ng-controller="SeptimoController" ng-show="septimo">
+                <div class="titulo_cuadro">{{titulo7}}</div>
                 <div class="contenido_cuadro">
-                        Aun no han aportado todos los miembros del equipo.
-                        <div class="options">
-                                <div class="checkbox">
-                                        <label>
-                                                <input type="checkbox" value="">
-                                                Realizar el aporte
-                                        </label>
-                                </div>
-                        </div>
+                        <section>
+                            <div>
+                                <i class="{{checkaporte7}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Aporte de los integrantes" data-content="{{txtaportesusuarios7}}" data-placement="horizontal">{{txtaportes7}}<div class="ripple-container"></div></a>  <br>
+                            </div>
+                        </section>
                 </div>
         </div>
-
-        <div class="cuadros paso_8">
-                <div class="titulo_cuadro">Segunda entrega<br>¡Ahí­ vamos!</div>
+        <div class="cuadros paso_8" ng-controller="OctavoController" ng-show="octavo">
+                <div class="titulo_cuadro">{{titulo8}}</div>
                 <div class="contenido_cuadro">
-                        <div class="checkbox">
-                                <label>
-                                        <input type="checkbox" value="">
-                                        Publicación<br>
-                                        del video
-                                </label>
-                        </div>
-
-                        <div class="checkbox">
-                                <label>
-                                        <input type="checkbox" value="">
-                                        Reflexión<br>
-                                        de aportes
-                                </label>
-                        </div>
+                        <section>
+                            <div>
+                                <i class="{{checkvideo8}}"></i> {{txtvideo8}} <br>
+                                <i class="{{checkevaluacion8}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Evaluación de los integrantes" data-content="{{txtevaluacionesusuarios8}}" data-placement="horizontal">{{txtevaluaciones8}}<div class="ripple-container"></div></a>  <br>
+                            </div>
+                        </section>
                 </div>
         </div>
         <div class="cuadros paso_9">

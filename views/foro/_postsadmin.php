@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\widgets\LinkPager;
-
+\Yii::$app->language = 'es-ES';
 $floor = 1;
 if (isset($_GET['page']) >= 2)
     $floor += ($pageSize * $_GET['page']) - $pageSize;
