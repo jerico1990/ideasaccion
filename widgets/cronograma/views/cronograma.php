@@ -21,23 +21,27 @@ foreach($objetivos as $objetivo){
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
     <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
-    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
-	<select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" >
-	    <option value>seleccionar</option>
-	    <?= $opciones_objetivos ?>
-	</select>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+	<div class="form-group label-floating field-proyecto-plan_presupuestal_objetivo_99 required" style="margin-top: 15px">
+	    <label class="control-label" for="proyecto-cronograma_objetivo_99">Objetivo</label>
+	    <select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" >
+		<option value></option>
+		<?= $opciones_objetivos ?>
+	    </select>
+	</div>
     </div>
     <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
-    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
-	<select id="proyecto-cronograma_actividad_99" class="form-control" name="Proyecto[cronogramas_actividades]"  >
-	    <option value>seleccionar</option>
-	</select>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+	<div class="form-group label-floating field-proyecto-cronograma_actividad_99 required" style="margin-top: 15px">
+	    <label class="control-label" for="registrar-cronograma_actividad_99">Actividad</label>
+	    <select id="proyecto-cronograma_actividad_99" class="form-control" name="Proyecto[cronogramas_actividades]"  >
+		<option value></option>
+	    </select>
+	</div>
     </div>
     <div class="clearfix"></div>
 	<div class="col-xs-12 col-sm-12 col-md-12">
-	    <table class="table table-striped table-hover" id="cronograma" style="display: none">
+	    <table class="table table-striped " id="cronograma" style="display: none">
 		<thead>
 		    <th>Tarea</th>
 		    <th>Responsable</th>
@@ -48,10 +52,16 @@ foreach($objetivos as $objetivo){
 		<tbody id="cronograma_cuerpo">
 		    
 		</tbody>
+		<tr>
+		    <td colspan="4" ></td>
+		    <td>
+			<?php if($disabled==''){?>
+			    <div id="btn_cronograma" class="btn btn-default pull-right"  style="display: none;background: #1f2a69;color: white">Agregar tarea</div>
+			<?php } ?>
+		    </td>
+		</tr>
 	    </table>
-	    <?php if($disabled==''){?>
-		<div id="btn_cronograma" class="btn btn-default pull-right"  style="display: none">Agregar</div>
-	    <?php } ?>
+	    
 	</div>
     <div class="clearfix"></div>
     

@@ -28,12 +28,30 @@ $acti3=0;
 {
     width: 80px;
     cursor: pointer;
-}</style>
+}
+label{
+    display:inline-block !important ;
+    max-width:100% !important;
+    margin-bottom:5px !important;
+    font-size:14px !important;
+    font-weight:700 !important;
+    color:#1f2a69 !important;
+}
+.form-control
+{
+    color:#59595b !important;
+    font-size:14px !important;
+}
+
+li::before { 
+    content: none;
+}
+</style>
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt="">MI PROYECTO
 </div>
-<div class="box_content contenido_seccion_equipo">
+<div class="box_content contenido_seccion_crear_equipo">
     <div class="row">
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs" style="background: white;">
@@ -56,7 +74,7 @@ $acti3=0;
                     <div class="col-xs-12 col-sm-12 col-md-12">    
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-titulo required">
-                                <label class="control-label" for="proyecto-titulo">Título</label>
+                                <label class="control-label" for="proyecto-titulo">Título del proyecto</label>
                                 <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= $proyecto->titulo ?>" <?= $disabled ?> required>
                             </div>
                         </div>
@@ -64,21 +82,21 @@ $acti3=0;
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-asunto required">
                                 <label class="control-label" for="proyecto-asunto" >Asunto público</label>
-                                <?= $equipo->asunto->descripcion_cabecera?>
+                                <input class="form-control" value="<?= $equipo->asunto->descripcion_cabecera?>" disabled>
                             </div>
                         </div>
                         <div class="clearfix"></div>    
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-resumen required">
                                 <label class="control-label" for="proyecto-resumen" title="Mínimo 100 palabras">Sumilla / Justificación</label>
-                                <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" minlength="100" maxlength="2500" title="Mínimo 100 palabras" <?= $disabled ?> required ><?= $proyecto->resumen ?></textarea>
+                                <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" rows="3" minlength="100" maxlength="2500" title="Mínimo 100 palabras" <?= $disabled ?> required ><?= $proyecto->resumen ?></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-beneficiario required">
                                 <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
-                                <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]"   <?= $disabled ?> required ><?= $proyecto->beneficiario ?></textarea>
+                                <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" rows="3"   <?= $disabled ?> required ><?= $proyecto->beneficiario ?></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -87,33 +105,35 @@ $acti3=0;
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_9">
                     <div class="clearfix"></div>
+                    
                     <div class="col-xs-12 col-sm-12 col-md-12">
+                        <!--
                         <div class="clearfix"></div>
                          <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-objetivo_general required" style="margin-top: 15px">
                                 <label class="control-label" for="proyecto-objetivo_general" title="Máximo 200 palabras">Objetivo general</label>
                                 <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="200"  title="Máximo 200 palabras" <?= $disabled ?>><?= $proyecto->objetivo_general ?></textarea>
                             </div>
-                        </div>
+                        </div>-->
                        <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <?php if($disabled=='disabled') { ?>
-                                <h4>Objetivos especificos </h4>
+                                <h4><b>Objetivos</b>  </h4>
                             <?php } else { ?>
-                                <h4>Objetivos especificos <span class="glyphicon glyphicon-plus-sign" onclick="agregarObjetivoActividad()" <?= $disabled ?>></span></h4>
+                                <h4><b>Objetivos</b> <span class="glyphicon glyphicon-plus-sign" style="cursor: pointer" title="Haga clic para añadir objetivos"  onclick="agregarObjetivoActividad()" <?= $disabled ?>></span></h4>
                             <?php } ?>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div id="mostrar_oe_actividades">
                                 <div id="oe_1" class='col-xs-12 col-sm-12 col-md-12'>
-                                    <?php if($proyecto->objetivo_especifico_1){ ?>
-                                        <li><b><?= $proyecto->objetivo_especifico_1 ?></b> <?= ($disabled=='disabled')?'':"<button type='button' onclick='Editar(1)'>editar</button>" ?>  </li>
+                                    <?php if($proyecto->objetivo_especifico_1){ ?>                                                  
+                                        <li><b>Objetivo: <?= $proyecto->objetivo_especifico_1 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(1)'></span>" ?>  </li>
                                             <input type='hidden' value='<?= $proyecto->objetivo_especifico_1 ?>' name='Proyecto[objetivo_especifico_1]'>
                                         <ul>
                                             <?php foreach($actividades as $actividad){ ?>
                                                 <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
-                                                    <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
+                                                    <li>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
                                                     <input id="proyecto-actividades_ids_1_<?= $acti1 ?>" type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
                                                 <?php $acti1 ++; } ?>
                                             <?php  } ?>
@@ -124,12 +144,12 @@ $acti3=0;
                                 
                                 <div id="oe_2" class='col-xs-12 col-sm-12 col-md-12'>
                                     <?php if($proyecto->objetivo_especifico_2){  ?>
-                                        <li><b><?= $proyecto->objetivo_especifico_2 ?></b> <?= ($disabled=='disabled')?'':"<button type='button' onclick='Editar(2)'>editar</button>" ?> </li>
+                                        <li><b>Objetivo: <?= $proyecto->objetivo_especifico_2 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(2)'></span>" ?> </li>
                                             <input type='hidden' value='<?= $proyecto->objetivo_especifico_2 ?>' name='Proyecto[objetivo_especifico_2]'>
                                         <ul>
                                             <?php foreach($actividades as $actividad){ ?>
                                                 <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
-                                                    <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
+                                                    <li>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
                                                     <input id="proyecto-actividades_ids_2_<?= $acti2 ?>" type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
                                                 <?php $acti2++;} ?>
                                             <?php  } ?>
@@ -140,12 +160,12 @@ $acti3=0;
                                 
                                 <div id="oe_3" class='col-xs-12 col-sm-12 col-md-12'>
                                     <?php if($proyecto->objetivo_especifico_3) { ?>
-                                        <li><b><?= $proyecto->objetivo_especifico_3 ?></b> <?= ($disabled=='disabled')?'':"<button type='button' onclick='Editar(3)'>editar</button>" ?> </li>
+                                        <li><b>Objetivo: <?= $proyecto->objetivo_especifico_3 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(3)'></span>" ?> </li>
                                             <input type='hidden' value='<?= $proyecto->objetivo_especifico_3 ?>' name='Proyecto[objetivo_especifico_3]'>
                                         <ul>
                                             <?php foreach($actividades as $actividad){ ?>
                                                 <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
-                                                    <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
+                                                    <li>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
                                                     <input id="proyecto-actividades_ids_3_<?= $acti3 ?>" type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
                                                 <?php $acti3++;  } ?>
                                             <?php  } ?>
@@ -308,14 +328,18 @@ $acti3=0;
             <div class="modal-dialog" role="document" style="z-index: 2000 !important">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></button>
                         <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
                     <div class="modal-body" id="oe_modal">
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-raised btn-default"  onclick='MostrarOeActividades()'>Aceptar</button>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" class="btn btn-default"  onclick='MostrarOeActividades()'>Aceptar</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -326,7 +350,7 @@ $acti3=0;
             <div class="modal-dialog" role="document" style="z-index: 2000 !important">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></button>
                         <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
                     <div class="modal-body" id="oe_modal_copia">
@@ -338,20 +362,23 @@ $acti3=0;
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            
+        <div style="border-top:2px dotted #f6de34 !important;">
         <?php if($entrega!=1 && $estudiante->grado!=6){ ?>    
             <?php if($disabled=='' && $equipo->etapa==0){ ?>
-            <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
-            <button type="submit" id="btnproyecto" class="btn btn-raised btn-default">Guardar</button>
-            
+            <div class="col-xs-12 col-sm-4 col-md-4" >
+                <button type="submit" id="btnproyecto" class="btn btn-default">Guardar</button>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 "></div>
+            <div class="col-xs-12 col-sm-4 col-md-4 ">
+                <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
+            </div>
             <?php } else if($disabled && $equipo->etapa==0){?>
-            <button type="button" id="btnproyectoreflexion" class="btn btn-raised btn-default">Guardar</button>
+            <button type="button" id="btnproyectoreflexion" class="btn btn-default">Guardar</button>
             <?php } else if($equipo->etapa==1 && $integrante->rol==1){ ?>
             <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
-            <button type="button" id="btnproyectoevaluacion" class="btn btn-raised btn-default">Guardar</button>
+            <button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
             <?php } else if($equipo->etapa==1 && $integrante->rol==2){ ?>
-            <button type="button" id="btnproyectoevaluacion" class="btn btn-raised btn-default">Guardar</button>
+            <button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
             <?php } ?>
         <?php } ?>
         </div>
@@ -476,7 +503,7 @@ $acti3=0;
             $('.field-proyecto-beneficiario').removeClass('has-error');
         }
         
-        
+        /*
         if($('#proyecto-objetivo_general').val()=='')
         {
             error=error+'ingrese objetivo general del proyecto <br>';
@@ -490,6 +517,7 @@ $acti3=0;
             $('.field-proyecto-objetivo_general').removeClass('has-error');
             $('.field-proyecto-objetivo_general').css( 'color', 'black' );
         }
+        */
         
         if($('#proyecto-objetivo_especifico_1').val()=='')
         {
@@ -608,33 +636,7 @@ $acti3=0;
         var error='';
         var etapa=<?= $etapa->etapa ?>;
         if (etapa==2) {
-            /*if($.trim($('#proyecto-evaluacion').val())=='')
-            {
-                error=error+'ingrese una evaluacion del proyecto <br>';
-                $('.field-proyecto-evaluacion').addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-evaluacion').addClass('has-success');
-                $('.field-proyecto-evaluacion').removeClass('has-error');
-            }
             
-            if(error!='')
-            {
-                $.notify({
-                    message: error 
-                },{
-                    type: 'danger',
-                    z_index: 1000000,
-                    placement: {
-                        from: 'bottom',
-                        align: 'right'
-                    },
-                });
-                return false;
-            }
-            else
-            {*/
                 $.ajax({
                     url: '<?= $evaluacion ?>',
                     type: 'POST',
@@ -659,7 +661,6 @@ $acti3=0;
                                             window.location.reload(1);
                                         }, 2000);
                 return true;
-            //}   
         }
         else
         {
@@ -787,13 +788,13 @@ $acti3=0;
         body=   "<div id='objetivo'>"+
                     "<div class='col-xs-12 col-sm-12 col-md-12'>"+
                         "<div class='form-group label-floating field-proyecto-temp_objetivo_especifico required' style='margin-top: 15px'>"+
-                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo especifico </label>"+
+                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo </label>"+
                             "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_objetivo_especifico' class='form-control'>"+
                         "</div>"+
                     "</div>"+
                 "</div>"+
                 "<div class='clearfix'></div>"+
-                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign pull-right' onclick='agregarActividad()' ></span></div>"+
+                "<div class='col-xs-12 col-sm-12 col-md-12' ><div style='padding-top:5px;border-top:2px dotted #f6de34'>Actividades <span class='glyphicon glyphicon-plus-sign' onclick='agregarActividad()' ></span></div></div>"+
                
                 "<div id='actividades'></div>"+
                 "<div class='clearfix'></div>";
@@ -835,7 +836,7 @@ $acti3=0;
         }
         
         var body="";
-        body=   "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+        body=   "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;'>"+
                     "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividadcon+" required' style='margin-top: 15px'>"+
                         "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividadcon+"' >Descripción de actividad #"+actividadcon+"</label>"+
                         "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividadcon+"' name='Proyecto[temp_actividades][]' class='form-control'>"+
@@ -938,7 +939,7 @@ $acti3=0;
         var bodyactividades="";
         var a=1;
         $("input[name='Proyecto[actividades_"+identificador+"][]']").each(function( index ) {
-            bodyactividades=bodyactividades+"<div class='col-xs-12 col-sm-12 col-md-12'>"+
+            bodyactividades=bodyactividades+"<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;'>"+
                                                 "<div class='form-group label-floating field-proyecto-temp_actividad_"+a+" required' style='margin-top: 15px'>"+
                                                     "<label class='control-label' for='proyecto-temp_actividad_actividad_"+a+"'>Descripción de actividad #"+a+"</label>"+
                                                     "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+a+"' name='Proyecto[temp_actividades_copia][]' class='form-control' value='"+$(this).val()+"'>"+
@@ -952,20 +953,22 @@ $acti3=0;
         body=   "<div id='objetivo_copia'>"+
                     "<div class='col-xs-12 col-sm-12 col-md-12'>"+
                         "<div class='form-group label-floating field-proyecto-temp_objetivo_especifico required' style='margin-top: 15px'>"+
-                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo especifico </label>"+
+                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo </label>"+
                             "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_objetivo_especifico_"+identificador+"' class='form-control' value='"+objetivo_especifico+"'>"+
                         "</div>"+
                     "</div>"+
                 "</div>"+
                 "<div class='clearfix'></div>"+
-                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign pull-right' onclick='agregarActividadCopia()' ></span></div>"+
+                "<div class='col-xs-12 col-sm-12 col-md-12' ><div style='padding-top::5px;border-top:2px dotted #f6de34'> Actividades <span class='glyphicon glyphicon-plus-sign' onclick='agregarActividadCopia()' ></span></div></div>"+
                
                 "<div id='actividades_copia'>"+
                 bodyactividades+
                 "</div>"+
                 "<div class='clearfix'></div>";
         $("#oe_modal_copia").html(body);
-        $("#oe_modal_button").html('<button type="button" class="btn btn-raised btn-default"  onclick="MostrarOeActividadesCopia('+identificador+')">Aceptar</button>');
+                        
+        $("#oe_modal_button").html('<div class="col-md-4"></div>'+
+                                   '<div class="col-md-4"><button type="button" class="btn btn-default"  onclick="MostrarOeActividadesCopia('+identificador+')">Aceptar</button></div>');
         
         actividad=a;
         return true;
@@ -1115,7 +1118,7 @@ $acti3=0;
         }
         
         var body="";
-        body=   "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+        body=   "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;'>"+
                     "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividad+" required' style='margin-top: 15px'>"+
                         "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividad+"' >Descripción de actividad #"+actividad+"</label>"+
                         "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividad+"' name='Proyecto[temp_actividades_copia][]' class='form-control'>"+

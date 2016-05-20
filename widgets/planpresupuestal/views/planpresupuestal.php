@@ -22,25 +22,28 @@ foreach($objetivos as $objetivo){
 <script src="<?= \Yii::$app->request->BaseUrl ?>/autoNumeric-master/autoNumeric.js"></script>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/jQuery-Plugins-master/numeric/jquery.numeric.js"></script>
 
-
     <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
-    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
-	<select id="proyecto-plan_presupuestal_objetivo_99" class="form-control" name="Proyecto[planes_presupuestales_objetivos][]" onchange="actividad($(this).val(),99)" >
-	    <option value>seleccionar</option>
-	    <?= $opciones_objetivos ?>
-	</select>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+	<div class="form-group label-floating field-proyecto-plan_presupuestal_objetivo_99 required" style="margin-top: 15px">
+	    <label class="control-label" for="proyecto-plan_presupuestal_objetivo_99">Objetivo</label>
+	    <select id="proyecto-plan_presupuestal_objetivo_99" class="form-control" name="Proyecto[planes_presupuestales_objetivos][]" onchange="actividad($(this).val(),99)" >
+		<option value></option>
+		<?= $opciones_objetivos ?>
+	    </select>
+	</div>
     </div>
     <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
-    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
-	<select id="proyecto-plan_presupuestal_actividad_99" class="form-control" name="Proyecto[planes_presupuestales_actividades]" onchange="presupuesto($(this).val())" >
-	    <option value>seleccionar</option>
-	</select>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+	<div class="form-group label-floating field-proyecto-plan_presupuestal_actividad_99 required" style="margin-top: 15px">
+	    <label class="control-label" for="registrar-plan_presupuestal_actividad_99">Actividad</label>
+	    <select id="proyecto-plan_presupuestal_actividad_99" class="form-control" name="Proyecto[planes_presupuestales_actividades]" onchange="presupuesto($(this).val())" >
+		<option value></option>
+	    </select>
+	</div>
     </div>
     <div class="clearfix"></div>
 	<div class="col-xs-12 col-sm-12 col-md-12">
-	    <table class="table table-striped table-hover" id="presupuesto" style="display: none">
+	    <table class="table table-striped" id="presupuesto" style="display: none">
 		<thead>
 		    <th>Recursos</th>
 		    <th>Unidad</th>
@@ -57,12 +60,17 @@ foreach($objetivos as $objetivo){
 		    <td colspan="5" ></td>
 		    <td><div  class="total"></div></td>
 		    <td></td>
-		    <!--<input type="hidden"  id="total">-->
+		</tr>
+		<tr>
+		    <td colspan="6" ></td>
+		    <td colspan="2" style="padding: 0px;">
+			<?php if($disabled==''){?>
+			<div id="btn_presupuesto" class="btn btn-default pull-right" onclick="InsertarPlanPresupuestal()" style="display: none;background: #1f2a69;color: white">Agregar recurso</div>
+			<?php } ?>
+		    </td>
 		</tr>
 	    </table>
-	    <?php if($disabled==''){?>
-		<div id="btn_presupuesto" class="btn btn-default pull-right" onclick="InsertarPlanPresupuestal()" style="display: none">Agregar</div>
-	    <?php } ?>
+	    
 	</div>
     <div class="clearfix"></div>
 

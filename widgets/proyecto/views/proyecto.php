@@ -12,7 +12,21 @@ use yii\web\JsExpression;
 /* @var $title string */
 
 ?>
-
+<style>
+    label{
+        display:inline-block !important ;
+        max-width:100% !important;
+        margin-bottom:5px !important;
+        font-size:14px !important;
+        font-weight:700 !important;
+        color:#1f2a69 !important;
+    }
+    .form-control
+    {
+        color:#59595b !important;
+        font-size:14px !important;
+    }
+</style>
 
 <?php $form = ActiveForm::begin(); ?>
 <div class="box_head title_content_box">
@@ -62,7 +76,7 @@ use yii\web\JsExpression;
                 <div class="tab-pane" id="tab_2">
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        
+                        <!--
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-objetivo_general required" style="margin-top: 15px">
@@ -70,9 +84,10 @@ use yii\web\JsExpression;
                                 <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="200"  title="Máximo 200 palabras"></textarea>
                             </div>
                         </div>
+                        -->
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <h4>Objetivos especificos <span class="glyphicon glyphicon-plus-sign" onclick="agregarObjetivoActividad()" ></span></h4>
+                            <h4><b>Objetivos</b> <span class="glyphicon glyphicon-plus-sign" onclick="agregarObjetivoActividad()" ></span></h4>
                         </div>
                         
                         <div class="clearfix"></div>
@@ -105,7 +120,11 @@ use yii\web\JsExpression;
                 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-raised btn-default"  onclick='MostrarOeActividades()'>Aceptar</button>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-default"  onclick='MostrarOeActividades()'>Aceptar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -527,42 +546,6 @@ use yii\web\JsExpression;
         }
         
         
-        if($('#proyecto-objetivo_general').val()=='')
-        {
-            error=error+'ingrese objetivo general del proyecto <br>';
-            $('.field-proyecto-objetivo_general').addClass('has-error');
-            
-        }
-        else
-        {
-            $('.field-proyecto-objetivo_general').addClass('has-success');
-            $('.field-proyecto-objetivo_general').removeClass('has-error');
-        }
-        
-        /*
-        if($('#proyecto-objetivo_especifico_1').val()=='')
-        {
-            error=error+'ingrese objetivo especifico 1   <br>';
-            $('.field-proyecto-objetivo_especifico_1').addClass('has-error');
-        }
-        else
-        {
-            $('.field-proyecto-objetivo_especifico_1').addClass('has-success');
-            $('.field-proyecto-objetivo_especifico_1').removeClass('has-error');
-        }
-        
-        if($('#proyecto-objetivo_especifico_2').val()=='')
-        {
-            error=error+'ingrese objetivo especifico 2   <br>';
-            $('.field-proyecto-objetivo_especifico_2').addClass('has-error');
-        }
-        else
-        {
-            $('.field-proyecto-objetivo_especifico_2').addClass('has-success');
-            $('.field-proyecto-objetivo_especifico_2').removeClass('has-error');
-        }
-        */
-        
         
         if(error!='')
         {
@@ -615,15 +598,15 @@ use yii\web\JsExpression;
         actividad=1;
         
         body=   "<div id='objetivo'>"+
-                    "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+                    "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;>"+
                         "<div class='form-group label-floating field-proyecto-temp_objetivo_especifico required' style='margin-top: 15px'>"+
-                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo especifico </label>"+
+                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo </label>"+
                             "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_objetivo_especifico' class='form-control'>"+
                         "</div>"+
                     "</div>"+
                 "</div>"+
                 "<div class='clearfix'></div>"+
-                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign pull-right' onclick='agregarActividad()' ></span></div>"+
+                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign' onclick='agregarActividad()' ></span></div>"+
                
                 "<div id='actividades'></div>"+
                 "<div class='clearfix'></div>";
@@ -665,7 +648,7 @@ use yii\web\JsExpression;
         }
         
         var body="";
-        body=   "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+        body=   "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;>"+
                     "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividad+" required' style='margin-top: 15px'>"+
                         "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividad+"' >Descripción de actividad #"+actividad+"</label>"+
                         "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividad+"' name='Proyecto[temp_actividades][]' class='form-control'>"+
@@ -766,7 +749,7 @@ use yii\web\JsExpression;
         var bodyactividades="";
         var a=1;
         $("input[name='Proyecto[actividades_"+identificador+"][]']").each(function( index ) {
-            bodyactividades=bodyactividades+"<div class='col-xs-12 col-sm-12 col-md-12'>"+
+            bodyactividades=bodyactividades+"<div class='col-xs-12 col-sm-12 col-md-12' >"+
                                                 "<div class='form-group label-floating field-proyecto-temp_actividad_"+a+" required' style='margin-top: 15px'>"+
                                                     "<label class='control-label' for='proyecto-temp_actividad_actividad_"+a+"'>Descripción de actividad #"+a+"</label>"+
                                                     "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+a+"' name='Proyecto[temp_actividades_copia][]' class='form-control' value='"+$(this).val()+"'>"+
@@ -779,20 +762,21 @@ use yii\web\JsExpression;
         body=   "<div id='objetivo_copia'>"+
                     "<div class='col-xs-12 col-sm-12 col-md-12'>"+
                         "<div class='form-group label-floating field-proyecto-temp_objetivo_especifico required' style='margin-top: 15px'>"+
-                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo especifico </label>"+
+                            "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo </label>"+
                             "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_objetivo_especifico_"+identificador+"' class='form-control' value='"+objetivo_especifico+"'>"+
                         "</div>"+
                     "</div>"+
                 "</div>"+
                 "<div class='clearfix'></div>"+
-                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign pull-right' onclick='agregarActividadCopia()' ></span></div>"+
+                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign ' onclick='agregarActividadCopia()' ></span></div>"+
                
                 "<div id='actividades_copia'>"+
                 bodyactividades+
                 "</div>"+
                 "<div class='clearfix'></div>";
         $("#oe_modal_copia").html(body);
-        $("#oe_modal_button").html('<button type="button" class="btn btn-raised btn-default"  onclick="MostrarOeActividadesCopia('+identificador+')">Aceptar</button>');
+        $("#oe_modal_button").html('<div class="col-md-4"></div>'+
+                                   '<div class="col-md-4"><button type="button" class="btn btn-default"  onclick="MostrarOeActividadesCopia('+identificador+')">Aceptar</button></div>');
         
         actividad=a;
         return true;

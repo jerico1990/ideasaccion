@@ -5,8 +5,7 @@
     <div class="mapa_infografia">
         <img src="<?= \Yii::$app->request->BaseUrl ?>/img/person_1_infografia.png" class="person_1">
         <img src="<?= \Yii::$app->request->BaseUrl ?>/img/person_2_infografia.png" class="person_2">
-
-        <div class="cuadros paso_1">
+        <div class="cuadros paso_1" ng-controller="PrimeroController">
                 <div class="titulo_cuadro">¡Comenzamos, nos informamos!</div>
                 <div class="contenido_cuadro">
                         <div class="checkbox">
@@ -26,11 +25,12 @@
                         </div>
                 </div>
         </div>
-        <div class="cuadros paso_2">
+        
+        
+        <div class="cuadros paso_2" ng-controller="SegundoController" ng-show="segundo">
                 <div class="titulo_cuadro">¡Arranca<br>la votación!</div>
                 <div class="contenido_cuadro">
-                        Los asuntos públicos
-                        seleccionados
+                        <a class=' popover1' data-type='html' style="cursor: pointer"  data-title="Los asuntos públicos seleccionados" data-content="{{asuntos}}" data-placement="top">Los asuntos públicos seleccionados</a>
                 </div>
         </div>
         <div class="cuadros paso_3">
@@ -284,9 +284,16 @@
     
     app.controller('SegundoController',function($scope,$http) {
         $scope.segundo=false;
+        $scope.asuntos="";
         $scope.SegundaEtapa=function (){
             $http.get('<?= $segundo ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
-                $scope.asuntos = data;
+                //$scope.asuntos = data;
+                angular.forEach( data, function(value, key) {
+                    
+                        $scope.asuntos=$scope.asuntos+value["descripcion_cabecera"]+"<br>";
+                    
+                });
+                
                 $scope.segundo=true;
             });
         }

@@ -153,14 +153,14 @@ $btninscribir=$integrante
     <div class="row">
         <div class="col-md-9">
             <div class="form-group">
-                <label for="">Nombre de tu equipo:</label>
+                <label for="">Nombre de mi equipo:</label>
                 <div class="rpta">
                     <?= $equipo->descripcion_equipo ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="">Danos una breve descripión de tu equipo:</label>
+                <label for="">Breve descripión de mi equipo:</label>
                 <div class="rpta">
                     <?= $equipo->descripcion ?>
                 </div>
@@ -179,7 +179,7 @@ $btninscribir=$integrante
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="">Selecciona el asunto del público sobrea el que trabajará tu equipo:</label>
+                <label for="">Asunto público sobre el que trabajará mi equipo:</label>
                 <div class="rpta">
                     <?= $equipo->asunto->descripcion_cabecera ?>
                 </div>
@@ -189,7 +189,7 @@ $btninscribir=$integrante
     
     <div class="row lista_miembros_equipo">
         <div class="col-md-12">
-                <label for="">Los miembros de tu equipo:</label>
+                <label for="">Los miembros de mi equipo:</label>
         </div>
 
         <div class="col-md-12">
@@ -316,8 +316,10 @@ $btninscribir=$integrante
             <div class="clearfix"></div>
             <?php } ?>
         </div>
+    </div>
+    <div class="row lista_miembros_equipo">
         <div class="col-md-12">
-                <label for="">El docente de tu equipo:</label>
+                <label for="">El docente de mi equipo:</label>
         </div>
         <div class="col-md-12">
             <?php if($equipo->estado==0){ ?>

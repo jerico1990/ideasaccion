@@ -141,7 +141,7 @@ class PlanPresupuestalController extends Controller
                         ->all();
         
         if($countActividades>0){
-            echo "<option value>Seleccionar</option>";
+            echo "<option value></option>";
             foreach($actividades as $actividad){
                 echo "<option value='".$actividad->id."'>".$actividad->descripcion."</option>";
             }
