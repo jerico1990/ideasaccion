@@ -37,16 +37,16 @@ use yii\widgets\Breadcrumbs;
             <div class="franja_amarilla"></div>
             <div class="content">
                     <a href="#" class="logo">
-                            <img src="../img/logo.jpg" alt="" />
+                            <img src="<?= \Yii::$app->request->BaseUrl ?>/img/logo.jpg" alt="" />
                     </a>
             </div>
     </header>
     <div class="body content">
-        <img src="../img/personaje_izquierda.png" class="personaje personaje_izquierda" alt="" />
-	<img src="../img/personaje_derecha.png" class="personaje personaje_derecha" alt="" />
+        <img src="<?= \Yii::$app->request->BaseUrl ?>/img/personaje_izquierda.png" class="personaje personaje_izquierda" alt="" />
+	<img src="<?= \Yii::$app->request->BaseUrl ?>/img/personaje_derecha.png" class="personaje personaje_derecha" alt="" />
         <div class="form">
             <div class="logo_proyecto">
-                <img src="../img/logo_ideas_en_accion.png" alt="" />
+                <img src="<?= \Yii::$app->request->BaseUrl ?>/img/logo_ideas_en_accion.png" alt="" />
             </div>
             <?= $content ?>
         </div>

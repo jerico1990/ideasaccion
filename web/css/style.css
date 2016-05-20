@@ -358,6 +358,13 @@ header .logo{
 	background: url(../img/icon_download.png) no-repeat 95% 50%;
 }
 
+.body .form .form_login .content_form .btn-lateral .icon_play{
+	display: block;
+	background: url(../img/img-youtube-play.png) no-repeat 95% 50%;
+	background-size: 23px 23px;
+	background-color: ##1f2a69;
+}
+
 .title_content_box{
 	font-size: 26px;
 	font-weight: bold;
@@ -445,7 +452,7 @@ header .logo{
 }
 
 .grid_box_line_blue .box_content.contenido_seccion_crear_equipo .lista_miembros_equipo{
-	padding-bottom: 45px;
+	padding-bottom: 40px;
 }
 
 .personaje_derecha_fixed{
@@ -664,7 +671,6 @@ header .logo{
 }
 
 .grid_box_line_blue.content_infografia .box_content{
-	background: url(../img/bg_banner_cuadros.jpg);
 	padding: 0 0 20px 0;
 }
 
@@ -896,6 +902,7 @@ header .logo{
 	box-shadow: none;
 	margin-top: 1px;
 	margin-bottom: 0;
+	width: auto;
 }
 
 .mapa_infografia .cuadros a{

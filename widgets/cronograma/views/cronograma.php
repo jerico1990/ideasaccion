@@ -22,20 +22,20 @@ foreach($objetivos as $objetivo){
     <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<div class="form-group label-floating field-proyecto-plan_presupuestal_objetivo_99 required" style="margin-top: 15px">
+	<div class="form-group field-proyecto-plan_presupuestal_objetivo_99 required" style="margin:0px;">
 	    <label class="control-label" for="proyecto-cronograma_objetivo_99">Objetivo</label>
 	    <select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" >
-		<option value></option>
+		<option value>Seleccionar</option>
 		<?= $opciones_objetivos ?>
 	    </select>
 	</div>
     </div>
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<div class="form-group label-floating field-proyecto-cronograma_actividad_99 required" style="margin-top: 15px">
+	<div class="form-group field-proyecto-cronograma_actividad_99 required" style="margin: 0px;padding: 0px">
 	    <label class="control-label" for="registrar-cronograma_actividad_99">Actividad</label>
 	    <select id="proyecto-cronograma_actividad_99" class="form-control" name="Proyecto[cronogramas_actividades]"  >
-		<option value></option>
+		<option value>Seleccionar</option>
 	    </select>
 	</div>
     </div>
@@ -52,6 +52,8 @@ foreach($objetivos as $objetivo){
 		<tbody id="cronograma_cuerpo">
 		    
 		</tbody>
+		<tr><td colspan="5" ></td>
+		</tr>
 		<tr>
 		    <td colspan="4" ></td>
 		    <td>

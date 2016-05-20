@@ -32,7 +32,7 @@ use yii\web\JsExpression;
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt="">MI PROYECTO
 </div>
-<div class="box_content contenido_seccion_equipo">
+<div class="box_content contenido_seccion_crear_equipo">
     <div class="row">
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs" style="background: white;">
@@ -41,37 +41,34 @@ use yii\web\JsExpression;
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group label-floating field-proyecto-titulo required" style="margin-top: 15px">
+                            <div class="form-group label-floating field-proyecto-titulo required" >
                                 <label class="control-label" for="proyecto-titulo" title="Máximo 200 palabras">Título</label>
-                                <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras">
+                                <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras">
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-asunto required">
                                 <label class="control-label" for="proyecto-asunto" >Asunto público</label>
-                                <?= $equipo->asunto->descripcion_cabecera?>
+                                <input class="form-control" value="<?= $equipo->asunto->descripcion_cabecera?>" disabled>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-resumen required" style="margin-top: 15px">
                                 <label class="control-label" for="proyecto-resumen" title="Mínimo 500 palabras">Sumilla / Justificación</label>
-                                <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" maxlength="2500" title="Mínimo 500 palabras"></textarea>
+                                <textarea rows="3" id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" maxlength="2500" title="Mínimo 500 palabras"></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-beneficiario required" style="margin-top: 15px">
                                 <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
-                                <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" ></textarea>
+                                <textarea rows="3" id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" ></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
                     <div class="clearfix"></div>
@@ -102,9 +99,10 @@ use yii\web\JsExpression;
             </div><!-- /.tab-content -->
         </div>
         
-        
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+        <div style="border-top:2px dotted #f6de34 !important;">
+        <div class="col-xs-12 col-sm-4 col-md-4">
             <button type="submit" id="btnproyecto" class="btn btn-raised btn-default">Guardar</button>
+        </div>
         </div>
     </div>
 </div>
@@ -113,7 +111,7 @@ use yii\web\JsExpression;
     <div class="modal-dialog" role="document" style="z-index: 2000 !important;">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body" id="oe_modal">
@@ -135,7 +133,7 @@ use yii\web\JsExpression;
             <div class="modal-dialog" role="document" style="z-index: 2000 !important">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></button>
                         <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
                     <div class="modal-body" id="oe_modal_copia">
@@ -598,7 +596,7 @@ use yii\web\JsExpression;
         actividad=1;
         
         body=   "<div id='objetivo'>"+
-                    "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;>"+
+                    "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:15px;'>"+
                         "<div class='form-group label-floating field-proyecto-temp_objetivo_especifico required' style='margin-top: 15px'>"+
                             "<label class='control-label' for='proyecto-temp_objetivo_especifico' >Objetivo </label>"+
                             "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_objetivo_especifico' class='form-control'>"+
@@ -606,7 +604,7 @@ use yii\web\JsExpression;
                     "</div>"+
                 "</div>"+
                 "<div class='clearfix'></div>"+
-                "<div class='col-xs-12 col-sm-12 col-md-12'>Actividades <span class='glyphicon glyphicon-plus-sign' onclick='agregarActividad()' ></span></div>"+
+                "<div class='col-xs-12 col-sm-12 col-md-12'><div style='padding-top:5px;border-top:2px dotted #f6de34'> Actividades <span class='glyphicon glyphicon-plus-sign' onclick='agregarActividad()' ></span></div></div>"+
                
                 "<div id='actividades'></div>"+
                 "<div class='clearfix'></div>";
@@ -648,7 +646,7 @@ use yii\web\JsExpression;
         }
         
         var body="";
-        body=   "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;>"+
+        body=   "<div class='col-xs-12 col-sm-11 col-md-11 pull-right' style='margin-top:15px;'>"+
                     "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividad+" required' style='margin-top: 15px'>"+
                         "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividad+"' >Descripción de actividad #"+actividad+"</label>"+
                         "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividad+"' name='Proyecto[temp_actividades][]' class='form-control'>"+
@@ -723,13 +721,13 @@ use yii\web\JsExpression;
         
         
         $("#actividades input").each(function( index ) {
-            bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
+            bodyactividades=bodyactividades+"<li> Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
         });
         
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>"+temp_objetivo_especifico+"</b> <button type='button' onclick='Editar("+oe+")'>editar</button></li>"+
+                            "<li><b>Objetivo: "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
                             "<ul>"+bodyactividades+"</ul>"+
                     "</div>";
@@ -749,7 +747,7 @@ use yii\web\JsExpression;
         var bodyactividades="";
         var a=1;
         $("input[name='Proyecto[actividades_"+identificador+"][]']").each(function( index ) {
-            bodyactividades=bodyactividades+"<div class='col-xs-12 col-sm-12 col-md-12' >"+
+            bodyactividades=bodyactividades+"<div class='col-xs-12 col-sm-11 col-md-11 pull-right' style='margin-top:15px;'>"+
                                                 "<div class='form-group label-floating field-proyecto-temp_actividad_"+a+" required' style='margin-top: 15px'>"+
                                                     "<label class='control-label' for='proyecto-temp_actividad_actividad_"+a+"'>Descripción de actividad #"+a+"</label>"+
                                                     "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+a+"' name='Proyecto[temp_actividades_copia][]' class='form-control' value='"+$(this).val()+"'>"+
@@ -838,13 +836,13 @@ use yii\web\JsExpression;
         
         
         $("#actividades_copia input").each(function( index ) {
-            bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
+            bodyactividades=bodyactividades+"<li>Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
         });
         
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>"+temp_objetivo_especifico+"</b> <button type='button' onclick='Editar("+oe+")'>editar</button></li>"+
+                            "<li><b>Objetivo: "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
                             "<ul>"+bodyactividades+"</ul>"+
                     "</div>";

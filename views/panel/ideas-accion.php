@@ -10,17 +10,17 @@
                 <div class="contenido_cuadro">
                         <div class="checkbox">
                                 <label>
-                                        <input type="checkbox" class="form-control" value=""> Video
+                                    <input type="checkbox" class="fa fa-fw fa-check-square" disabled value=""> Video
                                 </label>
                         </div>
                         <div class="checkbox">
                                 <label>
-                                        <input type="checkbox" class="form-control" value=""> Base
+                                        <input type="checkbox" class="fa fa-fw fa-check-square" disabled value=""> Base
                                 </label>
                         </div>
                         <div class="checkbox">
                                 <label>
-                                        <input type="checkbox" class="form-control" value=""> Asuntos Públicos
+                                        <input type="checkbox" class="fa fa-fw fa-check-square" disabled value=""> Asuntos Públicos
                                 </label>
                         </div>
                 </div>
@@ -33,22 +33,27 @@
                         <a class=' popover1' data-type='html' style="cursor: pointer"  data-title="Los asuntos públicos seleccionados" data-content="{{asuntos}}" data-placement="top">Los asuntos públicos seleccionados</a>
                 </div>
         </div>
-        <div class="cuadros paso_3">
-                <div class="titulo_cuadro">¡Nos inscribimos!</div>
+        
+        <div class="cuadros paso_3" ng-controller="TerceroController" ng-show="tercero">
+                <div class="titulo_cuadro">{{titulo3}}</div>
                 <div class="contenido_cuadro">
-                        <div class="iai_icon">
-                                <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png" alt="">
+                        <div class="iai_icon" ng-if="icono3 == 1 || icono3 == '' ">
+                            <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png' alt=''>
                         </div>
-                        Tu equipo no ha finalizado su registro.
+                        <div class="iai_icon" ng-if="icono3 == 2">
+                            <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_like_infografia.png' alt=''>
+                        </div>
+                        {{texto3}}
                 </div>
         </div>
-        <div class="cuadros paso_4">
-                <div class="titulo_cuadro">Revisamos los materiales</div>
+        
+    
+        <div class="cuadros paso_4" ng-controller="CuartoController" ng-show="cuarto">
+                <div class="titulo_cuadro">{{titulo4}}</div>
                 <div class="contenido_cuadro">
-                        <b>Tutoriales</b><br>
-                        <a href="#">www.minedu.gob.pe</a><br>
-                        <a href="#">www.minedu.gob.pe</a><br>
-                        <a href="#">www.minedu.gob.pe</a>
+                        <b>{{texto4}}</b><br>
+                        <a style="cursor: pointer"  data-toggle="modal" data-target="#tutorial4">{{tutorial4}}<div class="ripple-container"></div></a></br>
+                        <a style="cursor: pointer"  data-toggle="modal" data-target="#orientacion4">{{orientacion4}}<div class="ripple-container"></div></a>
                 </div>
         </div>
 
@@ -226,15 +231,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <p>E dolore commodo, id anim aute sint cupidatat eu est anim tamen ad possumus,
-          legam officia firmissimum. Eram deserunt domesticarum, iis ita praetermissum,
-          nam aliquip quo probant, incididunt et occaecat an nam enim exquisitaque a
-          nescius velit admodum, non ad cohaerescant, probant o nulla tempor. Aute aut te
-          quis arbitror ubi ne aliqua consequat aliquip. Ad sunt laborum senserit, de do
-          quem possumus. Sint tractavissent cupidatat aute possumus ita elit ad cupidatat.
-          Arbitror ab fabulas o eu e veniam pariatur. Non voluptate comprehenderit ad nisi
-          id voluptate. Quis distinguantur quibusdam quae mentitum o si minim illum nisi
-          mandaremus.</p>
+        <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="492" height="277" src="https://www.youtube.com/embed/qjS7HMqyfcg" frameborder="0" allowfullscreen></iframe>
+                </div>
       </div>
     </div>
   </div>
@@ -244,15 +243,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <p>E dolore commodo, id anim aute sint cupidatat eu est anim tamen ad possumus,
-          legam officia firmissimum. Eram deserunt domesticarum, iis ita praetermissum,
-          nam aliquip quo probant, incididunt et occaecat an nam enim exquisitaque a
-          nescius velit admodum, non ad cohaerescant, probant o nulla tempor. Aute aut te
-          quis arbitror ubi ne aliqua consequat aliquip. Ad sunt laborum senserit, de do
-          quem possumus. Sint tractavissent cupidatat aute possumus ita elit ad cupidatat.
-          Arbitror ab fabulas o eu e veniam pariatur. Non voluptate comprehenderit ad nisi
-          id voluptate. Quis distinguantur quibusdam quae mentitum o si minim illum nisi
-          mandaremus.</p>
+        <iframe src="https://drive.google.com/file/d/0B19Z74QFUK5nd0JBT01UMXg3Wjg/preview" width="560" height="480"></iframe>
       </div>
     </div>
   </div>
@@ -311,11 +302,11 @@
                 if (data) {
                     $scope.titulo3="¡Nos inscribimos!";
                     if (data[0].estado=='1') {
-                        $scope.icono3="fa fa-fw fa-exclamation-triangle";
+                        $scope.icono3="1";
                         $scope.texto3=" Tu equipo no ha finalizado su registro";
                     }
                     else if (data[0].estado=='2') {
-                        $scope.icono3="fa fa-fw fa-check-square";
+                        $scope.icono3="2";
                         $scope.texto3="Tu equipo ya esta registrado";
                     }
                     $scope.tercero=true;

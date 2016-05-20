@@ -22,22 +22,21 @@ foreach($objetivos as $objetivo){
 <script src="<?= \Yii::$app->request->BaseUrl ?>/autoNumeric-master/autoNumeric.js"></script>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/jQuery-Plugins-master/numeric/jquery.numeric.js"></script>
 
-    <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<div class="form-group label-floating field-proyecto-plan_presupuestal_objetivo_99 required" style="margin-top: 15px">
+	<div class="form-group  field-proyecto-plan_presupuestal_objetivo_99 required" style="margin:0px;">
 	    <label class="control-label" for="proyecto-plan_presupuestal_objetivo_99">Objetivo</label>
 	    <select id="proyecto-plan_presupuestal_objetivo_99" class="form-control" name="Proyecto[planes_presupuestales_objetivos][]" onchange="actividad($(this).val(),99)" >
-		<option value></option>
+		<option value>Seleccionar</option>
 		<?= $opciones_objetivos ?>
 	    </select>
 	</div>
     </div>
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<div class="form-group label-floating field-proyecto-plan_presupuestal_actividad_99 required" style="margin-top: 15px">
+	<div class="form-group field-proyecto-plan_presupuestal_actividad_99 required" style="margin: 0px;padding: 0px">
 	    <label class="control-label" for="registrar-plan_presupuestal_actividad_99">Actividad</label>
 	    <select id="proyecto-plan_presupuestal_actividad_99" class="form-control" name="Proyecto[planes_presupuestales_actividades]" onchange="presupuesto($(this).val())" >
-		<option value></option>
+		<option value>Seleccionar</option>
 	    </select>
 	</div>
     </div>

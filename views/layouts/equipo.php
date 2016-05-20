@@ -133,3 +133,4 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     window.location.replace('../web/site/index')
 </script>
 <?php } ?>
+

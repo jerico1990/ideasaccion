@@ -70,8 +70,7 @@ li::before {
                 <?php } ?>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
-                    <div class="col-xs-12 col-sm-12 col-md-12">    
+                <div class="tab-pane active" id="tab_1">    
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-titulo required">
                                 <label class="control-label" for="proyecto-titulo">Título del proyecto</label>
@@ -100,13 +99,10 @@ li::before {
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_9">
                     <div class="clearfix"></div>
                     
-                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <!--
                         <div class="clearfix"></div>
                          <div class="col-xs-12 col-sm-12 col-md-12">
@@ -176,37 +172,31 @@ li::before {
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
                 </div><!-- /.tab-pane -->
                 
                 <div class="tab-pane" id="tab_2">
-                    <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                <th>Actividad</th>
-                                <th>Resultado</th>
-                                </thead>
-                                <tbody>
-                                <?php $i=0;?>
-                                <?php foreach($actividades as $actividad){ ?>
-                                    <tr>
-                                        <td style="vertical-align: middle"><?= $actividad->descripcion ?></td>
-                                        <td style="padding: 2px">
-                                            <div class="form-group field-proyecto-resultado_esperado_<?= $i ?> required" style="margin-top: 0px">
-                                                <input type="hidden"  class="form-control" name="Proyecto[resultados_ids][]" value="<?= $actividad->actividad_id ?>" >
-                                                <input type="text" id="proyecto-resultado_esperado_<?= $i ?>" class="form-control " name="Proyecto[resultados_esperados][]" placeholder="Resultado #<?= $i ?>" value="<?= $actividad->resultado_esperado ?>" <?= $disabled ?> >
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                <?php $i++; } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="clearfix"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <th>Actividad</th>
+                            <th>Resultado</th>
+                            </thead>
+                            <tbody>
+                            <?php $i=0;?>
+                            <?php foreach($actividades as $actividad){ ?>
+                                <tr>
+                                    <td style="vertical-align: middle"><?= $actividad->descripcion ?></td>
+                                    <td style="padding: 2px">
+                                        <div class="form-group field-proyecto-resultado_esperado_<?= $i ?> required" style="margin-top: 0px">
+                                            <input type="hidden"  class="form-control" name="Proyecto[resultados_ids][]" value="<?= $actividad->actividad_id ?>" >
+                                            <input type="text" id="proyecto-resultado_esperado_<?= $i ?>" class="form-control " name="Proyecto[resultados_esperados][]" placeholder="Resultado #<?= $i ?>" value="<?= $actividad->resultado_esperado ?>" <?= $disabled ?> >
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                            <?php $i++; } ?>
+                            </tbody>
+                        </table>
                     </div>
                     <div class="clearfix"></div>
                 </div><!-- /.tab-pane -->
@@ -221,19 +211,19 @@ li::before {
                     <?php if($integrante->rol==1 && !$disabled){ ?>
                     
                         <?php if($video->ruta){?>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <video width="320" height="240" controls>
                                 <source src="<?= Yii::getAlias('@video').$video->ruta ?>" type="video/mp4">  
                             </video>
                         </div>
                         <?php } else { ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
-                            <div class="form-group label-floating field-registrar-foto required" style="margin-top: 15px">
-                                <input style="padding-bottom: 0px;padding-top: 0px;cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video($(this))"/>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="form-group label-floating field-registrar-foto required" >
+                                <input style="cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video($(this))"/>
                                 <img  class="" style="height: 240px;width:320px;cursor: pointer" src="../images/video.jpg">
                             </div>
                         </div>
@@ -241,9 +231,9 @@ li::before {
                     <?php } ?>
                     
                     <?php if($integrante->rol==1 && $disabled && $videoprimera){ ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <video width="320" height="240" controls>
                                 <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
                             </video>
@@ -252,9 +242,9 @@ li::before {
                     
                     <?php if($integrante->rol==2 && $disabled && !$videoprimera && !$videosegunda){ ?>
                     <?php //var_dump($videoprimera);die; ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <video width="320" height="240" controls>
                                 <source src="<?= Yii::getAlias('@video').$video->ruta ?>" type="video/mp4">  
                             </video>
@@ -263,9 +253,9 @@ li::before {
                     
                     <?php if($integrante->rol==2 && $disabled && $videoprimera){ ?>
                     <?php //var_dump($videoprimera);die; ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <video width="320" height="240" controls>
                                 <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
                             </video>
@@ -273,9 +263,9 @@ li::before {
                     <?php } ?>
                     
                     <?php if($integrante->rol==2 && $videosegunda){ ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                            <video width="320" height="240" controls>
                                 <source src="<?= Yii::getAlias('@video').$videosegunda->ruta ?>" type="video/mp4">  
                             </video> 
@@ -287,11 +277,10 @@ li::before {
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_6">
                     <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group label-floating field-proyecto-reflexion required">
-                            <label class="control-label" for="proyecto-reflexion" >Reflexión</label>
-                            <textarea id="proyecto-reflexion" class="form-control" name="Proyecto[reflexion]"  <?= ($equipo->etapa==1  || $equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->reflexion?></textarea>
+                            <label class="control-label" for="proyecto-reflexion" style="padding-left: 10px">Reflexión</label>
+                            <textarea style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-reflexion" class="form-control" rows="3" name="Proyecto[reflexion]"  <?= ($equipo->etapa==1  || $equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->reflexion?></textarea>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -300,11 +289,10 @@ li::before {
                 
                 <div class="tab-pane" id="tab_7">
                     <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group label-floating field-proyecto-evaluacion required">
-                            <label class="control-label" for="proyecto-evaluacion" >Evaluación</label>
-                            <textarea id="proyecto-evaluacion" class="form-control" name="Proyecto[evaluacion]"  <?= ($equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->evaluacion?></textarea>
+                            <label class="control-label" for="proyecto-evaluacion" style="padding-left: 10px">Evaluación</label>
+                            <textarea id="proyecto-evaluacion" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" class="form-control" name="Proyecto[evaluacion]"  <?= ($equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->evaluacion?></textarea>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -373,12 +361,24 @@ li::before {
                 <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
             </div>
             <?php } else if($disabled && $equipo->etapa==0){?>
-            <button type="button" id="btnproyectoreflexion" class="btn btn-default">Guardar</button>
+            <div class="col-xs-12 col-sm-4 col-md-4" >
+                <button type="button" id="btnproyectoreflexion" class="btn btn-default">Guardar</button>
+            </div>
             <?php } else if($equipo->etapa==1 && $integrante->rol==1){ ?>
-            <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
-            <button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
+            <div class="col-xs-12 col-sm-4 col-md-4" >
+                <button type="submit" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 "></div>
+            <div class="col-xs-12 col-sm-4 col-md-4 ">
+                <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
+            </div>
+            
+            
             <?php } else if($equipo->etapa==1 && $integrante->rol==2){ ?>
-            <button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
+            <div class="col-xs-12 col-sm-4 col-md-4" >
+                <button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
+            </div>
+            
             <?php } ?>
         <?php } ?>
         </div>

@@ -53,7 +53,8 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 
     <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-   
+   <!-- Twitter Bootstrap -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     
     <?php $this->head() ?>
@@ -230,18 +231,17 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     <?php } ?>
                                 </ul>
                             </div>
-    
-                            <a href="#" class="btn btn-default btn-lateral">
-                                <span class="icon_download"> bases del concurso</span>
+                            <a href="#" data-toggle="modal" data-target="#myModalVideo" class="btn btn-default btn-lateral">
+                                <span class="icon_play"> bases del concurso</span>
                             </a>
     
-                            <a href="#" class="btn btn-default btn-lateral">
-                                <span class="icon_download"> GUÍA PARA EL DOCENTE</span>
+                            <a href="https://docs.google.com/uc?export=download&id=0B19Z74QFUK5nd0JBT01UMXg3Wjg " target="_blank" class="btn btn-default btn-lateral">
+                                <span class="icon_download"> GUÍA DE ORIENTACIÓN</span>
                             </a>
-    
+                            <!--
                             <a href="#" class="btn btn-default btn-lateral">
                                 <span class="icon_download"> GUÍA PARA EL ESTUDIANTE</span>
-                            </a>
+                            </a>-->
                         </div>
     
                         <div class="col-md-9">
@@ -276,3 +276,16 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     window.location.replace('../web/site/index')
 </script>
 <?php } ?>
+
+<div class="modal fade" id="myModalVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body ">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe width="492" height="277" src="https://www.youtube.com/embed/qjS7HMqyfcg" frameborder="0" allowfullscreen></iframe>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
