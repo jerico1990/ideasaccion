@@ -12,7 +12,64 @@ if (isset($_GET['page']) >= 2)
 <link href="<?= \Yii::$app->request->BaseUrl ?>/ratings/dist/themes/fontawesome-stars.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/ratings/dist/jquery.barrating.min.js"></script>
-
+<style>
+    .pagination>li:first-child>a, .pagination>li:first-child>span
+    {
+        position:relative;
+        float:left;
+        padding:6px 12px;
+        margin-left:-1px;
+        line-height:1.42857143;
+        text-decoration:none;
+        border:1px solid black;
+        color: white;
+        background-color: #1f2a69;
+    }
+    .pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover
+    {
+        position:relative;
+        float:left;
+        padding:6px 12px;
+        margin-left:-1px;
+        line-height:1.42857143;
+        text-decoration:none;
+        border:1px solid black;
+        color: white;
+        background-color: #1f2a69;
+    }
+    .pagination>li>a, .pagination>li>span
+    {
+        position:relative;
+        float:left;
+        padding:6px 12px;
+        margin-left:-1px;
+        line-height:1.42857143;
+        text-decoration:none;
+        border:1px solid black;
+        color: white;
+        background-color: #1f2a69;
+    }
+    .pagination>li>a:focus,
+    .pagination>li>a:hover,
+    .pagination>li>span:focus,
+    .pagination>li>span:hover
+    {
+        color:white;
+        background-color: #1f2a69;
+        border:1px solid black;
+    }
+    .pagination>.active>a,
+    .pagination>.active>a:focus,
+    .pagination>.active>a:hover,
+    .pagination>.active>span,
+    .pagination>.active>span:focus,
+    .pagination>.active>span:hover
+    {
+        border:1px solid black;
+        background-color: #F0EFF1;
+        color:#1f2a69;
+    }
+</style>
 
 
 

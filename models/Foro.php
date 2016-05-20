@@ -92,14 +92,14 @@ class Foro extends \yii\db\ActiveRecord
         $expenses->select('*')->from(['u' => $query])->orderBy('u.id desc');
         
         
-        
-        if($id==2){
-            $result = Yii::$app->tools->Pagination($expenses,5);
+        $result = Yii::$app->tools->Pagination($expenses,10);
+        /*if($id==2){
+            $result = Yii::$app->tools->Pagination($expenses,10);
         }elseif($id>=3 && $id<=35) {
-            $result = Yii::$app->tools->Pagination($expenses,3);
+            $result = Yii::$app->tools->Pagination($expenses,10);
         } else{
-            $result = Yii::$app->tools->Pagination($expenses,5);
-        }
+            $result = Yii::$app->tools->Pagination($expenses,10);
+        }*/
         return ['posts' => $result['result'], 'pages' => $result['pages']];
     }
     

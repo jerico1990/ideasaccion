@@ -34,9 +34,9 @@
                 </div>
         </div>
         
-        <div class="cuadros paso_3" ng-controller="TerceroController" ng-show="tercero">
+        <div class="cuadros paso_3" ng-controller="TerceroController" >
                 <div class="titulo_cuadro">{{titulo3}}</div>
-                <div class="contenido_cuadro">
+                <div class="contenido_cuadro" ng-show="tercero">
                         <div class="iai_icon" ng-if="icono3 == 1 || icono3 == '' ">
                             <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png' alt=''>
                         </div>
@@ -48,17 +48,17 @@
         </div>
         
     
-        <div class="cuadros paso_4" ng-controller="CuartoController" ng-show="cuarto">
+        <div class="cuadros paso_4" ng-controller="CuartoController" >
                 <div class="titulo_cuadro">{{titulo4}}</div>
-                <div class="contenido_cuadro">
+                <div class="contenido_cuadro" ng-show="cuarto">
                         <b>{{texto4}}</b><br>
                         <a style="cursor: pointer"  data-toggle="modal" data-target="#tutorial4">{{tutorial4}}<div class="ripple-container"></div></a></br>
                         <a style="cursor: pointer"  data-toggle="modal" data-target="#orientacion4">{{orientacion4}}<div class="ripple-container"></div></a>
                 </div>
         </div>
-        <div class="cuadros paso_5" ng-controller="QuintoController" ng-show="quinto">
+        <div class="cuadros paso_5" ng-controller="QuintoController" >
                 <div class="titulo_cuadro">{{titulo5}}</div>
-                <div class="contenido_cuadro">
+                <div class="contenido_cuadro" ng-show="quinto">
                         <section>
                             <div>
                                 <i class="{{checkforoasunto5}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Foro de asuntos públicos" data-content="{{txtforo_asunto}}" data-placement="horizontal">{{txtcheckforoasunto5}}<div class="ripple-container"></div></a>  <br>
@@ -68,9 +68,9 @@
                 </div>
         </div>
         
-        <div class="cuadros paso_6" ng-controller="SextoController" ng-show="sexto">
+        <div class="cuadros paso_6" ng-controller="SextoController" >
                 <div class="titulo_cuadro">{{titulo6}}</div>
-                <div class="contenido_cuadro">
+                <div class="contenido_cuadro" ng-show="sexto">
                         <section>
                             <div>
                                 <i class="{{checkproyectoregistrado6}}"></i> {{txtproyectoregistrado6}} <br>
@@ -81,9 +81,9 @@
                 </div>
         </div>
         
-        <div class="cuadros paso_7" ng-controller="SeptimoController" ng-show="septimo">
+        <div class="cuadros paso_7" ng-controller="SeptimoController" >
                 <div class="titulo_cuadro">{{titulo7}}</div>
-                <div class="contenido_cuadro">
+                <div class="contenido_cuadro" ng-show="septimo">
                         <section>
                             <div>
                                 <i class="{{checkaporte7}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Aporte de los integrantes" data-content="{{txtaportesusuarios7}}" data-placement="horizontal">{{txtaportes7}}<div class="ripple-container"></div></a>  <br>
@@ -91,9 +91,9 @@
                         </section>
                 </div>
         </div>
-        <div class="cuadros paso_8" ng-controller="OctavoController" ng-show="octavo">
+        <div class="cuadros paso_8" ng-controller="OctavoController" >
                 <div class="titulo_cuadro">{{titulo8}}</div>
-                <div class="contenido_cuadro">
+                <div class="contenido_cuadro" ng-show="octavo">
                         <section>
                             <div>
                                 <i class="{{checkvideo8}}"></i> {{txtvideo8}} <br>
@@ -102,9 +102,9 @@
                         </section>
                 </div>
         </div>
-        <div class="cuadros paso_9">
-                <div class="titulo_cuadro">Reconocemos los 3 mejores proyectos</div>
-                <div class="contenido_cuadro">
+        <div class="cuadros paso_9" ng-controller="NovenoController">
+                <div class="titulo_cuadro" >{{titulo9}}</div>
+                <div class="contenido_cuadro" ng-show="noveno">
                         <div class="checkbox">
                                 <label>
                                         <input type="checkbox" value="">
@@ -114,9 +114,9 @@
                         </div>
                 </div>
         </div>
-        <div class="cuadros paso_10">
-                <div class="titulo_cuadro">Elegimos a los mejores</div>
-                <div class="contenido_cuadro">
+        <div class="cuadros paso_10" ng-controller="DecimoController">
+                <div class="titulo_cuadro">{{titulo10}}</div>
+                <div class="contenido_cuadro" ng-show="decimo">
                         <a href="#" class="btn btn-default">
                                 VOTAR >
                         </a>
@@ -295,7 +295,7 @@
     
     app.controller('CuartoController',function($scope,$http) {
         $scope.cuarto=false;
-        $scope.titulo4="";
+        $scope.titulo4="Revisamos los materiales";
         $scope.texto4="";
         $scope.tutorial4="";
         $scope.orientacion4="";
@@ -316,7 +316,7 @@
     
     app.controller('QuintoController',function($scope,$http) {
         $scope.quinto=false;
-        $scope.titulo5="";
+        $scope.titulo5="!Participamos¡";
         $scope.texto5="";
         $scope.checkforoasunto5="";
         $scope.txtcheckforoasunto5="";
@@ -374,7 +374,7 @@
     
     app.controller('SextoController',function($scope,$http) {
         $scope.sexto=false;
-        $scope.titulo6="";
+        $scope.titulo6="Primera orden a la entrega";
         $scope.checkproyectoregistrado6="";
         $scope.txtproyectoregistrado6="";
         $scope.checkreflexion6="";
@@ -436,7 +436,7 @@
     
     app.controller('SeptimoController',function($scope,$http) {
         $scope.septimo=false;
-        $scope.titulo7="";
+        $scope.titulo7="Aportamos y mejoramos";
         $scope.checkaporte7="";
         $scope.txtaportes7="";
         $scope.txtaportesusuarios7="";
@@ -474,7 +474,7 @@
     
     app.controller('OctavoController',function($scope,$http) {
         $scope.octavo=false;
-        $scope.titulo8="";
+        $scope.titulo8="Segunda entrega ¡Ahí vamos!";
         $scope.checkvideo8="";
         $scope.txtvideo8="";
         $scope.checkevaluacion8="";
@@ -518,5 +518,17 @@
             });
         }
         $scope.OctavaEtapa();
+    });
+    
+    app.controller('NovenoController',function($scope,$http) {
+        $scope.noveno=false;
+        $scope.titulo9="Reconocemos los 3 mejores proyectos";
+        
+    });
+    
+    app.controller('DecimoController',function($scope,$http) {
+        $scope.decimo=false;
+        $scope.titulo10="Elegimos a los mejores";
+        
     });
 </script>
