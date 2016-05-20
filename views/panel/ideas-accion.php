@@ -6,7 +6,7 @@
         <img src="<?= \Yii::$app->request->BaseUrl ?>/img/person_1_infografia.png" class="person_1">
         <img src="<?= \Yii::$app->request->BaseUrl ?>/img/person_2_infografia.png" class="person_2">
         <div class="cuadros paso_1" ng-controller="PrimeroController">
-                <div class="titulo_cuadro">¡Comenzamos, nos informamos!</div>
+                <div class="titulo_cuadro">¡Sumérgete en la información!</div>
                 <div class="contenido_cuadro">
                         <div class="checkbox">
                                 <label>
@@ -28,7 +28,7 @@
         
         
         <div class="cuadros paso_2" ng-controller="SegundoController" ng-show="segundo">
-                <div class="titulo_cuadro">¡Arranca<br>la votación!</div>
+                <div class="titulo_cuadro">¡Vota ya!</div>
                 <div class="contenido_cuadro">
                         <a class=' popover1' data-type='html' style="cursor: pointer"  data-title="Los asuntos públicos seleccionados" data-content="{{asuntos}}" data-placement="top">Los asuntos públicos seleccionados</a>
                 </div>
@@ -295,7 +295,7 @@
     
     app.controller('CuartoController',function($scope,$http) {
         $scope.cuarto=false;
-        $scope.titulo4="Revisamos los materiales";
+        $scope.titulo4="Dominamos los materiales";
         $scope.texto4="";
         $scope.tutorial4="";
         $scope.orientacion4="";
@@ -303,7 +303,7 @@
             $http.get('<?= $cuarto ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
                 
                 if (data) {
-                    $scope.titulo4="Revisamos los materiales";
+                    $scope.titulo4="Dominamos los materiales";
                     $scope.tutorial4="Tutoriales";
                     $scope.orientacion4="Orientación";
                     $scope.cuarto=true;
@@ -316,7 +316,7 @@
     
     app.controller('QuintoController',function($scope,$http) {
         $scope.quinto=false;
-        $scope.titulo5="!Participamos¡";
+        $scope.titulo5="Empieza la participación";
         $scope.texto5="";
         $scope.checkforoasunto5="";
         $scope.txtcheckforoasunto5="";
@@ -328,7 +328,7 @@
         $scope.QuintoEtapa=function (){
             $http.get('<?= $quinto ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
                 if (data) {
-                    $scope.titulo5="!Participamos¡";
+                    $scope.titulo5="Empieza la participación";
                     $scope.txtcheckforoasunto5="Foro de asuntos";
                     $scope.txtcheckforoabierto5="Foro abierto";
                     $scope.forosasuntos=data[0]["foro_asunto"];
@@ -374,7 +374,7 @@
     
     app.controller('SextoController',function($scope,$http) {
         $scope.sexto=false;
-        $scope.titulo6="Primera orden a la entrega";
+        $scope.titulo6="¡Sale la primera entrega!";
         $scope.checkproyectoregistrado6="";
         $scope.txtproyectoregistrado6="";
         $scope.checkreflexion6="";
@@ -385,7 +385,7 @@
         $scope.SextoEtapa=function (){
             $http.get('<?= $sexto ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
                 if (data) {
-                    $scope.titulo6="Primera orden a la entrega";
+                    $scope.titulo6="¡Sale la primera entrega!";
                     $scope.txtreflexiones6="Reflexión del concurso";
                     $scope.txtvideo6="Publicación del video";
                     $scope.txtproyectoregistrado6="Registro del proyecto";
@@ -436,14 +436,14 @@
     
     app.controller('SeptimoController',function($scope,$http) {
         $scope.septimo=false;
-        $scope.titulo7="Aportamos y mejoramos";
+        $scope.titulo7="Aportamos para crecer";
         $scope.checkaporte7="";
         $scope.txtaportes7="";
         $scope.txtaportesusuarios7="";
         $scope.SeptimoEtapa=function (){
             $http.get('<?= $septimo ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
                 if (data) {
-                    $scope.titulo7="Aportamos y mejoramos";
+                    $scope.titulo7="Aportamos para crecer";
                     $scope.txtaportes7="Aportes";
                     if (data[1]["checkaporte"]==0) {
                         $scope.checkaporte7="fa fa-fw fa-exclamation-triangle";
@@ -474,7 +474,7 @@
     
     app.controller('OctavoController',function($scope,$http) {
         $scope.octavo=false;
-        $scope.titulo8="Segunda entrega ¡Ahí vamos!";
+        $scope.titulo8="¡Lista la segunda entrega!";
         $scope.checkvideo8="";
         $scope.txtvideo8="";
         $scope.checkevaluacion8="";
@@ -484,7 +484,7 @@
             $http.get('<?= $octavo ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
                 if (data) {
                     console.log(data);
-                    $scope.titulo8="Segunda entrega ¡Ahí vamos!";
+                    $scope.titulo8="¡Lista la segunda entrega!";
                     $scope.txtvideo8="Publicación del video";
                     if (data[1]["checkvideo"]==0) {
                         $scope.checkvideo8="fa fa-fw fa-exclamation-triangle";
@@ -522,7 +522,7 @@
     
     app.controller('NovenoController',function($scope,$http) {
         $scope.noveno=false;
-        $scope.titulo9="Reconocemos los 3 mejores proyectos";
+        $scope.titulo9="Reconocemos a los 3 mejores";
         
     });
     

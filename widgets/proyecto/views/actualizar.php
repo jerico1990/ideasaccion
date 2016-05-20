@@ -223,7 +223,7 @@ li::before {
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="form-group label-floating field-registrar-foto required" >
-                                <input style="cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video($(this))"/>
+                                <input style="cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video(this)"/>
                                 <img  class="" style="height: 240px;width:320px;cursor: pointer" src="../images/video.jpg">
                             </div>
                         </div>
@@ -721,11 +721,15 @@ li::before {
     //})();
     
     function Video(elemento) {
-        var ext = elemento.val().split('.').pop().toLowerCase();
+        var ext = $(elemento).val().split('.').pop().toLowerCase();
         var error='';
         if($.inArray(ext, ['mp4','avi','mpeg','flv']) == -1) {
             error=error+'Solo se permite subir archivos con extensiones .mp4,.avi,.mpeg,.flv';
         }
+        if (error=='' && elemento.files[0].size/1024/1024>=51) {
+            error=error+'Solo se permite archivos hasta 50 MB';
+        }
+        
         if (error!='') {
             $.notify({
                 message: error
@@ -740,7 +744,7 @@ li::before {
             });
             //fileupload = $('#equipo-foto_img');  
             //fileupload.replaceWith($fileupload.clone(true));
-            elemento.replaceWith(elemento.val('').clone(true));
+            $(elemento).replaceWith($(elemento).val('').clone(true));
             //$('#equipo-foto_img').val('');
             return false;
         }
@@ -836,7 +840,7 @@ li::before {
         }
         
         var body="";
-        body=   "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;'>"+
+        body=   "<div class='col-xs-12 col-sm-11 col-md-11 pull-right' style='margin-top:15px;'>"+
                     "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividadcon+" required' style='margin-top: 15px'>"+
                         "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividadcon+"' >Descripción de actividad #"+actividadcon+"</label>"+
                         "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividadcon+"' name='Proyecto[temp_actividades][]' class='form-control'>"+
@@ -939,7 +943,7 @@ li::before {
         var bodyactividades="";
         var a=1;
         $("input[name='Proyecto[actividades_"+identificador+"][]']").each(function( index ) {
-            bodyactividades=bodyactividades+"<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;'>"+
+            bodyactividades=bodyactividades+"<div class='col-xs-12 col-sm-11 col-md-11 pull-right' style='margin-top:15px;'>"+
                                                 "<div class='form-group label-floating field-proyecto-temp_actividad_"+a+" required' style='margin-top: 15px'>"+
                                                     "<label class='control-label' for='proyecto-temp_actividad_actividad_"+a+"'>Descripción de actividad #"+a+"</label>"+
                                                     "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+a+"' name='Proyecto[temp_actividades_copia][]' class='form-control' value='"+$(this).val()+"'>"+
@@ -1118,7 +1122,7 @@ li::before {
         }
         
         var body="";
-        body=   "<div class='col-xs-12 col-sm-12 col-md-12' style='margin-top:20px;'>"+
+        body=   "<div class='col-xs-12 col-sm-11 col-md-11 pull-right' style='margin-top:15px;'>"+
                     "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividad+" required' style='margin-top: 15px'>"+
                         "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividad+"' >Descripción de actividad #"+actividad+"</label>"+
                         "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividad+"' name='Proyecto[temp_actividades_copia][]' class='form-control'>"+

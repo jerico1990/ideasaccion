@@ -24,8 +24,8 @@ use yii\widgets\Pjax;
         </div>
         <div class="content_form">
             <div class="right_photo">
-                <div class="txt_upload">
-                    <div class=" form-group " >
+                <div class="txt_upload" style="bottom: 0px;">
+                    <div class=" form-group " style="padding-bottom: 0px;">
                          <input  type="file" id="registrar-foto" class="form-control  file" name="Registrar[foto]" onchange="Imagen(this)"/>
                          <?= Html::img('../foto_personal/no_disponible.jpg',['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 150px;width: 120px;align:center;cursor: pointer"]) ?>
                     </div>
@@ -33,21 +33,21 @@ use yii\widgets\Pjax;
             </div>
             <div class="left">
                 <div class="form-group label-floating field-registrar-nombres required" style="margin-top: 15px">
-                    <label for="registrar-nombres" class="control-label">Nombres</label>
+                    <label for="registrar-nombres" class="control-label">Nombres*</label>
                     <input style="padding-bottom: 0px;padding-top: 0px;height: 30px" type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" required/>
                 </div>
                 <div class="last_name">
                     <div class="form-group label-floating field-registrar-apellido_paterno required left" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-apellido_paterno">Apellido paterno</label>
+                        <label class="control-label" for="registrar-apellido_paterno">Apellido paterno*</label>
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_paterno" class="form-control texto" name="Registrar[apellido_paterno]" required/>
                     </div>
                     <div class="form-group label-floating field-registrar-apellido_materno required right" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-apellido_materno">Apellido materno</label>
+                        <label class="control-label" for="registrar-apellido_materno">Apellido materno*</label>
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_materno" class="form-control texto" name="Registrar[apellido_materno]" required/>
                     </div>
                     <div class="clear"></div>
                     <div class="form-group label-floating field-registrar-sexo required left" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-sexo">Sexo</label>
+                        <label class="control-label" for="registrar-sexo">Sexo*</label>
                         <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-sexo" class="form-control" name="Registrar[sexo]" required/>
                             <option value=""></option>
                             <option value="F">Femenino</option>
@@ -55,7 +55,7 @@ use yii\widgets\Pjax;
                         </select>
                     </div>
                     <div class="form-group label-floating field-registrar-dni required right" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-dni">DNI</label>
+                        <label class="control-label" for="registrar-dni">DNI*</label>
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-dni" class="form-control numerico" name="Registrar[dni]" maxlength="8">
                     </div>
                     <div class="clear"></div>
@@ -65,33 +65,33 @@ use yii\widgets\Pjax;
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-email required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-email">Correo electrónico</label>
+                        <label class="control-label" for="registrar-email">Correo electrónico*</label>
                         <input  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="email" onpaste="return false;" onCopy="return false" id="registrar-email" class="form-control" name="Registrar[email]">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-celular required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-celular">Número de celular</label>
+                        <label class="control-label" for="registrar-celular">Número de celular*</label>
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" >
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-fecha_nac required has-error" style="margin-top: 15px">
                         
-                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="registrar-fecha_nac" class="form-control"  name="Registrar[fecha_nac]" maxlength="10" placeholder="Fecha nacimiento">
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="registrar-fecha_nac" class="form-control"  name="Registrar[fecha_nac]" maxlength="10" placeholder="Fecha nacimiento*">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group label-floating field-registrar-password required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-password">Contraseña</label>
+                        <label class="control-label" for="registrar-password">Contraseña*</label>
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="password" onpaste="return false;" onCopy="return false" id="registrar-password" class="form-control" name="Registrar[password]">
                     </div>      
                 </div>
                 <div class="col-md-6">
                     <div class="form-group label-floating field-registrar-repassword required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-repassword">Repetir Contraseña</label>
+                        <label class="control-label" for="registrar-repassword">Repetir Contraseña*</label>
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="password" onpaste="return false;" onCopy="return false" id="registrar-repassword" class="form-control" name="Registrar[repassword]">
                     </div>
                 </div>
@@ -104,7 +104,7 @@ use yii\widgets\Pjax;
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-departamento required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-departamento">Departamento</label>
+                        <label class="control-label" for="registrar-departamento">Departamento*</label>
                         <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-departamento" class="form-control" name="Registrar[departamento]" onchange='departamento($(this).val())'>
                         <option value=""></option>
                         <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
@@ -115,7 +115,7 @@ use yii\widgets\Pjax;
                 </div>
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-provincia required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-provincia">Provincia</label>
+                        <label class="control-label" for="registrar-provincia">Provincia*</label>
                         <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-provincia" class="form-control" name="Registrar[provincia]" onchange='provincia($(this).val())'>
                         <option value=""></option>
                         </select>
@@ -123,7 +123,7 @@ use yii\widgets\Pjax;
                 </div>
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-distrito required " style="margin-top: 15px">
-                        <label class="control-label" for="registrar-distrito">Distrito</label>
+                        <label class="control-label" for="registrar-distrito">Distrito*</label>
                         <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-distrito" class="form-control" name="Registrar[distrito]" onchange='distrito($(this).val())'>
                             <option value=""></option>
                         </select>
@@ -133,7 +133,7 @@ use yii\widgets\Pjax;
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group label-floating field-registrar-institucion required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-institucion">Institución</label>
+                        <label class="control-label" for="registrar-institucion">Institución*</label>
                         <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-institucion" class="form-control" name="Registrar[institucion]">
                             <option value=""></option>
                         </select>
@@ -141,7 +141,7 @@ use yii\widgets\Pjax;
                 </div>
                 <div class="col-md-6">
                     <div class="form-group label-floating field-registrar-grado required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-grado">Grado de estudios</label>
+                        <label class="control-label" for="registrar-grado">Grado de estudios*</label>
                         <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
                             <option value=""></option>
                             <option value="1">Primero</option>
@@ -175,7 +175,7 @@ use yii\widgets\Pjax;
 <script>
     $.notify({
         // options
-        message: 'El correo ya existe' 
+        message: 'La dirección de correo ya ha sido registrada.' 
     },{
         // settings
         type: 'danger',
@@ -192,7 +192,7 @@ use yii\widgets\Pjax;
 <script>
     $.notify({
         // options
-        message: 'El dni ya existe' 
+        message: 'El DNI ingresado ya ha sido registrado.' 
     },{
         // settings
         type: 'danger',
@@ -232,8 +232,8 @@ use yii\widgets\Pjax;
         var ext = $(elemento).val().split('.').pop().toLowerCase();
         var error='';
         
-        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-            error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
+        if($.inArray(ext, ['png','jpg']) == -1) {
+            error=error+'La imagen seleccionada debe estar en los formatos .JPG o .PNG';
         }
         if (error=='' && elemento.files[0].size/1024/1024>=5) {
             error=error+'Solo se permite archivos hasta 5MB';
@@ -343,7 +343,7 @@ use yii\widgets\Pjax;
                         $('.field-registrar-dni').addClass('has-error');
                         $.notify({
                             // options
-                            message: 'El DNI ya existe' 
+                            message: 'El DNI ingresado ya ha sido registrado.' 
                         },{
                             // settings
                             type: 'danger',
@@ -378,7 +378,7 @@ use yii\widgets\Pjax;
                         $('.field-registrar-email').addClass('has-error');
                         $.notify({
                             // options
-                            message: 'El email ya existe' 
+                            message: 'La dirección de correo ya ha sido registrada.' 
                         },{
                             // settings
                             type: 'danger',
@@ -437,14 +437,12 @@ use yii\widgets\Pjax;
         var p5=$('input[name=\'Registrar[p5][]\']:checked').length;
         var p6=$('input[name=\'Registrar[p6][]\']:checked').length;
         var ext = $('#registrar-foto').val().split('.').pop().toLowerCase();
+        var conerror=0;
         
-        /*if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-            error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
-        }*/
-
         if ($('#registrar-nombres').val()=='') {
-            error=error+'Ingrese nombres <br>';
+            error=error+'Debes ingresar tu nombre completo <br>';
             $('.field-registrar-nombres').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -453,8 +451,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-apellido_paterno').val()=='') {
-            error=error+'Ingrese su apellido paterno <br>';
+            error=error+'Debes ingresar tu apellido paterno <br>';
             $('.field-registrar-apellido_paterno').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -463,8 +462,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-apellido_materno').val()=='') {
-            error=error+'Ingrese su apellido materno <br>';
+            error=error+'Debes ingresar tu apellido materno <br>';
             $('.field-registrar-apellido_materno').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -473,8 +473,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-sexo').val()=='') {
-            error=error+'Ingrese sexo <br>';
+            error=error+'Debes ingresar tu sexo <br>';
             $('.field-registrar-sexo').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -483,8 +484,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-dni').val()=='') {
-            error=error+'Ingrese dni <br>';
+            error=error+'Debes ingresar tu DNI <br>';
             $('.field-registrar-dni').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -493,8 +495,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-fecha_nac').val()=='') {
-            error=error+'Ingrese fecha de nacimiento <br>';
+            error=error+'Debes ingresar tu fecha de nacimiento <br>';
             $('.field-registrar-fecha_nac').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -503,8 +506,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-email').val()=='') {
-            error=error+'Ingrese email <br>';
+            error=error+'Debes ingresar tu dirección de correo <br>';
             $('.field-registrar-email').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -514,13 +518,15 @@ use yii\widgets\Pjax;
         
         if($('#registrar-email').val()!='' && !validateEmail($('#registrar-email').val()))
         {
-            error=error+'el usuario debe ser un correo <br>';
+            error=error+'Debes ingresar una dirección de correo válida <br>';
             $('.field-registrar-email').addClass('has-error');
+            conerror=conerror+1;
         }
         
         if ($('#registrar-celular').val()=='') {
-            error=error+'Ingrese celular <br>';
+            error=error+'Debes ingresar tu celular<br>';
             $('.field-registrar-celular').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -530,8 +536,9 @@ use yii\widgets\Pjax;
         
         
         if ($('#registrar-password').val()=='') {
-            error=error+'Ingrese contraseña <br>';
+            error=error+'Debes ingresar tu contraseña <br>';
             $('.field-registrar-password').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -542,6 +549,7 @@ use yii\widgets\Pjax;
         if ($('#registrar-repassword').val()=='') {
             error=error+'Ingrese repetir contraseña <br>';
             $('.field-registrar-repassword').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -550,8 +558,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-departamento').val()=='') {
-            error=error+'Ingrese departamento <br>';
+            error=error+'Debes ingresar tu departamento <br>';
             $('.field-registrar-departamento').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -560,8 +569,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-provincia').val()=='') {
-            error=error+'Ingrese provincia <br>';
+            error=error+'Debes ingresar tu provincia <br>';
             $('.field-registrar-provincia').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -570,8 +580,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-distrito').val()=='') {
-            error=error+'Ingrese distrito <br>';
+            error=error+'Debes ingresar tu distrito <br>';
             $('.field-registrar-distrito').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -580,8 +591,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-institucion').val()=='') {
-            error=error+'Ingrese institución <br>';
+            error=error+'Debes ingresar tu institución <br>';
             $('.field-registrar-institucion').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -590,8 +602,9 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-grado').val()=='') {
-            error=error+'Ingrese grado <br>';
+            error=error+'Debes ingresar tu grado <br>';
             $('.field-registrar-grado').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -623,7 +636,7 @@ use yii\widgets\Pjax;
             }
         });
         if (dni.responseText=='1') {
-            error=error+'El dni ya existe <br>';
+            error=error+'El DNI ingresado ya ha sido registrado. <br>';
         }
         
         var email=$.ajax({
@@ -636,9 +649,22 @@ use yii\widgets\Pjax;
             }
         });
         if (email.responseText=='1') {
-            error=error+'El correo electrónico ya existe <br>';
+            error=error+'La dirección de correo ya ha sido registrada. <br>';
         }
         
+        if (conerror>=5) {
+            $.notify({
+                message: 'Debes completar todos los campos marcados como obligatorios (*)' 
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
+        }
         
         
         if (error!='')
@@ -671,7 +697,8 @@ use yii\widgets\Pjax;
     
     function distrito(value) {
         $.post( "<?= $instituciones ?>?distrito="+value, function( data ) {
-        $( "#registrar-institucion" ).html( data );});
+            $( "#registrar-institucion" ).html( data );
+        });
     }
     
     function provincia(value) {

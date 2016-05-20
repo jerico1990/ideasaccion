@@ -151,14 +151,19 @@ class EquipoController extends Controller
         echo 1;
     }
     
-    public function actionRechazar($id)
+    public function actionRechazar()
     {
-        $invitacion=Invitacion::findOne($id);
-        $invitacion->estado=0;
-        $invitacion->fecha_rechazo=date("Y-m-d H:i:s");
-        $invitacion->update();
+        if(isset($_POST["id"]))
+        {
+            $id=$_POST["id"];
+            $invitacion=Invitacion::findOne($id);
+            $invitacion->estado=0;
+            $invitacion->fecha_rechazo=date("Y-m-d H:i:s");
+            $invitacion->update();
+            
+            echo 1;
+        }
         
-        echo 1;
         
     }
     
@@ -195,27 +200,32 @@ class EquipoController extends Controller
         }
     }
     
-    public function actionEliminarinvitado($id,$equipo)
+    public function actionEliminarinvitado()
     {
-        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id and equipo_id=:equipo_id',[':estudiante_id'=>$id,':equipo_id'=>$equipo])->one();
-        if($integrante)
+        //var_dump($_REQUEST);die;
+        if(isset($_POST["id"]) && isset($_POST["equipo"]))
         {
-            Integrante::find()->where('estudiante_id=:estudiante_id and equipo_id=:equipo_id',[':estudiante_id'=>$id,':equipo_id'=>$equipo])->one()->delete();
-            echo 1;
-        }
-        else
-        {
-            $invitacion=Invitacion::find()
-                        ->where('estudiante_invitado_id=:estudiante_invitado_id and estado=1 and equipo_id=:equipo_id',
-                                [':estudiante_invitado_id'=>$id,':equipo_id'=>$equipo])->one();
-            if($invitacion)
+            $id=$_POST["id"];
+            $equipo=$_POST["equipo"];
+            $integrante=Integrante::find()->where('estudiante_id=:estudiante_id and equipo_id=:equipo_id',[':estudiante_id'=>$id,':equipo_id'=>$equipo])->one();
+            if($integrante)
             {
-                $invitacion->estado=0;
-                $invitacion->fecha_rechazo=date("Y-m-d H:i:s");
-                $invitacion->update();
+                Integrante::find()->where('estudiante_id=:estudiante_id and equipo_id=:equipo_id',[':estudiante_id'=>$id,':equipo_id'=>$equipo])->one()->delete();
+                echo 1;
             }
-            
-            echo 0;
+            else
+            {
+                $invitacion=Invitacion::find()
+                            ->where('estudiante_invitado_id=:estudiante_invitado_id and estado=1 and equipo_id=:equipo_id',
+                                    [':estudiante_invitado_id'=>$id,':equipo_id'=>$equipo])->one();
+                if($invitacion)
+                {
+                    $invitacion->estado=0;
+                    $invitacion->fecha_rechazo=date("Y-m-d H:i:s");
+                    $invitacion->update();
+                }
+                echo 0;
+            }
         }
         
     }
@@ -239,18 +249,23 @@ class EquipoController extends Controller
         
         
     }
-    public function actionValidarunirme($id)
+    public function actionValidarunirme()
     {
-        $invitacion=Invitacion::find()->where('id=:id and estado=1',[':id'=>$id])->one();
+        if(isset($_POST["id"]) && $_POST["id"]!="")
+        {
+            $id=$_POST["id"];
+            $invitacion=Invitacion::find()->where('id=:id and estado=1',[':id'=>$id])->one();
         
-        if($invitacion)
-        {
-            echo 1;
+            if($invitacion)
+            {
+                echo 1;
+            }
+            else
+            {
+                echo 0;
+            }
         }
-        else
-        {
-            echo 0;
-        }
+        
         
     }
     

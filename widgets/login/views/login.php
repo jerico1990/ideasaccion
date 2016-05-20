@@ -15,7 +15,7 @@ use yii\web\JsExpression;
 <script>
     $.notify({
         // options
-        message: 'Los datos ingresados no estan correctos' 
+        message: 'La dirección de correo o la contraseña son incorrectos.' 
     },{
         // settings
         type: 'danger',
@@ -67,7 +67,7 @@ use yii\web\JsExpression;
         var error='';
         if($('#loginform-username').val()=='')
         {
-            error=error+'ingrese su usuario <br>';
+            error=error+'Debes ingresar tu usuario <br>';
             $('.field-loginform-username').addClass('has-error');
         }
         else
@@ -78,14 +78,14 @@ use yii\web\JsExpression;
         
         if($('#loginform-username').val()!='' && !validateEmail($('#loginform-username').val()))
         {
-            error=error+'el usuario debe ser un correo <br>';
+            error=error+'Debes ingresar una dirección de correo válida <br>';
             $('.field-loginform-username').addClass('has-error');
         }
         
         
         if($('#loginform-password').val()=='' )
         {
-            error=error+'ingrese su contraseña <br>';
+            error=error+'Debes ingresar tu contraseña <br>';
             $('.field-loginform-password').addClass('has-error');
         }
         else

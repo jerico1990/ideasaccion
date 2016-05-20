@@ -462,12 +462,8 @@ $btninscribir=$integrante
     
 function unirme(id) {
     var validarunirme=1;
-    $.ajax({
-        url: '<?php echo $validarunirme ?>',
-        type: 'GET',
-        async: true,
-        data: {id:id},
-        success: function(data){
+    $.post( "<?= $validarunirme ?>", { id: id})
+    .done(function( data ) {
             if (data==0) {
                 $.notify({
                     // options
@@ -512,8 +508,6 @@ function unirme(id) {
                     }
                 });
             }
-            
-        }
     });
     
     
@@ -521,12 +515,8 @@ function unirme(id) {
 
 
 function rechazar(id) {
-    $.ajax({
-        url: '<?php echo $rechazar ?>',
-        type: 'GET',
-        async: true,
-        data: {id:id},
-        success: function(data){
+    $.post( "<?= $rechazar ?>", { id: id})
+    .done(function( data ) {
             $.notify({
                 // options
                 message: 'Haz rechazado la invitación' 
@@ -542,8 +532,8 @@ function rechazar(id) {
             setTimeout(function(){
                 window.location.reload(1);
             }, 2000);
-        }
     });
+    
 }
 
 function dejarequipo(id) {
@@ -623,13 +613,9 @@ function dejarequipo(id) {
 
 
 function eliminarinvitado(id,equipo) {
-    $.ajax({
-        url: '<?php echo $eliminarinvitado ?>',
-        type: 'GET',
-        async: true,
-        data: {id:id,equipo:equipo},
-        success: function(data){
-            $.notify({
+    $.post( "<?= $eliminarinvitado ?>", { id: id, equipo: equipo })
+    .done(function( data ) {
+        $.notify({
                 // options
                 message: 'Invitación eliminada' 
             },{
@@ -644,8 +630,8 @@ function eliminarinvitado(id,equipo) {
             setTimeout(function(){
                 window.location.reload(1);
             }, 2000);
-        }
     });
+  
 }
 
 function eliminarintegrante(id) {

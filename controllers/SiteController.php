@@ -105,12 +105,10 @@ class SiteController extends Controller
             $usuario->verification_code=$this->randKey("abcdefghijklmnopqrstuvwxyz0123456789", 24);
             $usuario->update();
             
-            $subject="Sistema de recuperación de contraseña";
-            $content="Estimado/a docente:<br><br>
-                     ¡Bienvenido/a al sistema de evaluación por competencias socioemocionales CSE!
-                     Para finalizar el proceso de inscripción, por favor ingrese al siguiente <a href='localhost/mineduproyecto/web/site/resetear?url=".$usuario->verification_code."'>enlace</a>.
-                   
-                     Saludos cordiales,<br><br>
+            $subject="Bienvenido a la plataforma de ideas en acción";
+            $content="¡Hola!<br><br>
+                     Deseaste restablecer tu clave de Ideas en Acción, ¿verdad? Si es así, solo tienes que hacer clic<br><br>
+                     <a href='http://intranet.ideasenaccion.pe/site/resetear?url=".$usuario->verification_code."'>[AQUÍ]</a><br><br>
                      <br>
                      ";
             Yii::$app->mail->compose('@app/mail/layouts/html',['content'=>$content])

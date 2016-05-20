@@ -100,10 +100,15 @@ class PanelController extends Controller
         if($integrante)
         {
             $equipo=Equipo::findOne($integrante->equipo_id);
+            if($equipo->foto=="")
+            {
+                $equipo->foto="no_disponible.png";
+            }
         }
         else
         {
             $equipo = new Equipo;
+            //$equipo->foto="no_disponible.png";
         }
         
         $invitaciones=Invitacion::find()

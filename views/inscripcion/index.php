@@ -62,9 +62,13 @@ if($equipo->id)
         <div class="col-md-3">
             <div class="form-group">
                 <label for=""> </label>
-                <div class="imagen_equipo">
+                <div class="imagen_equipo" style="border: 0px;">
+                    
                     <input type="file" id="equipo-foto_img" class="form-control file" name="Equipo[foto_img]" onchange="Imagen(this)">
-                    <?= Html::img('../foto_equipo/'.$equipo->foto,['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 160px;width: 150px;align:center;cursor: pointer"]) ?>
+                    <img id='img_destino' src=""  style="vertical-align: middle;line-height: 160px;line-width: 150px;height: 160px;width: 150px;align:center;cursor: pointer" alt="Agrega una imagen para tu equipo">
+                        
+                    <?php //= Html::img('',['id'=>'img_destino','class'=>'text-center', 'alt'=>'Agrega una imagen para tu equipo','style'=>"height: 160px;width: 150px;align:center;cursor: pointer"]) ?>
+                    
                 </div>
             </div>
         </div>
@@ -223,8 +227,11 @@ if($equipo->id)
                   
     function mostrarImagen(input) {
         if (input.files && input.files[0]) {
+            //$(this).parent().css("background", "url(/images/r-srchbg_white.png) no-repeat");
+            
             var reader = new FileReader();
             reader.onload = function (e) {
+                //$('#img_destino').css("background", e.target.result);
                 $('#img_destino').attr('src', e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
@@ -237,6 +244,11 @@ if($equipo->id)
         if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
             error=error+'Solo se permite subir archivos con extensiones .gif,.png,.jpg,.jpeg';
         }
+        
+        if (error=='' && elemento.files[0].size/1024/1024>=5) {
+            error=error+'Solo se permite archivos hasta 5MB';
+        }
+        
         if (error!='') {
             $.notify({
                 message: error
@@ -259,6 +271,7 @@ if($equipo->id)
         }
         else
         {
+            
             mostrarImagen(elemento);
             return true;
         }

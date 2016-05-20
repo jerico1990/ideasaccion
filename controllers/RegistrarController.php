@@ -87,16 +87,14 @@ class RegistrarController extends Controller
                 $usuario->estudiante_id=$estudiante->id;
                 $usuario->save();
                 
-                $subject="Sistema de evaluación CSE – Confirmación de creación de cuenta";
-                $content="Estimado/a docente:<br><br>
-                         ¡Bienvenido/a al sistema de evaluación por competencias socioemocionales CSE!
-                         Para finalizar el proceso de inscripción, por favor ingrese al siguiente <a href='http://jorgepc.com/mineduproyecto/web/'>enlace</a>.
+                $subject="Bienvenido a la plataforma de ideas en acción";
+                $content="¡Bienvenido a ideas en acción!<br><br>
+                         Ahora podrás ingresar a tu propia cuenta en la plataforma con estos datos:
                          <br><br>
-                         Los datos de su cuenta son:<br><br>
                          <b>Usuario:</b> $usuario->username <br>
                          <b>Contraseña:</b> $registrar->password<br><br>
-                         Saludos cordiales,<br><br>
                          <br>
+                         Haz clic en este <a href='http://intranet.ideasenaccion.pe/site/login'>link</a> para poder ingresar a la plataforma.
                          ";
                 Yii::$app->mail->compose('@app/mail/layouts/html',['content'=>$content])
                ->setFrom('info@e-labs.pe')

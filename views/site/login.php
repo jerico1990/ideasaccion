@@ -21,7 +21,8 @@ $this->title = 'Iniciar sesión';
 <script>
     $.notify({
         // options
-        message: 'Se ha registrado satisfactoriamente' 
+        message:    '¡Has completado tu registro! Ahora solo tienes que seguir las instrucciones del correo'+
+                    'de confirmación que te acabamos de enviar. Búscalo en tus bandejas (¡por si acaso revisa también en spam!).' 
     },{
         // settings
         type: 'success',

@@ -55,7 +55,7 @@ class InscripcionController extends Controller
         $this->layout='estandar';
         
         $equipo=new Equipo;
-        $equipo->foto='no_disponible.jpg';
+        //$equipo->foto='no_disponible.png';
         $institucion=Institucion::find()
                     ->select('institucion.id,estudiante.id as estudiante_id,ubigeo.department_id')
                     ->innerJoin('estudiante','estudiante.institucion_id=institucion.id')
@@ -107,7 +107,7 @@ class InscripcionController extends Controller
             }
             else
             {
-                $equipo->foto="no_disponible.jpg";
+                $equipo->foto="";//cambio img
             }
             $equipo->update();
             $lider=new Integrante;
@@ -203,7 +203,7 @@ class InscripcionController extends Controller
         $equipo=Equipo::find()->where('id=:id',[':id'=>$integrante->equipo_id])->one();
         if(!$equipo->foto)
         {
-            $equipo->foto='no_disponible.jpg';
+            $equipo->foto='no_disponible.png';
         }
         
         $institucion=Institucion::find()

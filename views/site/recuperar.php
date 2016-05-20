@@ -15,9 +15,9 @@ use yii\web\JsExpression;
 
 <div class="form_login" >
     <div class="title_form">
-        REESTABLECER DE CONTRASEÑA
+        ¿Olvidaste la clave?
     </div> 
-    <div class="content_olvide_clave">Para recuperar tu contraseña, ingresa la dirección de correo electrónico con el que te inscribiste a Ideas en Acción.</div>
+    <div class="content_olvide_clave">Para recuperarla, ingresa tu dirección de correo y te enviaremos un mensaje de recuperación (búscalo también en tus bandejas de spam y no deseados).</div>
     <div class="content_form" >
         
         <div class="panel-body">
@@ -36,7 +36,7 @@ use yii\web\JsExpression;
                 <div class="clearfix"></div>
                 <div class="col-lg-12 col-md-12 col-xs-12">
                     <div class="form-group btn_registro_submit">
-                       <button id="ingresar" type="submit" class="btn btn-default">Enviar</button>
+                       <button id="ingresar" type="submit" class="btn btn-default">¡Recuperar clave!</button>
                     </div>
                 </div>
                 <div class="clearfix"></div>
