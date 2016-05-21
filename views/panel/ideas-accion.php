@@ -14,21 +14,15 @@
         <div class="cuadros paso_1" ng-controller="PrimeroController">
                 <div class="titulo_cuadro">¡Sumérgete en la información!</div>
                 <div class="contenido_cuadro">
-                        <div class="checkbox">
                                 <label style="padding-left: 0px;">
                                     <span class="fa fa-fw fa-check-square"></span> Video
-                                </label>
-                        </div>
-                        <div class="checkbox">
+                                </label><br>
                                 <label style="padding-left: 0px;">
                                     <span class="fa fa-fw fa-check-square"></span> Base
-                                </label>
-                        </div>
-                        <div class="checkbox">
+                                </label><br>
                                 <label style="padding-left: 0px;">
                                     <span class="fa fa-fw fa-check-square"></span> Asuntos Públicos
                                 </label>
-                        </div>
                 </div>
         </div>
         
@@ -43,8 +37,9 @@
         <div class="cuadros paso_3" ng-controller="TerceroController" >
                 <div class="titulo_cuadro">{{titulo3}}</div>
                 <div class="contenido_cuadro" ng-show="tercero">
-                        <div class="iai_icon" ng-if="icono3 == 1 || icono3 == '' ">
+                        <div class="iai_icon" ng-if="icono3 == 1 || icono3 == ''">
                             <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png' alt=''>
+                            No haz finalizado el registro de tu equipo.
                         </div>
                         <div class="iai_icon" ng-if="icono3 == 2">
                             <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_like_infografia.png' alt=''>
