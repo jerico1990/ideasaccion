@@ -316,7 +316,7 @@ if($equipo->id)
         });
         
         if (validarinvitaciones.responseText==1) {
-            error=error+'Ya no tienes permitido enviar mas invitaciones';
+            error=error+'Solo puedes invitar a 5 compañeros como máximo.';
         }
         //console.log(validarinvitaciones);
         //return false;
@@ -357,7 +357,7 @@ if($equipo->id)
             if (existeequipo.responseText==1) {
                 $.notify({
                     // options
-                    message: 'Ya creastes un equipo' 
+                    message: 'Ya tienes un equipo creado.' 
                 },{
                     // settings
                     type: 'danger',
@@ -431,7 +431,7 @@ if($equipo->id)
             elemento.prop( "checked", false );
             $.notify({
                 // options
-                message: 'Solo se permite 5 invitaciones como máximo' 
+                message: 'Solo puedes invitar a 5 compañeros como máximo.' 
             },{
                 // settings
                 type: 'danger',
@@ -455,7 +455,7 @@ if($equipo->id)
                 {
                     $.notify({
                         // options
-                        message: 'Ya pertenece a un equipo ' 
+                        message: 'Tu compañero ya pertenece a otro equipo. ' 
                     },{
                         // settings
                         type: 'danger',
@@ -473,7 +473,7 @@ if($equipo->id)
                 {
                     $.notify({
                         // options
-                        message: 'Ya le has enviado una invitación ' 
+                        message: 'Ya le has enviado una invitación.' 
                     },{
                         // settings
                         type: 'danger',
@@ -491,7 +491,7 @@ if($equipo->id)
                 {
                     $.notify({
                         // options
-                        message: 'Solo se permite 5 invitaciones como máximo' 
+                        message: 'Solo puedes invitar a 5 compañeros como máximo.' 
                     },{
                         // settings
                         type: 'danger',
@@ -521,7 +521,7 @@ if($equipo->id)
             elemento.prop( "checked", false );
             $.notify({
                 // options
-                message: 'No puedes realizar mas invitaciones' 
+                message: 'Solo puedes invitar a 1 docente como máximo.' 
             },{
                 // settings
                 type: 'danger',
@@ -544,7 +544,7 @@ if($equipo->id)
                 {
                     $.notify({
                         // options
-                        message: 'Ya pertenece a un equipo ' 
+                        message: 'Ya pertenece a un equipo.' 
                     },{
                         // settings
                         type: 'danger',
@@ -580,7 +580,7 @@ if($equipo->id)
                 {
                     $.notify({
                         // options
-                        message: 'Solo se permite 5 invitaciones como máximo' 
+                        message: 'Solo puedes invitar a 1 docente como máximo.' 
                     },{
                         // settings
                         type: 'danger',

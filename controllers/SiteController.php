@@ -13,8 +13,10 @@ use app\models\Resultados;
 use app\models\LogSesion;
 class SiteController extends Controller
 {
+    
     public function behaviors()
     {
+        
         return [
             'access' => [
                 'class' => AccessControl::className(),

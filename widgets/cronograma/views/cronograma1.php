@@ -22,16 +22,14 @@ foreach($objetivos as $objetivo){
     
     
     <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
-    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
+    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 	<select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" >
 	    <option value>seleccionar</option>
 	    <?= $opciones_objetivos ?>
 	</select>
     </div>
     <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
-    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
+    <div class="col-xs-12 col-sm-12 col-md-12">
 	<select id="proyecto-cronograma_actividad_99" class="form-control" name="Proyecto[cronogramas_actividades]" onchange="cronograma($(this).val())" >
 	    <option value>seleccionar</option>
 	</select>

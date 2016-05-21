@@ -49,13 +49,8 @@ use yii\web\JsExpression;
             </div><!-- /.tab-pane -->
             <div class="tab-pane" id="tab_9">
                 <div class="clearfix"></div>
-                <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="clearfix"></div>
-                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Objetivo general</label> </h4>
-                        <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->objetivo_general ?></p>
-                    </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    
                    <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                             <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Objetivos especificos</label>
