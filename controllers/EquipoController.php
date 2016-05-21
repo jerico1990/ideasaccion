@@ -302,7 +302,7 @@ class EquipoController extends Controller
         
     }
     
-    public function actionFinalizarequipo($id)
+    public function actionFinalizarequipo()
     {
         if(isset($_POST["id"])  && $_POST["id"]!="")
         {
