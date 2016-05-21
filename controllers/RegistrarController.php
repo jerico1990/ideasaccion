@@ -98,7 +98,7 @@ class RegistrarController extends Controller
                          Haz clic en este <a href='http://intranet.ideasenaccion.pe/site/login'>link</a> para poder ingresar a la plataforma.
                          ";
                 Yii::$app->mail->compose('@app/mail/layouts/html',['content'=>$content])
-               ->setFrom(['info@e-labs.pe'=> 'prueba'])
+               ->setFrom('info@ideasenaccion.pe')
                ->setTo($registrar->email)
                ->setSubject($subject)
                ->send();
