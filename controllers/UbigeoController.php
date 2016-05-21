@@ -182,7 +182,7 @@ class UbigeoController extends Controller
         if($countInstitucion>0){
             echo "<option value></option>";
             foreach($instituciones as $institucion){
-                echo "<option value='".$institucion->id."'>".$institucion->codigo_modular." - ".$institucion->denominacion."</option>";
+                echo "<option value='".$institucion->id."'>".$institucion->denominacion."</option>";
             }
         }
         else{

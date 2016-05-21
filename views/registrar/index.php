@@ -63,19 +63,19 @@ use yii\widgets\Pjax;
             </div>
             <div class="clear"></div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group label-floating field-registrar-email required" style="margin-top: 15px">
                         <label class="control-label" for="registrar-email">Correo electrónico*</label>
                         <input  style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="email" onpaste="return false;" onCopy="return false" id="registrar-email" class="form-control" name="Registrar[email]">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group label-floating field-registrar-celular required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-celular">Número de celular*</label>
+                        <label class="control-label" for="registrar-celular">Celular*</label>
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" >
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group label-floating field-registrar-fecha_nac required has-error" style="margin-top: 15px">
                         
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="registrar-fecha_nac" class="form-control"  name="Registrar[fecha_nac]" maxlength="10" placeholder="Fecha nacimiento*">
