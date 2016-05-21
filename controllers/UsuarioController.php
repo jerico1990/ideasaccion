@@ -149,7 +149,7 @@ class UsuarioController extends Controller
             
             if(trim($registrar->password)!='')
             {
-                $usuario->password=md5($registrar->password);
+                $usuario->password=Yii::$app->getSecurity()->generatePasswordHash($registrar->password);
             }
             $usuario->save();
             return $this->refresh();
@@ -165,7 +165,7 @@ class UsuarioController extends Controller
         $model=Usuario::findOne(\Yii::$app->user->id);
         if($model->load(Yii::$app->request->post()))
         {
-            $model->password=crypt($model->password,"ideasenaccion");
+            $model->password= Yii::$app->getSecurity()->generatePasswordHash($model->password); //crypt($model->password,"ideasenaccion");
             $model->update();
             Yii::$app->session->setFlash('contrasena');
             return $this->refresh();

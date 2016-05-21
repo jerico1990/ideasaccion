@@ -62,7 +62,7 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
     $("#ingresar").click(function(event){
         var error='';
         if ($("#loginform-password").val()=='') {
-            error=error+"Ingrese contraseña <br>";
+            error=error+"Debes ingresar tu contraseña <br>";
             $(".field-loginform-password").addClass("has-error");
         }
         else
@@ -72,7 +72,7 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
         }
         
         if ($("#loginform-repassword").val()=='') {
-            error=error+"Ingrese repetir contraseña <br>";
+            error=error+"Debes repetir tu contraseña <br>";
             $(".field-loginform-repassword").addClass("has-error");
         }
         else

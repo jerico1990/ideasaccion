@@ -14,17 +14,33 @@ use yii\web\JsExpression;
 
 
 <div class="form_login" >
+    <?php if (Yii::$app->session->hasFlash('claveenviada')): ?>
+    
+    <div class="title_form">
+        Clave enviada
+    </div>
+    <div class="content_olvide_clave">Se ha enviado un correo a <?= $usuario->username ?>, en el encontrarás los siguientes pasos para restablecer tu contraseña.</div>
+    <div class="content_form" >
+        <div class="panel-body">
+            <div class="row">
+                <div class="clearfix"></div>
+                <div class="col-lg-12 col-md-12 col-xs-12">
+                    <div class="form-group btn_registro_submit">
+                        <?= Html::a('Regresa al inicio',['site/login'],['class'=>'btn btn-default']); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php else: ?>
     <div class="title_form">
         ¿Olvidaste la clave?
     </div> 
     <div class="content_olvide_clave">Para recuperarla, ingresa tu dirección de correo y te enviaremos un mensaje de recuperación (búscalo también en tus bandejas de spam y no deseados).</div>
     <div class="content_form" >
-        
         <div class="panel-body">
         <?php $form = ActiveForm::begin(); ?>
             <div class="row">
-                
-                
                 <div class="clearfix"></div>
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
@@ -44,6 +60,8 @@ use yii\web\JsExpression;
         <?php ActiveForm::end(); ?>
         </div>
     </div>
+    
+    <?php endif; ?>
 <?php 
 $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
 ?>
@@ -88,7 +106,7 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
         }
         else
         {
-            $.notify({
+            /*$.notify({
                 message: 'Se ha enviado un link temporal a tu cuenta de correo' 
             },{
                 type: 'success',
@@ -97,7 +115,7 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
                     from: 'bottom',
                     align: 'right'
                 },
-            });
+            });*/
         }
         
         
@@ -132,7 +150,7 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
                         $('.field-loginform-username').addClass('has-error');
                         $.notify({
                             // options
-                            message: 'El email no existe' 
+                            message: 'La dirección de correo no ha sido registrada.' 
                         },{
                             // settings
                             type: 'danger',

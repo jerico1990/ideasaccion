@@ -102,7 +102,12 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     
     public function validatePassword($password,$username)
     {
-        return static::find()->where('password=:password and username=:username and status=1',[':password' => $password,':username' => $username])->one();
+        $model=static::find()->where('username=:username and status=1',[':username' => $username])->one();
+        if(Yii::$app->getSecurity()->validatePassword($password, $model->password))
+        {
+            return $model;
+        }
+        return false;
     }
     public function getUsername()
     {

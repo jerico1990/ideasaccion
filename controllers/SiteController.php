@@ -116,10 +116,13 @@ class SiteController extends Controller
            ->setTo($usuario->username)
            ->setSubject($subject)
            ->send();
-           return $this->redirect(['site/login']);
+           
+           Yii::$app->session->setFlash('claveenviada');
+           return $this->render('recuperar',['usuario'=>$usuario]);
         }
         return $this->render('recuperar',['usuario'=>$usuario]);
     }
+    
     
     public function actionResetear($url)
     {
@@ -129,7 +132,7 @@ class SiteController extends Controller
         if($usuario){
             if($loginForm->load(Yii::$app->request->post())){
                 $usuario->verification_code="";
-                $usuario->password=crypt($loginForm->password,"ideasenaccion");
+                $usuario->password=Yii::$app->getSecurity()->generatePasswordHash($loginForm->password);
                 $usuario->update();
                 return $this->refresh();
             }

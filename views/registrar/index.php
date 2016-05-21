@@ -236,7 +236,7 @@ use yii\widgets\Pjax;
             error=error+'La imagen seleccionada debe estar en los formatos .JPG o .PNG';
         }
         if (error=='' && elemento.files[0].size/1024/1024>=5) {
-            error=error+'Solo se permite archivos hasta 5MB';
+            error=error+'La imagen seleccionada debe ser menor a 5MB';
         }
         
         if (error!='') {
@@ -547,7 +547,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-repassword').val()=='') {
-            error=error+'Ingrese repetir contraseña <br>';
+            error=error+'Debes repetir tu contraseña <br>';
             $('.field-registrar-repassword').addClass('has-error');
             conerror=conerror+1;
         }
@@ -616,7 +616,7 @@ use yii\widgets\Pjax;
         
         if($('#registrar-password').val()!='' && $('#registrar-password').val().length<8)
         {
-            error=error+'La contraseña debe contener mínimo 8 caracteres <br>';
+            error=error+'Tu contraseña debe contener un mínimo 8 caracteres <br>';
             $('.field-registrar-password').addClass('has-error');
         }
         

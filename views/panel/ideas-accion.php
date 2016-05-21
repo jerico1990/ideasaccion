@@ -1,3 +1,9 @@
+<?php
+
+
+?>
+
+
 <div class="box_head title_content_box">
     <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_team_big.jpg" alt=""> Ideas en acción
 </div>

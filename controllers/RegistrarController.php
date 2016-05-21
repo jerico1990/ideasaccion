@@ -82,7 +82,7 @@ class RegistrarController extends Controller
                 
                 $usuario=new Usuario;
                 $usuario->username=$registrar->email;
-                $usuario->password=crypt($registrar->password,"ideasenaccion");
+                $usuario->password=Yii::$app->getSecurity()->generatePasswordHash($registrar->password);//crypt($registrar->password,"ideasenaccion");
                 $usuario->status=1;
                 $usuario->estudiante_id=$estudiante->id;
                 $usuario->save();
