@@ -2912,9 +2912,6 @@ $resultados=Resultados::find()->all();
 				No te quedes en los planes. ¡Pon tus ideas en acción!<br>
 				<?php if($resultados){ ?>
 				<?= Html::a('REGÍSTRATE',['site/login'],['class'=>'btn btn-default']); ?>
-				<div class="networks">
-					Pasa la voz a tu mancha
-				</div>
 				<?php } ?>
 			</div>
 		</div>
