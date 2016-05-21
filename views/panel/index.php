@@ -55,7 +55,11 @@ if($integrante)
 }
 $btninscribir=$integrante
 ?>
-
+<style>
+    .modal-body {
+    text-align: center;
+}
+</style>
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt="">MI EQUIPO
 </div>
