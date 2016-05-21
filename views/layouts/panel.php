@@ -178,7 +178,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     <!--Foro-->
                                     <?php if ($integrante && $equipo && $estudiante->grado!=6){ ?>
                                     <li>
-                                        <a href="#">
+                                        <a href="#" class="sub_menu">
                                             <div class="table_div">
                                                 <div class="row_div">
                                                     <div class="cell_div div_ia_icon">
@@ -190,7 +190,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                 </div>
                                             </div>
                                         </a>
-                                        <ul class="treeview-menu">
+                                        <ul>
                                         <?php foreach($foros as $foro): ?>
                                             <?php if($foro->id==2 || ($integrante && $foro->asunto_id==$equipo->asunto_id)){?>
                                                 <?php if($foro->id==2){ ?>
