@@ -39,7 +39,7 @@ $this->title='Ideas en acción';
                 <div class="contenido_cuadro" ng-show="tercero">
                         <div class="iai_icon" ng-if="icono3 == 1 || icono3 == ''">
                             <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png' alt=''><br>
-                            No haz finalizado el registro de tu equipo.
+                            
                         </div>
                         <div class="iai_icon" ng-if="icono3 == 2">
                             <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_like_infografia.png' alt=''>
@@ -273,7 +273,7 @@ $this->title='Ideas en acción';
     app.controller('TerceroController',function($scope,$http) {
         $scope.tercero=true;
         $scope.titulo3="¡Nos inscribimos!";
-        $scope.texto3="";
+        $scope.texto3="No haz finalizado el registro de tu equipo.";
         $scope.icono3="";
         $scope.TerceroEtapa=function (){
             $http.get('<?= $tercero ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
@@ -281,7 +281,7 @@ $this->title='Ideas en acción';
                     $scope.titulo3="¡Nos inscribimos!";
                     if (data[0].estado=='1') {
                         $scope.icono3="1";
-                        $scope.texto3=" Tu equipo no ha finalizado su registro";
+                        $scope.texto3=" No haz finalizado el registro de tu equipo.";
                     }
                     else if (data[0].estado=='2') {
                         $scope.icono3="2";

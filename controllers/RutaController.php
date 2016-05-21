@@ -141,13 +141,13 @@ class RutaController extends Controller
                 $Countintegrante=Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$equipo->id])->count();
                 /*Asuntos*/
                 $foroAsuntos=Integrante::find()
-                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_paterno) nombres_apellidos',
+                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_materno) nombres_apellidos',
                                           '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.user_id=usuario.id) entrada'])
                                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
                                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                                 ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
                                 ->innerJoin('foro','foro.asunto_id=equipo.asunto_id')
-                                ->where('equipo.id=:equipo',
+                                ->where('equipo.id=:equipo and estudiante.grado!=6',
                                         [':equipo'=>$equipo->id])
                                 ->all();
                 $CountAsuntos=1;
@@ -162,12 +162,12 @@ class RutaController extends Controller
                 array_push($data,['foro_asunto'=>$foroAsuntoArray]);
                 /*Abierto*/
                 $foroAbiertos=Integrante::find()
-                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_paterno) nombres_apellidos',
+                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_materno) nombres_apellidos',
                                           '(select count(*) from foro_comentario where foro_comentario.foro_id=2 and foro_comentario.user_id=usuario.id) entrada'])
                                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
                                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                                 ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
-                                ->where('equipo.id=:equipo',
+                                ->where('equipo.id=:equipo and estudiante.grado!=6',
                                         [':equipo'=>$equipo->id])
                                 ->all();
                 $CountAbierto=1;
@@ -223,13 +223,13 @@ class RutaController extends Controller
                 
                 /*Reflexion*/
                 $reflexiones=Integrante::find()
-                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_paterno) nombres_apellidos',
+                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_materno) nombres_apellidos',
                                           '(select case when trim(reflexion.reflexion)=""  then 0 else 1 end from reflexion where reflexion.user_id=usuario.id and reflexion.proyecto_id=proyecto.id) entrada'])
                                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
                                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                                 ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
                                 ->innerJoin('proyecto','proyecto.equipo_id=equipo.id')
-                                ->where('equipo.id=:equipo',
+                                ->where('equipo.id=:equipo and estudiante.grado!=6',
                                         [':equipo'=>$equipo->id])
                                 ->all();
                 $CountReflexion=1;
@@ -270,13 +270,13 @@ class RutaController extends Controller
                 
                 /*Aportes*/
                 $aportes=Integrante::find()
-                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_paterno) nombres_apellidos',
+                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_materno) nombres_apellidos',
                                           '(select count(*) from foro_comentario inner join foro f on f.id=foro_comentario.foro_id where foro_comentario.foro_id>33 and f.proyecto_id!=proyecto.id and foro_comentario.user_id=usuario.id) entrada'])
                                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
                                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                                 ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
                                 ->innerJoin('proyecto','proyecto.equipo_id=equipo.id')
-                                ->where('equipo.id=:equipo',
+                                ->where('equipo.id=:equipo and estudiante.grado!=6',
                                         [':equipo'=>$equipo->id])
                                 ->all();
                 $CountAporte=1;
@@ -325,13 +325,13 @@ class RutaController extends Controller
                 
                 /*Evaluación*/
                 $evaluaciones=Integrante::find()
-                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_paterno) nombres_apellidos',
+                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_materno) nombres_apellidos',
                                           '(select case when trim(evaluacion.evaluacion)=""  then 0 else 1 end from evaluacion where evaluacion.user_id=usuario.id and evaluacion.proyecto_id=proyecto.id) entrada'])
                                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
                                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                                 ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
                                 ->innerJoin('proyecto','proyecto.equipo_id=equipo.id')
-                                ->where('equipo.id=:equipo',
+                                ->where('equipo.id=:equipo and estudiante.grado!=6',
                                         [':equipo'=>$equipo->id])
                                 ->all();
                 $CountEvaluacion=1;

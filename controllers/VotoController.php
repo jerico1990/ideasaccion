@@ -145,6 +145,7 @@ class VotoController extends Controller
     
     public function actionRegistrar()
     {
+        $this->redirect(['site/resultados']);
         $dni=$_GET['Voto']['dni'];
         $region=$_GET['Voto']['region'];
         $asuntos=$_GET['Asuntos'];
