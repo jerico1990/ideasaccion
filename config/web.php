@@ -7,7 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'es-ES',
-    'defaultRoute'=>'site/login',
+    'defaultRoute'=>'site/resultados',
     //'name'=>'Ideas en acción',
     'components' => [
         'formatter' => [
@@ -70,7 +70,6 @@ $config = [
                     'port' => '587',
                     'encryption' => 'tls',
                 ],
- 
         ],
         
         'log' => [
