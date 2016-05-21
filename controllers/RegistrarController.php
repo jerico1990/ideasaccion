@@ -84,6 +84,7 @@ class RegistrarController extends Controller
                 $usuario->username=$registrar->email;
                 $usuario->password=Yii::$app->getSecurity()->generatePasswordHash($registrar->password);//crypt($registrar->password,"ideasenaccion");
                 $usuario->status=1;
+                $usuario->fecha_registro=date("Y-m-d H:i:s");
                 $usuario->estudiante_id=$estudiante->id;
                 $usuario->save();
                 
