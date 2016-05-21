@@ -7,10 +7,11 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'es-ES',
-    'defaultRoute'=>'site/votacion',
+    'defaultRoute'=>'site/login',
+    //'name'=>'Ideas en acción',
     'components' => [
         'formatter' => [
-            'dateFormat' => 'dd-MM-yyyy',
+            'dateFormat' => 'dd.MM.yyyy',
             'decimalSeparator' => ',',
             'thousandSeparator' => ' ',
             //'currencyCode' => 'EUR',
@@ -22,6 +23,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'F7rnrdFXrAWj-XcP4-USoFXCMCTiOzfm',
+            'enableCookieValidation' => true,
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ],
@@ -63,10 +65,10 @@ $config = [
                 'transport' => [
                     'class' => 'Swift_SmtpTransport',
                     'host' => 'smtp.gmail.com',
-                    'username' => 'cesar.gago.egocheaga@gmail.com',
-                    'password' => 'lushian18',
-                    'port' => '465',
-                    'encryption' => 'ssl',
+                    'username' => 'info@e-labs.pe',
+                    'password' => 'c8uxaSw7wuse',
+                    'port' => '587',
+                    'encryption' => 'tls',
                 ],
  
         ],
