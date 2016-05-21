@@ -1,5 +1,5 @@
 <?php
-
+$this->title='Ideas en acción';
 
 ?>
 

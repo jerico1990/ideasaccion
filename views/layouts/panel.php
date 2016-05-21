@@ -66,7 +66,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <title><?= Html::encode($this->title) ?></title>
     <link rel="stylesheet" href="<?= \Yii::$app->request->BaseUrl ?>/css/bootstrap.min.css" media="screen" charset="utf-8">
     
-    
+    <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     <style>
         .alert.alert-danger

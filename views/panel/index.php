@@ -758,3 +758,22 @@ function finalizarequipo(id) {
     
 }
 </script>
+
+
+<?php if (Yii::$app->session->hasFlash('equipocreado')): ?>
+<script>
+    $.notify({
+        // options
+        message:    'Tu equipo ha sido creado ¡Listos para la acción!' 
+    },{
+        // settings
+        type: 'success',
+        z_index: 1000000,
+        placement: {
+                from: 'bottom',
+                align: 'right'
+        },
+    });
+
+</script>
+<?php endif; ?>

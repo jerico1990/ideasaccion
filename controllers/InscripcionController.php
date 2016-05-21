@@ -168,10 +168,7 @@ class InscripcionController extends Controller
             {
                 $equipo->foto_img->saveAs('foto_equipo/' . $equipo->id . '.' . $equipo->foto_img->extension);
             }
-            /*$ruta=Ruta::find()->where('user_id=:user_id',[':user_id'=>\Yii::$app->user->id])->one();
-            $ruta->etapa_3=1;
-            $ruta->update();*/
-            
+            Yii::$app->session->setFlash('equipocreado');
             return $this->redirect(['panel/index']);
            
         }
