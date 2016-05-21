@@ -1,4 +1,8 @@
-
+<?php
+use yii\helpers\Html;
+use app\models\Resultados;
+$resultados=Resultados::find()->all();
+?>
 <div class="row">
 		<div class="col-md-5" id="map_peru">
 			<!-- MAPA PERU -->
@@ -2906,7 +2910,12 @@
 			-->
 			<div class="text_end">
 				No te quedes en los planes. ¡Pon tus ideas en acción!<br>
-
+				<?php if($resultados){ ?>
+				<?= Html::a('REGÍSTRATE',['site/login'],['class'=>'btn btn-default']); ?>
+				<div class="networks">
+					Pasa la voz a tu mancha
+				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
