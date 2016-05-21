@@ -38,7 +38,7 @@
                 <div class="titulo_cuadro">{{titulo3}}</div>
                 <div class="contenido_cuadro" ng-show="tercero">
                         <div class="iai_icon" ng-if="icono3 == 1 || icono3 == ''">
-                            <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png' alt=''>
+                            <img src='<?= \Yii::$app->request->BaseUrl ?>/img/icon_alerta_infografia.png' alt=''><br>
                             No haz finalizado el registro de tu equipo.
                         </div>
                         <div class="iai_icon" ng-if="icono3 == 2">
