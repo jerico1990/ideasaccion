@@ -232,10 +232,10 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                 </ul>
                             </div>
                             <a href="#" data-toggle="modal" data-target="#myModalVideo" class="btn btn-default btn-lateral">
-                                <span class="icon_play"> bases del concurso</span>
+                                <span class="icon_play"> Video de etapas del concurso</span>
                             </a>
     
-                            <a href="https://docs.google.com/uc?export=download&id=0B19Z74QFUK5nd0JBT01UMXg3Wjg " target="_blank" class="btn btn-default btn-lateral">
+                            <a href="<?= \Yii::$app->request->BaseUrl ?>/guia_final.pdf" target="_blank" class="btn btn-default btn-lateral">
                                 <span class="icon_download"> GUÍA DE ORIENTACIÓN</span>
                             </a>
                             <!--

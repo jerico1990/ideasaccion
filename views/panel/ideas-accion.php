@@ -15,18 +15,18 @@
                 <div class="titulo_cuadro">¡Sumérgete en la información!</div>
                 <div class="contenido_cuadro">
                         <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" class="fa fa-fw fa-check-square" disabled value=""> Video
+                                <label style="padding-left: 0px;">
+                                    <span class="fa fa-fw fa-check-square"></span> Video
                                 </label>
                         </div>
                         <div class="checkbox">
-                                <label>
-                                        <input type="checkbox" class="fa fa-fw fa-check-square" disabled value=""> Base
+                                <label style="padding-left: 0px;">
+                                    <span class="fa fa-fw fa-check-square"></span> Base
                                 </label>
                         </div>
                         <div class="checkbox">
-                                <label>
-                                        <input type="checkbox" class="fa fa-fw fa-check-square" disabled value=""> Asuntos Públicos
+                                <label style="padding-left: 0px;">
+                                    <span class="fa fa-fw fa-check-square"></span> Asuntos Públicos
                                 </label>
                         </div>
                 </div>
@@ -277,7 +277,7 @@
     
     app.controller('TerceroController',function($scope,$http) {
         $scope.tercero=true;
-        $scope.titulo3="Aún no cuentas con un equipo";
+        $scope.titulo3="¡Nos inscribimos!";
         $scope.texto3="";
         $scope.icono3="";
         $scope.TerceroEtapa=function (){
