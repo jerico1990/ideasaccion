@@ -5,6 +5,8 @@ use yii\helpers\ArrayHelper;
 use app\models\Ubigeo ;
 use yii\web\JsExpression;
 use yii\widgets\Pjax;
+
+$this->title="Ideas en acción";
 ?>
 <style>
 .img-responsive {
@@ -70,8 +72,8 @@ use yii\widgets\Pjax;
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-group label-floating field-registrar-celular required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-celular">Celular*</label>
+                    <div class="form-group label-floating field-registrar-celular " style="margin-top: 15px">
+                        <label class="control-label" for="registrar-celular">Celular</label>
                         <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" >
                     </div>
                 </div>
@@ -104,7 +106,7 @@ use yii\widgets\Pjax;
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-departamento required" style="margin-top: 15px">
-                        <label class="control-label" for="registrar-departamento">Departamento*</label>
+                        <label class="control-label" for="registrar-departamento">Región*</label>
                         <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-departamento" class="form-control" name="Registrar[departamento]" onchange='departamento($(this).val())'>
                         <option value=""></option>
                         <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
@@ -522,7 +524,7 @@ use yii\widgets\Pjax;
             $('.field-registrar-email').addClass('has-error');
             conerror=conerror+1;
         }
-        
+        /*
         if ($('#registrar-celular').val()=='') {
             error=error+'Debes ingresar tú celular<br>';
             $('.field-registrar-celular').addClass('has-error');
@@ -533,7 +535,7 @@ use yii\widgets\Pjax;
             $('.field-registrar-celular').addClass('has-success');
             $('.field-registrar-celular').removeClass('has-error');
         }
-        
+        */
         
         if ($('#registrar-password').val()=='') {
             error=error+'Debes ingresar tú contraseña <br>';
@@ -558,7 +560,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-departamento').val()=='') {
-            error=error+'Debes ingresar tú departamento <br>';
+            error=error+'Debes ingresar tú región <br>';
             $('.field-registrar-departamento').addClass('has-error');
             conerror=conerror+1;
         }

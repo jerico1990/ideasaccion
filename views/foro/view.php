@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Foro */
 
-$this->title = $model->titulo;
+$this->title="Ideas en acción";
 $this->params['breadcrumbs'][] = ['label' => 'Foros', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $usuario=$model->usuario;

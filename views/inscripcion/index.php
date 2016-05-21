@@ -6,6 +6,8 @@ use yii\helpers\ArrayHelper;
 use app\models\Resultados;
 use yii\widgets\Pjax;
 use yii\web\JsExpression;
+$this->title="Ideas en acción";
+
 $equipoid=0;
 if($equipo->id)
 {

@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use app\models\Ubigeo ;
+
+$this->title="Ideas en acción";
 ?>
 
 

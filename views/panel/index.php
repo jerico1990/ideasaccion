@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use app\models\Integrante;
 use app\models\Invitacion;
-
+$this->title="Ideas en acción";
 if($integrante)
 {
     $integrantes=Integrante::find()

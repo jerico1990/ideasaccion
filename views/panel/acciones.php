@@ -7,6 +7,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\web\JsExpression;
+$this->title="Ideas en acción";
+
 $disabled=false;
 if($votacionpublica || $etapa->etapa!=3)
 {

@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+$this->title="Ideas en acción";
 ?>
 
 <style>
