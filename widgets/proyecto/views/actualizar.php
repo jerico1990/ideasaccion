@@ -223,7 +223,7 @@ li::before {
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group label-floating field-registrar-foto required" >
-                                <div class="imagen_equipo" style="vertical-align: middle;border: 1px;" aling="center">
+                                <div class="imagen_equipo" style="vertical-align: middle;border: solid 1px;line-height: 160px;" aling="center">
                                 <input style="cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video(this)"/>
                                     Sube tu video
                                 </div>
