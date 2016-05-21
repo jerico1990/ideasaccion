@@ -211,17 +211,17 @@ li::before {
                     <?php if($integrante->rol==1 && !$disabled){ ?>
                     
                         <?php if($video->ruta){?>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <video width="320" height="240" controls>
-                                <source src="<?= Yii::getAlias('@video').$video->ruta ?>" type="video/mp4">  
+                                <source src="<?= Yii::getAlias('@video').$video->ruta ?>" >  
                             </video>
                         </div>
                         <?php } else { ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group label-floating field-registrar-foto required" >
                                 <input style="cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video(this)"/>
                                 <img  class="" style="height: 240px;width:320px;cursor: pointer" src="../images/video.jpg">
@@ -231,43 +231,43 @@ li::before {
                     <?php } ?>
                     
                     <?php if($integrante->rol==1 && $disabled && $videoprimera){ ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <video width="320" height="240" controls>
-                                <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
+                                <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" >  
                             </video>
                         </div>
                     <?php } ?>
                     
                     <?php if($integrante->rol==2 && $disabled && !$videoprimera && !$videosegunda){ ?>
                     <?php //var_dump($videoprimera);die; ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <video width="320" height="240" controls>
-                                <source src="<?= Yii::getAlias('@video').$video->ruta ?>" type="video/mp4">  
+                                <source src="<?= Yii::getAlias('@video').$video->ruta ?>" >  
                             </video>
                         </div>
                     <?php } ?>
                     
                     <?php if($integrante->rol==2 && $disabled && $videoprimera){ ?>
                     <?php //var_dump($videoprimera);die; ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                             <video width="320" height="240" controls>
-                                <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
+                                <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" >  
                             </video>
                         </div>
                     <?php } ?>
                     
                     <?php if($integrante->rol==2 && $videosegunda){ ?>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
                            <video width="320" height="240" controls>
-                                <source src="<?= Yii::getAlias('@video').$videosegunda->ruta ?>" type="video/mp4">  
+                                <source src="<?= Yii::getAlias('@video').$videosegunda->ruta ?>" >  
                             </video> 
                         </div>
                     <?php } ?>
