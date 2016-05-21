@@ -690,8 +690,7 @@ function finalizarequipo(id) {
         error="Necesitas a un docente como integrante para finalizar el equipo";
     }
     else if (finalizarequipovalidar.responseText==4) {
-        error=  "No tienes la cantidad suficiente de integrantes para finalizar el equipo, deben ser 4 integrantes como mínimo <br>"+
-                "incluido el docente";
+        error=  "Deben ser 4 integrantes como mínimo. Adicionalmente un docente debe ser el asesor de tu equipo <br>";
     }
     
     if (error!="") {
