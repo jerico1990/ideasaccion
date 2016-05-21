@@ -276,6 +276,16 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 <!-- Open source code -->
 <?php $this->endBody() ?>
 <script>
+    $(".menu_lateral li a.sub_menu").on("click", function (e) {
+		e.preventDefault();
+		var _a  = $(this);
+		var _li = _a.parent();
+
+		_a.toggleClass("active");
+		$("ul", _li).stop(true).slideToggle();
+	});
+    
+    
   window.page = window.location.hash || "#about";
   $(document).ready(function () {
     if (window.page != "#about") {
