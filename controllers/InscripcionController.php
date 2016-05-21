@@ -200,6 +200,12 @@ class InscripcionController extends Controller
     {
         $this->layout='estandar';
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one();
+        $user=Usuario::findOne(\Yii::$app->user->id);
+        $Comprobandolider=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$user->estudiante_id])->one();
+        if(!$integrante || $Comprobandolider->rol==2)
+        {
+            $this->redirect(['panel/index']);
+        }
         $equipo=Equipo::find()->where('id=:id',[':id'=>$integrante->equipo_id])->one();
         if(!$equipo->foto)
         {
@@ -267,7 +273,7 @@ class InscripcionController extends Controller
             }
             else
             {
-                $equipo->foto="no_disponible.jpg"; 
+                $equipo->foto=""; 
             }
             
             

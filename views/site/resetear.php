@@ -82,7 +82,7 @@ $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
         }
         
         if($("#loginform-password").val()!='' && $("#loginform-password").val().length<8){
-                error=error+"La contraseña debe contener mínimo 8 caracteres <br>";
+                error=error+"Tu contraseña debe contener mínimo 8 caracteres <br>";
                 $(".field-loginform-password").addClass("has-error");
             }
             

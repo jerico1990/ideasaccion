@@ -289,19 +289,19 @@ if($equipo->id)
         var bandera=true;
         if($('#equipo-descripcion_equipo').val()=='')
         {
-            error=error+'ingrese descripcion del equipo <br>';
+            error=error+'Debes ingresar la descripción del equipo <br>';
             $('.field-equipo-descripcion_equipo').addClass('has-error');
         }
         
         if($('#equipo-descripcion').val()=='')
         {
-            error=error+'ingrese descripcion del proyecto <br>';
+            error=error+'Debes ingresar la descripción del proyecto <br>';
             $('.field-equipo-descripcion').addClass('has-error');
         }
         
         if($('#equipo-asunto_id').val()=='')
         {
-            error=error+'ingrese asunto <br>';
+            error=error+'Debes ingresar el Asunto público <br>';
             $('.field-equipo-asunto_id').addClass('has-error');
         }
         
@@ -521,7 +521,7 @@ if($equipo->id)
             elemento.prop( "checked", false );
             $.notify({
                 // options
-                message: 'No puede realizar mas invitaciones' 
+                message: 'No puedes realizar mas invitaciones' 
             },{
                 // settings
                 type: 'danger',

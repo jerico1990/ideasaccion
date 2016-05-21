@@ -92,7 +92,8 @@ $btninscribir=$integrante
     <?php } else { ?>
     <div class="box_content contenido_seccion_equipo">
         <div class="titulo_contenido_equipo">
-            <b>Has recibido invitaciones</b> para ser parte de otros equipos, revisalas y confirma tu participación.
+            <b>Has recibido invitaciones</b> para ser parte de otros equipos.<br>
+             Revísalas y confirma tu participación.
         </div>
 
         <div class="inputs_seccion_equipo">
@@ -484,15 +485,11 @@ function unirme(id) {
             }
             else
             {
-                $.ajax({
-                    url: '<?php echo $unirme ?>',
-                    type: 'GET',
-                    async: true,
-                    data: {id:id},
-                    success: function(data){
+                $.post( "<?= $unirme ?>", { id: id})
+                .done(function( data ) {
                         $.notify({
                             // options
-                            message: 'Gracias te haz unido al equipo' 
+                            message: 'Ahora eres parte del equipo '+data+'. ¡Qué excelente!' 
                         },{
                             // settings
                             type: 'success',
@@ -505,7 +502,6 @@ function unirme(id) {
                         setTimeout(function(){
                             window.location.reload(1);
                         }, 2000);
-                    }
                 });
             }
     });
@@ -519,7 +515,7 @@ function rechazar(id) {
     .done(function( data ) {
             $.notify({
                 // options
-                message: 'Haz rechazado la invitación' 
+                message: 'Has rechazado la invitación del equipo '+data+' ' 
             },{
                 // settings
                 type: 'danger',
@@ -537,13 +533,8 @@ function rechazar(id) {
 }
 
 function dejarequipo(id) {
-    
-    $.ajax({
-        url: '<?php echo $validarequipo ?>',
-        type: 'GET',
-        async: true,
-        data: {id:id},
-        success: function(data){
+    $.post( "<?= $validarequipo ?>", { id: id})
+    .done(function( data ) {
             if (data==1) {
                 $.notify({
                     // options
@@ -563,12 +554,8 @@ function dejarequipo(id) {
             }
             else if (data==2)
             {
-                $.ajax({
-                    url: '<?php echo $dejarequipo ?>',
-                    type: 'GET',
-                    async: true,
-                    data: {id:id},
-                    success: function(data){
+                $.post( "<?= $dejarequipo ?>", { id: id})
+                .done(function( data ) {
                         $.notify({
                             // options
                             message: 'Haz dejado el equipo' 
@@ -584,7 +571,6 @@ function dejarequipo(id) {
                         setTimeout(function(){
                             window.location.reload(1);
                         }, 2000);
-                    }
                 });
             }
             else if (data==3) {
@@ -604,9 +590,8 @@ function dejarequipo(id) {
                     window.location.reload(1);
                 }, 2000);
             }
-            
-        }
     });
+    
     
     
 }
@@ -635,13 +620,9 @@ function eliminarinvitado(id,equipo) {
 }
 
 function eliminarintegrante(id) {
-    $.ajax({
-        url: '<?php echo $eliminarintegrante ?>',
-        type: 'GET',
-        async: true,
-        data: {id:id},
-        success: function(data){
-            if (data==1) {
+    $.post( "<?= $eliminarintegrante ?>", { id: id })
+    .done(function( data ) {
+        if (data==1) {
                 $.notify({
                     // options
                     message: 'Haz eliminado un miembro de tu equipo' 
@@ -673,8 +654,9 @@ function eliminarintegrante(id) {
             setTimeout(function(){
                 window.location.reload(1);
             }, 2000);
-        }
     });
+    
+    
 }
 
 
@@ -745,16 +727,12 @@ function finalizarequipo(id) {
         callback: function(result) {
         
             if (result) {
-                $.ajax({
-                    url: '<?php echo $finalizarequipo ?>',
-                    type: 'GET',
-                    async: true,
-                    data: {id:id},
-                    success: function(data){
+                $.post( "<?= $finalizarequipo ?>", { id: id})
+                .done(function( data ) {
                         if (data==1) {
                             $.notify({
                                 // options
-                                message: 'Haz finalizado el registro de tu equipo' 
+                                message: 'Has finalizado el registro de tu equipo' 
                             },{
                                 // settings
                                 type: 'success',
@@ -768,7 +746,6 @@ function finalizarequipo(id) {
                         setTimeout(function(){
                             window.location.reload(1);
                         }, 2000);
-                    }
                 });
             }
         

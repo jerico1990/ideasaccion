@@ -124,69 +124,78 @@ class EquipoController extends Controller
         }
     }
     
-    public function actionUnirme($id)
+    public function actionUnirme()
     {
-        $invitacion=Invitacion::findOne($id);
-        $invitacion->estado=2;
-        $invitacion->fecha_aceptacion=date("Y-m-d H:i:s");
-        $invitacion->update();
-        
-        Invitacion::updateAll(['estado' => 0], 'estado = 1 and estudiante_invitado_id=:estudiante_invitado_id and not id=:id',
-                              [':estudiante_invitado_id'=>$invitacion->estudiante_invitado_id,':id'=>$id]);
-        
-        
-        $validarIntegrante=Integrante::find()
-                            ->where('equipo_id=:equipo_id and estudiante_id=:estudiante_id and rol=2 and estado=1',
-                                    [':equipo_id'=>$invitacion->equipo_id,':estudiante_id'=>$invitacion->estudiante_invitado_id])
-                            ->one();
-        if(!$validarIntegrante){
+        if(isset($_POST["id"]) && $_POST["id"]!="")
+        {
+            $id=$_POST["id"];
+            $invitacion=Invitacion::findOne($id);
+            $invitacion->estado=2;
+            $invitacion->fecha_aceptacion=date("Y-m-d H:i:s");
+            $invitacion->update();
+            $equipo=Equipo::find()->where('id=:id',[':id'=>$invitacion->equipo_id])->one();
+            Invitacion::updateAll(['estado' => 0], 'estado = 1 and estudiante_invitado_id=:estudiante_invitado_id and not id=:id',
+                                  [':estudiante_invitado_id'=>$invitacion->estudiante_invitado_id,':id'=>$id]);
             
-            $integrante=new Integrante;
-            $integrante->equipo_id=$invitacion->equipo_id;
-            $integrante->estudiante_id=$invitacion->estudiante_invitado_id;
-            $integrante->rol=2;
-            $integrante->estado=1;
-            $integrante->save();
+            
+            $validarIntegrante=Integrante::find()
+                                ->where('equipo_id=:equipo_id and estudiante_id=:estudiante_id and rol=2 and estado=1',
+                                        [':equipo_id'=>$invitacion->equipo_id,':estudiante_id'=>$invitacion->estudiante_invitado_id])
+                                ->one();
+            if(!$validarIntegrante){
+                
+                $integrante=new Integrante;
+                $integrante->equipo_id=$invitacion->equipo_id;
+                $integrante->estudiante_id=$invitacion->estudiante_invitado_id;
+                $integrante->rol=2;
+                $integrante->estado=1;
+                $integrante->save();
+            }
+            echo $equipo->descripcion_equipo;
         }
-        echo 1;
     }
     
     public function actionRechazar()
     {
-        if(isset($_POST["id"]))
+        if(isset($_POST["id"]) && $_POST["id"]!="")
         {
             $id=$_POST["id"];
             $invitacion=Invitacion::findOne($id);
             $invitacion->estado=0;
             $invitacion->fecha_rechazo=date("Y-m-d H:i:s");
             $invitacion->update();
-            
-            echo 1;
+            $equipo=Equipo::find()->where('id=:id',[':id'=>$invitacion->equipo_id])->one();
+            echo $equipo->descripcion_equipo;
         }
         
         
     }
     
-    public function actionDejarequipo($id)
+    public function actionDejarequipo()
     {
-        $lider=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$id])->one();
-        if($lider)
+        if(isset($_POST["id"]) && $_POST["id"]!="")
         {
-            //Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$lider->equipo_id])->one()->deleteAll();
-            Invitacion::updateAll(['estado' => 0], 'equipo_id=:equipo_id',
-                              [':equipo_id'=>$lider->equipo_id]);
-            
-            Integrante::deleteAll('equipo_id=:equipo_id',[':equipo_id'=>$lider->equipo_id]);
-            
-            Equipo::find()->where('id=:id',[':id'=>$lider->equipo_id])->one()->delete();
+            $id=$_POST["id"];
+            $lider=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$id])->one();
+            if($lider)
+            {
+                //Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$lider->equipo_id])->one()->deleteAll();
+                Invitacion::updateAll(['estado' => 0], 'equipo_id=:equipo_id',
+                                  [':equipo_id'=>$lider->equipo_id]);
+                
+                Integrante::deleteAll('equipo_id=:equipo_id',[':equipo_id'=>$lider->equipo_id]);
+                
+                Equipo::find()->where('id=:id',[':id'=>$lider->equipo_id])->one()->delete();
+            }
+            else
+            {
+                Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one()->delete();
+                Invitacion::updateAll(['estado' => 0], 'estudiante_invitado_id=:estudiante_invitado_id',
+                                  [':estudiante_invitado_id'=>$id]);
+            }
+            echo 1;
         }
-        else
-        {
-            Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one()->delete();
-            Invitacion::updateAll(['estado' => 0], 'estudiante_invitado_id=:estudiante_invitado_id',
-                              [':estudiante_invitado_id'=>$id]);
-        }
-        echo 1;
+        
     }
     public function actionValidarintegrante($id)
     {
@@ -202,8 +211,7 @@ class EquipoController extends Controller
     
     public function actionEliminarinvitado()
     {
-        //var_dump($_REQUEST);die;
-        if(isset($_POST["id"]) && isset($_POST["equipo"]))
+        if(isset($_POST["id"]) && $_POST["id"]!="" && isset($_POST["equipo"]) && $_POST["equipo"]!="")
         {
             $id=$_POST["id"];
             $equipo=$_POST["equipo"];
@@ -231,27 +239,31 @@ class EquipoController extends Controller
     }
     
     
-    public function actionEliminarintegrante($id)
+    public function actionEliminarintegrante()
     {
-        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one();
-        if($integrante)
+        if(isset($_POST["id"])  && $_POST["id"]!="")
         {
-            $integrante->delete();
-            
-            Invitacion::updateAll(['estado' => 0], 'estudiante_invitado_id=:estudiante_invitado_id and estado=2',
-                              [':estudiante_invitado_id'=>$id]);
-            echo 1;
-        }
-        else
-        {
-            echo 2;
+            $id=$_POST["id"];
+            $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one();
+            if($integrante)
+            {
+                $integrante->delete();
+                
+                Invitacion::updateAll(['estado' => 0], 'estudiante_invitado_id=:estudiante_invitado_id and estado=2',
+                                  [':estudiante_invitado_id'=>$id]);
+                echo 1;
+            }
+            else
+            {
+                echo 2;
+            }
         }
         
         
     }
     public function actionValidarunirme()
     {
-        if(isset($_POST["id"]) && $_POST["id"]!="")
+        if(isset($_POST["id"])  && $_POST["id"]!="")
         {
             $id=$_POST["id"];
             $invitacion=Invitacion::find()->where('id=:id and estado=1',[':id'=>$id])->one();
@@ -292,35 +304,45 @@ class EquipoController extends Controller
     
     public function actionFinalizarequipo($id)
     {
-        $integrantesEstudiantes=Integrante::find()
+        if(isset($_POST["id"])  && $_POST["id"]!="")
+        {
+            $id=$_POST["id"];
+            $integrantesEstudiantes=Integrante::find()
                                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                                 ->where('integrante.equipo_id=:equipo_id and estudiante.grado!=6',[':equipo_id'=>$id])->count();
-        $integrantesDocentes=Integrante::find()
-                                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
-                                ->where('integrante.equipo_id=:equipo_id and estudiante.grado=6',[':equipo_id'=>$id])->count();
-        if($integrantesEstudiantes>=4 && $integrantesDocentes==1)
-        {
-            $equipo=Equipo::findOne($id);
-            $equipo->estado=1;
-            $equipo->etapa=0;
-            $equipo->update();
-            
-            Integrante::updateAll(['estado' => 2], 'estado = 1 and equipo_id=:equipo_id',
-                              [':equipo_id'=>$id]);
-            
-            Invitacion::updateAll(['estado' => 0,'fecha_rechazo'=>date("Y-m-d H:i:s")], 'estado = 1 and equipo_id=:equipo_id',
-                              [':equipo_id'=>$id]);
-            
-            echo 1;
+            $integrantesDocentes=Integrante::find()
+                                    ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                                    ->where('integrante.equipo_id=:equipo_id and estudiante.grado=6',[':equipo_id'=>$id])->count();
+            if($integrantesEstudiantes>=4 && $integrantesDocentes==1)
+            {
+                $equipo=Equipo::findOne($id);
+                if($equipo->foto="")
+                {
+                    $equipo->foto="no_disponible.png"; 
+                }
+                
+                $equipo->estado=1;
+                $equipo->etapa=0;
+                $equipo->update();
+                
+                Integrante::updateAll(['estado' => 2], 'estado = 1 and equipo_id=:equipo_id',
+                                  [':equipo_id'=>$id]);
+                
+                Invitacion::updateAll(['estado' => 0,'fecha_rechazo'=>date("Y-m-d H:i:s")], 'estado = 1 and equipo_id=:equipo_id',
+                                  [':equipo_id'=>$id]);
+                
+                echo 1;
+            }
+            elseif($integrantesEstudiantes<4)
+            {
+                echo 2; 
+            }
+            elseif($integrantesDocentes<1)
+            {
+                echo 3; 
+            }
         }
-        elseif($integrantesEstudiantes<4)
-        {
-            echo 2; 
-        }
-        elseif($integrantesDocentes<1)
-        {
-            echo 3; 
-        }
+        
     }
     
     public function actionFinalizarequipovalidar($id)

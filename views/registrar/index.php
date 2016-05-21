@@ -440,7 +440,7 @@ use yii\widgets\Pjax;
         var conerror=0;
         
         if ($('#registrar-nombres').val()=='') {
-            error=error+'Debes ingresar tu nombre completo <br>';
+            error=error+'Debes ingresar tú nombre completo <br>';
             $('.field-registrar-nombres').addClass('has-error');
             conerror=conerror+1;
         }
@@ -451,7 +451,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-apellido_paterno').val()=='') {
-            error=error+'Debes ingresar tu apellido paterno <br>';
+            error=error+'Debes ingresar tú apellido paterno <br>';
             $('.field-registrar-apellido_paterno').addClass('has-error');
             conerror=conerror+1;
         }
@@ -462,7 +462,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-apellido_materno').val()=='') {
-            error=error+'Debes ingresar tu apellido materno <br>';
+            error=error+'Debes ingresar tú apellido materno <br>';
             $('.field-registrar-apellido_materno').addClass('has-error');
             conerror=conerror+1;
         }
@@ -473,7 +473,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-sexo').val()=='') {
-            error=error+'Debes ingresar tu sexo <br>';
+            error=error+'Debes ingresar tú sexo <br>';
             $('.field-registrar-sexo').addClass('has-error');
             conerror=conerror+1;
         }
@@ -484,7 +484,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-dni').val()=='') {
-            error=error+'Debes ingresar tu DNI <br>';
+            error=error+'Debes ingresar tú DNI <br>';
             $('.field-registrar-dni').addClass('has-error');
             conerror=conerror+1;
         }
@@ -495,7 +495,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-fecha_nac').val()=='') {
-            error=error+'Debes ingresar tu fecha de nacimiento <br>';
+            error=error+'Debes ingresar tú fecha de nacimiento <br>';
             $('.field-registrar-fecha_nac').addClass('has-error');
             conerror=conerror+1;
         }
@@ -506,7 +506,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-email').val()=='') {
-            error=error+'Debes ingresar tu dirección de correo <br>';
+            error=error+'Debes ingresar tú dirección de correo <br>';
             $('.field-registrar-email').addClass('has-error');
             conerror=conerror+1;
         }
@@ -524,7 +524,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-celular').val()=='') {
-            error=error+'Debes ingresar tu celular<br>';
+            error=error+'Debes ingresar tú celular<br>';
             $('.field-registrar-celular').addClass('has-error');
             conerror=conerror+1;
         }
@@ -536,7 +536,7 @@ use yii\widgets\Pjax;
         
         
         if ($('#registrar-password').val()=='') {
-            error=error+'Debes ingresar tu contraseña <br>';
+            error=error+'Debes ingresar tú contraseña <br>';
             $('.field-registrar-password').addClass('has-error');
             conerror=conerror+1;
         }
@@ -547,7 +547,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-repassword').val()=='') {
-            error=error+'Debes repetir tu contraseña <br>';
+            error=error+'Debes repetir tú contraseña <br>';
             $('.field-registrar-repassword').addClass('has-error');
             conerror=conerror+1;
         }
@@ -558,7 +558,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-departamento').val()=='') {
-            error=error+'Debes ingresar tu departamento <br>';
+            error=error+'Debes ingresar tú departamento <br>';
             $('.field-registrar-departamento').addClass('has-error');
             conerror=conerror+1;
         }
@@ -569,7 +569,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-provincia').val()=='') {
-            error=error+'Debes ingresar tu provincia <br>';
+            error=error+'Debes ingresar tú provincia <br>';
             $('.field-registrar-provincia').addClass('has-error');
             conerror=conerror+1;
         }
@@ -580,7 +580,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-distrito').val()=='') {
-            error=error+'Debes ingresar tu distrito <br>';
+            error=error+'Debes ingresar tú distrito <br>';
             $('.field-registrar-distrito').addClass('has-error');
             conerror=conerror+1;
         }
@@ -591,7 +591,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-institucion').val()=='') {
-            error=error+'Debes ingresar tu institución <br>';
+            error=error+'Debes ingresar tú institución <br>';
             $('.field-registrar-institucion').addClass('has-error');
             conerror=conerror+1;
         }
@@ -602,7 +602,7 @@ use yii\widgets\Pjax;
         }
         
         if ($('#registrar-grado').val()=='') {
-            error=error+'Debes ingresar tu grado <br>';
+            error=error+'Debes ingresar tú grado <br>';
             $('.field-registrar-grado').addClass('has-error');
             conerror=conerror+1;
         }
