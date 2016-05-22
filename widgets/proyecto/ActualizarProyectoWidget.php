@@ -173,7 +173,7 @@ class ActualizarProyectoWidget extends Widget
             }
             
             
-            if($proyecto->objetivo_especifico_1!=='')
+            if(trim($proyecto->objetivo_especifico_1)!='')
             {
                 if(isset($proyecto->objetivo_especifico_1_id))
                 {
@@ -185,14 +185,13 @@ class ActualizarProyectoWidget extends Widget
                 
                 for($i=0;$i<$countActividades1;$i++)
                 {
-                    if(isset($proyecto->actividades_ids_1[$i]))
+                    if(isset($proyecto->actividades_ids_1[$i]) && trim($proyecto->actividades_1[$i]))
                     {
                         $actividad=Actividad::find()->where('id=:id',[':id'=>$proyecto->actividades_ids_1[$i]])->one();
-                        //var_dump($actividad);die;
                         $actividad->descripcion=$proyecto->actividades_1[$i];
                         $actividad->update();
                     }
-                    else
+                    elseif(trim($proyecto->actividades_1[$i]))
                     {
                         $actividad=new Actividad;
                         $actividad->objetivo_especifico_id=$objetivoespecifico1->id;
@@ -204,7 +203,7 @@ class ActualizarProyectoWidget extends Widget
                 }
             }
             
-            if($proyecto->objetivo_especifico_2!=='')
+            if(trim($proyecto->objetivo_especifico_2)!='')
             {
                 if(isset($proyecto->objetivo_especifico_2_id))
                 {
@@ -216,13 +215,13 @@ class ActualizarProyectoWidget extends Widget
                 
                 for($i=0;$i<$countActividades2;$i++)
                 {
-                    if(isset($proyecto->actividades_ids_2[$i]))
+                    if(isset($proyecto->actividades_ids_2[$i]) && trim($proyecto->actividades_2[$i]))
                     {
                         $actividad=Actividad::find()->where('id=:id',[':id'=>$proyecto->actividades_ids_2[$i]])->one();
                         $actividad->descripcion=$proyecto->actividades_2[$i];
                         $actividad->update();
                     }
-                    else
+                    elseif(trim($proyecto->actividades_2[$i]))
                     {
                         $actividad=new Actividad;
                         $actividad->objetivo_especifico_id=$objetivoespecifico2->id;
@@ -233,7 +232,7 @@ class ActualizarProyectoWidget extends Widget
                 }
             }
             
-            if($proyecto->objetivo_especifico_3!=='')
+            if(trim($proyecto->objetivo_especifico_3)!='')
             {
                 $objetivoespecifico3=ObjetivoEspecifico::find()->where('id=:id',[':id'=>$proyecto->objetivo_especifico_3_id])->one();
                 if(isset($proyecto->objetivo_especifico_3_id) && $objetivoespecifico3)
@@ -252,13 +251,13 @@ class ActualizarProyectoWidget extends Widget
                 
                 for($i=0;$i<$countActividades3;$i++)
                 {
-                    if(isset($proyecto->actividades_ids_3[$i]))
+                    if(isset($proyecto->actividades_ids_3[$i]) && trim($proyecto->actividades_3[$i]))
                     {
                         $actividad=Actividad::find()->where('id=:id',[':id'=>$proyecto->actividades_ids_3[$i]])->one();
                         $actividad->descripcion=$proyecto->actividades_3[$i];
                         $actividad->update();
                     }
-                    else
+                    elseif(trim($proyecto->actividades_3[$i]))
                     {
                         
                         $actividad=new Actividad;

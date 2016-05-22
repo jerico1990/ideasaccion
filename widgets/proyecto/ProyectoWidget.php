@@ -56,7 +56,7 @@ class ProyectoWidget extends Widget
             }
             
             
-            if($proyecto->objetivo_especifico_1!=='')
+            if(trim($proyecto->objetivo_especifico_1)!='')
             {
                 $objetivoespecifico1=new ObjetivoEspecifico;
                 $objetivoespecifico1->proyecto_id=$proyecto->id;
@@ -65,15 +65,19 @@ class ProyectoWidget extends Widget
                 
                 for($i=0;$i<$countActividades1;$i++)
                 {
-                    $actividad=new Actividad;
-                    $actividad->objetivo_especifico_id=$objetivoespecifico1->id;
-                    $actividad->descripcion=$proyecto->actividades_1[$i];
-                    $actividad->estado=1;
-                    $actividad->save();
+                    if(trim($proyecto->actividades_1[$i]))
+                    {
+                        $actividad=new Actividad;
+                        $actividad->objetivo_especifico_id=$objetivoespecifico1->id;
+                        $actividad->descripcion=$proyecto->actividades_1[$i];
+                        $actividad->estado=1;
+                        $actividad->save();
+                    }
+                    
                 }
             }
             
-            if($proyecto->objetivo_especifico_2!=='')
+            if(trim($proyecto->objetivo_especifico_2)!='')
             {
                 $objetivoespecifico2=new ObjetivoEspecifico;
                 $objetivoespecifico2->proyecto_id=$proyecto->id;
@@ -82,11 +86,14 @@ class ProyectoWidget extends Widget
                 
                 for($i=0;$i<$countActividades2;$i++)
                 {
-                    $actividad=new Actividad;
-                    $actividad->objetivo_especifico_id=$objetivoespecifico2->id;
-                    $actividad->descripcion=$proyecto->actividades_2[$i];
-                    $actividad->estado=1;
-                    $actividad->save();
+                    if(trim($proyecto->actividades_2[$i]))
+                    {
+                        $actividad=new Actividad;
+                        $actividad->objetivo_especifico_id=$objetivoespecifico2->id;
+                        $actividad->descripcion=$proyecto->actividades_2[$i];
+                        $actividad->estado=1;
+                        $actividad->save();
+                    }
                 }
             }
             
@@ -99,11 +106,15 @@ class ProyectoWidget extends Widget
                 
                 for($i=0;$i<$countActividades3;$i++)
                 {
-                    $actividad=new Actividad;
-                    $actividad->objetivo_especifico_id=$objetivoespecifico3->id;
-                    $actividad->descripcion=$proyecto->actividades_3[$i];
-                    $actividad->estado=1;
-                    $actividad->save();
+                    if(trim($proyecto->actividades_3[$i]))
+                    {
+                        $actividad=new Actividad;
+                        $actividad->objetivo_especifico_id=$objetivoespecifico3->id;
+                        $actividad->descripcion=$proyecto->actividades_3[$i];
+                        $actividad->estado=1;
+                        $actividad->save();
+                    }
+                    
                 }
             }
             

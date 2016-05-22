@@ -87,15 +87,15 @@ li::before {
                         <div class="clearfix"></div>    
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-resumen required">
-                                <label class="control-label" for="proyecto-resumen" title="Mínimo 100 palabras">Sumilla / Justificación</label>
-                                <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" rows="3" minlength="100" maxlength="2500" title="Mínimo 100 palabras" <?= $disabled ?> required ><?= $proyecto->resumen ?></textarea>
+                                <label class="control-label" for="proyecto-resumen" >Sumilla / Justificación</label>
+                                <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" rows="3" minlength="100" maxlength="2500"  <?= $disabled ?> required ><?= $proyecto->resumen ?></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-beneficiario required">
                                 <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
-                                <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" rows="3"   <?= $disabled ?> required ><?= $proyecto->beneficiario ?></textarea>
+                                <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" rows="3" maxlength="2500"  <?= $disabled ?> required ><?= $proyecto->beneficiario ?></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -415,7 +415,7 @@ li::before {
         /*planpresupeutal ini*/
         for (var i=0; i<planespresupuestalesrecursosdescripciones; i++) {
 	    console.log(planespresupuestalesrecursosdescripciones);
-	    if($('#proyecto-plan_presupuestal_recurso_descripcion_'+i).val()=='')
+	    if(jQuery.trim($('#proyecto-plan_presupuestal_recurso_descripcion_'+i).val())=='')
             {
                 error=error+'ingrese información en la fila #'+(i+1)+' de la columna recurso dscripción <br>';
                 $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).addClass('has-error');
@@ -426,7 +426,7 @@ li::before {
                 $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).removeClass('has-error');
             }
 	    
-	    if($('#proyecto-plan_presupuestal_unidad_'+i).val()=='')
+	    if(jQuery.trim($('#proyecto-plan_presupuestal_unidad_'+i).val())=='')
             {
                 error=error+'ingrese información en la fila #'+(i+1)+' de la columna unidad <br>';
                 $('.field-proyecto-plan_presupuestal_unidad_'+i).addClass('has-error');
@@ -437,7 +437,7 @@ li::before {
                 $('.field-proyecto-plan_presupuestal_unidad_'+i).removeClass('has-error');
             }
 	    
-	    if($('#proyecto-plan_presupuestal_dirigido_'+i).val()=='')
+	    if(jQuery.trim($('#proyecto-plan_presupuestal_dirigido_'+i).val())=='')
             {
                 error=error+'ingrese información en la fila #'+(i+1)+' de la columna a quien va dirigido <br>';
                 $('.field-proyecto-plan_presupuestal_dirigido_'+i).addClass('has-error');
@@ -472,9 +472,9 @@ li::before {
         /*planpresupuestal fin*/
         
         
-        if($('#proyecto-titulo').val()=='')
+        if(jQuery.trim($('#proyecto-titulo').val())=='')
         {
-            error=error+'ingrese titulo del proyecto <br>';
+            error=error+'Ingrese titulo del proyecto <br>';
             $('.field-proyecto-titulo').addClass('has-error');
         }
         else
@@ -483,7 +483,7 @@ li::before {
             $('.field-proyecto-titulo').removeClass('has-error');
         }
         
-        if($('#proyecto-resumen').val()=='')
+        if(jQuery.trim($('#proyecto-resumen').val())=='')
         {
             error=error+'ingrese resumen del proyecto <br>';
             $('.field-proyecto-resumen').addClass('has-error');
@@ -494,7 +494,7 @@ li::before {
             $('.field-proyecto-resumen').removeClass('has-error');
         }
         
-        if($('#proyecto-beneficiario').val()=='')
+        if(jQuery.trim($('#proyecto-beneficiario').val())=='')
         {
             error=error+'ingrese beneficiarios del proyecto <br>';
             $('.field-proyecto-beneficiario').addClass('has-error');
@@ -577,7 +577,7 @@ li::before {
     $('#btnproyectoreflexion').click(function(events){
         var error='';
         
-        if($.trim($('#proyecto-reflexion').val())=='')
+        if(jQuery.trim($('#proyecto-reflexion').val())=='')
         {
             error=error+'ingrese una reflexión del proyecto <br>';
             $('.field-proyecto-reflexion').addClass('has-error');
@@ -926,7 +926,7 @@ li::before {
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>"+temp_objetivo_especifico+"</b> <button type='button' onclick='Editar("+oe+")'>editar</button></li>"+
+                            "<li><b>"+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
                             "<ul>"+bodyactividades+"</ul>"+
                     "</div>";
@@ -951,7 +951,6 @@ li::before {
                                                     "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+a+"' name='Proyecto[temp_actividades_copia][]' class='form-control' value='"+$(this).val()+"'>"+
                                                 "</div>"+
                                             "</div>";
-            console.log(a );
             a++;
         });
         
@@ -986,7 +985,7 @@ li::before {
         var error='';
         var temp_objetivo_especifico=$("#proyecto-temp_objetivo_especifico_"+identificador+"").val();
         var temp_actividades=$('input[name=\'Proyecto[temp_actividades_copia][]\']').length;
-        console.log(temp_actividades);
+        
         var bodyactividades="";
         if(jQuery.trim(temp_objetivo_especifico)=='')
         {
@@ -1070,14 +1069,14 @@ li::before {
             bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>"+
                                               input;
                                             /*"<input id='proyecto-actividades_ids_"+oe+"_"+acti+"' type='hidden' name='Proyecto[actividades_ids][]'  value='"+$('#proyecto-actividades_ids_'+oe+'_'+acti+'').val()+"' />";*/
-            console.log( $( this ).val() );
+            
             acti++;
         });
         
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>"+temp_objetivo_especifico+"</b> <button type='button' onclick='Editar("+oe+")'>editar</button></li>"+
+                            "<li><b>"+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span> </li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
                             "<ul>"+bodyactividades+"</ul>"+
                     "</div>";
@@ -1095,7 +1094,7 @@ li::before {
         var error='';
         //var temp_actividad=$("proyecto-temp_actividad_"+(actividad-1)).val();
         var temp_actividades=$('input[name=\'Proyecto[temp_actividades_copia][]\']').length;
-        console.log(temp_actividades);
+        
         for (var i=1; i<=temp_actividades; i++) {
             if(jQuery.trim($('#proyecto-temp_actividad_'+i).val())=='')
             {

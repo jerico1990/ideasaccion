@@ -524,18 +524,6 @@ $this->title="Ideas en acción";
             $('.field-registrar-email').addClass('has-error');
             conerror=conerror+1;
         }
-        /*
-        if ($('#registrar-celular').val()=='') {
-            error=error+'Debes ingresar tú celular<br>';
-            $('.field-registrar-celular').addClass('has-error');
-            conerror=conerror+1;
-        }
-        else
-        {
-            $('.field-registrar-celular').addClass('has-success');
-            $('.field-registrar-celular').removeClass('has-error');
-        }
-        */
         
         if ($('#registrar-password').val()=='') {
             error=error+'Debes ingresar tú contraseña <br>';

@@ -57,15 +57,15 @@ use yii\web\JsExpression;
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-resumen required" style="margin-top: 15px">
-                                <label class="control-label" for="proyecto-resumen" title="Mínimo 500 palabras">Sumilla / Justificación</label>
-                                <textarea rows="3" id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" maxlength="2500" title="Mínimo 500 palabras"></textarea>
+                                <label class="control-label" for="proyecto-resumen" >Sumilla / Justificación</label>
+                                <textarea rows="3" id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" minlength="100" maxlength="2500" ></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-beneficiario required" style="margin-top: 15px">
                                 <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
-                                <textarea rows="3" id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" ></textarea>
+                                <textarea rows="3" id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" maxlength="2500"></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>

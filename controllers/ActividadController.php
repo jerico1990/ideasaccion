@@ -150,11 +150,16 @@ class ActividadController extends Controller
         $planpresupuestal->update();
     }
     
-    public function actionEliminarcronograma($id)
+    public function actionEliminarcronograma()
     {
-        $cronograma=Cronograma::findOne($id);
-        $cronograma->estado=0;
-        $cronograma->update();
+        if(isset($_POST["id"]))
+        {
+            $id=$_POST["id"];
+            $cronograma=Cronograma::findOne($id);
+            $cronograma->estado=0;
+            $cronograma->update();
+        }
+        
     }
     
     public function actionValidaractividad($id)

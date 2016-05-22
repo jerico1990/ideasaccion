@@ -113,15 +113,11 @@ foreach($objetivos as $objetivo){
 	    if (r == true) {
 		
 		if (id) {
-		    $.ajax({
-			url: '<?= $eliminarcronograma ?>',
-			type: 'GET',
-			async: true,
-			data: {id:id},
-			success: function(data){
-			    
-			}
+		    $.post( "<?= $eliminarcronograma ?>", { id: id})
+		    .done(function( data ) {
+			
 		    });
+		
 		    $(this).parent().parent().remove();	
 		}
 		else
