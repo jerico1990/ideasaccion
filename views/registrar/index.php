@@ -683,7 +683,11 @@ $this->title="Ideas en acción";
             });
             return false;
         }
-        return true;
+        else
+        {
+           return true; 
+        }
+        
     });
     
     

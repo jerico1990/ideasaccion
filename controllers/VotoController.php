@@ -33,6 +33,7 @@ class VotoController extends Controller
      * Lists all Voto models.
      * @return mixed
      */
+    /*
     public function actionIndex()
     {
         $searchModel = new VotoSearch();
@@ -51,6 +52,7 @@ class VotoController extends Controller
      * @param integer $participante_id
      * @return mixed
      */
+    /*
     public function actionView($asunto_id, $region_id, $participante_id)
     {
         return $this->render('view', [
@@ -63,6 +65,7 @@ class VotoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    /*
     public function actionCreate()
     {
         $model = new Voto();
@@ -84,6 +87,7 @@ class VotoController extends Controller
      * @param integer $participante_id
      * @return mixed
      */
+    /*
     public function actionUpdate($asunto_id, $region_id, $participante_id)
     {
         $model = $this->findModel($asunto_id, $region_id, $participante_id);
@@ -105,6 +109,7 @@ class VotoController extends Controller
      * @param integer $participante_id
      * @return mixed
      */
+    /*
     public function actionDelete($asunto_id, $region_id, $participante_id)
     {
         $this->findModel($asunto_id, $region_id, $participante_id)->delete();

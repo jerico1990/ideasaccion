@@ -20,10 +20,8 @@ class ReporteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => [],
                 'rules' => [
                     [
-                        'actions' => [],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

@@ -13,6 +13,7 @@ use app\models\ObjetivoEspecifico;
 use app\models\Proyecto;
 use app\models\Usuario;
 use app\models\Integrante;
+use yii\filters\AccessControl;
 /**
  * CronogramaController implements the CRUD actions for Cronograma model.
  */
@@ -23,6 +24,15 @@ class CronogramaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

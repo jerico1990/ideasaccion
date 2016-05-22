@@ -34,10 +34,8 @@ class ProyectoController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','actualizar','buscar'],
                 'rules' => [
                     [
-                        'actions' => ['index','actualizar','buscar'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

@@ -25,7 +25,7 @@ use app\models\VotacionInterna;
 use app\models\VotacionPublica;
 use app\models\Proyecto;
 use app\models\ForoComentario;
-
+use yii\filters\AccessControl;
 
 
 
@@ -39,17 +39,10 @@ class PanelController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','acciones'],
                 'rules' => [
                     [
-                        'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['acciones'],
-                        'allow' => true,
-                        'roles' => ['administrador'],
                     ],
                 ],
             ],
