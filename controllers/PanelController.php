@@ -25,7 +25,6 @@ use app\models\VotacionInterna;
 use app\models\VotacionPublica;
 use app\models\Proyecto;
 use app\models\ForoComentario;
-use yii\filters\AccessControl;
 
 
 
