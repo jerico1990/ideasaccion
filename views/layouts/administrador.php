@@ -158,6 +158,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                             <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
                                             <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
                                             <li><?= Html::a("Reportes de estudiantes ",['reporte/registrados'],[]);?></li>
+                                            <li><?= Html::a("Reportes de estudiantes detalles",['reporte/registrados-detalles'],[]);?></li>
                                         </ul>
                                     </li>
                                     <!--Fin Reportes-->

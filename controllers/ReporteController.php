@@ -142,6 +142,37 @@ class ReporteController extends Controller
     
     public function actionRegistradosDetalles()
     {
+        $this->layout='administrador';
         
+        $sort = new Sort([
+            'attributes' => [
+                /*'department' => [
+                    'label' => 'Región',
+                ],
+                'total_estudiantes' => [
+                    'label' => 'Total',
+                ],
+                'estudiantes_finalizaron_equipo' => [
+                    'label' => 'Finalizaron equipos',
+                ],
+                'estudiantes_aceptaron_invitacion' => [
+                    'label' => 'Falta finalizar equipo',
+                ],
+                'estudiantes_invitaciones_pendientes' => [
+                    'label' => 'Invitaciones pendientes',
+                ],
+                'estudiantes_huerfanos' => [
+                    'label' => 'Sin equipo',
+                ],*/
+                
+            ],
+        ]);
+        
+        $model = new Estudiante();
+        $model->load(Yii::$app->request->queryParams);
+        return $this->render('registrados-detalles', [
+            'model' => $model,
+            'sort' => $sort,
+        ]);
     }
 }

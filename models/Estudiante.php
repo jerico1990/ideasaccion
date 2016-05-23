@@ -31,6 +31,8 @@ class Estudiante extends \yii\db\ActiveRecord
      */
     
     public $total_estudiantes;
+    public $region_id;
+    public $estado;
     public static function tableName()
     {
         return 'estudiante';
@@ -43,9 +45,9 @@ class Estudiante extends \yii\db\ActiveRecord
     {
         return [
             //[['id'], 'required'],
-            [['id', 'institucion_id', 'grado'], 'integer'],
+            [['id', 'institucion_id', 'grado','estado'], 'integer'],
             [['fecha_nac'], 'safe'],
-            [['nombres','apellido_paterno','apellido_materno'], 'string', 'max' => 250],
+            [['nombres','apellido_paterno','apellido_materno','region_id'], 'string', 'max' => 250],
             [['sexo'], 'string', 'max' => 10],
             [['dni'], 'string', 'max' => 8],
             [['email'], 'string', 'max' => 150],
@@ -168,6 +170,90 @@ class Estudiante extends \yii\db\ActiveRecord
             ->orderBy($sort);
             
         $result = Yii::$app->tools->Pagination($query,27);
+        
+        return ['registrados' => $result['result'], 'pages' => $result['pages']];
+    }
+    
+    
+    public function getRegistradosDetalles($region,$estado,$sort)
+    {
+        
+        $query = new Query;
+        /*$query
+            ->select(['distinct department,
+                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id where U.department_id=ubigeo.department_id GROUP BY U.department) as total_estudiantes,
+                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id 
+                            INNER JOIN integrante n ON E.id = n.estudiante_id INNER JOIN equipo eq ON n.equipo_id = eq.id WHERE eq.estado = 1 and U.department_id=ubigeo.department_id GROUP BY U.department) as estudiantes_finalizaron_equipo,
+                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id 
+                            INNER JOIN integrante n ON E.id = n.estudiante_id INNER JOIN equipo eq ON n.equipo_id = eq.id WHERE eq.estado = 0 and U.department_id=ubigeo.department_id GROUP BY U.department) as estudiantes_aceptaron_invitacion,
+                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id 
+                            INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id  INNER JOIN invitacion inv ON inv.estudiante_invitado_id = E.id WHERE inv.estado = 1 and U.department_id=ubigeo.department_id GROUP BY U.department) as estudiantes_invitaciones_pendientes,
+                        
+                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id 
+                            INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id WHERE E.id NOT IN (SELECT estudiante_id FROM integrante UNION ALL SELECT estudiante_invitado_id FROM invitacion WHERE estado = 1) and U.department_id=ubigeo.department_id GROUP BY U.department) as estudiantes_huerfanos
+                        
+                '])
+            ->from('{{%ubigeo}}')
+            ->where('department_id=:department_id',[':department_id'=>$region])
+            ->orderBy($sort);*/
+        if($estado==1)
+        {
+            $query
+            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->from('{{%estudiante}}')
+            ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
+            ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
+            ->innerJoin('integrante','estudiante.id = integrante.estudiante_id')
+            ->innerJoin('equipo','integrante.equipo_id = equipo.id')
+            ->where('equipo.estado = 1 and ubigeo.department_id=:department_id',[':department_id'=>$region])
+            ->orderBy($sort);
+        }
+        elseif($estado==2)
+        {
+            $query
+            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->from('{{%estudiante}}')
+            ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
+            ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
+            ->innerJoin('integrante','estudiante.id = integrante.estudiante_id')
+            ->innerJoin('equipo','integrante.equipo_id = equipo.id')
+            ->where('equipo.estado = 0 and ubigeo.department_id=:department_id',[':department_id'=>$region])
+            ->orderBy($sort);
+        }
+        elseif($estado==3)
+        {
+            $query
+            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->from('{{%estudiante}}')
+            ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
+            ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
+            ->innerJoin('invitacion','invitacion.estudiante_invitado_id = estudiante.id')
+            ->where('invitacion.estado = 1 and ubigeo.department_id=:department_id',[':department_id'=>$region])
+            ->orderBy($sort);
+        }
+        elseif($estado==4)
+        {
+            $query
+            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->from('{{%estudiante}}')
+            ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
+            ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
+            ->where('estudiante.id NOT IN (SELECT estudiante_id FROM integrante UNION ALL SELECT estudiante_invitado_id FROM invitacion WHERE estado = 1) and ubigeo.department_id=:department_id',[':department_id'=>$region])
+            ->orderBy($sort);
+        }
+        else
+        {
+            $query
+            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->from('{{%estudiante}}')
+            ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
+            ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
+            ->orderBy($sort)
+            ->limit(10);
+        }
+        
+        
+        $result = Yii::$app->tools->Pagination($query);
         
         return ['registrados' => $result['result'], 'pages' => $result['pages']];
     }
