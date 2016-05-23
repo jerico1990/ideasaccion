@@ -25,6 +25,13 @@ class Ubigeo extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    
+    public $total_estudiantes;
+    public $estudiantes_finalizaron_equipo;
+    public $estudiantes_aceptaron_invitacion;
+    public $estudiantes_invitaciones_pendientes;
+    public $estudiantes_huerfanos;
+    
     public static function tableName()
     {
         return 'ubigeo';
@@ -37,7 +44,7 @@ class Ubigeo extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'department_id', 'district_id'], 'required'],
-            [['id'], 'integer'],
+            [['id','total_estudiantes'], 'integer'],
             [['latitude', 'longitud'], 'number'],
             [['department_id'], 'string', 'max' => 2],
             [['province_id', 'pais_id'], 'string', 'max' => 4],

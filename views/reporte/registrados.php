@@ -1,5 +1,5 @@
 <?php 
-$votos = $model->getRegistrados($sort->orders);
+$registrados = $model->getRegistrados($sort->orders);
 
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
@@ -9,64 +9,44 @@ use app\models\Ubigeo;
 
 $floor = 1;
 if (isset($_GET['page']) >= 2)
-    $floor += ($votos['pages']->pageSize * $_GET['page']) - $votos['pages']->pageSize;
+    $floor += ($registrados['pages']->pageSize * $_GET['page']) - $registrados['pages']->pageSize;
 
 ?>
 <div class="box_head title_content_box">
     <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_team_big.jpg" alt=""> Reporte 
 </div>
-<div ng-app="ideasaccion" class="box_content contenido_seccion_crear_equipo">
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
-        <div class="md-col-6">
-            <div class="form-group label-floating field-voto-region required">
-                <select id="voto-region_id" class="form-control" name="Voto[region_id]" onchange="Region(event)">
-                    <option value>Selecciona tu región</option>
-                    <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
-                        <option value="<?= $departamento->department_id ?>" <?= ($model->region_id==$departamento->department_id)?'selected':'' ?>  ><?= $departamento->department ?></option>
-                    <?php } ?>
-                </select>
-            </div>
-        </div>
-    <?php ActiveForm::end(); ?>
+<div class="box_content contenido_seccion_crear_equipo">
+    
     
     
     <table class="table">
         <thead style="background: #D9D9D9">
-            <th><b><?= $sort->link('descripcion_cabecera')?></b></th>
-            <th align="center"><b><?= $sort->link('voto_emitido')?></b></th>
+            <th><b><?= $sort->link('department')?></b></th>
+            <th><b>Total</b></th>
+            <th><b>Finalizaron equipos</b></th>
+            <th><b>Falta finalizar equipo</b></th>
+            <th><b>Invitaciones pendientes</b></th>
+            <th><b>Sin equipo</b></th>
         </thead>
         <tbody>
-        <?php foreach($votos['votos'] as $voto):
+        <?php foreach($registrados['registrados'] as $registrado):
             $floor_number=$floor++; //?????
             ?>
             <tr>
-                <td><?= $voto['descripcion_cabecera'] ?></td>
-                <td align="center"><?= $voto['voto_emitido'] ?></td>
+                <td><?= $registrado['department'] ?></td>
+                <td><?= $registrado['total_estudiantes'] ?></td>
+                <td><?= $registrado['estudiantes_finalizaron_equipo'] ?></td>
+                <td><?= $registrado['estudiantes_aceptaron_invitacion'] ?></td>
+                <td><?= $registrado['estudiantes_invitaciones_pendientes'] ?></td>
+                <td><?= $registrado['estudiantes_huerfanos'] ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>    
-        <?= LinkPager::widget([
-            'pagination' => $votos['pages'],
-            'lastPageLabel' => true,
-            'firstPageLabel' => true
-        ]);?>
+       
         
-        <div class='clearfix'></div>
-            <div class="form-group pull-rigth col-md-4" >
-            <?= Html::a('Descargar',['reporte/index_descargar','region'=>$model->region_id],['class'=>' btn btn-default']);?>
-            </div>
         <div class='clearfix'></div>
         
         
     
 </div>
-<script>
-    function Region(event) {
-        event.preventDefault();
-        $( "#w0" ).submit();
-    }
-</script>

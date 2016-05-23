@@ -109,12 +109,24 @@ class ReporteController extends Controller
         
         $sort = new Sort([
             'attributes' => [
-                /*'voto_emitido' => [
-                    'label' => 'Votos emitidos',
-                ],
-                'region_id' => [
+                'department' => [
                     'label' => 'Región',
-                ],*/
+                ],
+                'total_estudiantes' => [
+                    'label' => 'Total',
+                ],
+                'estudiantes_finalizaron_equipo' => [
+                    'label' => 'Finalizaron equipos',
+                ],
+                'estudiantes_aceptaron_invitacion' => [
+                    'label' => 'Falta finalizar equipo',
+                ],
+                'estudiantes_invitaciones_pendientes' => [
+                    'label' => 'Invitaciones pendientes',
+                ],
+                'estudiantes_huerfanos' => [
+                    'label' => 'Sin equipo',
+                ],
                 
             ],
         ]);
