@@ -143,4 +143,17 @@ class Estudiante extends \yii\db\ActiveRecord
         
         return $descripcion;
     }
+    
+    public function getRegistrados($sort)
+    {
+        $query = new Query;
+        $query->select('(select department from ubigeo where department_id=v.region_id group by department) region_id, count(v.asunto_id) voto_emitido')
+            ->from('{{%voto}} as v')
+            ->groupBy('region_id')
+            ->orderBy($sort);
+            
+        $result = Yii::$app->tools->Pagination($query,27);
+        
+        return ['regiones' => $result['result'], 'pages' => $result['pages']];
+    }
 }

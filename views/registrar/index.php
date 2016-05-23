@@ -690,19 +690,19 @@ $this->title="Ideas en acción";
     }
     
     function distrito(value) {
-        $.post( "<?= $instituciones ?>?distrito="+value, function( data ) {
+        $.get( "<?= $instituciones ?>?distrito="+value, function( data ) {
             $( "#registrar-institucion" ).html( data );
         });
     }
     
     function provincia(value) {
-        $.post( "<?= $distritos ?>?provincia="+value, function( data ) {$( "#registrar-distrito" ).html( data );});
+        $.get( "<?= $distritos ?>?provincia="+value, function( data ) {$( "#registrar-distrito" ).html( data );});
         $("#registrar-distrito").find("option").remove().end().append("<option value></option>").val("");
         $("#registrar-institucion").find("option").remove().end().append("<option value></option>").val("");
     }
     
     function departamento(value) {
-        $.post( "<?= $provincias ?>?departamento="+value, function( data ) {$( "#registrar-provincia" ).html( data );});
+        $.get( "<?= $provincias ?>?departamento="+value, function( data ) {$( "#registrar-provincia" ).html( data );});
         $("#registrar-provincia").find("option").remove().end().append("<option value></option>").val("");
         $("#registrar-distrito").find("option").remove().end().append("<option value></option>").val("");
         $("#registrar-institucion").find("option").remove().end().append("<option value></option>").val("");
