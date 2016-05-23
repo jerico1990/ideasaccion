@@ -62,6 +62,13 @@ class ForoController extends Controller
         $this->layout='estandar';
         $newComentario = new ForoComentario();
         $model=$this->findModel($id);
+        /*$foro=Foro::find()->where('id=:id and id<=34',[':id'=>$model->id])->one();
+        if($foro)
+        {
+            
+        }*/
+        
+        
         if ($newComentario->load(Yii::$app->request->post())) {
             $newComentario->foro_id = $model->id;
             if ($newComentario->save()){

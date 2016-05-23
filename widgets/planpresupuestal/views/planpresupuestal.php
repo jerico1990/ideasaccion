@@ -291,7 +291,7 @@ foreach($objetivos as $objetivo){
 	key = String.fromCharCode( key );
 	var regex = /[0-9]|\./;
 	if( !regex.test(key) ) {
-	  theEvent.returnValue = false;
+	  theEvent.returnValue = 'S/.0.00';
 	  if(theEvent.preventDefault) theEvent.preventDefault();
 	}
     }
@@ -302,56 +302,78 @@ foreach($objetivos as $objetivo){
     
     
     function Subtotal11(id,tipo) {
-	$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("");
-	$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("S/."+$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val());
+	
+	//if (jQuery.trim($('#proyecto-plan_presupuestal_precio_unitario1_'+id).val())!='') {
+	    $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("0.00");
+	    $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("S/."+$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val());
+	//}
+	//else
+	//{
+	  //  $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("S/.0");
+	//}
+	
 	
     }
     
     function Subtotal1(id,tipo) {
 	
 	var unitario1 = $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val();
-
-	if (tipo==1) {
-	    x=unitario1.replace("S/.", "");
+	var total=0;
+	if (jQuery.trim(unitario1)!='') {
+	    if (tipo==1) {
+		x=unitario1.replace("S/.", "");
+	    }
+	    if ($('#proyecto-plan_presupuestal_cantidad_'+id).val()!='') {
+		y=$('#proyecto-plan_presupuestal_cantidad_'+id).val();
+	    }
+	    
+	    var subtotal=x*y;
+	    $('#proyecto-plan_presupuestal_subtotal_'+id).val(subtotal);
+	    $('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal.toFixed(2));
+	    $('#proyecto-plan_presupuestal_precio_unitario_'+id).val($('#proyecto-plan_presupuestal_precio_unitario1_'+id).val());
+	    
+	    $('#presupuesto .totales').each(function(){
+		    //console.log($(this).val());
+		    total=total+parseInt($(this).val());
+	    });
+	    $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("S/."+parseInt(x).toFixed(2));
+	    $('.total').html("S/."+total.toFixed(2));	
 	}
-	if ($('#proyecto-plan_presupuestal_cantidad_'+id).val()!='') {
-	    y=$('#proyecto-plan_presupuestal_cantidad_'+id).val();
+	else
+	{
+	    $('.total').html("S/."+total.toFixed(2));	
 	}
 	
-	var subtotal=x*y;
-	$('#proyecto-plan_presupuestal_subtotal_'+id).val(subtotal);
-	$('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal.toFixed(2));
-	$('#proyecto-plan_presupuestal_precio_unitario_'+id).val($('#proyecto-plan_presupuestal_precio_unitario1_'+id).val());
-	var total=0;
-	$('#presupuesto .totales').each(function(){
-		//console.log($(this).val());
-		total=total+parseInt($(this).val());
-	});
-	$('#proyecto-plan_presupuestal_precio_unitario1_'+id).val("S/."+parseInt(x).toFixed(2));
-	$('.total').html("S/."+total.toFixed(2));
     }
     
     function Subtotal2(id,tipo) {
 	var unitario1 = $('#proyecto-plan_presupuestal_precio_unitario1_'+id).val();
-	
-	if (tipo==2) {
-	    y=$('#proyecto-plan_presupuestal_cantidad_'+id).val();
-	}
-	
-	if (unitario1.replace("S/.", "")!='') {
-	    x=unitario1.replace("S/.", "");
-	}
-	var subtotal=x*y;
-	$('#proyecto-plan_presupuestal_subtotal_'+id).val(subtotal);
-	$('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal.toFixed(2));
-	
 	var total=0;
-	$('#presupuesto .totales').each(function(){
-		//console.log($(this).val());
-		total=total+parseInt($(this).val());
-	});
+	if (jQuery.trim(unitario1)!='') {
+	    if (tipo==2) {
+		y=$('#proyecto-plan_presupuestal_cantidad_'+id).val();
+	    }
+	    
+	    if (unitario1.replace("S/.", "")!='') {
+		x=unitario1.replace("S/.", "");
+	    }
+	    var subtotal=x*y;
+	    $('#proyecto-plan_presupuestal_subtotal_'+id).val(subtotal);
+	    $('#proyecto-plan_presupuestal_subtotal1_'+id).val("S/."+subtotal.toFixed(2));
+	    
+	    
+	    $('#presupuesto .totales').each(function(){
+		    //console.log($(this).val());
+		    total=total+parseInt($(this).val());
+	    });
+	    
+	    $('.total').html("S/."+total.toFixed(2));	
+	}
+	else
+	{
+	    $('.total').html("S/."+total.toFixed(2));
+	}
 	
-	$('.total').html("S/."+total.toFixed(2));
     }
     
     function ComoConseguirlo(value,id) {

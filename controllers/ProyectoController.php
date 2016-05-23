@@ -218,7 +218,7 @@ class ProyectoController extends Controller
                     select "" , '.$proyecto->id.' , usuario.id from integrante
                     inner join usuario on usuario.estudiante_id=integrante.estudiante_id
                     inner join estudiante on estudiante.id=usuario.estudiante_id
-                    where estudiante.grado=6 and integrante.equipo_id='.$integrante->equipo_id.' ';
+                    where estudiante.grado!=6 and integrante.equipo_id='.$integrante->equipo_id.' ';
             
             \Yii::$app->db->createCommand($evaluacion)->execute();
             

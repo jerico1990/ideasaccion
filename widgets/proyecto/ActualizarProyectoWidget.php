@@ -101,17 +101,17 @@ class ActualizarProyectoWidget extends Widget
         }
         
         //var_dump($proyecto->reflexion);die;
-        if($equipo->etapa==1 || $equipo->etapa==2)
+        if($reflexion && ($equipo->etapa==1 || $equipo->etapa==2))
         {
-            $evaluacion=Evaluacion::find()->where('proyecto_id=:proyecto_id and user_id=:user_id',[':user_id'=>$usuario->id,':proyecto_id'=>$proyecto->id])->one();
-            $proyecto->evaluacion=$evaluacion->evaluacion;
+            //$evaluacion=Evaluacion::find()->where('proyecto_id=:proyecto_id and user_id=:user_id',[':user_id'=>$usuario->id,':proyecto_id'=>$proyecto->id])->one();
+           // $proyecto->evaluacion=$evaluacion->evaluacion;
         }
         
         
         
         if ($proyecto->load(\Yii::$app->request->post())) {
             
-            if($reflexion)
+            if($reflexion && trim($proyecto->reflexion))
             {
                 $reflexion->reflexion=$proyecto->reflexion;
                 $reflexion->update();

@@ -919,14 +919,14 @@ li::before {
         
         
         $("#actividades input").each(function( index ) {
-            bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
+            bodyactividades=bodyactividades+"<li> Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
             console.log( $( this ).val() );
         });
         
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>"+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
+                            "<li><b>Objetivo: "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
                             "<ul>"+bodyactividades+"</ul>"+
                     "</div>";
@@ -1066,7 +1066,7 @@ li::before {
                 input="<input id='proyecto-actividades_ids_"+oe+"_"+acti+"' type='hidden' name='Proyecto[actividades_ids_"+oe+"][]' value='"+$("#proyecto-actividades_ids_"+oe+"_"+acti+"").val()+"' >";
             }
             
-            bodyactividades=bodyactividades+"<li>"+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>"+
+            bodyactividades=bodyactividades+"<li>Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>"+
                                               input;
                                             /*"<input id='proyecto-actividades_ids_"+oe+"_"+acti+"' type='hidden' name='Proyecto[actividades_ids][]'  value='"+$('#proyecto-actividades_ids_'+oe+'_'+acti+'').val()+"' />";*/
             
@@ -1076,7 +1076,7 @@ li::before {
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>"+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span> </li>"+
+                            "<li><b>Objetivo: "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span> </li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
                             "<ul>"+bodyactividades+"</ul>"+
                     "</div>";
