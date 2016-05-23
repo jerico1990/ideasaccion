@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\db\Query;
 use app\models\Voto;
+use app\models\Estudiante;
 use yii\data\Sort;
 /**
  * ProyectoController implements the CRUD actions for Proyecto model.
@@ -101,5 +102,34 @@ class ReporteController extends Controller
             'region' => $region,
         ]);
     }
-
+    
+    public function actionRegistrados()
+    {
+        $this->layout='administrador';
+        
+        $sort = new Sort([
+            'attributes' => [
+                /*'voto_emitido' => [
+                    'label' => 'Votos emitidos',
+                ],
+                'region_id' => [
+                    'label' => 'Región',
+                ],*/
+                
+            ],
+        ]);
+        
+        $model = new Estudiante();
+        $model->load(Yii::$app->request->queryParams);
+        return $this->render('registrados', [
+            'model' => $model,
+            'sort' => $sort,
+        ]);
+    }
+    
+    
+    public function actionRegistradosDetalles()
+    {
+        
+    }
 }
