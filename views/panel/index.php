@@ -15,18 +15,18 @@ if($integrante)
     $connection = \Yii::$app->db;
     $command=$connection->createCommand("
                 SELECT AA.tipo,AA.equipo_id,AA.id,AA.nombres_apellidos,AA.nombres,AA.apellido_paterno,AA.apellido_materno,
-                AA.estudiante_id,AA.rol,AA.estado,AA.email,AA.orden,AA.avatar,AA.grado
+                AA.estudiante_id,AA.rol,AA.estado,AA.email,AA.orden,AA.avatar,AA.grado,AA.sexo
                 FROM
                 (
                 select 1 tipo,integrante.equipo_id,integrante.id,estudiante.nombres_apellidos,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,
-                integrante.estudiante_id,integrante.rol,integrante.estado,estudiante.email,1 orden,usuario.avatar,estudiante.grado
+                integrante.estudiante_id,integrante.rol,integrante.estado,estudiante.email,1 orden,usuario.avatar,estudiante.grado,estudiante.sexo
                 from integrante
                 inner join estudiante on integrante.estudiante_id=estudiante.id
                 inner join usuario on usuario.estudiante_id=estudiante.id
                 where integrante.equipo_id=".$integrante->equipo_id." and integrante.estado in (1,2)
                 union
                 select 2 tipo,invitacion.equipo_id,invitacion.id,estudiante.nombres_apellidos,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,
-                estudiante.id,0,6,estudiante.email,2,usuario.avatar,estudiante.grado
+                estudiante.id,0,6,estudiante.email,2,usuario.avatar,estudiante.grado,estudiante.sexo
                 from invitacion
                 inner join estudiante on invitacion.estudiante_invitado_id=estudiante.id
                 inner join usuario on usuario.estudiante_id=estudiante.id
@@ -104,7 +104,7 @@ $btninscribir=$integrante
             <table class="table table-striped table-hover">
                 <thead>
                     <th>Equipo</th>
-                    <th>Coordinador</th>
+                    <th>Coordinador(a)</th>
                     <th></th>
                     <th></th>
                 </thead>
@@ -212,6 +212,7 @@ $btninscribir=$integrante
                 
                     <?php
                     $i=1;
+                    $coordinador="Coodinador";
                     foreach($equipoeinvitaciones as $equipoeinvitacion)
                     {
                         if($equipoeinvitacion['grado']!=6){
@@ -219,12 +220,16 @@ $btninscribir=$integrante
                                         <td align='left' class='text-left'>".$equipoeinvitacion['nombres']." ".$equipoeinvitacion['apellido_paterno']." ".$equipoeinvitacion['apellido_materno']."</td>";
                             
                             echo    "<td align='left' class='text-left'>".$equipoeinvitacion['email']."</td>";
-                                        
+                            
+                            if($equipoeinvitacion['sexo']=="F"){
+                                $coordinador="Coodinadora";
+                            }
+                            
                             if($integrante->rol==1)
                             {
                                 if($equipoeinvitacion['rol']==1)
                                 {
-                                    echo    "<td align='left' class='text-left'>Coordinador</td>
+                                    echo    "<td align='left' class='text-left'>".$coordinador."</td>
                                             <td align='left' class='text-left'></td>";
                                 }
                                 elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estado']==1)
@@ -247,7 +252,7 @@ $btninscribir=$integrante
                             {
                                 if($equipoeinvitacion['rol']==1)
                                 {
-                                    echo    "<td align='left' class='text-left'>Coordinador</td>
+                                    echo    "<td align='left' class='text-left'>".$coordinador."</td>
                                             <td align='left' class='text-left'></td>";
                                 }
                                 elseif($equipoeinvitacion['rol']==2 && $equipoeinvitacion['estudiante_id']==$integrante->estudiante_id && $equipoeinvitacion['estado']==1)

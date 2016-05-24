@@ -292,25 +292,26 @@ class EquipoController extends Controller
         
     }
     
-    public function actionValidarequipo($id)
+    public function actionValidarequipo()
     {
-        
-        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one();
-        
-        if(!$integrante)
-        {
-            echo 1;
+        if(isset($_POST["id"])){
+            $id=$_POST["id"];
+            $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one();
+            
+            if(!$integrante)
+            {
+                echo 1;
+            }
+            
+            if($integrante && $integrante->estado==1)
+            {
+                echo 2;
+            }
+            elseif($integrante && $integrante->estado==2)
+            {
+                echo 3;
+            }
         }
-        
-        if($integrante && $integrante->estado==1)
-        {
-            echo 2;
-        }
-        elseif($integrante && $integrante->estado==2)
-        {
-            echo 3;
-        }
-        
     }
     
     public function actionFinalizarequipo()
