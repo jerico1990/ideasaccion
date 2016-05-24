@@ -285,7 +285,7 @@ $this->title='Ideas en acción';
                     }
                     else if (data[0].estado=='2') {
                         $scope.icono3="2";
-                        $scope.texto3="Tu equipo ya esta registrado";
+                        $scope.texto3="Tu equipo ya está registrado";
                     }
                     $scope.tercero=true;
                 }
