@@ -607,6 +607,9 @@ if($equipo->id)
     }
     
     function TextoAsunto(value) {
+        if (value=='') {
+            $("#text_asunto").hide();
+        }
         $.ajax({
             url: '<?= $textoasunto ?>',
             type: 'GET',
