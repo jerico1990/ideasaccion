@@ -72,7 +72,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
   <link href="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/index.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
 
-<script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
 <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     <?php $this->head() ?>
 </head>

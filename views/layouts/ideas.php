@@ -61,7 +61,6 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 </head>
 <body class="mi_equipo">
     <?php $this->beginBody() ?>
-    <img src="../img/personaje_derecha_mi_equipo.png" class="personaje_derecha_fixed" alt="" />
     <header>
         <div class="franja_amarilla"></div>
         <div class="content">
