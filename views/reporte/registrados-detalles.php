@@ -48,6 +48,7 @@ if (isset($_GET['page']) >= 2)
     <table class="table">
         <thead style="background: #D9D9D9">
             <th><b>Colegio </b></th>
+            <th><b>Nombres Completos </b></th>
             <th><b>Correo</b></th>
             <th><b>Celular</b></th>
         </thead>
@@ -57,6 +58,7 @@ if (isset($_GET['page']) >= 2)
             ?>
             <tr>
                 <td><?= $registrado_detalle['denominacion'] ?></td>
+                <td><?= $registrado_detalle['nombres']." ".$registrado_detalle['apellido_paterno']." ".$registrado_detalle['apellido_materno'] ?></td>
                 <td><?= $registrado_detalle['email'] ?></td>
                 <td><?= $registrado_detalle['celular'] ?></td>
             </tr>

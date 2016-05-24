@@ -179,27 +179,10 @@ class Estudiante extends \yii\db\ActiveRecord
     {
         
         $query = new Query;
-        /*$query
-            ->select(['distinct department,
-                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id where U.department_id=ubigeo.department_id GROUP BY U.department) as total_estudiantes,
-                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id 
-                            INNER JOIN integrante n ON E.id = n.estudiante_id INNER JOIN equipo eq ON n.equipo_id = eq.id WHERE eq.estado = 1 and U.department_id=ubigeo.department_id GROUP BY U.department) as estudiantes_finalizaron_equipo,
-                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id 
-                            INNER JOIN integrante n ON E.id = n.estudiante_id INNER JOIN equipo eq ON n.equipo_id = eq.id WHERE eq.estado = 0 and U.department_id=ubigeo.department_id GROUP BY U.department) as estudiantes_aceptaron_invitacion,
-                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id 
-                            INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id  INNER JOIN invitacion inv ON inv.estudiante_invitado_id = E.id WHERE inv.estado = 1 and U.department_id=ubigeo.department_id GROUP BY U.department) as estudiantes_invitaciones_pendientes,
-                        
-                        (SELECT count(DISTINCT E.id) FROM estudiante E INNER JOIN institucion I ON I.id = E.institucion_id 
-                            INNER JOIN ubigeo U ON U.district_id = I.ubigeo_id WHERE E.id NOT IN (SELECT estudiante_id FROM integrante UNION ALL SELECT estudiante_invitado_id FROM invitacion WHERE estado = 1) and U.department_id=ubigeo.department_id GROUP BY U.department) as estudiantes_huerfanos
-                        
-                '])
-            ->from('{{%ubigeo}}')
-            ->where('department_id=:department_id',[':department_id'=>$region])
-            ->orderBy($sort);*/
         if($estado==1)
         {
             $query
-            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -211,7 +194,7 @@ class Estudiante extends \yii\db\ActiveRecord
         elseif($estado==2)
         {
             $query
-            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -223,7 +206,7 @@ class Estudiante extends \yii\db\ActiveRecord
         elseif($estado==3)
         {
             $query
-            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -234,7 +217,7 @@ class Estudiante extends \yii\db\ActiveRecord
         elseif($estado==4)
         {
             $query
-            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -244,7 +227,7 @@ class Estudiante extends \yii\db\ActiveRecord
         else
         {
             $query
-            ->select('institucion.denominacion,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
