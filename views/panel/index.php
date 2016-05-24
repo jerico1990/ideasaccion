@@ -567,7 +567,7 @@ function dejarequipo(id) {
                 .done(function( data ) {
                         $.notify({
                             // options
-                            message: 'Haz dejado el equipo' 
+                            message: 'Has dejado el equipo' 
                         },{
                             // settings
                             type: 'danger',
@@ -634,7 +634,7 @@ function eliminarintegrante(id) {
         if (data==1) {
                 $.notify({
                     // options
-                    message: 'Haz eliminado un miembro de tu equipo' 
+                    message: 'Has eliminado un miembro de tu equipo' 
                 },{
                     // settings
                     type: 'success',
