@@ -221,7 +221,7 @@ $this->title="Ideas en acción";
       monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
       'Jul','Ago','Sep','Oct','Nov','Dic'],
       monthStatus: 'Ver otro mes',
-      yearRange: '1990:2016',
+      yearRange: '1950:2006',
       yearStatus: 'Ver otro año',
       dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
       dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'],
