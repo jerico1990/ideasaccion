@@ -187,7 +187,7 @@ class VotoController extends Controller
         $div="";
         $resultados=Voto::find()
                     ->limit(3)
-                    ->select(['asunto.descripcion_cabecera as asuntod','asunto_id','COUNT(asunto_id) contador'])
+                    ->select(['asunto.descripcion_corta','asunto.descripcion_cabecera as asuntod','asunto_id','COUNT(asunto_id) contador'])
                     ->innerJoin('asunto','voto.asunto_id=asunto.id')
                     ->where('region_id=:region_id',[':region_id'=>$region])
                     ->groupBy('asuntod ,asunto_id')
@@ -221,8 +221,8 @@ class VotoController extends Controller
         foreach($resultados as $resultado)
         {
                                                 
-            $div=$div." <tr>
-                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."</span></td>
+            $div=$div."     <tr>
+                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."<p style='font-size:12px'>".$resultado->descripcion_corta."</p></span></td>
                                 <td class=\"ia_right\" align=\"middle\">
                                     <div class=\"show_percent\">
                                         <div class=\"percent_bar\" style=\"width:".number_format((($resultado->contador*100)/$total), 1, '.', '')."%;\"></div>

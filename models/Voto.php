@@ -24,6 +24,7 @@ class Voto extends \yii\db\ActiveRecord
     public $contador;
     public $asuntod;
     public $voto_emitido;
+    public $descripcion_corta;
     public static function tableName()
     {
         return 'voto';
