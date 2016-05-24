@@ -79,7 +79,7 @@ if($equipo->id)
         <div class="col-md-10">
             <div class="form-group label-floating field-equipo-asunto_id required" >
                 <label class="control-label" for="equipo-asunto_id">Selecciona el Asunto de Público sobre el que trabajará tu equipo</label>
-                <select id="equipo-asunto_id" class="form-control" name="Equipo[asunto_id]">
+                <select id="equipo-asunto_id" class="form-control" name="Equipo[asunto_id]" onchange="TextoAsunto($(this).val())">
                     <option value=""></option>
                     <?php
                         $resultados=Resultados::find()->where('region_id=:region_id',['region_id'=>$institucion->department_id])->all();
@@ -97,6 +97,10 @@ if($equipo->id)
                     ?>
                 </select>
             </div>
+            
+        </div>
+        <div class="col-md-12">
+                <div id="text_asunto" class="text-justify" style="display: none;border-bottom: 2px solid #1f2a69;color: #555"></div>
         </div>
     </div>
     <div class="row">
@@ -215,7 +219,7 @@ if($equipo->id)
     $validarinvitacioneintegrante5= Yii::$app->getUrlManager()->createUrl('equipo/validarinvitacioneintegrante5');
     $validarintegrante2= Yii::$app->getUrlManager()->createUrl('equipo/validarintegrante2');
     $existeequipo=Yii::$app->getUrlManager()->createUrl('equipo/existeequipo');
-    
+    $textoasunto=Yii::$app->getUrlManager()->createUrl('equipo/textoasunto');
     $this->registerJs(
     "$('document').ready(function(){
         
@@ -600,5 +604,18 @@ if($equipo->id)
             }
         });
         return true;
+    }
+    
+    function TextoAsunto(value) {
+        $.ajax({
+            url: '<?= $textoasunto ?>',
+            type: 'GET',
+            async: true,
+            data: {asunto_id:value},
+            success: function(data){
+                $("#text_asunto").html(data);
+                $("#text_asunto").show();
+            }
+        });
     }
 </script>

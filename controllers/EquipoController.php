@@ -8,6 +8,8 @@ use app\models\Usuario;
 use app\models\Integrante;
 use app\models\Invitacion;
 use app\models\Equipo;
+use app\models\Asunto;
+
 use app\models\EquipoSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -612,5 +614,12 @@ class EquipoController extends Controller
         {
             echo 0;
         }
+    }
+    
+    public function actionTextoasunto($asunto_id)
+    {
+        $asunto=Asunto::findOne($asunto_id);
+        
+        echo $asunto->descripcion_larga;
     }
 }

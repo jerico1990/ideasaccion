@@ -213,16 +213,14 @@ class VotoController extends Controller
         
         foreach($resultados as $resultado)
         {
-                                                
             $total=$total+$resultado->contador;
         }
-        
         
         foreach($resultados as $resultado)
         {
                                                 
             $div=$div."     <tr>
-                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."<p style='font-size:12px'>".$resultado->descripcion_corta."</p></span></td>
+                                <td width=\"60%\" class=\"ia_left\"><span class=\"ia_icon_heart_small\">".$resultado->asuntod."<p style='font-size:13px'>".$resultado->descripcion_corta."</p></span></td>
                                 <td class=\"ia_right\" align=\"middle\">
                                     <div class=\"show_percent\">
                                         <div class=\"percent_bar\" style=\"width:".number_format((($resultado->contador*100)/$total), 1, '.', '')."%;\"></div>
