@@ -22,7 +22,9 @@ $config = [
         ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+           
             'cookieValidationKey' => 'F7rnrdFXrAWj-XcP4-USoFXCMCTiOzfm',
+            'enableCsrfValidation' => false,
             'enableCookieValidation' => true,
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
@@ -38,9 +40,6 @@ $config = [
         ],
         'tools' => [
             'class' => 'app\components\Tools'
-        ],
-        'userData' => [
-            'class' => 'app\models\PreUserData',
         ],
         'urlManager' => [
             'showScriptName' => false,
