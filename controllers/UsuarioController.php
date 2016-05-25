@@ -37,6 +37,7 @@ class UsuarioController extends Controller
      */
     public function actionIndex()
     {
+        return $this->redirect(['usuario/configuracion']);
         $searchModel = new UsuarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

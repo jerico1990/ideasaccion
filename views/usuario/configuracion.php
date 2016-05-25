@@ -134,7 +134,7 @@ $this->title="Ideas en acción";
             </div>
             <div class="form-group btn_registro_submit text-center">
                 <div class="col-md-12">
-                    Si deseas modificar tu correo, grado u otros datos envía un mensaje al correo electrónico ideasenaccion@minedu.gob.pe
+                    Si deseas modificar tu correo, grado u otros datos envía un mensaje al correo electrónico <a href="mailto:ideasenaccion@minedu.gob.pe" target="_top">ideasenaccion@minedu.gob.pe</a> 
                 </div> 
                 <div class="clearfix"></div>
             </div>
