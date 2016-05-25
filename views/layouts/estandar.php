@@ -104,7 +104,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                 </div>
                                                 <div class="cell_div cell_info">
                                                     <div class="cell_info_content">
-                                                        <b class="uppercase"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></b>
+                                                        <b class="uppercase"><?= Html::a("".$usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno."",['usuario/configuracion']);?> </b>
                                                     </div>
                                                     <div class="line_separator"></div>
                                                     <div class="cell_info_content">
