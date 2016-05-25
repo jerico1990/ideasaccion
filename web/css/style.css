@@ -319,6 +319,11 @@ header .logo{
 	width: 340px;
 }
 
+.registro .content_form .left{
+	float: left;
+	width: 340px;
+}
+
 .login .body .form .form_login .content_form a,
 .registro .body .form .form_login .content_form a{
 	color: #1f2a69;
@@ -608,12 +613,26 @@ header .logo{
 	width: 48%;
 }
 
+.registro .last_name .left{
+	float: left;
+	width: 48%;
+}
+
 .registro .body .form .form_login .content_form .last_name .right{
 	float: right;
 	width: 48%;
 }
 
+.registro .last_name .right{
+	float: right;
+	width: 48%;
+}
+
 .registro .body .form .form_login .content_form{
+	color: #7c7c7c;
+}
+
+.registro  .content_form{
 	color: #7c7c7c;
 }
 

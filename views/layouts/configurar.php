@@ -46,15 +46,31 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!-- Page style -->
+    
+    <!-- Dropdown.js -->
+    <link href="//cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.css" rel="stylesheet">
+    
+    <link href="http://t00rk.github.io/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Page style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
 
     <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
-     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-   <!-- Twitter Bootstrap -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,500,700' rel='stylesheet' type='text/css'>
+        
+        
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title><?= Html::encode($this->title) ?></title>
+    <link rel="stylesheet" href="<?= \Yii::$app->request->BaseUrl ?>/css/bootstrap.min.css" media="screen" charset="utf-8">
+    
+
+    <link href="<?= \Yii::$app->request->BaseUrl ?>/css/bootstrap-material-design.css" rel="stylesheet">
+    <link href="<?= \Yii::$app->request->BaseUrl ?>/css/ripples.min.css" rel="stylesheet">
+
+    <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootbox.min.js"></script>
     <link href="<?= \Yii::$app->request->BaseUrl ?>/css/style.css" rel="stylesheet">
     
     <?php $this->head() ?>
@@ -88,7 +104,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                                 </div>
                                                 <div class="cell_div cell_info">
                                                     <div class="cell_info_content">
-                                                        <b class="uppercase"><?= Html::a("".$usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno."",['login/logout']);?> </b>
+                                                        <b class="uppercase"><?= $usuario->estudiante->nombres." ".$usuario->estudiante->apellido_paterno." ".$usuario->estudiante->apellido_materno ?></b>
                                                     </div>
                                                     <div class="line_separator"></div>
                                                     <div class="cell_info_content">
@@ -230,6 +246,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     <?php } ?>
                                 </ul>
                             </div>
+    
                             <a href="#" data-toggle="modal" data-target="#myModalVideo" class="btn btn-default btn-lateral">
                                 <span class="icon_play"> Video de etapas del concurso</span>
                             </a>
@@ -244,7 +261,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                         </div>
     
                         <div class="col-md-9">
-                            <div class="grid_box_line_blue content_infografia">
+                            <div class="grid_box_line_blue">
                                 <?= $content ?>
                             </div>
                         </div>
@@ -256,10 +273,6 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 <!-- Open source code -->
 <?php $this->endBody() ?>
 <script>
-    $('#myModalVideo').on('hidden.bs.modal', function () {
-        $("#myModalVideo iframe").attr("src", $("#myModalVideo iframe").attr("src"));
-    });
-    
     $(".menu_lateral li a.sub_menu").on("click", function (e) {
 		e.preventDefault();
 		var _a  = $(this);
@@ -269,6 +282,78 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 		$("ul", _li).stop(true).slideToggle();
 	});
     
+  window.page = window.location.hash || "#about";
+  $(document).ready(function () {
+    if (window.page != "#about") {
+      $(".menu").find("li[data-target=" + window.page + "]").trigger("click");
+    }
+  });
+  $(window).on("resize", function () {
+    $("html, body").height($(window).height());
+    $(".main, .menu").height($(window).height() - $(".header-panel").outerHeight());
+    $(".pages").height($(window).height());
+  }).trigger("resize");
+  $(".menu li").click(function () {
+    // Menu
+    if (!$(this).data("target")) return;
+    if ($(this).is(".active")) return;
+    $(".menu li").not($(this)).removeClass("active");
+    $(".page").not(page).removeClass("active").hide();
+    window.page = $(this).data("target");
+    var page = $(window.page);
+    window.location.hash = window.page;
+    $(this).addClass("active");
+    page.show();
+    var totop = setInterval(function () {
+      $(".pages").animate({scrollTop: 0}, 0);
+    }, 1);
+    setTimeout(function () {
+      page.addClass("active");
+      setTimeout(function () {
+        clearInterval(totop);
+      }, 1000);
+    }, 100);
+  });
+  function cleanSource(html) {
+    var lines = html.split(/\n/);
+    lines.shift();
+    lines.splice(-1, 1);
+    var indentSize = lines[0].length - lines[0].trim().length,
+        re = new RegExp(" {" + indentSize + "}");
+    lines = lines.map(function (line) {
+      if (line.match(re)) {
+        line = line.substring(indentSize);
+      }
+      return line;
+    });
+    lines = lines.join("\n");
+    return lines;
+  }
+  $("#opensource").click(function () {
+    $.get(window.location.href, function (data) {
+      var html = $(data).find(window.page).html();
+      html = cleanSource(html);
+      $("#source-modal pre").text(html);
+      $("#source-modal").modal();
+    });
+  });
+</script>
+
+<!-- Twitter Bootstrap -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Material Design for Bootstrap -->
+<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/material.js"></script>
+<script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/ripples.min.js"></script>
+<script>
+  $.material.init();
+</script>
+
+
+<!-- Dropdown.js -->
+<script src="https://cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.js"></script>
+<script>
+  $("#dropdown-menu select").dropdown();
 </script>
 
 </body>
@@ -280,11 +365,12 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 </script>
 <?php } ?>
 
+
 <div class="modal fade" id="myModalVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-body " id="video">
-                <div  class="embed-responsive embed-responsive-16by9">
+            <div class="modal-body ">
+                <div class="embed-responsive embed-responsive-16by9">
                     <iframe width="492" height="277" src="https://www.youtube.com/embed/qjS7HMqyfcg" frameborder="0" allowfullscreen></iframe>
                 </div>
                 

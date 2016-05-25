@@ -1,105 +1,259 @@
-
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Ubigeo ;
+use yii\web\JsExpression;
+use yii\widgets\Pjax;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\Usuario */
-/* @var $form yii\widgets\ActiveForm */
+$this->title="Ideas en acción";
 ?>
-<script src="../bootstrap-strength-meter-master/docs/js/prettify.js"></script>
-<script src="../bootstrap-strength-meter-master/dist/js/bootstrap-strength-meter.js"></script>
-
-<script src="../bootstrap-strength-meter-master/password-score/password-score.js"></script>
-<script src="../bootstrap-strength-meter-master/password-score/password-score-options.js"></script>
-<?php $form = ActiveForm::begin(); ?>
-<div class="col-xs-12 col-sm-7 col-md-5">
-        <div class="form-group field-registrar-nombres required">
-            <label class="control-label" for="registrar-nombres">Nombres: *</label>
-            <input type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" placeholder="Nombres" value="<?= $registrar->nombres ?>" required/>
+<style>
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+</style>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.8.24/themes/base/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.8.2.js"></script>
+  <script src="//code.jquery.com/ui/1.8.24/jquery-ui.js"></script>
+<div class="box_head title_content_box">
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_team_big.jpg" alt=""> Ideas en acción
+</div>  
+<div class="registro">
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data','class' => 'form_login']]); ?>
+        <div class="content_form">
+            <div class="right_photo">
+                <div class="txt_upload" style="bottom: 0px;">
+                    <div class=" form-group " style="padding-bottom: 0px;">
+                         <input  type="file" id="registrar-foto" class="form-control  file" name="Registrar[foto]" onchange="Imagen(this)"/>
+                         <?= Html::img('../foto_personal/'.$registrar->avatar.'',['id'=>'img_destino','class'=>'text-center', 'alt'=>'Responsive image','style'=>"height: 150px;width: 120px;align:center;cursor: pointer"]) ?>
+                    </div>
+                </div>
+            </div>
+            <div class="left">
+                <div class="form-group label-floating field-registrar-nombres required" style="margin-top: 15px">
+                    <label for="registrar-nombres" class="control-label">Nombres*</label>
+                    <input style="padding-bottom: 0px;padding-top: 0px;height: 30px" type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" value="<?= $registrar->nombres ?>" required/>
+                </div>
+                <div class="last_name">
+                    <div class="form-group label-floating field-registrar-apellido_paterno required left" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-apellido_paterno">Apellido paterno*</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_paterno" class="form-control texto" name="Registrar[apellido_paterno]" value="<?= $registrar->apellido_paterno ?>" required/>
+                    </div>
+                    <div class="form-group label-floating field-registrar-apellido_materno required right" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-apellido_materno">Apellido materno*</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_materno" class="form-control texto" name="Registrar[apellido_materno]" value="<?= $registrar->apellido_materno ?>" required/>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="form-group label-floating field-registrar-sexo required left" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-sexo">Sexo*</label>
+                        <select style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-sexo" class="form-control" name="Registrar[sexo]" required/>
+                            <option value=""></option>
+                            <option value="F" <?= ($registrar->sexo=="F")?'selected':'';?> >Femenino</option>
+                            <option value="M" <?= ($registrar->sexo=="M")?'selected':'';?> >Masculino</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group label-floating field-registrar-celular " style="margin-top: 15px">
+                        <label class="control-label" for="registrar-celular">Celular</label>
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" value="<?= $registrar->celular ?>">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group label-floating field-registrar-fecha_nac required has-error" style="margin-top: 15px">
+                        
+                        <input style="padding-bottom: 0px;padding-top: 0px;height: 30px;" type="text" id="registrar-fecha_nac" class="form-control"  name="Registrar[fecha_nac]" maxlength="10" placeholder="Fecha nacimiento*" value="<?= $registrar->fecha_nac ?>">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group field-registrar-departamento required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-departamento">Región*</label>
+                        <select disabled style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-departamento" class="form-control" name="Registrar[departamento]" onchange='departamento($(this).val())'>
+                        <option value=""></option>
+                        <option value="<?= $ubigeo->department_id ?>" selected><?= $ubigeo->department ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group field-registrar-provincia required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-provincia">Provincia*</label>
+                        <select disabled style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-provincia" class="form-control" name="Registrar[provincia]" onchange='provincia($(this).val())'>
+                        <option value=""></option>
+                        <option value="<?= $ubigeo->province_id ?>" selected ><?= $ubigeo->province ?></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group field-registrar-distrito required " style="margin-top: 15px">
+                        <label class="control-label" for="registrar-distrito">Distrito*</label>
+                        <select disabled style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-distrito" class="form-control" name="Registrar[distrito]" onchange='distrito($(this).val())'>
+                        <option value=""></option>
+                        <option value="<?= $ubigeo->district_id ?>" selected ><?= $ubigeo->district ?></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group  field-registrar-institucion required"  style="margin-top: 15px">
+                        <label class="control-label" for="registrar-institucion">Institución*</label>
+                        <select disabled style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-institucion" class="form-control" name="Registrar[institucion]">
+                            <option value=""></option>
+                            <option value="<?= $institucion->id ?>" selected ><?= $institucion->denominacion ?></option>
+                            
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group  field-registrar-grado required" style="margin-top: 15px">
+                        <label class="control-label" for="registrar-grado">Grado de estudios*</label>
+                        <select disabled style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="registrar-grado" class="form-control" name="Registrar[grado]">
+                            <option value=""></option>
+                            <option value="1" <?= ($registrar->grado=="1")?'selected':'';?>>Primero</option>
+                            <option value="2" <?= ($registrar->grado=="2")?'selected':'';?>>Segundo</option>
+                            <option value="3" <?= ($registrar->grado=="3")?'selected':'';?>>Tercero</option>
+                            <option value="4" <?= ($registrar->grado=="4")?'selected':'';?>>Cuarto</option>
+                            <option value="5" <?= ($registrar->grado=="5")?'selected':'';?>>Quinto</option>
+                            <option value="6" <?= ($registrar->grado=="6")?'selected':'';?>>Docente</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group btn_registro_submit text-center">
+                    <button type="submit" id="registrar"  class="btn  btn-default" >
+                        Guardar
+                    </button>
+                
+            </div>
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-5 col-md-4">
-        <div class="form-group field-registrar-apellido_paterno required">
-            <label class="control-label" for="registrar-apellido_paterno">Apellido paterno: *</label>
-            <input type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_paterno" class="form-control texto" name="Registrar[apellido_paterno]" placeholder="Apellido paterno" value="<?= $registrar->apellido_paterno ?>" required/>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-7 col-md-5">
-        <div class="form-group field-registrar-apellido_materno required">
-            <label class="control-label" for="registrar-apellido_materno">Apellido materno: *</label>
-            <input type="text" onpaste="return false;" onCopy="return false" id="registrar-apellido_materno" class="form-control texto" name="Registrar[apellido_materno]" placeholder="Apellido materno" value="<?= $registrar->apellido_materno ?>" required/>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-5 col-md-4">
-        <div class="form-group field-registrar-sexo required">
-            <label class="control-label" for="registrar-sexo">Sexo: *</label>
-            <select id="registrar-sexo" class="form-control" name="Registrar[sexo]" required/>
-                <option value="">Seleccionar sexo</option>
-                <option value="F" <?= ($registrar->sexo=="F")?'selected':'' ?> >Femenino</option>
-                <option value="M" <?= ($registrar->sexo=="M")?'selected':'' ?> >Masculino</option>
-            </select>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-7 col-md-5">
-        <div class="form-group field-registrar-dni required">
-            <label class="control-label" for="registrar-dni">DNI: *</label>
-            <input type="text" onpaste="return false;" onCopy="return false" id="registrar-dni" class="form-control numerico" name="Registrar[dni]" maxlength="8" placeholder="DNI" value="<?= $registrar->dni ?>">
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-5 col-md-4">
-        <div class="form-group field-registrar-fecha_nac required">
-            <label class="control-label" for="registrar-fecha_nac">Fecha de nacimiento: *</label>
-            <input type="date" onpaste="return false;" onCopy="return false" id="registrar-fecha_nac" class="form-control" name="Registrar[fecha_nac]" placeholder="Fecha de nacimiento" value="<?= $registrar->fecha_nac ?>">
-        </div>
-    </div>
-    
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-7 col-md-5">
-        <div class="form-group field-registrar-email required">
-            <label class="control-label" for="registrar-email">Correo electrónico: *</label>
-            <input type="email" onpaste="return false;" onCopy="return false" id="registrar-email" class="form-control" name="Registrar[email]" placeholder="Correo electrónico" value="<?= $registrar->email ?>">
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-5 col-md-4">
-        <div class="form-group field-registrar-celular required">
-            <label class="control-label" for="registrar-celular">N°  celular: *</label>
-            <input type="text" onpaste="return false;" onCopy="return false" id="registrar-celular" class="form-control numerico" name="Registrar[celular]" maxlength="9" placeholder="N°  celular" value="<?= $registrar->celular ?>">
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-7 col-md-5">
-        <div class="form-group field-registrar-password required">
-            <label class="control-label" for="registrar-password">Contraseña: *</label>
-            <input type="password" onpaste="return false;" onCopy="return false" id="registrar-password" class="form-control" name="Registrar[password]" placeholder="Contraseña">
-        </div>      
-    </div>
-    <div class="col-xs-12 col-sm-5 col-md-4">
-        <div class="form-group field-registrar-repassword required">
-            <label class="control-label" for="registrar-repassword">Repetir Contraseña: *</label>
-            <input type="password" onpaste="return false;" onCopy="return false" id="registrar-repassword" class="form-control" name="Registrar[repassword]" placeholder="Repetir contraseña">
-        </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-12 col-md-9" id="example-progress-bar-container"></div>
-    <div class="clearfix"></div>
-    <div class="col-xs-12 col-md-12 pull-right">
-        <input type="submit" id="registrar" value="Guardar" class="btn btn-primary" >
-    </div>
-    
-    <div class="clearfix"></div>
-
-<?php ActiveForm::end(); ?>
-
+            <div class="clearfix"></div>
+        
+    <?php ActiveForm::end(); ?>
+</div>
 <?php
     $validardni= Yii::$app->getUrlManager()->createUrl('registrar/validardni');
     $validaremail= Yii::$app->getUrlManager()->createUrl('registrar/validaremail');
+    $provincias= Yii::$app->getUrlManager()->createUrl('ubigeo/provincias');
+    $distritos= Yii::$app->getUrlManager()->createUrl('ubigeo/distritos');
+    $instituciones= Yii::$app->getUrlManager()->createUrl('ubigeo/instituciones');
 ?>
 
+<?php if (Yii::$app->session->hasFlash('emailexistente')): ?>
 <script>
+    $.notify({
+        // options
+        message: 'La dirección de correo ya ha sido registrada.' 
+    },{
+        // settings
+        type: 'danger',
+        z_index: 1000000,
+        placement: {
+                from: 'bottom',
+                align: 'right'
+        },
+    });
+
+</script>
+<?php endif; ?>
+<?php if (Yii::$app->session->hasFlash('dniexistente')): ?>
+<script>
+    $.notify({
+        // options
+        message: 'El DNI ingresado ya ha sido registrado.' 
+    },{
+        // settings
+        type: 'danger',
+        z_index: 1000000,
+        placement: {
+                from: 'bottom',
+                align: 'right'
+        },
+    });
+
+</script>
+<?php endif; ?>
+
+
+<script>
+    $.datepicker.regional['es'] = {
+      changeMonth: true,
+      changeYear: true,
+      closeText: 'Cerrar',
+      prevText: 'Previo',
+      nextText: 'Próximo',
+      monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+      'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+      monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+      'Jul','Ago','Sep','Oct','Nov','Dic'],
+      monthStatus: 'Ver otro mes',
+      yearRange: '1950:2006',
+      yearStatus: 'Ver otro año',
+      dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+      dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sáb'],
+      dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+      dateFormat: 'dd/mm/yy', firstDay: 0,
+      initStatus: 'Selecciona la fecha', isRTL: false};
+      $.datepicker.setDefaults($.datepicker.regional['es']);
+      
+      $( '#registrar-fecha_nac' ).datepicker();
+    
+    function Imagen(elemento) {
+        var ext = $(elemento).val().split('.').pop().toLowerCase();
+        var error='';
+        
+        if($.inArray(ext, ['png','jpg']) == -1) {
+            error=error+'La imagen seleccionada debe estar en los formatos .JPG o .PNG';
+        }
+        if (error=='' && elemento.files[0].size/1024/1024>=5) {
+            error=error+'La imagen seleccionada debe ser menor a 5MB';
+        }
+        
+        if (error!='') {
+            $.notify({
+                message: error
+            },{
+                // settings
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                        from: 'bottom',
+                        align: 'right'
+                },
+            });
+            //fileupload = $('#equipo-foto_img');  
+            //fileupload.replaceWith($fileupload.clone(true));
+            //elemento.replaceWith(elemento.val('').clone(true));
+            $('#registrar-foto').val('');
+            //$('#img_destino').val('');
+            $('#img_destino').attr('src', '../foto_personal/no_disponible.jpg');
+            return false;
+        }
+        else
+        {
+            mostrarImagen(elemento);
+            return true;
+        }
+    }
+    
+    function mostrarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img_destino').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    //$('#registrar-fecha_nac').bootstrapMaterialDatePicker({ weekStart : 0, time: false ,format : 'DD/MM/YYYY',lang : 'es' });
     $('#registrar-password').focusout(function() {
         if($(this).val()!='')
         {
@@ -126,11 +280,12 @@ use yii\widgets\ActiveForm;
             }
         }
     });
+    /*
     $('#registrar-password').strengthMeter('progressBar', {
         
             container: $('#example-progress-bar-container'),
             
-    });
+    });*/
     
     $( '#registrar-dni' ).focusout(function() {
         if($(this).val()!='')
@@ -165,7 +320,7 @@ use yii\widgets\ActiveForm;
                         $('.field-registrar-dni').addClass('has-error');
                         $.notify({
                             // options
-                            message: 'El DNI ya existe' 
+                            message: 'El DNI ingresado ya ha sido registrado.' 
                         },{
                             // settings
                             type: 'danger',
@@ -200,7 +355,7 @@ use yii\widgets\ActiveForm;
                         $('.field-registrar-email').addClass('has-error');
                         $.notify({
                             // options
-                            message: 'El email ya existe' 
+                            message: 'La dirección de correo ya ha sido registrada.' 
                         },{
                             // settings
                             type: 'danger',
@@ -258,10 +413,13 @@ use yii\widgets\ActiveForm;
         var p4=$('input[name=\'Registrar[p4][]\']:checked').length;
         var p5=$('input[name=\'Registrar[p5][]\']:checked').length;
         var p6=$('input[name=\'Registrar[p6][]\']:checked').length;
+        var ext = $('#registrar-foto').val().split('.').pop().toLowerCase();
+        var conerror=0;
         
         if ($('#registrar-nombres').val()=='') {
-            error=error+'Ingrese nombres <br>';
+            error=error+'Debes ingresar tú nombre completo <br>';
             $('.field-registrar-nombres').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -270,8 +428,9 @@ use yii\widgets\ActiveForm;
         }
         
         if ($('#registrar-apellido_paterno').val()=='') {
-            error=error+'Ingrese su apellido paterno <br>';
+            error=error+'Debes ingresar tú apellido paterno <br>';
             $('.field-registrar-apellido_paterno').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -280,8 +439,9 @@ use yii\widgets\ActiveForm;
         }
         
         if ($('#registrar-apellido_materno').val()=='') {
-            error=error+'Ingrese su apellido materno <br>';
+            error=error+'Debes ingresar tú apellido materno <br>';
             $('.field-registrar-apellido_materno').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -290,8 +450,9 @@ use yii\widgets\ActiveForm;
         }
         
         if ($('#registrar-sexo').val()=='') {
-            error=error+'Ingrese sexo <br>';
+            error=error+'Debes ingresar tú sexo <br>';
             $('.field-registrar-sexo').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -300,8 +461,9 @@ use yii\widgets\ActiveForm;
         }
         
         if ($('#registrar-dni').val()=='') {
-            error=error+'Ingrese dni <br>';
+            error=error+'Debes ingresar tú DNI <br>';
             $('.field-registrar-dni').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -310,8 +472,9 @@ use yii\widgets\ActiveForm;
         }
         
         if ($('#registrar-fecha_nac').val()=='') {
-            error=error+'Ingrese fecha de nacimiento <br>';
+            error=error+'Debes ingresar tú fecha de nacimiento <br>';
             $('.field-registrar-fecha_nac').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -320,8 +483,9 @@ use yii\widgets\ActiveForm;
         }
         
         if ($('#registrar-email').val()=='') {
-            error=error+'Ingrese email <br>';
+            error=error+'Debes ingresar tú dirección de correo <br>';
             $('.field-registrar-email').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -331,35 +495,26 @@ use yii\widgets\ActiveForm;
         
         if($('#registrar-email').val()!='' && !validateEmail($('#registrar-email').val()))
         {
-            error=error+'el usuario debe ser un correo <br>';
+            error=error+'Debes ingresar una dirección de correo válida <br>';
             $('.field-registrar-email').addClass('has-error');
+            conerror=conerror+1;
         }
-        $('.field-registrar-celular').addClass('has-success');
-        /*if ($('#registrar-celular').val()=='') {
-            error=error+'Ingrese celular <br>';
-            $('.field-registrar-celular').addClass('has-error');
-        }
-        else
-        {
-            $('.field-registrar-celular').addClass('has-success');
-            $('.field-registrar-celular').removeClass('has-error');
-        }*/
-        $('.field-registrar-password').addClass('has-success');
-        //$('.field-registrar-repassword').addClass('has-success');
-        /*
+        
         if ($('#registrar-password').val()=='') {
-            error=error+'Ingrese contraseña <br>';
+            error=error+'Debes ingresar tú contraseña <br>';
             $('.field-registrar-password').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
             $('.field-registrar-password').addClass('has-success');
             $('.field-registrar-password').removeClass('has-error');
         }
-        */
-        if ($('#registrar-password').val()!='' && $('#registrar-repassword').val()=='') {
-            error=error+'Ingrese repetir contraseña <br>';
+        
+        if ($('#registrar-repassword').val()=='') {
+            error=error+'Debes repetir tú contraseña <br>';
             $('.field-registrar-repassword').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -367,11 +522,54 @@ use yii\widgets\ActiveForm;
             $('.field-registrar-repassword').removeClass('has-error');
         }
         
+        if ($('#registrar-departamento').val()=='') {
+            error=error+'Debes ingresar tú región <br>';
+            $('.field-registrar-departamento').addClass('has-error');
+            conerror=conerror+1;
+        }
+        else
+        {
+            $('.field-registrar-departamento').addClass('has-success');
+            $('.field-registrar-departamento').removeClass('has-error');
+        }
         
+        if ($('#registrar-provincia').val()=='') {
+            error=error+'Debes ingresar tú provincia <br>';
+            $('.field-registrar-provincia').addClass('has-error');
+            conerror=conerror+1;
+        }
+        else
+        {
+            $('.field-registrar-provincia').addClass('has-success');
+            $('.field-registrar-provincia').removeClass('has-error');
+        }
+        
+        if ($('#registrar-distrito').val()=='') {
+            error=error+'Debes ingresar tú distrito <br>';
+            $('.field-registrar-distrito').addClass('has-error');
+            conerror=conerror+1;
+        }
+        else
+        {
+            $('.field-registrar-distrito').addClass('has-success');
+            $('.field-registrar-distrito').removeClass('has-error');
+        }
+        
+        if ($('#registrar-institucion').val()=='') {
+            error=error+'Debes ingresar tú institución <br>';
+            $('.field-registrar-institucion').addClass('has-error');
+            conerror=conerror+1;
+        }
+        else
+        {
+            $('.field-registrar-institucion').addClass('has-success');
+            $('.field-registrar-institucion').removeClass('has-error');
+        }
         
         if ($('#registrar-grado').val()=='') {
-            error=error+'Ingrese grado <br>';
+            error=error+'Debes ingresar tú grado <br>';
             $('.field-registrar-grado').addClass('has-error');
+            conerror=conerror+1;
         }
         else
         {
@@ -380,9 +578,10 @@ use yii\widgets\ActiveForm;
         }
         
         
+        
         if($('#registrar-password').val()!='' && $('#registrar-password').val().length<8)
         {
-            error=error+'La contraseña debe contener mínimo 8 caracteres <br>';
+            error=error+'Tu contraseña debe contener un mínimo 8 caracteres <br>';
             $('.field-registrar-password').addClass('has-error');
         }
         
@@ -390,6 +589,46 @@ use yii\widgets\ActiveForm;
             error=error+'Las contraseñas no son idénticas <br>';
             $('.field-registrar-password').addClass('has-error');
             $('.field-registrar-repassword').addClass('has-error');
+        }
+        
+        var dni=$.ajax({
+            url: '<?= $validardni ?>',
+            type: 'POST',
+            async: false,
+            data: {dni:$('#registrar-dni').val()},
+            success: function(data){
+                
+            }
+        });
+        if (dni.responseText=='1') {
+            error=error+'El DNI ingresado ya ha sido registrado. <br>';
+        }
+        
+        var email=$.ajax({
+            url: '<?= $validaremail ?>',
+            type: 'POST',
+            async: false,
+            data: {email:$('#registrar-email').val()},
+            success: function(data){
+                
+            }
+        });
+        if (email.responseText=='1') {
+            error=error+'La dirección de correo ya ha sido registrada. <br>';
+        }
+        
+        if (conerror>=5) {
+            $.notify({
+                message: 'Debes completar todos los campos marcados como obligatorios (*)' 
+            },{
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+            });
+            return false;
         }
         
         
@@ -407,7 +646,11 @@ use yii\widgets\ActiveForm;
             });
             return false;
         }
-        return true;
+        else
+        {
+           return true; 
+        }
+        
     });
     
     
@@ -419,6 +662,25 @@ use yii\widgets\ActiveForm;
         else {
             return false;
         }
+    }
+    
+    function distrito(value) {
+        $.get( "<?= $instituciones ?>?distrito="+value, function( data ) {
+            $( "#registrar-institucion" ).html( data );
+        });
+    }
+    
+    function provincia(value) {
+        $.get( "<?= $distritos ?>?provincia="+value, function( data ) {$( "#registrar-distrito" ).html( data );});
+        $("#registrar-distrito").find("option").remove().end().append("<option value></option>").val("");
+        $("#registrar-institucion").find("option").remove().end().append("<option value></option>").val("");
+    }
+    
+    function departamento(value) {
+        $.get( "<?= $provincias ?>?departamento="+value, function( data ) {$( "#registrar-provincia" ).html( data );});
+        $("#registrar-provincia").find("option").remove().end().append("<option value></option>").val("");
+        $("#registrar-distrito").find("option").remove().end().append("<option value></option>").val("");
+        $("#registrar-institucion").find("option").remove().end().append("<option value></option>").val("");
     }
     
     

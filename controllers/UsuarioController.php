@@ -7,11 +7,13 @@ use app\models\Estudiante;
 use app\models\Registrar;
 
 use app\models\Usuario;
+use app\models\Institucion;
+use app\models\Ubigeo;
 use app\models\UsuarioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile;
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */
@@ -124,37 +126,41 @@ class UsuarioController extends Controller
     
     public function actionConfiguracion()
     {
-        $this->layout='equipo';
+        $this->layout='configurar';
         $usuario=Usuario::findOne(\Yii::$app->user->id);
         $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+        $institucion=Institucion::find()->where('id=:id',[':id'=>$estudiante->institucion_id])->one();
+        $ubigeo=Ubigeo::find()->where('district_id=:district_id',[':district_id'=>$institucion->ubigeo_id])->one();
         $registrar= new Registrar;
         $registrar->nombres=$estudiante->nombres;
         $registrar->apellido_paterno=$estudiante->apellido_paterno;
         $registrar->apellido_materno=$estudiante->apellido_materno;
         $registrar->sexo=$estudiante->sexo;
-        $registrar->dni=$estudiante->dni;
-        $registrar->fecha_nac=date('Y-m-d',strtotime($estudiante->fecha_nac));
-        $registrar->email=$estudiante->email;
+        $registrar->grado=$estudiante->grado;
+        $registrar->fecha_nac=date('d/m/Y',strtotime($estudiante->fecha_nac));
         $registrar->celular=$estudiante->celular;
-        
+        $registrar->avatar=$usuario->avatar;
         if ($registrar->load(Yii::$app->request->post())) {
+            $fecha_nacimiento=str_replace("/", "-", $registrar->fecha_nac);
+            $registrar->foto = UploadedFile::getInstance($registrar, 'foto');
             $estudiante->nombres=$registrar->nombres;
             $estudiante->apellido_paterno=$registrar->apellido_paterno;
             $estudiante->apellido_materno=$registrar->apellido_materno;
             $estudiante->sexo=$registrar->sexo;
-            $estudiante->dni=$registrar->dni;
-            $estudiante->email=$registrar->email;
             $estudiante->celular=$registrar->celular;
+            $estudiante->fecha_nac=date('Y-m-d',strtotime($fecha_nacimiento));
             $estudiante->update();
             
-            if(trim($registrar->password)!='')
+            if($registrar->foto)
             {
-                $usuario->password=Yii::$app->getSecurity()->generatePasswordHash($registrar->password);
+                $registrar->foto->saveAs('foto_personal/' . $usuario->id . '.' . $registrar->foto->extension);
+                $usuario->avatar=$usuario->id. '.' . $registrar->foto->extension;
             }
-            $usuario->save();
+                
+            $usuario->update();
             return $this->refresh();
         } else {
-            return $this->render('configuracion',['registrar'=>$registrar]);
+            return $this->render('configuracion',['registrar'=>$registrar,'ubigeo'=>$ubigeo,'institucion'=>$institucion]);
         }
         
     }

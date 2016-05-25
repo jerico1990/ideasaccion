@@ -34,6 +34,7 @@ class Registrar extends Model
     public $apellido_paterno;
     public $apellido_materno;
     public $foto;
+    public $avatar;
     /**
      * @return array the validation rules.
      */

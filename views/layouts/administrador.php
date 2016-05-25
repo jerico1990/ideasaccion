@@ -192,6 +192,9 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 <?php $this->endBody() ?>
 <!-- Open source code -->
 <script>
+    
+    
+    
     $(".menu_lateral li a.sub_menu").on("click", function (e) {
 		e.preventDefault();
 		var _a  = $(this);
