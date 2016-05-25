@@ -94,7 +94,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                         <div class="col-md-3">
                             <div class="grid_box_line_blue">
                                 <div class="box_head link_close">
-                                    <?= Html::a('Cerrar sesión <b>X</b>',['login/logout']);?>
+                                    <b><?= Html::a('Cerrar sesión <b>X</b>',['login/logout']);?></b>
                                 </div>
                                 <div class="box_content">
                                     <div class="mis_datos">

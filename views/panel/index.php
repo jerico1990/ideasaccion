@@ -90,8 +90,37 @@ $btninscribir=$integrante
                     </div>
                 </div>
             </div>
-        </div>
         <?php } ?>
+        <br>
+        <p class="text-center"><b>Estos son los compañeros de tu institución educativa que ya se han inscrito</b></p>
+            <div class="row tabla_crear_equipo">
+                <div class="col-md-12">
+                    <table id="estudiantes" class="table table-bordered" >
+                        <thead>
+                            <tr class="cabecera_tabla">
+                                    <td>Apellidos y Nombres</td>
+                                    <td align="center">Grados</td>
+                            </tr>
+                        </thead>
+            
+                        <tbody class="buscar">
+                            <?php
+                                $i=1;
+                                foreach($estudiantes as $estudiante)
+                                {
+                                    echo "<tr>
+                                            <td style='vertical-align:middle'>$estudiante->nombres $estudiante->apellido_paterno $estudiante->apellido_materno</td>
+                                            <td align='center' style='vertical-align:middle'> ".$estudiante->getGrado() ."</td>
+                                    </tr>";
+                                     
+                                    $i++;
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         
     <?php } else { ?>
     <div class="box_content contenido_seccion_equipo">

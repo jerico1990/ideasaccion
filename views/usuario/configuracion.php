@@ -128,13 +128,19 @@ $this->title="Ideas en acción";
                 </div>
             </div>
             <div class="form-group btn_registro_submit text-center">
-                    <button type="submit" id="registrar"  class="btn  btn-default" >
-                        Guardar
-                    </button>
-                
+                <button type="submit" id="registrar"  class="btn  btn-default" >
+                    Guardar
+                </button>
             </div>
-        </div>
+            <div class="form-group btn_registro_submit text-center">
+                <div class="col-md-12">
+                    Si deseas modificar tu correo, grado u otros datos envía un mensaje al correo electrónico ideasenaccion@minedu.gob.pe
+                </div> 
+                <div class="clearfix"></div>
+            </div>
             <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
         
     <?php ActiveForm::end(); ?>
 </div>

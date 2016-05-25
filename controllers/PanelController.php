@@ -25,6 +25,7 @@ use app\models\VotacionInterna;
 use app\models\VotacionPublica;
 use app\models\Proyecto;
 use app\models\ForoComentario;
+use app\models\Institucion;
 
 
 
@@ -88,6 +89,7 @@ class PanelController extends Controller
         
         $usuario=Usuario::findOne(\Yii::$app->user->id);
         $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+        $institucion=Institucion::find()->where('id=:id',[':id'=>$estudiante->institucion_id])->one();
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
         if($integrante)
         {
@@ -100,9 +102,14 @@ class PanelController extends Controller
         else
         {
             $equipo = new Equipo;
-            //$equipo->foto="no_disponible.png";
         }
         
+        $estudiantes=Estudiante::find()
+                    ->LeftJoin('integrante','integrante.estudiante_id=estudiante.id')
+                    ->where('estudiante.institucion_id=:institucion_id and estudiante.id!=:id and integrante.id is null and estudiante.grado!=6
+                            ',[':institucion_id'=>$institucion->id,':id'=>$estudiante->id])
+                    ->orderBy('grado asc')->all();
+                    
         $invitaciones=Invitacion::find()
                         ->select('usuario.avatar,invitacion.id,equipo.descripcion_equipo,lider.nombres,lider.apellido_paterno,lider.apellido_materno,lider.nombres_apellidos,institucion.denominacion')
                         ->innerJoin('equipo','equipo.id=invitacion.equipo_id')
@@ -118,7 +125,8 @@ class PanelController extends Controller
         return $this->render('index', ['invitaciones'=>$invitaciones,
                                        'integrante'=>$integrante,
                                        'estudiante'=>$estudiante,
-                                       'equipo'=>$equipo
+                                       'equipo'=>$equipo,
+                                       'estudiantes'=>$estudiantes
                             ]);
     }
     
