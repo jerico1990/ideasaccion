@@ -26,6 +26,36 @@ use yii\web\JsExpression;
         color:#59595b !important;
         font-size:14px !important;
     }
+    
+    ul #oespe{
+        content: "";
+        list-style: none; 
+    }
+    ul #act{
+        content: "";
+        list-style: none; 
+    }
+    /*
+    li {
+        
+    }*/
+    #oespe::before
+    {
+        padding-right: 5px;
+        content: "\25BA";
+    }
+    #act::before
+    {
+        padding-right: 5px;
+        content: "\25CF";
+    }
+    
+    #act
+    {
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+    
 </style>
 
 <?php $form = ActiveForm::begin(); ?>
@@ -721,15 +751,15 @@ use yii\web\JsExpression;
         
         
         $("#actividades input").each(function( index ) {
-            bodyactividades=bodyactividades+"<li> Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
+            bodyactividades=bodyactividades+"<li id='act'> Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
         });
         
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>Objetivo: "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
+                            "<ul><li id='oespe'><b>Objetivo N°"+oe+": "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
-                            "<ul>"+bodyactividades+"</ul>"+
+                            "<ul>"+bodyactividades+"</ul><ul>"+
                     "</div>";
         $('#objetivo_especifico_general').modal('toggle');
         $("#mostrar_oe_actividades").append(body);
@@ -836,15 +866,15 @@ use yii\web\JsExpression;
         
         
         $("#actividades_copia input").each(function( index ) {
-            bodyactividades=bodyactividades+"<li>Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
+            bodyactividades=bodyactividades+"<li id='act'>Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
         });
         
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>Objetivo: "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
+                            "<ul><li id='oespe'><b>Objetivo N°"+oe+": "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
-                            "<ul>"+bodyactividades+"</ul>"+
+                            "<ul>"+bodyactividades+"</ul></ul>"+
                     "</div>";
         $('#objetivo_especifico_general_copia').modal('toggle');
         $("#oe_"+identificador+"").replaceWith(body);
@@ -888,7 +918,7 @@ use yii\web\JsExpression;
         }
         
         var body="";
-        body=   "<div class='col-xs-12 col-sm-12 col-md-12'>"+
+        body=   "<div class='col-xs-12 col-sm-11 col-md-11 pull-right' style='margin-top:15px;'>"+
                     "<div class='form-group label-floating field-proyecto-temp_actividad_"+actividad+" required' style='margin-top: 15px'>"+
                         "<label class='control-label' for='proyecto-temp_actividad_actividad_"+actividad+"' >Descripción de actividad #"+actividad+"</label>"+
                         "<input style='padding-bottom: 0px;padding-top: 0px;height: 30px;' type='text' id='proyecto-temp_actividad_"+actividad+"' name='Proyecto[temp_actividades_copia][]' class='form-control'>"+

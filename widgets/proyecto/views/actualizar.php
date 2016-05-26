@@ -43,9 +43,34 @@ label{
     font-size:14px !important;
 }
 
-li::before { 
-    content: none;
-}
+    ul #oespe{
+        content: "";
+        list-style: none; 
+    }
+    ul #act{
+        content: "";
+        list-style: none; 
+    }
+    /*
+    li {
+        
+    }*/
+    #oespe::before
+    {
+        padding-right: 5px;
+        content: "\25BA";
+    }
+    #act::before
+    {
+        padding-right: 5px;
+        content: "\25CF";
+    }
+    
+    #act
+    {
+        padding-top:10px;
+        padding-bottom:10px;
+    }
 </style>
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
@@ -62,7 +87,7 @@ li::before {
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi Video</a></li>
                 <?php if($estudiante->grado!=6){?>
-                <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
+                <!--<li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
                 <?php } ?>
                 <?php if(($etapa->etapa==2 || $etapa->etapa==3) && $estudiante->grado!=6){ ?>
                 <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>
@@ -123,16 +148,18 @@ li::before {
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div id="mostrar_oe_actividades">
                                 <div id="oe_1" class='col-xs-12 col-sm-12 col-md-12'>
-                                    <?php if($proyecto->objetivo_especifico_1){ ?>                                                  
-                                        <li><b>Objetivo: <?= $proyecto->objetivo_especifico_1 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(1)'></span>" ?>  </li>
-                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_1 ?>' name='Proyecto[objetivo_especifico_1]'>
+                                    <?php if($proyecto->objetivo_especifico_1){ ?>
                                         <ul>
-                                            <?php foreach($actividades as $actividad){ ?>
-                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
-                                                    <li>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
-                                                    <input id="proyecto-actividades_ids_1_<?= $acti1 ?>" type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
-                                                <?php $acti1 ++; } ?>
-                                            <?php  } ?>
+                                            <li id='oespe'><b>Objetivo N° 1: <?= $proyecto->objetivo_especifico_1 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(1)'></span>" ?>  </li>
+                                                <input type='hidden' value='<?= $proyecto->objetivo_especifico_1 ?>' name='Proyecto[objetivo_especifico_1]'>
+                                            <ul>
+                                                <?php foreach($actividades as $actividad){ ?>
+                                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
+                                                        <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
+                                                        <input id="proyecto-actividades_ids_1_<?= $acti1 ?>" type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
+                                                    <?php $acti1 ++; } ?>
+                                                <?php  } ?>
+                                            </ul>
                                         </ul>
                                         <?php $contoe=1; ?>
                                     <?php } ?>
@@ -140,15 +167,17 @@ li::before {
                                 
                                 <div id="oe_2" class='col-xs-12 col-sm-12 col-md-12'>
                                     <?php if($proyecto->objetivo_especifico_2){  ?>
-                                        <li><b>Objetivo: <?= $proyecto->objetivo_especifico_2 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(2)'></span>" ?> </li>
-                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_2 ?>' name='Proyecto[objetivo_especifico_2]'>
                                         <ul>
-                                            <?php foreach($actividades as $actividad){ ?>
-                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
-                                                    <li>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
-                                                    <input id="proyecto-actividades_ids_2_<?= $acti2 ?>" type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
-                                                <?php $acti2++;} ?>
-                                            <?php  } ?>
+                                            <li id='oespe'><b>Objetivo N°2: <?= $proyecto->objetivo_especifico_2 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(2)'></span>" ?> </li>
+                                                <input type='hidden' value='<?= $proyecto->objetivo_especifico_2 ?>' name='Proyecto[objetivo_especifico_2]'>
+                                            <ul>
+                                                <?php foreach($actividades as $actividad){ ?>
+                                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
+                                                        <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
+                                                        <input id="proyecto-actividades_ids_2_<?= $acti2 ?>" type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
+                                                    <?php $acti2++;} ?>
+                                                <?php  } ?>
+                                            </ul>
                                         </ul>
                                         <?php $contoe=2; ?>
                                     <?php } ?>
@@ -156,15 +185,17 @@ li::before {
                                 
                                 <div id="oe_3" class='col-xs-12 col-sm-12 col-md-12'>
                                     <?php if($proyecto->objetivo_especifico_3) { ?>
-                                        <li><b>Objetivo: <?= $proyecto->objetivo_especifico_3 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(3)'></span>" ?> </li>
-                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_3 ?>' name='Proyecto[objetivo_especifico_3]'>
                                         <ul>
-                                            <?php foreach($actividades as $actividad){ ?>
-                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
-                                                    <li>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
-                                                    <input id="proyecto-actividades_ids_3_<?= $acti3 ?>" type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
-                                                <?php $acti3++;  } ?>
-                                            <?php  } ?>
+                                            <li id='oespe'><b>Objetivo N°3: <?= $proyecto->objetivo_especifico_3 ?></b> <?= ($disabled=='disabled')?'':"<span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar(3)'></span>" ?> </li>
+                                                <input type='hidden' value='<?= $proyecto->objetivo_especifico_3 ?>' name='Proyecto[objetivo_especifico_3]'>
+                                            <ul>
+                                                <?php foreach($actividades as $actividad){ ?>
+                                                    <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
+                                                        <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
+                                                        <input id="proyecto-actividades_ids_3_<?= $acti3 ?>" type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" />
+                                                    <?php $acti3++;  } ?>
+                                                <?php  } ?>
+                                            </ul>
                                         </ul>
                                         <?php $contoe=3; ?>
                                     <?php } ?>
@@ -277,6 +308,7 @@ li::before {
                     <div class="clearfix"></div>
                     
                 </div><!-- /.tab-pane -->
+                
                 <div class="tab-pane" id="tab_6">
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -364,7 +396,7 @@ li::before {
             </div>
             <?php } else if($disabled && $equipo->etapa==0){?>
             <div class="col-xs-12 col-sm-4 col-md-4" >
-                <button type="button" id="btnproyectoreflexion" class="btn btn-default">Guardar</button>
+                <!--<button type="button" id="btnproyectoreflexion" class="btn btn-default">Guardar</button>-->
             </div>
             <?php } else if($equipo->etapa==1 && $integrante->rol==1){ ?>
             <div class="col-xs-12 col-sm-4 col-md-4" >
@@ -425,7 +457,7 @@ li::before {
                 $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).addClass('has-success');
                 $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).removeClass('has-error');
             }
-	    
+	    /*
 	    if(jQuery.trim($('#proyecto-plan_presupuestal_unidad_'+i).val())=='')
             {
                 error=error+'ingrese información en la fila #'+(i+1)+' de la columna unidad <br>';
@@ -435,7 +467,7 @@ li::before {
             {
                 $('.field-proyecto-plan_presupuestal_unidad_'+i).addClass('has-success');
                 $('.field-proyecto-plan_presupuestal_unidad_'+i).removeClass('has-error');
-            }
+            }*/
 	    
 	    if(jQuery.trim($('#proyecto-plan_presupuestal_dirigido_'+i).val())=='')
             {
@@ -655,7 +687,7 @@ li::before {
                                 align: 'right'
                             },
                         });
-                        $( "#w0" ).submit();
+                        //$( "#w0" ).submit();
                     }
                 });
                 
@@ -919,16 +951,16 @@ li::before {
         
         
         $("#actividades input").each(function( index ) {
-            bodyactividades=bodyactividades+"<li> Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
+            bodyactividades=bodyactividades+"<li id='act'> Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>";
             console.log( $( this ).val() );
         });
         
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>Objetivo: "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
+                            "<ul><li id='oespe'><b>Objetivo N°"+oe+": "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span></li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
-                            "<ul>"+bodyactividades+"</ul>"+
+                            "<ul>"+bodyactividades+"</ul></ul>"+
                     "</div>";
         $('#objetivo_especifico_general').modal('toggle');
         $("#mostrar_oe_actividades").append(body);
@@ -1066,7 +1098,7 @@ li::before {
                 input="<input id='proyecto-actividades_ids_"+oe+"_"+acti+"' type='hidden' name='Proyecto[actividades_ids_"+oe+"][]' value='"+$("#proyecto-actividades_ids_"+oe+"_"+acti+"").val()+"' >";
             }
             
-            bodyactividades=bodyactividades+"<li>Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>"+
+            bodyactividades=bodyactividades+"<li id='act'>Actividad: "+$( this ).val()+" <input type='hidden' value='"+$( this ).val()+"' name='Proyecto[actividades_"+oe+"][]'></li>"+
                                               input;
                                             /*"<input id='proyecto-actividades_ids_"+oe+"_"+acti+"' type='hidden' name='Proyecto[actividades_ids][]'  value='"+$('#proyecto-actividades_ids_'+oe+'_'+acti+'').val()+"' />";*/
             
@@ -1076,9 +1108,9 @@ li::before {
         
         
         var body=   "<div id='oe_"+oe+"' class='col-xs-12 col-sm-12 col-md-12'>"+
-                            "<li><b>Objetivo: "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span> </li>"+
+                            "<ul><li id='oespe'><b>Objetivo N°"+oe+": "+temp_objetivo_especifico+"</b> <span class='glyphicon glyphicon-pencil' style='cursor: pointer' title='Haga clic para editar'  onclick='Editar("+oe+")'></span> </li>"+
                             "<input type='hidden' value='"+temp_objetivo_especifico+"' name='Proyecto[objetivo_especifico_"+oe+"]'>"+
-                            "<ul>"+bodyactividades+"</ul>"+
+                            "<ul>"+bodyactividades+"</ul></ul>"+
                     "</div>";
         $('#objetivo_especifico_general_copia').modal('toggle');
         $("#oe_"+identificador+"").replaceWith(body);

@@ -75,7 +75,7 @@ $this->title='Ideas en acción';
                         <section>
                             <div>
                                 <i class="{{checkproyectoregistrado6}}"></i> {{txtproyectoregistrado6}} <br>
-                                <i class="{{checkreflexion6}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Reflexiones" data-content="{{txtreflexionesusuarios6}}" data-placement="horizontal">{{txtreflexiones6}}<div class="ripple-container"></div></a>  <br>
+                                <!--<i class="{{checkreflexion6}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Reflexiones" data-content="{{txtreflexionesusuarios6}}" data-placement="horizontal">{{txtreflexiones6}}<div class="ripple-container"></div></a>  <br>-->
                                 <i class="{{checkvideo6}}"></i> {{txtvideo6}} <br>
                             </div>
                         </section>

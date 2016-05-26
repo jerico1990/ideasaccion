@@ -44,24 +44,25 @@ foreach($objetivos as $objetivo){
 	<div class="col-xs-12 col-sm-12 col-md-12">
 	    <table class="table table-striped" id="presupuesto" style="display: none">
 		<thead>
-		    <th>Recursos</th>
-		    <th>Unidad</th>
-		    <th>A quien va dirigido</th>
-		    <th>¿Como conseguirlo?</th>
-		    <th colspan="3" class="text-center">Presupuesto</th>
-		    <?= ($disabled=='')?'<th></th>':'' ?>
+		    <th width="100px">Recursos</th>
+		    <th width="150px">¿Como conseguirlo?</th>
+		    <th width="150px">¿A quién podemos pedirselo?</th>
+		    <th width="150px">Precio unitario</th>
+		    <th width="150px">Cantidad</th>
+		    <th width="50px">Total</th>
+		    <?= ($disabled=='')?'<th width="10px"></th>':'' ?>
 		</thead>
 		<tbody id="presupuesto_cuerpo">
 		    
 		</tbody>
 		<tr>
 		    <td>Total</td>
-		    <td colspan="5" ></td>
+		    <td colspan="4" ></td>
 		    <td><div  class="total"></div></td>
 		    <td></td>
 		</tr>
 		<tr>
-		    <td colspan="6" ></td>
+		    <td colspan="5" ></td>
 		    <td colspan="2" style="padding: 0px;">
 			<?php if($disabled==''){?>
 			<div id="btn_presupuesto" class="btn btn-default pull-right" onclick="InsertarPlanPresupuestal()" style="display: none;background: #1f2a69;color: white">Agregar recurso</div>
@@ -118,12 +119,11 @@ foreach($objetivos as $objetivo){
     function InsertarPlanPresupuestal() {
 	var error='';
 	plan=parseInt($("#contador").val());
-	
 	var planespresupuestalesrecursosdescripciones=$('input[name=\'Proyecto[planes_presupuestales_recursos_descripciones][]\']').length;
-        
+        console.log(planespresupuestalesrecursosdescripciones);
 	
 	for (var i=0; i<planespresupuestalesrecursosdescripciones; i++) {
-	    console.log(planespresupuestalesrecursosdescripciones);
+	    
 	    if($('#proyecto-plan_presupuestal_recurso_descripcion_'+i).val()=='')
             {
                 error=error+'ingrese información en la fila #'+(i+1)+' de la columna recurso dscripción <br>';
@@ -134,7 +134,7 @@ foreach($objetivos as $objetivo){
                 $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).addClass('has-success');
                 $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).removeClass('has-error');
             }
-	    
+	    /*
 	    if($('#proyecto-plan_presupuestal_unidad_'+i).val()=='')
             {
                 error=error+'ingrese información en la fila #'+(i+1)+' de la columna unidad <br>';
@@ -145,7 +145,7 @@ foreach($objetivos as $objetivo){
                 $('.field-proyecto-plan_presupuestal_unidad_'+i).addClass('has-success');
                 $('.field-proyecto-plan_presupuestal_unidad_'+i).removeClass('has-error');
             }
-	    
+	    */
 	    if($('#proyecto-plan_presupuestal_dirigido_'+i).val()=='')
             {
                 error=error+'ingrese información en la fila #'+(i+1)+' de la columna a quien va dirigido <br>';
@@ -214,16 +214,6 @@ foreach($objetivos as $objetivo){
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_unidad_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_unidad_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_unidades][]' placeholder='Unidad'  />"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_dirigido_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_dirigido_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' />"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_como_conseguirlo_"+plan+"' required' style='margin-top: 0px'>"+
 						"<select onchange='ComoConseguirlo($(this).val(),"+plan+")' id='proyecto-plan_presupuestal_como_conseguirlo_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_comos_conseguirlos][]'>"+
 						    "<option value>seleccionar</option>"+
@@ -233,6 +223,19 @@ foreach($objetivos as $objetivo){
 						"</select>"+
 					    "</div>"+
 					"</td>"+
+					
+					/*
+					"<td style='padding: 2px'>"+
+					    "<div class='form-group field-proyecto-plan_presupuestal_unidad_"+plan+"' required' style='margin-top: 0px'>"+
+						"<input id='proyecto-plan_presupuestal_unidad_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_unidades][]' placeholder='Unidad'  />"+
+					    "</div>"+
+					"</td>"+*/
+					"<td style='padding: 2px'>"+
+					    "<div class='form-group field-proyecto-plan_presupuestal_dirigido_"+plan+"' required' style='margin-top: 0px'>"+
+						"<input id='proyecto-plan_presupuestal_dirigido_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' />"+
+					    "</div>"+
+					"</td>"+
+					
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_"+plan+"' required' style='margin-top: 0px'>"+
 						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+plan+"' onkeypress='Numerico(event)' onfocus='Subtotal11("+plan+",2)'  onfocusout='Subtotal1("+plan+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='S/. 0.00'>"+
@@ -447,16 +450,6 @@ foreach($objetivos as $objetivo){
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_unidad_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_unidad_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_unidades][]' placeholder='Unidad' value='"+star.unidad+"'  <?= $disabled?>/>"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_dirigido_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_dirigido_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' value='"+star.dirigido+"'  <?= $disabled?>/>"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_como_conseguirlo_"+i+"' required' style='margin-top: 0px'>"+
 						"<select onchange='ComoConseguirlo($(this).val(),"+i+")' id='proyecto-plan_presupuestal_como_conseguirlo_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_comos_conseguirlos][]' <?= $disabled?>>"+
 						    "<option value>seleccionar</option>"+
@@ -466,6 +459,18 @@ foreach($objetivos as $objetivo){
 						"</select>"+
 					    "</div>"+
 					"</td>"+
+					/*
+					"<td style='padding: 2px'>"+
+					    "<div class='form-group field-proyecto-plan_presupuestal_unidad_"+i+"' required' style='margin-top: 0px'>"+
+						"<input id='proyecto-plan_presupuestal_unidad_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_unidades][]' placeholder='Unidad' value='"+star.unidad+"'  <?= $disabled?>/>"+
+					    "</div>"+
+					"</td>"+*/
+					"<td style='padding: 2px'>"+
+					    "<div class='form-group field-proyecto-plan_presupuestal_dirigido_"+i+"' required' style='margin-top: 0px'>"+
+						"<input id='proyecto-plan_presupuestal_dirigido_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' value='"+star.dirigido+"'  <?= $disabled?>/>"+
+					    "</div>"+
+					"</td>"+
+					
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_"+i+"' required' style='margin-top: 0px'>"+
 						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+i+"' onfocusout='Subtotal1("+i+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario' value='S/."+star.precio_unitario.toFixed(2)+"' <?= $disabled?>>"+

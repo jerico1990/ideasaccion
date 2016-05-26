@@ -64,10 +64,11 @@ use yii\web\JsExpression;
         if (asuntospublicos!='') {
             error=asuntospublicos+error;
         }
-        
+        /*
         if (reflexion!='') {
             error=reflexion+error;
         }
+        */
         
         if (error!='') {
             $.notify({
