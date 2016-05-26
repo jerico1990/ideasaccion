@@ -33,7 +33,7 @@ $this->title="Ideas en acción";
                     </div>
                 </div>
             </div>
-            <div class="left"><h4 style="color: #1f2a69"><b>Datos Personales</b></h4>
+            <div class="left"><h4 style="color: #1f2a69"><b>Datos personales</b></h4>
                 <div class="form-group label-floating field-registrar-nombres required" style="margin-top: 15px">
                     <label for="registrar-nombres" class="control-label">Nombres*</label>
                     <input style="padding-bottom: 0px;padding-top: 0px;height: 30px" type="text" onpaste="return false;" onCopy="return false" id="registrar-nombres" class="form-control texto" name="Registrar[nombres]" required/>
@@ -103,7 +103,7 @@ $this->title="Ideas en acción";
             </div>
              <div class="clearfix"></div>
             <div class="line_separator"></div>
-            <h4 style="color: #1f2a69"><b>Datos de tu Institución educativa</b></h4>
+            <h4 style="color: #1f2a69"><b>Datos de tu institución educativa</b></h4>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group label-floating field-registrar-departamento required" style="margin-top: 15px">
