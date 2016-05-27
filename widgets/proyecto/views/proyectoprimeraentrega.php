@@ -161,13 +161,7 @@ use yii\web\JsExpression;
                 <div class="clearfix"></div>
             </div><!-- /.tab-pane -->
             <div class="tab-pane" id="tab_6">
-                <div class="col-xs-12 col-sm-7 col-md-5">
-                    <div class="form-group field-proyecto-reflexion required">
-                        <label class="control-label" for="proyecto-reflexion" >Reflexión: </label>
-                        <textarea id="proyecto-reflexion" class="form-control" name="Proyecto[reflexion]"  placeholder="Reflexión" <?= ($equipo->etapa==1  || $equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->reflexion?></textarea>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+                
             </div><!-- /.tab-pane -->
             <div class="tab-pane" id="tab_7">
                 <div class="clearfix"></div>

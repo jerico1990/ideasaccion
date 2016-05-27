@@ -87,7 +87,7 @@ label{
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi video</a></li>
                 <?php if($estudiante->grado!=6){?>
-                <!--<li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
+                <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
                 <?php } ?>
                 <?php if(($etapa->etapa==2 || $etapa->etapa==3) && $estudiante->grado!=6){ ?>
                 <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>
@@ -312,9 +312,17 @@ label{
                 <div class="tab-pane" id="tab_6">
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-reflexion required">
-                            <label class="control-label" for="proyecto-reflexion" style="padding-left: 10px">Reflexión</label>
-                            <textarea style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-reflexion" class="form-control" rows="3" name="Proyecto[reflexion]"  <?= ($equipo->etapa==1  || $equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->reflexion?></textarea>
+                        <div class="form-group label-floating field-proyecto-p1 required">
+                            <label class="control-label" for="proyecto-p1" style="padding-left: 10px">Como equipo ¿Cómo se han sentido al trabajar su proyecto?</label>
+                            <textarea style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p1" class="form-control" rows="3" name="Proyecto[p1]"  <?= $disabled ?>><?= $proyecto->p1?></textarea>
+                        </div>
+                        <div class="form-group label-floating field-proyecto-p2 required">
+                            <label class="control-label" for="proyecto-p2" style="padding-left: 10px">¿Qué debilidades encuentras en tu escuela o comunidad para trabajar tu proyecto?</label>
+                            <textarea style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p2" class="form-control" rows="3" name="Proyecto[p2]"  <?= $disabled ?>><?= $proyecto->p2?></textarea>
+                        </div>
+                        <div class="form-group label-floating field-proyecto-p3 required">
+                            <label class="control-label" for="proyecto-p3" style="padding-left: 10px"> ¿Qué fortalezas encuentras en tu escuela o comunidad para trabajar tu proyecto?</label>
+                            <textarea style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p3" class="form-control" rows="3" name="Proyecto[p3]"  <?= $disabled ?>><?= $proyecto->p3?></textarea>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -410,7 +418,7 @@ label{
             
             <?php } else if($equipo->etapa==1 && $integrante->rol==2){ ?>
             <div class="col-xs-12 col-sm-4 col-md-4" >
-                <button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>
+                <!--<button type="button" id="btnproyectoevaluacion" class="btn btn-default">Guardar</button>-->
             </div>
             
             <?php } ?>

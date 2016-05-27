@@ -94,6 +94,20 @@ class Equipo extends \yii\db\ActiveRecord
                 
             }
         }
+    }
+    
+    public function getEquipos($sort)
+    {
         
+        $query = new Query;
+        $query
+            ->select([''])
+            ->from('{{%equipo}}')
+            ->innerJoin('')
+            ->orderBy($sort);
+            
+        $result = Yii::$app->tools->Pagination($query,27);
+        
+        return ['registrados' => $result['result'], 'pages' => $result['pages']];
     }
 }

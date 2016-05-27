@@ -146,9 +146,19 @@ class ProyectoController extends Controller
     public function actionActualizar()
     {
         $this->layout='estandar';
-        $actualizar=Proyecto::find()->where('user_id=:user_id',[':user_id'=>\Yii::$app->user->id])->one();
+        $usuario=Usuario::findOne(\Yii::$app->user->id);
+        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+        $actualizar=Proyecto::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$integrante->equipo_id])->one();
+        if($actualizar)
+        {
+            return $this->render('actualizar');    
+        }
+        else
+        {
+            return $this->redirect(['proyecto/index']);
+        }
         
-        return $this->render('actualizar');
+        
     }
     
     public function actionEliminaractividad($id)

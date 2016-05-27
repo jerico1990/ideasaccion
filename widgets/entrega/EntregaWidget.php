@@ -87,9 +87,17 @@ class EntregaWidget extends Widget
         $errorreflexion="";
         foreach($reflexiones as $reflexion)
         {
-            if(trim($reflexion->reflexion)=='')
+            if(trim($reflexion->p1)=='')
             {
-                $errorreflexion="Falta ingresar una reflexión ".$reflexion->usuario->estudiante->nombres." ".$reflexion->usuario->estudiante->apellido_paterno." ".$reflexion->usuario->estudiante->apellido_materno." <br>".$errorreflexion;
+                $errorreflexion="Falta ingresar la pregunta n°1 de reflexión  <br>".$errorreflexion;
+            }
+            if(trim($reflexion->p2)=='')
+            {
+                $errorreflexion="Falta ingresar la pregunta n°2 de reflexión  <br>".$errorreflexion;
+            }
+            if(trim($reflexion->p3)=='')
+            {
+                $errorreflexion="Falta ingresar la pregunta n°3 de reflexión  <br>".$errorreflexion;
             }
         }
         

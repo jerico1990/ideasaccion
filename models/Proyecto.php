@@ -45,7 +45,9 @@ class Proyecto extends \yii\db\ActiveRecord
     public $actividades_ids_1;
     public $actividades_ids_2;
     public $actividades_ids_3;
-    public $reflexion;
+    public $p1;
+    public $p2;
+    public $p3;
     public $evaluacion;
     public $forum_url;
     
@@ -99,7 +101,8 @@ class Proyecto extends \yii\db\ActiveRecord
             [['user_id','asunto_id','objetivo_especifico_1_id','objetivo_especifico_2_id','objetivo_especifico_3_id','equipo_id','region_id'], 'integer'],
             [['titulo'], 'string', 'max' => 200],
             [['resumen','beneficiario','evaluacion'], 'string', 'max' => 25000],
-            [['forum_url','reflexion','objetivo_general','objetivo_especifico_1','objetivo_especifico_2','objetivo_especifico_3'], 'string', 'max' => 300],
+            [['p1','p2','p3'], 'string', 'max' => 5000],
+            [['forum_url','objetivo_general','objetivo_especifico_1','objetivo_especifico_2','objetivo_especifico_3'], 'string', 'max' => 300],
         ];
     }
 

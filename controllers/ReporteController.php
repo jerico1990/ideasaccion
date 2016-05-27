@@ -175,4 +175,29 @@ class ReporteController extends Controller
             'sort' => $sort,
         ]);
     }
+    
+    
+    public function actionEquipo()
+    {
+        $this->layout='administrador';
+        
+        $sort = new Sort([
+            'attributes' => [
+                /*'department' => [
+                    'label' => 'Región',
+                ],
+                'total_estudiantes' => [
+                    'label' => 'Total',
+                ],*/
+                
+            ],
+        ]);
+        
+        $model = new Equipo();
+        $model->load(Yii::$app->request->queryParams);
+        return $this->render('equipo', [
+            'model' => $model,
+            'sort' => $sort,
+        ]);
+    }
 }

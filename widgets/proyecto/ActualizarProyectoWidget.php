@@ -94,11 +94,13 @@ class ActualizarProyectoWidget extends Widget
                     ->innerJoin('objetivo_especifico','objetivo_especifico.id=actividad.objetivo_especifico_id')
                     ->where('proyecto_id=:proyecto_id and actividad.estado=1 and objetivo_especifico.id=:id',[':proyecto_id'=>$proyecto->id,':id'=>$proyecto->objetivo_especifico_3_id])->all();
                     
-        $reflexion=Reflexion::find()->where('proyecto_id=:proyecto_id and user_id=:user_id',[':user_id'=>$usuario->id,':proyecto_id'=>$proyecto->id])->one();
-        if($reflexion)
-        {
-            $proyecto->reflexion=$reflexion->reflexion;
-        }
+        $reflexion=Reflexion::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
+        //if($reflexion)
+        //{
+            $proyecto->p1=$reflexion->p1;
+            $proyecto->p2=$reflexion->p2;
+            $proyecto->p3=$reflexion->p3;
+        //}
         
         //var_dump($proyecto->reflexion);die;
         if($reflexion && ($equipo->etapa==1 || $equipo->etapa==2))
@@ -111,11 +113,13 @@ class ActualizarProyectoWidget extends Widget
         
         if ($proyecto->load(\Yii::$app->request->post())) {
             
-            if($reflexion && trim($proyecto->reflexion))
-            {
-                $reflexion->reflexion=$proyecto->reflexion;
+            //if(trim($proyecto->p1))
+            //{
+                $reflexion->p1=trim($proyecto->p1);
+                $reflexion->p2=trim($proyecto->p2);
+                $reflexion->p3=trim($proyecto->p3);
                 $reflexion->update();
-            }
+            //}
             
             //var_dump(\Yii::$app->request->post());die;
             

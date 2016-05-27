@@ -29,7 +29,7 @@ class Reflexion extends \yii\db\ActiveRecord
     {
         return [
             [['proyecto_id', 'user_id'], 'integer'],
-            [['reflexion'], 'string', 'max' => 500]
+            [['p1','p2','p3'], 'string', 'max' => 5000]
         ];
     }
 
@@ -42,7 +42,7 @@ class Reflexion extends \yii\db\ActiveRecord
             'id' => 'ID',
             'proyecto_id' => 'Proyecto ID',
             'user_id' => 'User ID',
-            'reflexion' => 'Reflexion',
+            'p1' => 'Reflexion',
         ];
     }
     

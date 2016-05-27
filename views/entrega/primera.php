@@ -6,7 +6,7 @@ use yii\helpers\ArrayHelper;
 use app\models\Resultados;
 use yii\widgets\Pjax;
 use yii\web\JsExpression;
-$this->title="Ideas en acciÛn";
+$this->title="Ideas en acci√≥n";
 /* @var $this \yii\web\View */
 /* @var $user \common\models\LoginForm */
 /* @var $title string */
