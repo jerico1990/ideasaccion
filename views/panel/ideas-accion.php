@@ -63,7 +63,8 @@ $this->title='Ideas en acción';
                         <section>
                             <div>
                                 <i class="{{checkforoasunto5}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Foro de asuntos públicos" data-content="{{txtforo_asunto}}" data-placement="horizontal">{{txtcheckforoasunto5}}<div class="ripple-container"></div></a>  <br>
-                                <i class="{{checkforoabierto5}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Foro Abierto" data-content="{{txtforo_abierto}}" data-placement="horizontal">{{txtcheckforoabierto5}}<div class="ripple-container"></div></a>  
+                                <i class="{{checkforoabierto5}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Foro Abierto" data-content="{{txtforo_abierto}}" data-placement="horizontal">{{txtcheckforoabierto5}}<div class="ripple-container"></div></a>
+                                
                             </div>
                         </section>
                 </div>
@@ -75,7 +76,7 @@ $this->title='Ideas en acción';
                         <section>
                             <div>
                                 <i class="{{checkproyectoregistrado6}}"></i> {{txtproyectoregistrado6}} <br>
-                                <!--<i class="{{checkreflexion6}}"></i> <a class=' popover1 show-pop' data-type='html' style="cursor: pointer"  data-title="Reflexiones" data-content="{{txtreflexionesusuarios6}}" data-placement="horizontal">{{txtreflexiones6}}<div class="ripple-container"></div></a>  <br>-->
+                                <i class="{{checkreflexion6}}"></i> {{txtreflexiones6}}  <br>
                                 <i class="{{checkvideo6}}"></i> {{txtvideo6}} <br>
                             </div>
                         </section>
@@ -379,7 +380,7 @@ $this->title='Ideas en acción';
         $scope.checkproyectoregistrado6="";
         $scope.txtproyectoregistrado6="";
         $scope.checkreflexion6="";
-        $scope.txtreflexion6="Reflexión del concurso";
+        $scope.txtreflexion6="Reflexión del equipo";
         $scope.txtreflexionesusuarios6="";
         $scope.checkvideo6="";
         $scope.txtvideo6="";
@@ -387,10 +388,10 @@ $this->title='Ideas en acción';
             $http.get('<?= $sexto ?>?usuario='+<?= \Yii::$app->user->id ?>).success(function (data) {
                 if (data) {
                     $scope.titulo6="¡Sale la primera entrega!";
-                    $scope.txtreflexiones6="Reflexión del concurso";
+                    $scope.txtreflexiones6="Reflexión del equipo";
                     $scope.txtvideo6="Publicación del video";
                     $scope.txtproyectoregistrado6="Registro del proyecto";
-                    if (data[1]["proyecto_registrado"]==0) {
+                    if (data[0]["proyecto_registrado"]==0) {
                         $scope.checkproyectoregistrado6="fa fa-fw fa-exclamation-triangle";
                     }
                     else
@@ -398,7 +399,7 @@ $this->title='Ideas en acción';
                         $scope.checkproyectoregistrado6="fa fa-fw fa-check-square";
                     }
                     
-                    if (data[1]["checkvideo"]==0) {
+                    if (data[0]["checkvideo"]==0) {
                         $scope.checkvideo6="fa fa-fw fa-exclamation-triangle";
                     }
                     else
@@ -406,14 +407,14 @@ $this->title='Ideas en acción';
                         $scope.checkvideo6="fa fa-fw fa-check-square";
                     }
                     
-                    if (data[1]["checkreflexion"]==0) {
+                    if (data[0]["checkreflexion"]==0) {
                         $scope.checkreflexion6="fa fa-fw fa-exclamation-triangle";
                     }
                     else
                     {
                         $scope.checkreflexion6="fa fa-fw fa-check-square";
                     }
-                    $scope.reflexiones=data[0]["reflexiones"];
+                    /*$scope.reflexiones=data[0]["reflexiones"];
                     angular.forEach( $scope.reflexiones, function(value, key) {
                         if (value["entradas"]==0) {
                             $scope.txtreflexionesusuarios6=$scope.txtreflexionesusuarios6+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos"]+" <br>";
@@ -422,7 +423,7 @@ $this->title='Ideas en acción';
                         {
                             $scope.txtreflexionesusuarios6=$scope.txtreflexionesusuarios6+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos"]+" <br>";
                         }
-                    });
+                    });*/
                     $scope.sexto=true;
                 }
             });

@@ -37,11 +37,11 @@ class ProyectoWidget extends Widget
             
             \Yii::$app->db->createCommand($reflexion)->execute();
             */
-            $reflexion= new Reflexion;
+            /*$reflexion= new Reflexion;
             $reflexion->proyecto_id=$proyecto->id;
             $reflexion->user_id=$proyecto->user_id;
             $reflexion->save();
-             
+            */ 
                     
             $countActividades1=count(array_filter($proyecto->actividades_1));
             $countActividades2=count(array_filter($proyecto->actividades_2));

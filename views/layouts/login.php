@@ -36,7 +36,7 @@ use yii\widgets\Breadcrumbs;
     <header>
             <div class="franja_amarilla"></div>
             <div class="content">
-                    <a href="#" class="logo">
+                    <a href="http://www.minedu.gob.pe/ideasenaccion/" class="logo">
                             <img src="<?= \Yii::$app->request->BaseUrl ?>/img/logo.jpg" alt="" />
                     </a>
             </div>

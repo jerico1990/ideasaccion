@@ -82,9 +82,9 @@ $foros=Foro::find()->orderBy('id DESC')->all();
     <header>
         <div class="franja_amarilla"></div>
         <div class="content">
-            <a href="#" class="logo">
-                    <img src="../img/logo.jpg" alt="" />
-            </a>
+            <a href="http://www.minedu.gob.pe/ideasenaccion/" class="logo">
+                            <img src="<?= \Yii::$app->request->BaseUrl ?>/img/logo.jpg" alt="" />
+                    </a>
         </div>
     </header>
     <div class="body content">

@@ -17,7 +17,7 @@ use app\models\Ubigeo;
 use app\models\Resultados;
 use app\models\Proyecto;
 use app\models\Video;
-
+use app\models\Reflexion;
 
 
 
@@ -193,7 +193,7 @@ class RutaController extends Controller
     public function actionSexto($usuario)
     {
         $data=[];
-        $reflexionArray=[];
+        //$reflexionArray=[];
         $usuario=Usuario::findOne($usuario);
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
         $etapa=Etapa::find()->where('estado=1')->one();
@@ -212,7 +212,16 @@ class RutaController extends Controller
                     }
                 }
                 
+                if($proyecto)
+                {
+                    $reflexion=Reflexion::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
+                    $reflexionregistrado=1;
+                    if(trim($reflexion->p1)=="" || trim($reflexion->p2)=="" || trim($reflexion->p3)==""){
+                        $reflexionregistrado=0;
+                    }
+                }
                 
+                    
                 
                 $proyectoregistrado=0;
                 if($proyecto){
@@ -220,17 +229,13 @@ class RutaController extends Controller
                 }
                 
                 /*Reflexion*/
-                $reflexiones=Integrante::find()
-                                ->select(['CONCAT(estudiante.nombres," ",estudiante.apellido_paterno," ",estudiante.apellido_materno) nombres_apellidos',
-                                          '(select case when trim(reflexion.reflexion)=""  then 0 else 1 end from reflexion where reflexion.user_id=usuario.id and reflexion.proyecto_id=proyecto.id) entrada'])
+                /*$reflexiones=Integrante::find()
+                                ->select([''])
                                 ->innerJoin('equipo','equipo.id=integrante.equipo_id')
-                                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
-                                ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
-                                ->innerJoin('proyecto','proyecto.equipo_id=equipo.id')
                                 ->where('equipo.id=:equipo and estudiante.grado!=6',
                                         [':equipo'=>$equipo->id])
-                                ->all();
-                $CountReflexion=1;
+                                ->all();*/
+                /*$CountReflexion=1;
                 foreach($reflexiones as $reflexion)
                 {
                     array_push($reflexionArray,['nombres_apellidos'=>$reflexion->nombres_apellidos,'entradas'=>$reflexion->entrada]);
@@ -240,14 +245,14 @@ class RutaController extends Controller
                     }
                 }
                 
-                array_push($data,['reflexiones'=>$reflexionArray]);
+                array_push($data,['reflexiones'=>$reflexionArray]);*/
             }
             
         }
         
         if($integrante && $equipo && $equipo->estado==1 && $proyecto && ($etapa->etapa==1 || $etapa->etapa==2 || $etapa->etapa==3))
         {
-            array_push($data,['proyecto_registrado'=>$proyectoregistrado,'checkreflexion'=>$CountReflexion,'checkvideo'=>$videoregistrado]);
+            array_push($data,['proyecto_registrado'=>$proyectoregistrado,'checkreflexion'=>$reflexionregistrado,'checkvideo'=>$videoregistrado]);
             echo json_encode($data,JSON_UNESCAPED_UNICODE); 
         }
     }

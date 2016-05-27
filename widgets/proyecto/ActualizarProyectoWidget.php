@@ -95,31 +95,32 @@ class ActualizarProyectoWidget extends Widget
                     ->where('proyecto_id=:proyecto_id and actividad.estado=1 and objetivo_especifico.id=:id',[':proyecto_id'=>$proyecto->id,':id'=>$proyecto->objetivo_especifico_3_id])->all();
                     
         $reflexion=Reflexion::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
-        //if($reflexion)
-        //{
+        if($reflexion)
+        {
             $proyecto->p1=$reflexion->p1;
             $proyecto->p2=$reflexion->p2;
             $proyecto->p3=$reflexion->p3;
-        //}
-        
-        //var_dump($proyecto->reflexion);die;
-        if($reflexion && ($equipo->etapa==1 || $equipo->etapa==2))
-        {
-            //$evaluacion=Evaluacion::find()->where('proyecto_id=:proyecto_id and user_id=:user_id',[':user_id'=>$usuario->id,':proyecto_id'=>$proyecto->id])->one();
-           // $proyecto->evaluacion=$evaluacion->evaluacion;
         }
-        
-        
         
         if ($proyecto->load(\Yii::$app->request->post())) {
             
-            //if(trim($proyecto->p1))
-            //{
+            if(!$reflexion)
+            {
+                $reflexion= new Reflexion;
+                $reflexion->proyecto_id=$proyecto->id;
+                $reflexion->user_id=$proyecto->user_id;
+                $reflexion->p1=trim($proyecto->p1);
+                $reflexion->p2=trim($proyecto->p2);
+                $reflexion->p3=trim($proyecto->p3);
+                $reflexion->save();
+            }
+            else
+            {
                 $reflexion->p1=trim($proyecto->p1);
                 $reflexion->p2=trim($proyecto->p2);
                 $reflexion->p3=trim($proyecto->p3);
                 $reflexion->update();
-            //}
+            }
             
             //var_dump(\Yii::$app->request->post());die;
             
