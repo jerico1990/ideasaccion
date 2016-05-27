@@ -216,7 +216,7 @@ class RutaController extends Controller
                 {
                     $reflexion=Reflexion::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
                     $reflexionregistrado=1;
-                    if(trim($reflexion->p1)=="" || trim($reflexion->p2)=="" || trim($reflexion->p3)==""){
+                    if($reflexion && (trim($reflexion->p1)=="" || trim($reflexion->p2)=="" || trim($reflexion->p3)=="")){
                         $reflexionregistrado=0;
                     }
                 }
