@@ -26,7 +26,7 @@ use app\models\VotacionPublica;
 use app\models\Proyecto;
 use app\models\ForoComentario;
 use app\models\Institucion;
-
+use yii\data\Sort;
 
 
 /**
@@ -206,6 +206,7 @@ class PanelController extends Controller
                         '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and foro_comentario.user_id between 2 and 8) emitido'
                         ]) 
                 ->innerJoin('asunto','foro.asunto_id=asunto.id')
+                ->innerJoin('resultados','resultados.asunto_id=foro.asunto_id')
                 ->groupBy('foro.titulo,total')
                 ->orderBy('total DESC,pendiente DESC,valorado DESC')
                 ->all();
@@ -223,8 +224,22 @@ class PanelController extends Controller
                 ->groupBy('foro.titulo,total')
                 ->orderBy('total DESC,pendiente DESC,valorado DESC')
                 ->one();
+        $resultado=new Resultados;
+        $resultado->load(Yii::$app->request->queryParams);
         
-        return $this->render('foros',['forospublicos'=>$forospublicos,'foroparticipacion'=>$foroparticipacion]);
+        $sort = new Sort([
+            'attributes' => [
+                /*'department' => [
+                    'label' => 'Región',
+                ],
+                'total_estudiantes' => [
+                    'label' => 'Total',
+                ],*/
+                
+            ],
+        ]);
+        
+        return $this->render('foros',['resultado'=>$resultado,'sort' => $sort,'forospublicos'=>$forospublicos,'foroparticipacion'=>$foroparticipacion]);
     }
     
     

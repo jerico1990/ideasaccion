@@ -1,7 +1,7 @@
 <?php
 
 namespace app\models;
-
+use yii\db\Query;
 use Yii;
 
 /**
@@ -17,6 +17,7 @@ class Resultados extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $resultados;
     public $descripcion_cabecera;
     public static function tableName()
     {
@@ -50,5 +51,49 @@ class Resultados extends \yii\db\ActiveRecord
     public function getAsunto()
     {
         return $this->hasOne(Asunto::className(), ['id' => 'asunto_id']);
+    }
+    
+    
+    public function getForos($region,$sort)
+    {
+        $query = new Query;
+        $query
+            ->select([
+                        'foro.id',
+                        'foro.titulo',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and not foro_comentario.user_id between 2 and 8) pendiente',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and foro_comentario.user_id between 2 and 8) emitido'
+                        ])
+            ->from('{{%foro}}')
+            ->where('foro.id=2')
+            ->groupBy('foro.titulo,total');
+            //->orderBy($sort);
+            
+        $query1 = new Query;
+        $query1
+            ->select([
+                        'foro.id',
+                        'foro.titulo',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and not foro_comentario.user_id between 2 and 8) pendiente',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and foro_comentario.user_id between 2 and 8) emitido'
+                        ])
+            ->from('{{%foro}}')
+            ->innerJoin('resultados','resultados.asunto_id=foro.asunto_id')
+            ->innerJoin('asunto','foro.asunto_id=asunto.id')
+            ->where('resultados.region_id=:region_id',[':region_id'=>$region])
+            ->groupBy('foro.titulo,total');
+            //->orderBy($sort);
+        
+        $query->union($query1);
+        $expenses = new Query();
+        $expenses->select('*')->from(['u' => $query])->orderBy($sort);
+        
+        $result = Yii::$app->tools->Pagination($expenses,28);
+        
+        return ['resultados' => $result['result'], 'pages' => $result['pages']];
     }
 }

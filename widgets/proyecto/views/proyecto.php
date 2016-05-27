@@ -383,7 +383,7 @@ use yii\web\JsExpression;
     $("#btn_objetivo_especifico_1").click(function(event){
         var error='';
         if ($('#proyecto-objetivo_especifico_1').val()=='') {
-            error=error+' Ingrese el Objetivo especifico 1 <br>';
+            error=error+' Ingrese el Objetivo N°1 <br>';
             $('.field-proyecto-objetivo_especifico_1').addClass('has-error');
         }
         else
@@ -447,7 +447,7 @@ use yii\web\JsExpression;
         }
         
         if ($('#proyecto-objetivo_especifico_2').val()=='') {
-            error=error+'Ingrese el Objetivo especifico 2 <br>';
+            error=error+'Ingrese el Objetivo N° 2 <br>';
             $('.field-proyecto-objetivo_especifico_2').addClass('has-error');
         }
         else
@@ -482,7 +482,7 @@ use yii\web\JsExpression;
         var error='';
         
         if ($('#proyecto-objetivo_especifico_3').val()=='') {
-            error=error+'Ingrese el Objetivo especifico 3 <br>';
+            error=error+'Ingrese el Objetivo N°3 <br>';
             $('.field-proyecto-objetivo_especifico_3').addClass('has-error');
         }
         else
@@ -708,7 +708,7 @@ use yii\web\JsExpression;
         
         if(jQuery.trim(temp_objetivo_especifico)=='')
         {
-            error=error+'Ingrese descripción en Objetivo especifico <br>';
+            error=error+'Ingrese descripción en Objetivo <br>';
             $('.field-proyecto-temp_objetivo_especifico').addClass('has-error');
         }
         else
@@ -823,7 +823,7 @@ use yii\web\JsExpression;
         var bodyactividades="";
         if(jQuery.trim(temp_objetivo_especifico)=='')
         {
-            error=error+'Ingrese descripción en Objetivo especifico <br>';
+            error=error+'Ingrese descripción en Objetivo <br>';
             $('.field-proyecto-temp_objetivo_especifico').addClass('has-error');
         }
         else
