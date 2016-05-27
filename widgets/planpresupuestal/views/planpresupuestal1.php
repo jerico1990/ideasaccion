@@ -25,36 +25,42 @@ foreach($objetivos as $objetivo){
 
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<select id="proyecto-plan_presupuestal_objetivo_99" class="form-control" name="Proyecto[planes_presupuestales_objetivos][]" onchange="actividad($(this).val(),99)" >
-	    <option value>seleccionar</option>
-	    <?= $opciones_objetivos ?>
-	</select>
+	<div class="form-group  field-proyecto-plan_presupuestal_objetivo_99 required" style="margin:0px;">
+	    <label class="control-label" for="proyecto-plan_presupuestal_objetivo_99">Objetivo</label>
+	    <select id="proyecto-plan_presupuestal_objetivo_99" class="form-control" name="Proyecto[planes_presupuestales_objetivos][]" onchange="actividad($(this).val(),99)" >
+		<option value>Seleccionar</option>
+		<?= $opciones_objetivos ?>
+	    </select>
+	</div>
     </div>
+    
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<select id="proyecto-plan_presupuestal_actividad_99" class="form-control" name="Proyecto[planes_presupuestales_actividades]" onchange="presupuesto($(this).val())" >
-	    <option value>seleccionar</option>
-	</select>
+	<div class="form-group field-proyecto-plan_presupuestal_actividad_99 required" style="margin: 0px;padding: 0px">
+	    <label class="control-label" for="registrar-plan_presupuestal_actividad_99">Actividad</label>
+	    <select id="proyecto-plan_presupuestal_actividad_99" class="form-control" name="Proyecto[planes_presupuestales_actividades]" onchange="presupuesto($(this).val())" >
+		<option value>Seleccionar</option>
+	    </select>
+	</div>
     </div>
     <div class="clearfix"></div>
 	<div class="col-xs-12 col-sm-12 col-md-12">
-	    <table class="table table-striped table-hover" id="presupuesto" style="display: none">
+	    <table class="table table-hover" id="presupuesto" style="display: none">
 		<thead>
 		    <th>Recursos</th>
-		    <th>Unidad</th>
-		    <th>A quien va dirigido</th>
 		    <th>¿Como conseguirlo?</th>
-		    <th colspan="3" class="text-center">Presupuesto</th>
-		    <?= ($disabled=='')?'<th></th>':'' ?>
+		    <th>¿A quién podemos pedirselo?</th>
+		    <th>Precio unitario</th>
+		    <th>Cantidad</th>
+		    <th>Total</th>
 		</thead>
 		<tbody id="presupuesto_cuerpo">
 		    
 		</tbody>
 		<tr>
 		    <td>Total</td>
-		    <td colspan="5" ></td>
+		    <td colspan="4" ></td>
 		    <td><div  class="total"></div></td>
-		    <td></td>
 		    <!--<input type="hidden"  id="total">-->
 		</tr>
 	    </table>
@@ -104,162 +110,6 @@ foreach($objetivos as $objetivo){
             
         } 
     });
-    
-    var plan=0;
-    function InsertarPlanPresupuestal() {
-	var error='';
-	plan=parseInt($("#contador").val());
-	
-	var planespresupuestalesrecursosdescripciones=$('input[name=\'Proyecto[planes_presupuestales_recursos_descripciones][]\']').length;
-        
-	
-	for (var i=0; i<planespresupuestalesrecursosdescripciones; i++) {
-	    console.log(planespresupuestalesrecursosdescripciones);
-	    if($('#proyecto-plan_presupuestal_recurso_descripcion_'+i).val()=='')
-            {
-                error=error+'ingrese información en la fila #'+(i+1)+' de la columna recurso dscripción <br>';
-                $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).addClass('has-success');
-                $('.field-proyecto-plan_presupuestal_recurso_descripcion_'+i).removeClass('has-error');
-            }
-	    
-	    if($('#proyecto-plan_presupuestal_unidad_'+i).val()=='')
-            {
-                error=error+'ingrese información en la fila #'+(i+1)+' de la columna unidad <br>';
-                $('.field-proyecto-plan_presupuestal_unidad_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-plan_presupuestal_unidad_'+i).addClass('has-success');
-                $('.field-proyecto-plan_presupuestal_unidad_'+i).removeClass('has-error');
-            }
-	    
-	    if($('#proyecto-plan_presupuestal_dirigido_'+i).val()=='')
-            {
-                error=error+'ingrese información en la fila #'+(i+1)+' de la columna a quien va dirigido <br>';
-                $('.field-proyecto-plan_presupuestal_dirigido_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-plan_presupuestal_dirigido_'+i).addClass('has-success');
-                $('.field-proyecto-plan_presupuestal_dirigido_'+i).removeClass('has-error');
-            }
-	    
-	    if($('#proyecto-plan_presupuestal_como_conseguirlo_'+i).val()=='')
-            {
-                error=error+'ingrese información en la fila #'+(i+1)+' de la columna como conseguirlo <br>';
-                $('.field-proyecto-plan_presupuestal_como_conseguirlo_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-plan_presupuestal_como_conseguirlo_'+i).addClass('has-success');
-                $('.field-proyecto-plan_presupuestal_como_conseguirlo_'+i).removeClass('has-error');
-            }
-	    
-	    /*if($('#proyecto-plan_presupuestal_precio_unitario_'+i).val()==3 &&  $('#proyecto-plan_presupuestal_precio_unitario_'+i).val()=='')
-            {
-                error=error+'ingrese información en la fila #'+(i+1)+' de la columna precio unitario<br>';
-                $('.field-proyecto-plan_presupuestal_precio_unitario_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-plan_presupuestal_precio_unitario_'+i).addClass('has-success');
-                $('.field-proyecto-plan_presupuestal_precio_unitario_'+i).removeClass('has-error');
-            }*/
-	    
-	    if($('#proyecto-plan_presupuestal_cantidad_'+i).val()=='')
-            {
-                error=error+'ingrese información en la fila #'+(i+1)+' de la columna cantidad <br>';
-                $('.field-proyecto-plan_presupuestal_cantidad_'+i).addClass('has-error');
-            }
-            else
-            {
-                $('.field-proyecto-plan_presupuestal_cantidad_'+i).addClass('has-success');
-                $('.field-proyecto-plan_presupuestal_cantidad_'+i).removeClass('has-error');
-            }
-	    
-        }
-	if (error!='') {
-            $.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
-        }
-        else
-        {
-	    
-	    $('#plan_presupuestal_'+plan).html(
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_recurso_descripcion_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_recurso_descripcion_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_recursos_descripciones][]' placeholder='Recurso'  />"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_unidad_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_unidad_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_unidades][]' placeholder='Unidad'  />"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_dirigido_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_dirigido_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' />"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_como_conseguirlo_"+plan+"' required' style='margin-top: 0px'>"+
-						"<select onchange='ComoConseguirlo($(this).val(),"+plan+")' id='proyecto-plan_presupuestal_como_conseguirlo_"+plan+"' class='form-control' name='Proyecto[planes_presupuestales_comos_conseguirlos][]'>"+
-						    "<option value>seleccionar</option>"+
-						    "<option value='1'>Pedir</option>"+
-						    "<option value='2'>Crear</option>"+
-						    "<option value='3'>Comprar</option>"+
-						"</select>"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+plan+"' onkeypress='Numerico(event)' onfocus='Subtotal11("+plan+",2)'  onfocusout='Subtotal1("+plan+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='S/. 0.00'>"+
-						"<input type='hidden' id='proyecto-plan_presupuestal_precio_unitario_"+plan+"'  class='form-control numerico' name='Proyecto[planes_presupuestales_precios_unitarios][]' />"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_cantidad_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_cantidad_"+plan+"' onkeypress='Numerico(event)'   onfocusout='Subtotal2("+plan+",2)' class='form-control' name='Proyecto[planes_presupuestales_cantidades][]' placeholder='Cantidad' >"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_subtotal_"+plan+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_subtotal1_"+plan+"' class='form-control ' name='Proyecto[planes_presupuestales_subtotales1][]' placeholder='S/. 0.00'   disabled>"+
-						"<input type='hidden' id='proyecto-plan_presupuestal_subtotal_"+plan+"' class='form-control totales' name='Proyecto[planes_presupuestales_subtotales][]' placeholder='Subtotal' >"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<span class='remCF glyphicon glyphicon-minus-sign'>"+
-					    "</span>"+
-					"</td>");
-	    $('#presupuesto').append('<tr id="plan_presupuestal_'+(plan+1)+'"><input type="hidden" id="contador" value="'+(plan+1)+'" ></tr>');
-	    /*$('#proyecto-plan_presupuestal_precio_unitario1_'+plan).autoNumeric("init",{
-		aSep: '.',
-		aDec: ',', 
-		aSign: 'S/. '
-	    });*/
-	    
-	    
-	    plan++;
-	}
-	return true;
-    }
-    
-    
-    
     $('.numerico').keypress(function (tecla) {
 	var reg = /^[0-9\s]+$/;
 	if(!reg.test(String.fromCharCode(tecla.which))){
@@ -416,16 +266,6 @@ foreach($objetivos as $objetivo){
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_unidad_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_unidad_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_unidades][]' placeholder='Unidad' value='"+star.unidad+"'  <?= $disabled?>/>"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
-					    "<div class='form-group field-proyecto-plan_presupuestal_dirigido_"+i+"' required' style='margin-top: 0px'>"+
-						"<input id='proyecto-plan_presupuestal_dirigido_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' value='"+star.dirigido+"'  <?= $disabled?>/>"+
-					    "</div>"+
-					"</td>"+
-					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_como_conseguirlo_"+i+"' required' style='margin-top: 0px'>"+
 						"<select onchange='ComoConseguirlo($(this).val(),"+i+")' id='proyecto-plan_presupuestal_como_conseguirlo_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_comos_conseguirlos][]' <?= $disabled?>>"+
 						    "<option value>seleccionar</option>"+
@@ -435,6 +275,12 @@ foreach($objetivos as $objetivo){
 						"</select>"+
 					    "</div>"+
 					"</td>"+
+					"<td style='padding: 2px'>"+
+					    "<div class='form-group field-proyecto-plan_presupuestal_dirigido_"+i+"' required' style='margin-top: 0px'>"+
+						"<input id='proyecto-plan_presupuestal_dirigido_"+i+"' class='form-control' name='Proyecto[planes_presupuestales_dirigidos][]' placeholder='Dirigido' value='"+star.dirigido+"'  <?= $disabled?>/>"+
+					    "</div>"+
+					"</td>"+
+					
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-plan_presupuestal_precio_unitario_"+i+"' required' style='margin-top: 0px'>"+
 						"<input id='proyecto-plan_presupuestal_precio_unitario1_"+i+"' onfocusout='Subtotal1("+i+",1)' class='form-control' name='Proyecto[planes_presupuestales_precios_unitarios1][]' placeholder='Precio unitario' value='S/."+star.precio_unitario.toFixed(2)+"' <?= $disabled?>>"+

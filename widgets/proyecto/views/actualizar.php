@@ -126,17 +126,7 @@ label{
                         <div class="clearfix"></div>
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_9">
-                    <div class="clearfix"></div>
-                    
-                        <!--
                         <div class="clearfix"></div>
-                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group label-floating field-proyecto-objetivo_general required" style="margin-top: 15px">
-                                <label class="control-label" for="proyecto-objetivo_general" title="Máximo 200 palabras">Objetivo general</label>
-                                <textarea style="padding-bottom: 0px;padding-top: 0px;height: 30px;" id="proyecto-objetivo_general" class="form-control" name="Proyecto[objetivo_general]"  maxlength="200"  title="Máximo 200 palabras" <?= $disabled ?>><?= $proyecto->objetivo_general ?></textarea>
-                            </div>
-                        </div>-->
-                       <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <?php if($disabled=='disabled') { ?>
                                 <h4><b>Objetivos</b>  </h4>

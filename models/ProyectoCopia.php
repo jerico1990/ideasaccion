@@ -42,7 +42,9 @@ class ProyectoCopia extends \yii\db\ActiveRecord
     public $actividades_ids_1;
     public $actividades_ids_2;
     public $actividades_ids_3;
-    public $reflexion;
+    public $p1;
+    public $p2;
+    public $p3;
     public $evaluacion;
     public $forum_url;
     public static function tableName()
