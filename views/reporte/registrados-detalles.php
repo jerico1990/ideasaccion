@@ -72,7 +72,11 @@ if (isset($_GET['page']) >= 2)
         ]);?>
         
         <div class='clearfix'></div>
-        
+    <div class='clearfix'></div>
+            <div class="form-group pull-rigth col-md-4" >
+            <?= Html::a('Descargar',['reporte/registrados-detalles_descargar','region'=>$model->region_id,'estado'=>$model->estado],['class'=>' btn btn-default']);?>
+            </div>
+        <div class='clearfix'></div>
         
     
 </div>

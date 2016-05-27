@@ -10,6 +10,7 @@ use yii\filters\AccessControl;
 use yii\db\Query;
 use app\models\Voto;
 use app\models\Estudiante;
+use app\models\Foro;
 use yii\data\Sort;
 /**
  * ProyectoController implements the CRUD actions for Proyecto model.
@@ -139,6 +140,10 @@ class ReporteController extends Controller
         ]);
     }
     
+    public function actionRegistrados_descargar()
+    {
+        return $this->render('registrados_descargar');
+    }
     
     public function actionRegistradosDetalles()
     {
@@ -176,6 +181,10 @@ class ReporteController extends Controller
         ]);
     }
     
+    public function actionRegistradosDetalles_descargar($region=null,$estado=null)
+    {
+        return $this->render('registrados-detalles_descargar',['region'=>$region,'estado'=>$estado]);
+    }
     
     public function actionEquipo()
     {
@@ -198,6 +207,43 @@ class ReporteController extends Controller
         return $this->render('equipo', [
             'model' => $model,
             'sort' => $sort,
+        ]);
+    }
+    
+    public function actionForo_descargar($region=null)
+    {
+        $forospublicos= Foro::find()
+                ->select([
+                        'foro.id',
+                        'foro.titulo',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and not foro_comentario.user_id between 2 and 8) pendiente',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and foro_comentario.user_id between 2 and 8) emitido'
+                        ]) 
+                ->innerJoin('asunto','foro.asunto_id=asunto.id')
+                ->innerJoin('resultados','resultados.asunto_id=foro.asunto_id')
+                ->groupBy('foro.titulo,total')
+                ->orderBy('total DESC,pendiente DESC,valorado DESC')
+                ->all();
+        
+        $foroparticipacion= Foro::find()
+                ->select([
+                        'foro.id',
+                        'foro.titulo',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) total',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion!=0) valorado',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and not foro_comentario.user_id between 2 and 8) pendiente',
+                        '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id and foro_comentario.valoracion=0 and foro_comentario.user_id between 2 and 8) emitido'
+                        ])
+                ->where('foro.id=2')
+                ->groupBy('foro.titulo,total')
+                ->orderBy('total DESC,pendiente DESC,valorado DESC')
+                ->one();
+                
+        return $this->render('foro_descargar', [
+            'forospublicos' => $forospublicos,
+            'foroparticipacion'=>$foroparticipacion
         ]);
     }
 }

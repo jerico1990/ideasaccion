@@ -92,7 +92,11 @@ if (isset($_GET['page']) >= 2)
         <div class="col-md-2"><?= $foropublico->emitido ?></div>
         <div class="clearfix"></div>
     <?php endforeach; ?>
-    
+    <div class='clearfix'></div>
+        <div class="form-group pull-rigth col-md-4" >
+        <?= Html::a('Descargar',['reporte/foro_descargar'],['class'=>' btn btn-default']);?>
+        </div>
+    <div class='clearfix'></div>
     
 </div>
 <script>

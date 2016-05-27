@@ -33,6 +33,7 @@ class Estudiante extends \yii\db\ActiveRecord
     public $total_estudiantes;
     public $region_id;
     public $estado;
+    public $denominacion;
     public static function tableName()
     {
         return 'estudiante';
