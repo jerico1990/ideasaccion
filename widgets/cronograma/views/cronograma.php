@@ -22,7 +22,7 @@ foreach($objetivos as $objetivo){
     <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<div class="form-group field-proyecto-plan_presupuestal_objetivo_99 required" style="margin:0px;">
+	<div class="form-group field-proyecto-cronograma_99 required" style="margin:0px;">
 	    <label class="control-label" for="proyecto-cronograma_objetivo_99">Objetivo</label>
 	    <select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" >
 		<option value>Seleccionar</option>
