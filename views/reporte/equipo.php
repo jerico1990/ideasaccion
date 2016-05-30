@@ -1,5 +1,5 @@
 <?php 
-$equipos = $model->getEquipo($sort->orders);
+$equipos = $model->getEquipos($sort->orders);
 
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
@@ -20,22 +20,28 @@ if (isset($_GET['page']) >= 2)
     
     <table class="table">
         <thead style="background: #D9D9D9">
-            <th><b><?= $sort->link('region_id')?></b></th>
-            <th align="center"><b><?= $sort->link('voto_emitido')?></b></th>
+            <th><b>Región</b></th>
+            <th><b>Total de equipos finalizados</b></th>
+            <th><b>Total integrantes de equipos finalizados</b></th>
+            <th><b>Total de equipos no finalizados</b></th>
+            <th><b>Total integrantes de equipos no finalizados</b></th>
         </thead>
         <tbody>
-        <?php foreach($regiones['regiones'] as $region):
+        <?php foreach($equipos['equipos'] as $equipo):
             $floor_number=$floor++; //?????
             ?>
             <tr>
-                <td><?= $region['region_id'] ?></td>
-                <td ><?= $region['voto_emitido'] ?></td>
+                <td><?= $equipo['department'] ?></td>
+                <td><?= $equipo['total_equipos'] ?></td>
+                <td ><?= $equipo['total_alumnos'] ?></td>
+                <td ><?= $equipo['total_equipos_nofinalizado'] ?></td>
+                <td ><?= $equipo['total_alumnos_nofinalizado'] ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>    
         <?= LinkPager::widget([
-            'pagination' => $regiones['pages'],
+            'pagination' => $equipos['pages'],
             'lastPageLabel' => true,
             'firstPageLabel' => true
         ]);?>
