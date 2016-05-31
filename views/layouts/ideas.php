@@ -90,7 +90,7 @@ if($key==4)
             <tbody>
                 <tr>
                     <td>
-                        <b>Lorem Ipsum</b> is <br> simply dummy text
+                        <b>Recuerda :</b> este 9 de <br>junio debes finalizar la primera entrega de tu proyecto
                     </td>
                 </tr>
             </tbody>
