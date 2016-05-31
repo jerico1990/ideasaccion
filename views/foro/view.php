@@ -13,7 +13,7 @@ $usuario=$model->usuario;
 $posts = $model->getPosts($model->id);
 ?>
 <div class="box_head title_content_box">
-    <img src="../img/icon_team_big.jpg" alt=""> <?= ($model->id==2)?'Foro de participación estudiantil':'Foro de asunto público' ?> 
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_send_big.png" alt=""> <?= ($model->id==2)?'Foro de participación estudiantil':'Foro de asunto público' ?> 
 </div>
 <div class="box_content contenido_seccion_crear_equipo">
     <?php if($model->id==2){ ?>

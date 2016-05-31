@@ -74,7 +74,7 @@ label{
 </style>
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
-    <img src="../img/icon_team_big.jpg" alt="">MI PROYECTO
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO
 </div>
 <div class="box_content contenido_seccion_crear_equipo">
     <div class="row">

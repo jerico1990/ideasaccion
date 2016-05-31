@@ -33,6 +33,29 @@ if($integrante)
     }
 }
 $foros=Foro::find()->orderBy('id DESC')->all();
+$images=['gato_crema','perro_gris','gato_chicha','colibri','mono'];
+$key=array_rand($images);
+$class="";
+if($key==0)
+{
+    $class="";
+}
+if($key==1)
+{
+    $class="";
+}
+if($key==2)
+{
+    $class="";
+}
+if($key==3)
+{
+    $class="personaje_foros";
+}
+if($key==4)
+{
+    $class="personaje_entregas";
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -77,6 +100,18 @@ $foros=Foro::find()->orderBy('id DESC')->all();
 </head>
 <body class="mi_equipo">
     <?php $this->beginBody() ?>
+    <div class="personaje_derecha_fixed <?= $class ?>">
+        <table cellpadding="0" cellspacing="0" border="0" align="right" class="text">
+            <tbody>
+                <tr>
+                    <td>
+                        <b>Lorem Ipsum</b> is <br> simply dummy text
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <img src="<?= \Yii::$app->request->BaseUrl ?>/img/munecos/<?= $images[$key] ?>.png" class="" alt="">
+    </div>
     <header>
         <div class="franja_amarilla"></div>
         <div class="content">
