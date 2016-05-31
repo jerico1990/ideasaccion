@@ -166,7 +166,7 @@ class SiteController extends Controller
         $resultados=Resultados::find()->all();
         if($resultados)
         {
-            return $this->render('votacion');//cambiar a subir a produccion
+            //return $this->render('votacion');//cambiar a subir a produccion
             return $this->redirect(['site/resultados']);
         }
         else

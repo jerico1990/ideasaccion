@@ -98,13 +98,14 @@ class Equipo extends \yii\db\ActiveRecord
     
     public function getEquipos($sort)
     {
+        //total_equipos province   total_alumnos  district  total_equipos_nofinalizado latitude  total_alumnos_nofinalizado longitud
         $query = new Query;
         $query
             ->select(['DISTINCT ubigeo.department,
-                      (SELECT COUNT( equipo.id ) FROM equipo INNER JOIN integrante ON integrante.equipo_id = equipo.id INNER JOIN estudiante ON estudiante.id = integrante.estudiante_id AND integrante.rol =1 INNER JOIN institucion ON institucion.id = estudiante.institucion_id INNER JOIN ubigeo u ON u.district_id = institucion.ubigeo_id WHERE u.department_id = ubigeo.department_id AND equipo.estado =1 ) AS total_equipos,
-                      (SELECT COUNT( equipo.id ) FROM equipo INNER JOIN integrante ON integrante.equipo_id = equipo.id INNER JOIN estudiante ON estudiante.id = integrante.estudiante_id INNER JOIN institucion ON institucion.id = estudiante.institucion_id INNER JOIN ubigeo u ON u.district_id = institucion.ubigeo_id WHERE u.department_id = ubigeo.department_id AND equipo.estado =1 ) AS total_alumnos ,
-                      (SELECT COUNT( equipo.id ) FROM equipo INNER JOIN integrante ON integrante.equipo_id = equipo.id INNER JOIN estudiante ON estudiante.id = integrante.estudiante_id AND integrante.rol =1 INNER JOIN institucion ON institucion.id = estudiante.institucion_id INNER JOIN ubigeo u ON u.district_id = institucion.ubigeo_id WHERE u.department_id = ubigeo.department_id AND equipo.estado =0 ) AS total_equipos_nofinalizado,
-                      (SELECT COUNT( equipo.id ) FROM equipo INNER JOIN integrante ON integrante.equipo_id = equipo.id INNER JOIN estudiante ON estudiante.id = integrante.estudiante_id INNER JOIN institucion ON institucion.id = estudiante.institucion_id INNER JOIN ubigeo u ON u.district_id = institucion.ubigeo_id WHERE u.department_id = ubigeo.department_id AND equipo.estado =0 ) AS total_alumnos_nofinalizado
+                      (SELECT COUNT( equipo.id ) FROM equipo INNER JOIN integrante ON integrante.equipo_id = equipo.id INNER JOIN estudiante ON estudiante.id = integrante.estudiante_id AND integrante.rol =1 INNER JOIN institucion ON institucion.id = estudiante.institucion_id INNER JOIN ubigeo u ON u.district_id = institucion.ubigeo_id WHERE u.department_id = ubigeo.department_id AND equipo.estado =1 ) AS province,
+                      (SELECT COUNT( equipo.id ) FROM equipo INNER JOIN integrante ON integrante.equipo_id = equipo.id INNER JOIN estudiante ON estudiante.id = integrante.estudiante_id INNER JOIN institucion ON institucion.id = estudiante.institucion_id INNER JOIN ubigeo u ON u.district_id = institucion.ubigeo_id WHERE u.department_id = ubigeo.department_id AND equipo.estado =1 ) AS district ,
+                      (SELECT COUNT( equipo.id ) FROM equipo INNER JOIN integrante ON integrante.equipo_id = equipo.id INNER JOIN estudiante ON estudiante.id = integrante.estudiante_id AND integrante.rol =1 INNER JOIN institucion ON institucion.id = estudiante.institucion_id INNER JOIN ubigeo u ON u.district_id = institucion.ubigeo_id WHERE u.department_id = ubigeo.department_id AND equipo.estado =0 ) AS latitude,
+                      (SELECT COUNT( equipo.id ) FROM equipo INNER JOIN integrante ON integrante.equipo_id = equipo.id INNER JOIN estudiante ON estudiante.id = integrante.estudiante_id INNER JOIN institucion ON institucion.id = estudiante.institucion_id INNER JOIN ubigeo u ON u.district_id = institucion.ubigeo_id WHERE u.department_id = ubigeo.department_id AND equipo.estado =0 ) AS longitud
                     '])
             ->from('{{%ubigeo}}')
             ->orderBy($sort);

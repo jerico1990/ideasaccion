@@ -193,13 +193,21 @@ class ReporteController extends Controller
         
         $sort = new Sort([
             'attributes' => [
-                /*'department' => [
+                'department' => [
                     'label' => 'Región',
                 ],
-                'total_estudiantes' => [
-                    'label' => 'Total',
-                ],*/
-                
+                'province'=>[
+                    'label' => 'Total de equipos finalizados',
+                ],
+                'district'=>[
+                    'label' => 'Total integrantes de equipos finalizados',
+                ],
+                'latitude'=>[
+                    'label' => 'Total de equipos no finalizados',
+                ],
+                'longitud'=>[
+                    'label' => 'Total integrantes de equipos no finalizados',
+                ],
             ],
         ]);
         

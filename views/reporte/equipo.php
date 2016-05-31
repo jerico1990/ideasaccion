@@ -20,11 +20,11 @@ if (isset($_GET['page']) >= 2)
     
     <table class="table">
         <thead style="background: #D9D9D9">
-            <th><b>Región</b></th>
-            <th><b>Total de equipos finalizados</b></th>
-            <th><b>Total integrantes de equipos finalizados</b></th>
-            <th><b>Total de equipos no finalizados</b></th>
-            <th><b>Total integrantes de equipos no finalizados</b></th>
+            <th><b><?= $sort->link('department')?></b></th>
+            <th><b><?= $sort->link('province')?></b></th>
+            <th><b><?= $sort->link('district')?></b></th>
+            <th><b><?= $sort->link('latitude')?></b></th>
+            <th><b><?= $sort->link('longitud')?></b></th>
         </thead>
         <tbody>
         <?php foreach($equipos['equipos'] as $equipo):
@@ -32,19 +32,14 @@ if (isset($_GET['page']) >= 2)
             ?>
             <tr>
                 <td><?= $equipo['department'] ?></td>
-                <td><?= $equipo['total_equipos'] ?></td>
-                <td ><?= $equipo['total_alumnos'] ?></td>
-                <td ><?= $equipo['total_equipos_nofinalizado'] ?></td>
-                <td ><?= $equipo['total_alumnos_nofinalizado'] ?></td>
+                <td><?= $equipo['province'] ?></td>
+                <td ><?= $equipo['district'] ?></td>
+                <td ><?= $equipo['latitude'] ?></td>
+                <td ><?= $equipo['longitud'] ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>    
-        <?= LinkPager::widget([
-            'pagination' => $equipos['pages'],
-            'lastPageLabel' => true,
-            'firstPageLabel' => true
-        ]);?>
         
         <div class='clearfix'></div>
             <div class="form-group pull-rigth col-md-4" >
