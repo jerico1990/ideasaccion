@@ -422,13 +422,10 @@ foreach($objetivos as $objetivo){
 		var tebody="";
 		var i=data[0];
 		var total=0;
-		console.log("cesar");
 		if (data) {
 		    data.splice(0,1);
 		    $.each(data, function(i,star) {
 			total=total+star.subtotal;
-			//$('#total').val(total);
-			
 			var select1="";
 			var select2="";
 			var select3="";

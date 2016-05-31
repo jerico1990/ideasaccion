@@ -11,6 +11,7 @@ use yii\db\Query;
 use app\models\Voto;
 use app\models\Estudiante;
 use app\models\Foro;
+use app\models\Equipo;
 use yii\data\Sort;
 /**
  * ProyectoController implements the CRUD actions for Proyecto model.
