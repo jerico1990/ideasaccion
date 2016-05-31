@@ -105,7 +105,7 @@ if($key==4)
             <tbody>
                 <tr>
                     <td>
-                        Recuerda : <b>Este 9 de <br>Junio debes finalizar la primera entrega de tu proyecto.</b>
+                        Recuerda: <b>Este 9 de <br>Junio debes finalizar la primera entrega de tu proyecto.</b>
                     </td>
                 </tr>
             </tbody>
