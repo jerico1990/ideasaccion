@@ -123,7 +123,28 @@ label{
                                 <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" rows="3" maxlength="2500"  <?= $disabled ?> required ><?= $proyecto->beneficiario ?></textarea>
                             </div>
                         </div>
+                        
                         <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group label-floating field-proyecto-archivo required" >
+                                <label class="control-label" for="proyecto-archivo">Publica tu proyecto</label>
+                                <input class="form-control" type="file" id="proyecto-archivo"  name="Proyecto[archivo]" onchange="Documento(this)"/>
+                                <div class="input-group">
+                                    <input type="text" readonly="" class="form-control" >
+                                      <span class="input-group-btn input-group-sm">
+                                        <button type="button" class="btn btn-fab btn-fab-mini">
+                                          <i class="material-icons">archivo</i>
+                                        </button>
+                                      </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" target="_blank" class=" btn-lateral">
+                                Descargar proyecto publicado
+                        </a><br>
+                        <div class="clearfix"></div>
+                        <br>
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_9">
                         <div class="clearfix"></div>
@@ -243,7 +264,7 @@ label{
                         <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                            <div class="form-group label-floating field-registrar-foto required" >
+                            <div class="form-group label-floating field-video-archivo required" >
                                 <div class="imagen_equipo" style="vertical-align: middle;border: solid 1px;line-height: 160px;" aling="center">
                                 <input style="cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video(this)"/>
                                     Sube tu video AQUÍ.
@@ -596,14 +617,16 @@ label{
         return true;
     });
     
-    $('.numerico').keypress(function (tecla) {
+    $('.numerico').keypress(function (e) {
+		
+	tecla = (document.all) ? e.keyCode : e.which; // 2
+	if (tecla==8) return true; // 3
         var reg = /^[0-9\s]+$/;
-        if(!reg.test(String.fromCharCode(tecla.which))){
-            return false;
-        }
-        return true;
-    });
-    
+        te = String.fromCharCode(tecla); // 5
+	return reg.test(te); // 6
+		
+    });		
+	
     $('#btnproyectoreflexion').click(function(events){
         var error='';
         
@@ -1162,6 +1185,41 @@ label{
         $("#actividades_copia").append(body);
         actividad++;
         return true;
+    }
+    
+    function Documento(elemento) {
+        var ext = $(elemento).val().split('.').pop().toLowerCase();
+        var error='';
+        if($.inArray(ext, ['docx','doc']) == -1) {
+            error=error+'Solo se permite subir archivos con extensiones .docx,.doc';
+        }
+        if (error=='' && elemento.files[0].size/1024/1024>=5) {
+            error=error+'Solo se permite archivos hasta 5 MB';
+        }
+        
+        if (error!='') {
+            $.notify({
+                message: error
+            },{
+                // settings
+                type: 'danger',
+                z_index: 1000000,
+                placement: {
+                        from: 'bottom',
+                        align: 'right'
+                },
+            });
+            //fileupload = $('#equipo-foto_img');  
+            //fileupload.replaceWith($fileupload.clone(true));
+            $(elemento).replaceWith($(elemento).val('').clone(true));
+            //$('#equipo-foto_img').val('');
+            return false;
+        }
+        else
+        {
+            //mostrarImagen(this);
+            return true;
+        }
     }
 </script>
 

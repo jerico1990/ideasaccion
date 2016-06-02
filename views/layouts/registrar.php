@@ -54,7 +54,19 @@ AppAssetInterno::register($this);
     
     <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
     <?php $this->head() ?>
-    
+    <script type="text/javascript">
+        function suppressBackspace(evt) {
+    evt = evt || window.event;
+    var target = evt.target || evt.srcElement;
+
+    if (evt.keyCode == 8 && !/input|textarea/i.test(target.nodeName)) {
+        return false;
+    }
+}
+
+document.onkeydown = suppressBackspace;
+document.onkeypress = suppressBackspace;
+    </script>
 </head>
 <body class="registro">
 <?php $this->beginBody() ?>
@@ -170,6 +182,7 @@ AppAssetInterno::register($this);
 <script src="<?= \Yii::$app->request->BaseUrl ?>/bootstrap-material-design-master/dist/js/ripples.min.js"></script>
 <script>
   $.material.init();
+  
 </script>
 
 

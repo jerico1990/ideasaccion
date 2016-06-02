@@ -272,19 +272,22 @@ foreach($objetivos as $objetivo){
     
     
     
-    $('.numerico').keypress(function (tecla) {
-	var reg = /^[0-9\s]+$/;
-	if(!reg.test(String.fromCharCode(tecla.which))){
-	    return false;
-	}
-	return true;
+    $('.numerico').keypress(function (e) {
+		
+	tecla = (document.all) ? e.keyCode : e.which; // 2
+	if (tecla==8) return true; // 3
+        var reg = /^[0-9\s]+$/;
+        te = String.fromCharCode(tecla); // 5
+	return reg.test(te); // 6
+		
     });		
-    $('.texto').keypress(function(tecla) {
-	var reg = /^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ'_\s]+$/;
-	if(!reg.test(String.fromCharCode(tecla.which))){
-	    return false;
-	}
-	return true;
+	
+    $('.texto').keypress(function(e) {
+	tecla = (document.all) ? e.keyCode : e.which; // 2
+	if (tecla==8) return true; // 3
+        var reg = /^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ'_\s]+$/;
+        te = String.fromCharCode(tecla); // 5
+	return reg.test(te); // 6
     });
     
     function Numerico(evt)

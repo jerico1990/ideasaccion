@@ -387,6 +387,15 @@ class ActualizarProyectoWidget extends Widget
                 $newComentario->save();
             }
             
+            $proyecto->archivo = UploadedFile::getInstance($proyecto, 'archivo');
+            if($proyecto->archivo) {
+                
+                $proyecto->proyecto_archivo=$proyecto->id. '.' . $proyecto->archivo->extension;
+                $proyecto->formato_proyecto=1;//formato en documento
+                $proyecto->update();
+                $proyecto->archivo->saveAs('proyectos/' . $proyecto->proyecto_archivo);
+            }
+            
                 
             return \Yii::$app->getResponse()->refresh();
         }

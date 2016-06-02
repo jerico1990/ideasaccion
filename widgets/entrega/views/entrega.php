@@ -45,29 +45,30 @@ use yii\web\JsExpression;
         
         var error='';
         
-        if (actividad<1) {
+        /*if (actividad<1) {
             error='Debe ingresar mínimo una actividad <br>'+error;
         }
         if (cronograma<1) {
             error='Debe ingresar mínimo un cronograma <br>'+error;
-        }
+        }*/
         if (video<1) {
             error='Debe ingresar el video del proyecto <br>'+error;
         }
+        /*
         if (planepresupuestales<1) {
             error='Debe ingresar mínimo un plan presupuestal <br>'+error;
         }
         if (asuntosprivados!='') {
             error=asuntosprivados+error;
             //error='Debe ingresar mínimo 1 comentario en Foro de "Asuntos Públicos" <br>'+error;
-        }
-        if (asuntospublicos!='') {
+        }*/
+        /*if (asuntospublicos!='') {
             error=asuntospublicos+error;
         }
         
         if (reflexion!='') {
             error=reflexion+error;
-        }
+        }*/
         
         
         if (error!='') {

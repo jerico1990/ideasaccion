@@ -12,6 +12,8 @@ use app\models\Reflexion;
 use app\models\Actividad;
 use app\models\Equipo;
 use app\models\ObjetivoEspecifico;
+use yii\web\UploadedFile;
+
 class ProyectoWidget extends Widget
 {
     public $message;
@@ -28,20 +30,6 @@ class ProyectoWidget extends Widget
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
         $equipo=Equipo::findOne($integrante->equipo_id);
         if ($proyecto->load(\Yii::$app->request->post()) && $proyecto->save()) {
-            /*
-            $reflexion = 'insert into reflexion (reflexion,proyecto_id,user_id)
-                    select "" , '.$proyecto->id.' , usuario.id from integrante
-                    inner join usuario on usuario.estudiante_id=integrante.estudiante_id
-                    inner join estudiante on estudiante.id=usuario.estudiante_id
-                    where estudiante.grado!=6 and  integrante.equipo_id='.$integrante->equipo_id.' and integrante.estudiante_id!='.$integrante->estudiante_id.' ';
-            
-            \Yii::$app->db->createCommand($reflexion)->execute();
-            */
-            /*$reflexion= new Reflexion;
-            $reflexion->proyecto_id=$proyecto->id;
-            $reflexion->user_id=$proyecto->user_id;
-            $reflexion->save();
-            */ 
                     
             $countActividades1=count(array_filter($proyecto->actividades_1));
             $countActividades2=count(array_filter($proyecto->actividades_2));
@@ -117,7 +105,14 @@ class ProyectoWidget extends Widget
                 }
             }
             
-            
+            $proyecto->archivo = UploadedFile::getInstance($proyecto, 'archivo');
+            if($proyecto->archivo) {
+                
+                $proyecto->proyecto_archivo=$proyecto->id. '.' . $proyecto->archivo->extension;
+                $proyecto->formato_proyecto=1;//formato en documento
+                $proyecto->update();
+                $proyecto->archivo->saveAs('proyectos/' . $proyecto->proyecto_archivo);
+            }
             
             return \Yii::$app->getResponse()->refresh();
         }

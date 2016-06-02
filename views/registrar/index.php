@@ -712,18 +712,22 @@ $this->title="Ideas en acción";
     }
     
     
-    $('.numerico').keypress(function (tecla) {
+    $('.numerico').keypress(function (e) {
+	tecla = (document.all) ? e.keyCode : e.which; // 2
+	if (tecla==8) return true; // 3
         var reg = /^[0-9\s]+$/;
-        if(!reg.test(String.fromCharCode(tecla.which))){
-            return false;
-        }
-        return true;
+        te = String.fromCharCode(tecla); // 5
+	return reg.test(te); // 6
+		
     });		
-    $('.texto').keypress(function(tecla) {
+	
+    $('.texto').keypress(function(e) {
+	tecla = (document.all) ? e.keyCode : e.which; // 2
+	if (tecla==8) return true; // 3
         var reg = /^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ'_\s]+$/;
-        if(!reg.test(String.fromCharCode(tecla.which))){
-            return false;
-        }
-        return true;
+        te = String.fromCharCode(tecla); // 5
+	return reg.test(te); // 6
     });
+    
+    
 </script>
