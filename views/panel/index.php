@@ -183,7 +183,7 @@ $btninscribir=$integrante
 <?php } ?>
 
 <?php if($integrante){ ?>
-<div class="box_content contenido_seccion_crear_equipo">
+<div class="box_content contenido_seccion_crear_equipo" style="max-height:820px !important">
     <div class="row">
         <div class="col-md-9">
             <div class="form-group">
@@ -221,7 +221,7 @@ $btninscribir=$integrante
         </div>
     </div>
     
-    <div class="row lista_miembros_equipo">
+    <div class="row lista_miembros_equipo" style="padding-bottom: 10px">
         <div class="col-md-12">
                 <label for="">Los miembros de mi equipo:</label>
         </div>
