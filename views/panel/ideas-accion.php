@@ -337,21 +337,21 @@ $this->title='Ideas en acción';
                     $scope.forosabiertos=data[1]["foro_abierto"];
                     angular.forEach( $scope.forosasuntos, function(value, key) {
                         if (value["entradas_asunto"]==0) {
-                            $scope.txtforo_asunto=$scope.txtforo_asunto+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos_asunto"]+"("+value["entradas_asunto"]+" entradas)<br>";
+                            $scope.txtforo_asunto=$scope.txtforo_asunto+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos_asunto"]+"("+value["entradas_asunto"]+" comentarios)<br>";
                         }
                         else
                         {
-                            $scope.txtforo_asunto=$scope.txtforo_asunto+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos_asunto"]+"("+value["entradas_asunto"]+" entradas)<br>";
+                            $scope.txtforo_asunto=$scope.txtforo_asunto+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos_asunto"]+"("+value["entradas_asunto"]+" comentarios)<br>";
                         }
                     });
                     
                     angular.forEach( $scope.forosabiertos, function(value, key) {
                         if (value["entradas_abierto"]==0) {
-                            $scope.txtforo_abierto=$scope.txtforo_abierto+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos_abierto"]+"("+value["entradas_abierto"]+" entradas)<br>";
+                            $scope.txtforo_abierto=$scope.txtforo_abierto+"<i class='fa fa-fw fa-exclamation-triangle'></i>"+value["nombres_apellidos_abierto"]+"("+value["entradas_abierto"]+" comentarios)<br>";
                         }
                         else
                         {
-                            $scope.txtforo_abierto=$scope.txtforo_abierto+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos_abierto"]+"("+value["entradas_abierto"]+" entradas)<br>";
+                            $scope.txtforo_abierto=$scope.txtforo_abierto+"<i class='fa fa-fw fa-check-square'></i>"+value["nombres_apellidos_abierto"]+"("+value["entradas_abierto"]+" comentarios)<br>";
                         }
                     });
                     
