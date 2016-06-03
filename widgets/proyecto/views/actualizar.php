@@ -585,6 +585,7 @@ label{
     }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
         
         alert("Se ha subido tu proyecto satisfactoriamente");
+        location.reload();
     });
     
     });

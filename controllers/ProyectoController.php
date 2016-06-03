@@ -565,6 +565,6 @@ class ProyectoController extends Controller
             $proyecto->archivo->saveAs('proyectos/' . $proyecto->proyecto_archivo);
         }
         
-        return $this->redirect(['proyecto/actualizar']);
+        
     }
 }
