@@ -150,7 +150,7 @@ label{
                                 <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
-                                        <input type="file" id="proyecto-archivo"  name="Proyecto[archivo]" onchange="Documento(this)"/>
+                                        <input type="file" id="proyecto-archivo"  name="Proyecto[archivo]" />
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -567,26 +567,40 @@ label{
 <script>
     
     $(document).ready(function ($) {
-    $("#proyecto-archivo").fileinput({
-    uploadUrl: "<?= $archivo_pro ?>", // server upload action
-    uploadAsync: false,
-    showUpload: false, // hide upload button
-    showRemove: false, // hide remove button
-    showPreview: false,
-    showCaption:false,
-    showCancel:false,
-    browseLabel:'Subir proyecto',
-    minFileCount: 1,
-    maxFileCount: 1,
-    }).on("filebatchselected", function(event, files) {
-    // trigger upload method immediately after files are selected
-    $("#proyecto-archivo").fileinput("upload");
-    
-    }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
         
-        alert("Se ha subido tu proyecto satisfactoriamente");
-        location.reload();
-    });
+        $("#proyecto-archivo").fileinput({
+                    uploadUrl: "<?= $archivo_pro ?>", // server upload action
+                    uploadAsync: false,
+                    showUpload: false, // hide upload button
+                    showRemove: false, // hide remove button
+                    showPreview: false,
+                    showCaption:false,
+                    showCancel:false,
+                    browseLabel:'Subir proyecto',
+                    minFileCount: 1,
+                    maxFileCount: 1,
+                    allowedFileExtensions:['pdf']
+                }).on("filebatchselected", function(event, files) {
+                    // trigger upload method immediately after files are selected
+                    $("#proyecto-archivo").fileinput("upload");
+                }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
+                    alert("Se ha subido tu proyecto satisfactoriamente");
+                    location.reload();
+                }).on('fileerror', function(event, data, msg) {
+                    
+                    $.notify({
+                        message: "Solo se permite subir archivos con extensiones .pdf"
+                    },{
+                        // settings
+                        type: 'danger',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                });
+        
     
     });
     
@@ -1381,5 +1395,5 @@ label{
     }
 </script>
 
-
+<script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>
 
