@@ -583,8 +583,7 @@ label{
     $("#proyecto-archivo").fileinput("upload");
     //bootbox.alert("Se ha subido tu proyecto satisfactoriamente", function() {
     alert("Se ha subido tu proyecto satisfactoriamente");
-    window.location.reload(1);
-                                    
+        location.reload();      
     
     });
     });
