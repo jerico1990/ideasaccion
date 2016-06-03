@@ -578,16 +578,15 @@ label{
     browseLabel:'Subir proyecto',
     minFileCount: 1,
     maxFileCount: 1,
-}).on("filebatchselected", function(event, files) {
+    }).on("filebatchselected", function(event, files) {
     // trigger upload method immediately after files are selected
     $("#proyecto-archivo").fileinput("upload");
-    //bootbox.alert("Se ha subido tu proyecto satisfactoriamente", function() {
-    alert("Se ha subido tu proyecto satisfactoriamente");
-        setTimeout(function(){
-                                        window.location.reload(1);
-                                    }, 1000);
+    
+    }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
+        console.log("aa");
+        alert("Se ha subido tu proyecto satisfactoriamente");
     });
-    });
+    
     
     $("#video-nuevo").click(function(event){
         $(".field-video-archivo").show();
