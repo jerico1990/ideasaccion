@@ -583,10 +583,11 @@ label{
     $("#proyecto-archivo").fileinput("upload");
     
     }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
-        console.log("aa");
+        
         alert("Se ha subido tu proyecto satisfactoriamente");
     });
     
+    });
     
     $("#video-nuevo").click(function(event){
         $(".field-video-archivo").show();
