@@ -583,8 +583,9 @@ label{
     $("#proyecto-archivo").fileinput("upload");
     //bootbox.alert("Se ha subido tu proyecto satisfactoriamente", function() {
     alert("Se ha subido tu proyecto satisfactoriamente");
-        location.reload();      
-    
+        setTimeout(function(){
+                                        window.location.reload(1);
+                                    }, 1000);
     });
     });
     
@@ -937,7 +938,7 @@ label{
         if($.inArray(ext, ['mp4','avi','mpeg','flv']) == -1) {
             error=error+'Solo se permite subir archivos con extensiones .mp4,.avi,.mpeg,.flv';
         }
-        if (error=='' && elemento.files[0].size/1024/1024>=51) {
+        if (error=='' && elemento.files[0].size/1024/1024>=100) {
             error=error+'Solo se permite archivos hasta 50 MB';
         }
         
@@ -1349,7 +1350,7 @@ label{
         if($.inArray(ext, ['pdf']) == -1) {
             error=error+'Solo se permite subir archivos con extensiones .pdf';
         }
-        if (error=='' && elemento.files[0].size/1024/1024>=5) {
+        if (error=='' && elemento.files[0].size/1024/1024>=10) {
             error=error+'Solo se permite archivos hasta 5 MB';
         }
         
