@@ -280,7 +280,7 @@ label{
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             
-                            <?php if($video->tipo==1){ ?>
+                            <?php if($video->ruta && $video->tipo==1){ ?>
                             <br>
                             <iframe type="text/html" 
                                 width="320" 
@@ -370,6 +370,7 @@ label{
                         <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
+                            <?php if($video->ruta){ ?>
                             <br>
                             <iframe type="text/html" 
                                 width="320" 
@@ -377,6 +378,7 @@ label{
                                 src="https://www.youtube.com/embed/<?= substr($video->ruta,-11) ?>" 
                                 frameborder="0">
                             </iframe>
+                            <?php } ?>
                         </div>
                     <?php } ?>
                     
