@@ -346,6 +346,23 @@ header .logo{
 	border-color: #1f2a69;
 }
 
+.body .form .form_login .content_form .btn-primary{
+	width: 100%;
+	background: #f6de34;
+	color: #1f2a69;
+	border-color: #f6de34;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 34px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.body .form .form_login .content_form .btn-primary:hover{
+	border-color: #1f2a69;
+}
+
 .body .form .form_login .content_form input{
 	padding-top: 9px;
 	padding-bottom: 9px;

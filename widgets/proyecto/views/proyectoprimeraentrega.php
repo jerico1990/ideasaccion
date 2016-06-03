@@ -187,9 +187,9 @@ label{
                 <div class="tab-pane" id="tab_5">
                     
                     <?php if($videoprimera){ ?>
-                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
                     </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4 text-center">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
                     <video width="320" height="240" controls>
                         <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
                     </video>

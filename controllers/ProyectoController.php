@@ -22,8 +22,10 @@ use app\models\Evaluacion;
 use app\models\VotacionInterna;
 use app\models\Ubigeo;
 use app\models\VotacionPublica;
-use yii\db\Query;
+use app\models\Estudiante;
 
+use yii\db\Query;
+use yii\web\UploadedFile;
 /**
  * ProyectoController implements the CRUD actions for Proyecto model.
  */
@@ -543,6 +545,24 @@ class ProyectoController extends Controller
             }
             
             
+        }
+    }
+    
+    public function actionArchivo()
+    {
+        $usuario=Usuario::findOne(\Yii::$app->user->id);
+        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+        $estudiante=Estudiante::find()->where('id=:id',[':id'=>$integrante->estudiante_id])->one();
+        $equipo=Equipo::findOne($integrante->equipo_id);
+        $proyecto=Proyecto::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$integrante->equipo_id])->one();
+        
+        $proyecto->archivo = UploadedFile::getInstance($proyecto, 'archivo');
+        if($proyecto->archivo) {
+            
+            $proyecto->proyecto_archivo=$proyecto->id. '.' . $proyecto->archivo->extension;
+            $proyecto->formato_proyecto=1;//formato en documento
+            $proyecto->update();
+            $proyecto->archivo->saveAs('proyectos/' . $proyecto->proyecto_archivo);
         }
     }
 }

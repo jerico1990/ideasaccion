@@ -31,8 +31,26 @@ class ProyectoWidget extends Widget
         $equipo=Equipo::findOne($integrante->equipo_id);
         if ($proyecto->load(\Yii::$app->request->post()) && $proyecto->save()) {
                     
-            $countActividades1=count(array_filter($proyecto->actividades_1));
-            $countActividades2=count(array_filter($proyecto->actividades_2));
+            //$countActividades1=count(array_filter($proyecto->actividades_1));
+            //$countActividades2=count(array_filter($proyecto->actividades_2));
+            if(isset($proyecto->actividades_1))
+            {
+                $countActividades1=count(array_filter($proyecto->actividades_1));
+            }
+            else
+            {
+                $countActividades1=0;
+            }
+            
+            if(isset($proyecto->actividades_2))
+            {
+                $countActividades2=count(array_filter($proyecto->actividades_2));
+            }
+            else
+            {
+                $countActividades2=0;
+            }
+            
             if(isset($proyecto->actividades_3))
             {
                 $countActividades3=count(array_filter($proyecto->actividades_3));

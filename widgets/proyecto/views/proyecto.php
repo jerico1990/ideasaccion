@@ -67,7 +67,7 @@ use yii\web\JsExpression;
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs" style="background: white;">
                 <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Datos generales</a></li>
-                <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Objetivos y actividades</a></li>
+                <!--<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Objetivos y actividades</a></li>-->
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
@@ -78,12 +78,15 @@ use yii\web\JsExpression;
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-asunto required">
                                 <label class="control-label" for="proyecto-asunto" >Asunto público</label>
                                 <input class="form-control" value="<?= $equipo->asunto->descripcion_cabecera?>" disabled>
                             </div>
                         </div>
+                        <div class="clearfix"></div>
+                        <!--
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-resumen required" style="margin-top: 15px">
@@ -114,6 +117,7 @@ use yii\web\JsExpression;
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        -->
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
                     <div class="clearfix"></div>
@@ -127,6 +131,7 @@ use yii\web\JsExpression;
                             </div>
                         </div>
                         -->
+                        <!--
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <h4><b>Objetivos</b> <span class="glyphicon glyphicon-plus-sign" onclick="agregarObjetivoActividad()" ></span></h4>
@@ -137,6 +142,7 @@ use yii\web\JsExpression;
                             <div id="mostrar_oe_actividades">
                             </div>
                         </div>
+                    -->
                         <div class="clearfix"></div>
                     </div>
                     <div class="clearfix"></div>
@@ -549,11 +555,11 @@ use yii\web\JsExpression;
         var objetivo_especifico_2=$('input[name=\'Proyecto[objetivo_especifico_2]\']').length;
         var objetivo_especifico_3=$('input[name=\'Proyecto[objetivo_especifico_3]\']').length;
         var total=objetivo_especifico_1+objetivo_especifico_2+objetivo_especifico_3;
-        
+        /*
         if (total<2) {
             error=error+'ingrese 2 objetivos especificos como mínimo <br>';
         }
-        
+        */
         
         if($('#proyecto-titulo').val()=='')
         {
@@ -565,7 +571,7 @@ use yii\web\JsExpression;
             $('.field-proyecto-titulo').addClass('has-success');
             $('.field-proyecto-titulo').removeClass('has-error');
         }
-        
+        /*
         if($('#proyecto-resumen').val()=='')
         {
             error=error+'ingrese resumen del proyecto <br>';
@@ -587,7 +593,7 @@ use yii\web\JsExpression;
             $('.field-proyecto-beneficiario').addClass('has-success');
             $('.field-proyecto-beneficiario').removeClass('has-error');
         }
-        
+        */
         
         
         if(error!='')

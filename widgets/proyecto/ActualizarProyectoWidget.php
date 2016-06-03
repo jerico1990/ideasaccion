@@ -314,12 +314,7 @@ class ActualizarProyectoWidget extends Widget
             {
                 $fecha_inicio=date("Y-m-d H:i:s");
                 $fecha_fin=date("Y-m-d H:i:s");
-                    
-                //$originalDate = str_replace("/", "-", $proyecto->cronogramas_fechas_inicios[$i]);
-                //$date1 = new \DateTime($originalDate);
-                //var_dump($fecha_inicio);
-                //var_dump(date("Y-m-d", strtotime($fecha_inicio)));die;
-                /// var_dump(date_format($proyecto->cronogramas_fechas_fines[$i],'y-m-d'));die;
+                
                 if(isset($proyecto->cronogramas_ids[$i]))
                 {
                     $fecha_inicio=str_replace("/", "-", $proyecto->cronogramas_fechas_inicios[$i]);
@@ -370,13 +365,19 @@ class ActualizarProyectoWidget extends Widget
                 $video->save();
                 $videoup=Video::findOne($video->id);
                 $videoup->ruta=$video->id. '.' . $video->archivo->extension;
+                $videoup->tipo=2;
                 $videoup->update();
-                if (file_exists(\Yii::$app->request->BaseUrl."/video_carga/".$videoup->ruta)) {
-                    //$this->rename_win(\Yii::$app->basePath."/web/video_carga/".$videoup->ruta,\Yii::$app->basePath."/web/video_carga/$videoup->ruta.old");
-                    //rename(\Yii::$app->basePath."/web/video_carga/$videoup->ruta", \Yii::$app->basePath."/web/video_carga/$videoup->ruta.old");
-                }
                 $video->archivo->saveAs('video_carga/' . $videoup->id . '.' . $video->archivo->extension);
-                //unlink($videoup->archivo->tempName);
+            }
+            else
+            {
+                $video->proyecto_id=$proyecto->id;
+                $video->etapa=0;
+                $video->save();
+                $videoup=Video::findOne($video->id);
+                $videoup->ruta=$proyecto->ruta;
+                $videoup->tipo=1;
+                $videoup->update();
             }
             
             $foro=Foro::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();

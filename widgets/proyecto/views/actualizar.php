@@ -6,7 +6,6 @@ use yii\helpers\ArrayHelper;
 use app\models\Resultados;
 use yii\widgets\Pjax;
 use yii\web\JsExpression;
-
 /* @var $this \yii\web\View */
 /* @var $user \common\models\LoginForm */
 /* @var $title string */
@@ -72,6 +71,12 @@ label{
         padding-bottom:10px;
     }
 </style>
+
+
+
+
+
+
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
     <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO
@@ -99,7 +104,7 @@ label{
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-titulo required">
                                 <label class="control-label" for="proyecto-titulo">Título del proyecto</label>
-                                <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= $proyecto->titulo ?>" <?= $disabled ?> required>
+                                <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= $proyecto->titulo ?>" <?= $disabled ?>>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -113,36 +118,54 @@ label{
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-resumen required">
                                 <label class="control-label" for="proyecto-resumen" >Sumilla / Justificación</label>
-                                <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" rows="3" minlength="100" maxlength="2500"  <?= $disabled ?> required ><?= $proyecto->resumen ?></textarea>
+                                <textarea id="proyecto-resumen" class="form-control" name="Proyecto[resumen]" rows="3"  maxlength="2500"  <?= $disabled ?> ><?= $proyecto->resumen ?></textarea>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-beneficiario required">
                                 <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
-                                <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" rows="3" maxlength="2500"  <?= $disabled ?> required ><?= $proyecto->beneficiario ?></textarea>
+                                <textarea id="proyecto-beneficiario" class="form-control" name="Proyecto[beneficiario]" rows="3" maxlength="2500"  <?= $disabled ?> ><?= $proyecto->beneficiario ?></textarea>
                             </div>
                         </div>
                         
                         <div class="clearfix"></div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                        <!--<div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-archivo required" >
-                                <label class="control-label" for="proyecto-archivo">Publica tu proyecto</label>
                                 <input class="form-control" type="file" id="proyecto-archivo"  name="Proyecto[archivo]" onchange="Documento(this)"/>
                                 <div class="input-group">
                                     <input type="text" readonly="" class="form-control" >
                                       <span class="input-group-btn input-group-sm">
-                                        <button type="button" class="btn btn-fab btn-fab-mini">
+                                        <button type="button" class="btn btn-fab btn-fab-mini glyphicon glyphicon-paperclip">
                                           <i class="material-icons">archivo</i>
                                         </button>
                                       </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" target="_blank" class=" btn-lateral">
-                                Descargar proyecto publicado
-                        </a><br>
+                        -->
+                        <div class="col-xs-12 col-sm-12 col-md-12" >
+                            <?php if(($proyecto->formato_proyecto=='' || $proyecto->formato_proyecto==0) && $integrante->rol==1){ ?>
+                            <div class="form-group" style="background: #F0EFF1">
+                                <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
+                                <div class="col-xs-12 col-sm-4 col-md-4"></div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                                        <input type="file" id="proyecto-archivo"  name="Proyecto[archivo]" onchange="Documento(this)"/>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <?php } elseif($proyecto->formato_proyecto==1) { ?>
+                            <div class="form-group" style="background: #F0EFF1">
+                                <p class="text-justify" style="margin: 20px;padding-top: 10px">Haz subido tu proyecto en el formato simplificado:</p>
+                                <div class="col-xs-12 col-sm-4 col-md-4"></div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Primera entrega</a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <?php } ?>
+                        </div>
                         <div class="clearfix"></div>
                         <br>
                 </div><!-- /.tab-pane -->
@@ -256,19 +279,77 @@ label{
                         <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
+                            
+                            <?php if($video->tipo==1){ ?>
+                            <br>
+                            <iframe type="text/html" 
+                                width="320" 
+                                height="240" 
+                                src="https://www.youtube.com/embed/<?= substr($video->ruta,-11) ?>" 
+                                frameborder="0">
+                            </iframe>
+                            <?php } elseif($video->tipo==2){ ?>
                             <video width="320" height="240" controls>
                                 <source src="<?= Yii::getAlias('@video').$video->ruta ?>" >  
                             </video>
+                            <?php } ?>
+                            
+                            Para enviar tu video puedes
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" id="video-nuevo" name="video" ><span class="circle"></span><span class="check"></span>
+                                    Cargar tu video
+                                </label>
+                            </div>
+                            
+                            <div class="form-group label-floating field-video-archivo required" style="display: none">
+                                <div class="imagen_equipo" style="vertical-align: middle;border: solid 1px;line-height: 160px;" aling="center">
+                                <input style="cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video(this)"/>
+                                    Sube tu video AQUÍ.
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" id="video-link" name="video" ><span class="circle"></span><span class="check"></span>
+                                    Copiar link de youtube
+                                </label>
+                            </div>
+                            <div class="form-group label-floating field-proyecto-ruta required" style="display: none">
+                                <label class="control-label" for="proyecto-ruta" >Link youtube</label>
+                                <input type="text" class="form-control" name="Proyecto[ruta]" maxlength="450">
+                            </div>
                         </div>
                         <?php } else { ?>
                         <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                            <div class="form-group label-floating field-video-archivo required" >
+                            Para enviar tu video puedes
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" id="video-nuevo" name="video" ><span class="circle"></span><span class="check"></span>
+                                    Cargar tu video
+                                </label>
+                            </div>
+                            
+                            <div class="form-group label-floating field-video-archivo required" style="display: none">
                                 <div class="imagen_equipo" style="vertical-align: middle;border: solid 1px;line-height: 160px;" aling="center">
                                 <input style="cursor: pointer" type="file" id="video-archivo" class="form-control" name="Video[archivo]" onchange="Video(this)"/>
                                     Sube tu video AQUÍ.
                                 </div>
+                            </div>
+                            
+                            
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" id="video-link" name="video" ><span class="circle"></span><span class="check"></span>
+                                    Copiar link de youtube
+                                </label>
+                            </div>
+                            <div class="form-group label-floating field-proyecto-ruta required" style="display: none">
+                                <label class="control-label" for="proyecto-ruta" >Link youtube</label>
+                                <input type="text" class="form-control" name="Proyecto[ruta]" maxlength="450">
                             </div>
                         </div>
                         <?php } ?>
@@ -289,9 +370,13 @@ label{
                         <div class="col-xs-12 col-sm-3 col-md-3">
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
-                            <video width="320" height="240" controls>
-                                <source src="<?= Yii::getAlias('@video').$video->ruta ?>" >  
-                            </video>
+                            <br>
+                            <iframe type="text/html" 
+                                width="320" 
+                                height="240" 
+                                src="https://www.youtube.com/embed/<?= substr($video->ruta,-11) ?>" 
+                                frameborder="0">
+                            </iframe>
                         </div>
                     <?php } ?>
                     
@@ -403,13 +488,16 @@ label{
                 </div>
             </div>
         </div>
+        
         <div style="border-top:2px dotted #f6de34 !important;">
         <?php if($entrega!=1 && $estudiante->grado!=6){ ?>    
             <?php if($disabled=='' && $equipo->etapa==0){ ?>
             <div class="col-xs-12 col-sm-4 col-md-4" >
                 <button type="submit" id="btnproyecto" class="btn btn-default">Guardar</button>
             </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 "></div>
+            <div class="col-xs-12 col-sm-4 col-md-4 ">
+                
+            </div>
             <div class="col-xs-12 col-sm-4 col-md-4 ">
                 <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
             </div>
@@ -442,8 +530,24 @@ label{
 
 <?php ActiveForm::end(); ?>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="<?= \Yii::$app->request->BaseUrl ?>/kartik-v-bootstrap-fileinput/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+     This must be loaded before fileinput.min.js -->
+<script src="<?= \Yii::$app->request->BaseUrl ?>/kartik-v-bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
+     This must be loaded before fileinput.min.js -->
+<script src="<?= \Yii::$app->request->BaseUrl ?>/kartik-v-bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
+<!-- the main fileinput plugin file -->
+<script src="<?= \Yii::$app->request->BaseUrl ?>/kartik-v-bootstrap-fileinput/js/fileinput.min.js"></script>
+<!-- bootstrap.js below is needed if you wish to zoom and view file content 
+     in a larger detailed modal dialog -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script>
+<!-- optionally if you need a theme like font awesome theme you can include 
+    it as mentioned below -->
+<!-- optionally if you need translation for your language then include 
+    locale file as mentioned below -->
+<script src="<?= \Yii::$app->request->BaseUrl ?>/kartik-v-bootstrap-fileinput/js/locales/es.js"></script>
 
 <?php
     $this->registerJs(
@@ -453,19 +557,63 @@ label{
     $eliminaractividad= Yii::$app->getUrlManager()->createUrl('proyecto/eliminaractividad');
     $reflexion= Yii::$app->getUrlManager()->createUrl('proyecto/reflexion');
     $evaluacion= Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
+    $archivo_pro= Yii::$app->getUrlManager()->createUrl('proyecto/archivo');
 ?>
 <!--var i=<?php //= $i ?>;
     var a=<?php //= $a ?>;
     var e=<?php //= $e ?>;-->
 <script>
     
+    $(document).ready(function ($) {
+    $("#proyecto-archivo").fileinput({
+    uploadUrl: "<?= $archivo_pro ?>", // server upload action
+    uploadAsync: false,
+    showUpload: false, // hide upload button
+    showRemove: false, // hide remove button
+    showPreview: false,
+    showCaption:false,
+    showCancel:false,
+    browseLabel:'Subir proyecto',
+    minFileCount: 1,
+    maxFileCount: 1,
+}).on("filebatchselected", function(event, files) {
+    // trigger upload method immediately after files are selected
+    $("#proyecto-archivo").fileinput("upload");
+    //bootbox.alert("Se ha subido tu proyecto satisfactoriamente", function() {
+    alert("Se ha subido tu proyecto satisfactoriamente");
+    window.location.reload(1);
+                                    
+    
+    });
+    });
+    
+    $("#video-nuevo").click(function(event){
+        $(".field-video-archivo").show();
+        $(".field-proyecto-ruta").hide();
+    });
+    
+    $("#video-link").click(function(event){
+        $(".field-proyecto-ruta").show();
+        $(".field-video-archivo").hide();
+    });
+    
     $("#btnproyecto").click(function(event){
         var error='';
+        var archivo=$("#proyecto-archivo").get(0).files;
+        var formato_ar="<?= $proyecto->formato_proyecto ?>";
         /*planpresupuestal*/
         var planespresupuestalesrecursosdescripciones=$('input[name=\'Proyecto[planes_presupuestales_recursos_descripciones][]\']').length;
         /*planpresupeutal ini*/
+        var objetivo_especifico_1=$('input[name=\'Proyecto[objetivo_especifico_1]\']').length;
+        var objetivo_especifico_2=$('input[name=\'Proyecto[objetivo_especifico_2]\']').length;
+        var objetivo_especifico_3=$('input[name=\'Proyecto[objetivo_especifico_3]\']').length;
+        var total=objetivo_especifico_1+objetivo_especifico_2+objetivo_especifico_3;
+        
+        if (total<2) {
+            error=error+'ingrese 2 objetivos especificos como mínimo <br>';
+        }
+        
         for (var i=0; i<planespresupuestalesrecursosdescripciones; i++) {
-	    console.log(planespresupuestalesrecursosdescripciones);
 	    if(jQuery.trim($('#proyecto-plan_presupuestal_recurso_descripcion_'+i).val())=='')
             {
                 error=error+'ingrese información en la fila #'+(i+1)+' de la columna recurso dscripción <br>';
@@ -602,17 +750,24 @@ label{
         
         if(error!='')
         {
-            $.notify({
-                message: error 
-            },{
-                type: 'danger',
-                z_index: 1000000,
-                placement: {
-                    from: 'bottom',
-                    align: 'right'
-                },
-            });
-            return false;
+            if ((archivo && archivo[0]) || formato_ar==1) {
+                return true;
+            }
+            else
+            {
+                $.notify({
+                    message: error 
+                },{
+                    type: 'danger',
+                    z_index: 1000000,
+                    placement: {
+                        from: 'bottom',
+                        align: 'right'
+                    },
+                });
+                return false;   
+            }
+            
         }
         return true;
     });
@@ -1190,8 +1345,8 @@ label{
     function Documento(elemento) {
         var ext = $(elemento).val().split('.').pop().toLowerCase();
         var error='';
-        if($.inArray(ext, ['docx','doc']) == -1) {
-            error=error+'Solo se permite subir archivos con extensiones .docx,.doc';
+        if($.inArray(ext, ['pdf']) == -1) {
+            error=error+'Solo se permite subir archivos con extensiones .pdf';
         }
         if (error=='' && elemento.files[0].size/1024/1024>=5) {
             error=error+'Solo se permite archivos hasta 5 MB';
@@ -1222,8 +1377,6 @@ label{
         }
     }
 </script>
-
-
 
 
 
