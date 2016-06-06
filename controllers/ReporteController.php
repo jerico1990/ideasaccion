@@ -219,6 +219,38 @@ class ReporteController extends Controller
         ]);
     }
     
+    public function actionEquipoDescargar()
+    {
+        $this->layout='administrador';
+        
+        $sort = new Sort([
+            'attributes' => [
+                'department' => [
+                    'label' => 'Región',
+                ],
+                'province'=>[
+                    'label' => 'Total de equipos finalizados',
+                ],
+                'district'=>[
+                    'label' => 'Total integrantes de equipos finalizados',
+                ],
+                'latitude'=>[
+                    'label' => 'Total de equipos no finalizados',
+                ],
+                'longitud'=>[
+                    'label' => 'Total integrantes de equipos no finalizados',
+                ],
+            ],
+        ]);
+        
+        $model = new Equipo();
+        $model->load(Yii::$app->request->queryParams);
+        return $this->render('equipo-descargar', [
+            'model' => $model,
+            'sort' => $sort,
+        ]);
+    }
+    
     public function actionForo_descargar($region=null)
     {
         $forospublicos= Foro::find()

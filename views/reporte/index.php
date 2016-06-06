@@ -39,6 +39,9 @@ if (isset($_GET['page']) >= 2)
             <th align="center"><b><?= $sort->link('voto_emitido')?></b></th>
         </thead>
         <tbody>
+        <?php
+            $a=0;
+        ?>
         <?php foreach($votos['votos'] as $voto):
             $floor_number=$floor++; //?????
             ?>
@@ -46,8 +49,17 @@ if (isset($_GET['page']) >= 2)
                 <td><?= $voto['descripcion_cabecera'] ?></td>
                 <td align="center"><?= $voto['voto_emitido'] ?></td>
             </tr>
+        <?php
+            $a=$a+$voto['voto_emitido'];
+        ?>
         <?php endforeach; ?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td><b>Total</b></td>
+                <td><b><?= $a ?></b></td>
+            </tr>
+        </tfoot>
     </table>    
         <?= LinkPager::widget([
             'pagination' => $votos['pages'],

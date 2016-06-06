@@ -24,6 +24,9 @@ if (isset($_GET['page']) >= 2)
             <th align="center"><b><?= $sort->link('voto_emitido')?></b></th>
         </thead>
         <tbody>
+        <?php
+            $a=0;
+        ?>
         <?php foreach($regiones['regiones'] as $region):
             $floor_number=$floor++; //?????
             ?>
@@ -31,8 +34,17 @@ if (isset($_GET['page']) >= 2)
                 <td><?= $region['region_id'] ?></td>
                 <td ><?= $region['voto_emitido'] ?></td>
             </tr>
+        <?php
+            $a=$a+$region['voto_emitido'];
+        ?>
         <?php endforeach; ?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td><b>Total</b></td>
+                <td><b><?= $a ?></b></td>
+            </tr>
+        </tfoot>
     </table>    
         <?= LinkPager::widget([
             'pagination' => $regiones['pages'],

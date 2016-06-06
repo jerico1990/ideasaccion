@@ -51,9 +51,15 @@ if (isset($_GET['page']) >= 2)
             <th><b>Nombres Completos </b></th>
             <th><b>Correo</b></th>
             <th><b>Celular</b></th>
+            <th><b>Rol</b></th>
         </thead>
         <tbody>
         <?php foreach($registrados_detalles['registrados'] as $registrado_detalle):
+            $rol="estudiante";
+            if($registrado_detalle["grado"]==6)
+            {
+                $rol="docente";
+            }
             $floor_number=$floor++; //?????
             ?>
             <tr>
@@ -61,6 +67,7 @@ if (isset($_GET['page']) >= 2)
                 <td><?= $registrado_detalle['nombres']." ".$registrado_detalle['apellido_paterno']." ".$registrado_detalle['apellido_materno'] ?></td>
                 <td><?= $registrado_detalle['email'] ?></td>
                 <td><?= $registrado_detalle['celular'] ?></td>
+                <td><?= $rol ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
@@ -83,7 +90,7 @@ if (isset($_GET['page']) >= 2)
 <script>
     function Region(event) {
         event.preventDefault();
-        //$( "#w0" ).submit();
+        $( "#w0" ).submit();
     }
     function Estado(event) {
         event.preventDefault();

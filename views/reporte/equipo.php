@@ -27,6 +27,12 @@ if (isset($_GET['page']) >= 2)
             <th><b><?= $sort->link('longitud')?></b></th>
         </thead>
         <tbody>
+        <?php
+            $a=0;
+            $b=0;
+            $c=0;
+            $d=0;
+        ?>
         <?php foreach($equipos['equipos'] as $equipo):
             $floor_number=$floor++; //?????
             ?>
@@ -37,13 +43,28 @@ if (isset($_GET['page']) >= 2)
                 <td ><?= $equipo['latitude'] ?></td>
                 <td ><?= $equipo['longitud'] ?></td>
             </tr>
+            <?php
+                $a=$a+$equipo['province'];
+                $b=$b+$equipo['district'];
+                $c=$c+$equipo['latitude'];
+                $d=$d+$equipo['longitud'];
+            ?>
         <?php endforeach; ?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td><b>Total</b></td>
+                <td><b><?= $a ?></b></td>
+                <td><b><?= $b ?></b></td>
+                <td><b><?= $c ?></b></td>
+                <td><b><?= $d ?></b></td>
+            </tr>
+        </tfoot>
     </table>    
         
         <div class='clearfix'></div>
             <div class="form-group pull-rigth col-md-4" >
-            <?= Html::a('Descargar',['reporte/region_descargar'],['class'=>' btn btn-default']);?>
+            <?= Html::a('Descargar',['reporte/equipo-descargar'],['class'=>' btn btn-default']);?>
             </div>
         <div class='clearfix'></div>
         

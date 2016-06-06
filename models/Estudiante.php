@@ -183,7 +183,7 @@ class Estudiante extends \yii\db\ActiveRecord
         if($estado==1)
         {
             $query
-            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular,estudiante.grado')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -195,7 +195,7 @@ class Estudiante extends \yii\db\ActiveRecord
         elseif($estado==2)
         {
             $query
-            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular,estudiante.grado')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -207,7 +207,7 @@ class Estudiante extends \yii\db\ActiveRecord
         elseif($estado==3)
         {
             $query
-            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular,estudiante.grado')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -218,17 +218,28 @@ class Estudiante extends \yii\db\ActiveRecord
         elseif($estado==4)
         {
             $query
-            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular,estudiante.grado')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
             ->where('estudiante.id NOT IN (SELECT estudiante_id FROM integrante UNION ALL SELECT estudiante_invitado_id FROM invitacion WHERE estado = 1) and ubigeo.department_id=:department_id',[':department_id'=>$region])
             ->orderBy($sort);
         }
+        elseif($region)
+        {
+            $query
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular,estudiante.grado')
+            ->from('{{%estudiante}}')
+            ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
+            ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
+            ->where('ubigeo.department_id=:department_id',[':department_id'=>$region])
+            ->orderBy($sort)
+            ->limit(10);
+        }
         else
         {
             $query
-            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular')
+            ->select('institucion.denominacion,estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno,estudiante.email,estudiante.celular,estudiante.grado')
             ->from('{{%estudiante}}')
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')

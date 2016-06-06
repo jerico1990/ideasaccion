@@ -29,6 +29,13 @@ if (isset($_GET['page']) >= 2)
             <th><b>Sin equipo</b></th>
         </thead>
         <tbody>
+        <?php
+            $a=0;
+            $b=0;
+            $c=0;
+            $d=0;
+            $e=0;
+        ?>
         <?php foreach($registrados['registrados'] as $registrado):
             $floor_number=$floor++; //?????
             ?>
@@ -40,8 +47,25 @@ if (isset($_GET['page']) >= 2)
                 <td><?= $registrado['estudiantes_invitaciones_pendientes'] ?></td>
                 <td><?= $registrado['estudiantes_huerfanos'] ?></td>
             </tr>
+            <?php
+                $a=$a+$registrado['total_estudiantes'];
+                $b=$b+$registrado['estudiantes_finalizaron_equipo'];
+                $c=$c+$registrado['estudiantes_aceptaron_invitacion'];
+                $d=$d+$registrado['estudiantes_invitaciones_pendientes'];
+                $e=$e+$registrado['estudiantes_huerfanos'];
+            ?>
         <?php endforeach; ?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td><b>Total</b></td>
+                <td><b><?= $a ?></b></td>
+                <td><b><?= $b ?></b></td>
+                <td><b><?= $c ?></b></td>
+                <td><b><?= $d ?></b></td>
+                <td><b><?= $e ?></b></td>
+            </tr>
+        </tfoot>
     </table>    
        
         

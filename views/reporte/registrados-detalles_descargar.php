@@ -30,7 +30,7 @@ use app\models\Estudiante;
         if($estado==1)
         {
             $querys=Estudiante::find()
-            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular')
+            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular,estudiante.grado as grado')
            
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -42,7 +42,7 @@ use app\models\Estudiante;
         elseif($estado==2)
         {
             $querys=Estudiante::find()
-            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular')
+            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular,estudiante.grado as grado')
             
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -54,7 +54,7 @@ use app\models\Estudiante;
         elseif($estado==3)
         {
             $querys=Estudiante::find()
-            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular')
+            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular,estudiante.grado as grado')
             
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -65,17 +65,27 @@ use app\models\Estudiante;
         elseif($estado==4)
         {
             $querys=Estudiante::find()
-            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular')
+            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular,estudiante.grado as grado')
             
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
             ->where('estudiante.id NOT IN (SELECT estudiante_id FROM integrante UNION ALL SELECT estudiante_invitado_id FROM invitacion WHERE estado = 1) and ubigeo.department_id=:department_id',[':department_id'=>$region])
 	    ->all();
         }
+	elseif($region)
+        {
+            $querys=Estudiante::find()
+            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular,estudiante.grado as grado')
+            
+            ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
+            ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
+	    ->where('ubigeo.department_id=:department_id',[':department_id'=>$region])
+	    ->all();
+        }
         else
         {
             $querys=Estudiante::find()
-            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular')
+            ->select('institucion.denominacion as denominacion,estudiante.nombres as nombres,estudiante.apellido_paterno as apellido_paterno,estudiante.apellido_materno as apellido_materno,estudiante.email as email,estudiante.celular as celular,estudiante.grado as grado')
             
             ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
             ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
@@ -115,16 +125,24 @@ $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Colegio')
             ->setCellValue('B1', 'Nombres Completos')
 	    ->setCellValue('C1', 'Correo')
-	    ->setCellValue('D1', 'Celular');
+	    ->setCellValue('D1', 'Celular')
+	    ->setCellValue('E1', 'Rol');
 
 // Miscellaneous glyphs, UTF-8
     $i=2;
     foreach($querys as $query):
+    $rol="estudiante";
+    if($query->grado==6)
+    {
+	$rol="docente";
+    }
+    
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A'.$i, $query->denominacion)
-	    ->setCellValue('B'.$i, $query->nombres)
-	    ->setCellValue('C'.$i, $query->apellido_paterno)
-	    ->setCellValue('D'.$i, $query->apellido_materno);
+	    ->setCellValue('B'.$i, $query->nombres." ".$query->apellido_paterno." ".$query->apellido_materno)
+	    ->setCellValue('C'.$i, $query->email)
+	    ->setCellValue('D'.$i, $query->celular)
+	    ->setCellValue('E'.$i, $rol);
 	    
     $i++;
     endforeach; 
