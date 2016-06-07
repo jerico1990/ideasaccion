@@ -48,7 +48,7 @@ if (isset($_GET['page']) >= 2)
             $floor_number=$floor++; //?????
             ?>
             <tr>
-                <td><?= substr($proyecto['titulo'],0,14) ?></td>
+                <td><span class="popover1" data-type='html' style="cursor: pointer"  data-title="Título de proyecto" data-content="<?= $proyecto['titulo'] ?>" data-placement="top"><?= substr($proyecto['titulo'],0,14) ?> </span></td>
                 <td><?= $proyecto['total_integrantes'] ?></td>
                 <td><?= $proyecto['foro_abierto'] ?></td>
                 <td><?= $proyecto['foro_asunto'] ?></td>
@@ -76,6 +76,7 @@ if (isset($_GET['page']) >= 2)
     
 </div>
 <script>
+    $('.popover1').webuiPopover();
     function Region(event) {
         event.preventDefault();
         $( "#w0" ).submit();
