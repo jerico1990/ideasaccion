@@ -196,7 +196,7 @@ class Proyecto extends \yii\db\ActiveRecord
             ->innerJoin('integrante i','i.equipo_id = e.id')
             ->innerJoin('estudiante es','es.id=i.estudiante_id')
             ->innerJoin('institucion ins','ins.id=es.institucion_id')
-            ->innerJoin('ubigeo u','u.district_id=ins.district_id')
+            ->innerJoin('ubigeo u','u.district_id=ins.ubigo_id')
             ->where('u.department_id=:department_id',[':department_id'=>$region])
             ->groupBy('p.id,p.titulo')
             ->orderBy($sort);
