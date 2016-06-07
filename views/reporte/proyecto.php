@@ -48,14 +48,14 @@ if (isset($_GET['page']) >= 2)
             $floor_number=$floor++; //?????
             ?>
             <tr>
-                <td><span class="popover1" data-type='html' style="cursor: pointer"  data-title="Título de proyecto" data-content='<?= str_replace(['\'\'','"'],'\'',$proyecto['titulo']) ?>' data-placement="top"><?= substr(str_replace(['\'\'','"'],'\'',$proyecto['titulo']),0,14) ?> </span></td>
+                <td><span class="popover1" data-type='html' style="cursor: pointer"  data-title="Título de proyecto" data-content='<?= str_replace(['\'\'','\''],'"',$proyecto['titulo']) ?>' data-placement="top"><?= substr(str_replace(['\'\'','\''],'"',$proyecto['titulo']),0,14) ?> </span></td>
                 <td><?= $proyecto['total_integrantes'] ?></td>
-                <td><?= $proyecto['foro_abierto'] ?></td>
-                <td><?= $proyecto['foro_asunto'] ?></td>
-                <td><?= $proyecto['proyecto_finalizado'] ?></td>
-                <td><?= $proyecto['video_check'] ?></td>
-                <td><?= $proyecto['reflexion_check'] ?></td>
-                <td><?= $proyecto['archivo_proyecto_check'] ?></td>
+                <td><?= ($proyecto['foro_abierto']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
+                <td><?= ($proyecto['foro_asunto']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
+                <td><?= ($proyecto['proyecto_finalizado']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
+                <td><?= ($proyecto['video_check']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
+                <td><?= ($proyecto['reflexion_check']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
+                <td><?= ($proyecto['archivo_proyecto_check']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
