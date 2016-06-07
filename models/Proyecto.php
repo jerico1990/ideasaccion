@@ -82,6 +82,14 @@ class Proyecto extends \yii\db\ActiveRecord
     /*dd*/
     public $foro_id;
     public $ruta;
+    
+    public $total_integrantes;
+    public $foro_abierto;
+    public $foro_asunto;
+    public $proyecto_finalizado;
+    public $video_check;
+    public $reflexion_check;
+    public $archivo_proyecto_check;
     public static function tableName()
     {
         return 'proyecto';
