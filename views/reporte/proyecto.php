@@ -48,7 +48,7 @@ if (isset($_GET['page']) >= 2)
             $floor_number=$floor++; //?????
             ?>
             <tr>
-                <td><?= $proyecto['titulo'] ?></td>
+                <td><?= substr($proyecto['titulo'],0,14) ?></td>
                 <td><?= $proyecto['total_integrantes'] ?></td>
                 <td><?= $proyecto['foro_abierto'] ?></td>
                 <td><?= $proyecto['foro_asunto'] ?></td>
