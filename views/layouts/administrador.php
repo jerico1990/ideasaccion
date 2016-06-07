@@ -160,6 +160,7 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                             <li><?= Html::a("Reportes de estudiantes ",['reporte/registrados'],[]);?></li>
                                             <li><?= Html::a("Reportes de estudiantes detalles",['reporte/registrados-detalles'],[]);?></li>
                                             <li><?= Html::a("Reportes de equipos",['reporte/equipo'],[]);?></li>
+                                            <li><?= Html::a("Reportes de proyectos",['reporte/proyecto'],[]);?></li>
                                         </ul>
                                     </li>
                                     <!--Fin Reportes-->

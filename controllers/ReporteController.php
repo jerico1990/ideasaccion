@@ -12,6 +12,7 @@ use app\models\Voto;
 use app\models\Estudiante;
 use app\models\Foro;
 use app\models\Equipo;
+use app\models\Proyecto;
 use yii\data\Sort;
 /**
  * ProyectoController implements the CRUD actions for Proyecto model.
@@ -285,6 +286,26 @@ class ReporteController extends Controller
         return $this->render('foro_descargar', [
             'forospublicos' => $forospublicos,
             'foroparticipacion'=>$foroparticipacion
+        ]);
+    }
+    
+    public function actionProyecto()
+    {
+        $this->layout='administrador';
+        
+        $sort = new Sort([
+            'attributes' => [
+                /*'department' => [
+                    'label' => 'Región',
+                ],*/
+            ],
+        ]);
+        
+        $model = new Proyecto();
+        $model->load(Yii::$app->request->queryParams);
+        return $this->render('proyecto', [
+            'model' => $model,
+            'sort' => $sort,
         ]);
     }
 }
