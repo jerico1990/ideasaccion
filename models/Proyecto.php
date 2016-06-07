@@ -173,7 +173,7 @@ class Proyecto extends \yii\db\ActiveRecord
     
     
     
-    public function getProyectos($sort)
+    public function getProyectos($sort,$region)
     {
         
         //total_equipos province   total_alumnos  district  total_equipos_nofinalizado latitude  total_alumnos_nofinalizado longitud
@@ -196,6 +196,8 @@ class Proyecto extends \yii\db\ActiveRecord
             ->innerJoin('integrante i','i.equipo_id = e.id')
             ->innerJoin('estudiante es','es.id=i.estudiante_id')
             ->innerJoin('institucion ins','ins.id=es.institucion_id')
+            ->innerJoin('ubigeo u','u.district_id=ins.district_id')
+            ->where('u.department_id=:department_id',[':department_id'=>$region])
             ->groupBy('p.id,p.titulo')
             ->orderBy($sort);
             

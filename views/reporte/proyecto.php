@@ -1,5 +1,5 @@
 <?php 
-$proyectos = $model->getProyectos($sort->orders);
+$proyectos = $model->getProyectos($sort->orders,$model->region_id);
 
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
