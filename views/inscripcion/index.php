@@ -305,12 +305,12 @@ if($equipo->id)
             $('.field-equipo-descripcion').addClass('has-error');
         }
         
-        if($('#equipo-asunto_id').val()=='')
+        /*if($('#equipo-asunto_id').val()=='')
         {
             error=error+'Debes ingresar el Asunto público <br>';
             $('.field-equipo-asunto_id').addClass('has-error');
         }
-        
+        */
         var validarinvitaciones= $.ajax({
             url: '<?= $validarinvitacioneintegrante5 ?>',
             type: 'GET',

@@ -21,7 +21,7 @@ use app\models\Etapa;
 use app\models\Estudiante;
 use app\models\ForoComentario;
 use app\models\Foro;
-
+use app\models\Institucion;
 
 use yii\web\UploadedFile;
 Yii::setAlias('video', '@web/video_carga/');
@@ -41,6 +41,14 @@ class ActualizarProyectoWidget extends Widget
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
         $estudiante=Estudiante::find()->where('id=:id',[':id'=>$integrante->estudiante_id])->one();
         $equipo=Equipo::findOne($integrante->equipo_id);
+        $institucion=Institucion::find()
+                    ->select('institucion.id,estudiante.id as estudiante_id,ubigeo.department_id')
+                    ->innerJoin('estudiante','estudiante.institucion_id=institucion.id')
+                    ->innerJoin('usuario','usuario.estudiante_id=estudiante.id')
+                    ->innerJoin('ubigeo','ubigeo.district_id=institucion.ubigeo_id')
+                    ->where('usuario.id='.\Yii::$app->user->id.'')
+                    ->one();
+                    
         $disabled='';
         if($integrante->rol==2)
         {
@@ -103,7 +111,8 @@ class ActualizarProyectoWidget extends Widget
         }
         
         if ($proyecto->load(\Yii::$app->request->post())) {
-            
+            $equipo->asunto_id=$proyecto->asunto_id;
+            $equipo->update();
             if(!$reflexion)
             {
                 $reflexion= new Reflexion;
@@ -186,6 +195,13 @@ class ActualizarProyectoWidget extends Widget
                     $objetivoespecifico1->descripcion=$proyecto->objetivo_especifico_1;
                     $objetivoespecifico1->update();
                 }
+                else
+                {
+                    $objetivoespecifico1=new ObjetivoEspecifico;
+                    $objetivoespecifico1->proyecto_id=$proyecto->id;
+                    $objetivoespecifico1->descripcion=$proyecto->objetivo_especifico_1;
+                    $objetivoespecifico1->save();
+                }
                 
                 
                 for($i=0;$i<$countActividades1;$i++)
@@ -204,7 +220,6 @@ class ActualizarProyectoWidget extends Widget
                         $actividad->estado=1;
                         $actividad->save();
                     }
-                    
                 }
             }
             
@@ -216,7 +231,13 @@ class ActualizarProyectoWidget extends Widget
                     $objetivoespecifico2->descripcion=$proyecto->objetivo_especifico_2;
                     $objetivoespecifico2->update(); 
                 }
-                
+                else
+                {
+                    $objetivoespecifico2=new ObjetivoEspecifico;
+                    $objetivoespecifico2->proyecto_id=$proyecto->id;
+                    $objetivoespecifico2->descripcion=$proyecto->objetivo_especifico_2;
+                    $objetivoespecifico2->save();
+                }
                 
                 for($i=0;$i<$countActividades2;$i++)
                 {
@@ -239,10 +260,10 @@ class ActualizarProyectoWidget extends Widget
             
             if(trim($proyecto->objetivo_especifico_3)!='')
             {
-                $objetivoespecifico3=ObjetivoEspecifico::find()->where('id=:id',[':id'=>$proyecto->objetivo_especifico_3_id])->one();
+                
                 if(isset($proyecto->objetivo_especifico_3_id) && $objetivoespecifico3)
                 {
-                    
+                    $objetivoespecifico3=ObjetivoEspecifico::find()->where('id=:id',[':id'=>$proyecto->objetivo_especifico_3_id])->one();
                     $objetivoespecifico3->descripcion=$proyecto->objetivo_especifico_3;
                     $objetivoespecifico3->update();
                 }
@@ -449,7 +470,8 @@ class ActualizarProyectoWidget extends Widget
                               'videosegunda'=>$videosegunda,
                               'entrega'=>$this->entrega,
                               'etapa'=>$etapa,
-                              'estudiante'=>$estudiante]);
+                              'estudiante'=>$estudiante,
+                              'institucion'=>$institucion]);
     }
     
     public function rename_win($oldfile,$newfile) {

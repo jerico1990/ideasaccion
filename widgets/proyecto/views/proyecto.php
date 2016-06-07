@@ -78,13 +78,14 @@ use yii\web\JsExpression;
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        
+                        <!--
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-asunto required">
                                 <label class="control-label" for="proyecto-asunto" >Asunto público</label>
-                                <input class="form-control" value="<?= $equipo->asunto->descripcion_cabecera?>" disabled>
+                                <input class="form-control" value="<?php //= $equipo->asunto->descripcion_cabecera?>" disabled>
                             </div>
                         </div>
+                        -->
                         <div class="clearfix"></div>
                         <!--
                         <div class="clearfix"></div>

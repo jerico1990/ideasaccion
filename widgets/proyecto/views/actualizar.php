@@ -109,9 +109,25 @@ label{
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group label-floating field-proyecto-asunto required">
-                                <label class="control-label" for="proyecto-asunto" >Asunto público</label>
-                                <input class="form-control" value="<?= $equipo->asunto->descripcion_cabecera?>" disabled>
+                            <div class="form-group label-floating field-equipo-asunto_id required" >
+                                <label class="control-label" for="proyecto-asunto_id">Selecciona el Asunto de Público sobre el que trabajará tu equipo</label>
+                                <select id="proyecto-asunto_id" class="form-control" name="Proyecto[asunto_id]" >
+                                    <option value=""></option>
+                                    <?php
+                                        $resultados=Resultados::find()->where('region_id=:region_id',['region_id'=>$institucion->department_id])->all();
+                                        foreach($resultados as $resultado)
+                                        {
+                                            if($equipo->asunto_id==$resultado->asunto_id)
+                                            {
+                                                echo "<option value='$resultado->asunto_id' selected='selected'>".$resultado->asunto->descripcion_cabecera."</option>";
+                                            }
+                                            else
+                                            {
+                                                echo "<option value='$resultado->asunto_id'>".$resultado->asunto->descripcion_cabecera."</option>";
+                                            }
+                                        }
+                                    ?>
+                                </select>
                             </div>
                         </div>
                         <div class="clearfix"></div>    

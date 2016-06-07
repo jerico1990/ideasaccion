@@ -212,7 +212,7 @@ if($key==4)
                                             <?php if($foro->id==2 || ($integrante && $foro->asunto_id==$equipo->asunto_id)){?>
                                                 <?php if($foro->id==2){ ?>
                                                     <li><?= Html::a("Foro de participación estudiantil",['foro/view','id'=>$foro->id],[]);?></li>
-                                                <?php }else { ?>
+                                                <?php }elseif($foro->asunto_id) { ?>
                                                     <li><?= Html::a("Foro de asunto público",['foro/view','id'=>$foro->id],[]);?></li>
                                                 <?php } ?>
                                             <?php } ?>

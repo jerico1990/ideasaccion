@@ -215,7 +215,9 @@ $btninscribir=$integrante
             <div class="form-group">
                 <label for="">Asunto público sobre el que trabajará mi equipo:</label>
                 <div class="rpta">
+                    <?php if($equipo->asunto_id!=''){ ?>
                     <?= $equipo->asunto->descripcion_cabecera ?>
+                    <?php } ?>
                 </div>
             </div>
         </div>

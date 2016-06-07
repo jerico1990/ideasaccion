@@ -39,7 +39,7 @@ class Equipo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['asunto_id','descripcion_equipo','descripcion'], 'required'],
+            [['descripcion_equipo','descripcion'], 'required'],
             [['asunto_id', 'estado','id','tipo'], 'integer'],
             [['fecha_registro','invitaciones','invitaciones_docente'], 'safe'],
             [['descripcion_equipo'], 'string', 'max' => 250],
@@ -89,10 +89,7 @@ class Equipo extends \yii\db\ActiveRecord
                         ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                         ->where('estudiante_id=:estudiante_id',[':estudiante_id'=>(integer) $key])->one();
                         
-            if($integrante)
-            {
-                
-            }
+            
         }
     }
     
