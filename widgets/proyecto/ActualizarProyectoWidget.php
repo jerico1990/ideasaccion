@@ -390,7 +390,7 @@ class ActualizarProyectoWidget extends Widget
                 $videoup->update();
                 $video->archivo->saveAs('video_carga/' . $videoup->id . '.' . $video->archivo->extension);
             }
-            else
+            elseif($proyecto->ruta)
             {
                 $video->proyecto_id=$proyecto->id;
                 $video->etapa=0;
