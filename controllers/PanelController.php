@@ -338,59 +338,149 @@ class PanelController extends Controller
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
     }
     
-    public function actionProceso()
+    public function actionProceso1()
     {
-	$inscripciones=Inscripcion::find()->all();
+	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null')->all();
 	foreach($inscripciones as $inscripcion){
-            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
-	    $estudiante=Estudiante::find()->where('dni=:dni or email like ("%:email%")',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
-            if($estudiante)
-            {
-                $estudiante->email=$inscripcion->email;
-                $estudiante->dni=$inscripcion->dni;
-                $estudiante->update();
-                $usuario=Usuario::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
-                $usuario->username=$inscripcion->email;
-                $usuario->update();
-                echo "se ha actualizado el email y dni en base al excel :".$estudiante->dni.", ".$estudiante->email;
-            }
-            else
-            {
-                $estudiante=new Estudiante();
-                $estudiante->institucion_id=$institucion->id;
-                $estudiante->dni=$inscripcion->dni;
-                $estudiante->email=$inscripcion->email;
-                $estudiante->apellido_paterno=$inscripcion->paterno;
-                $estudiante->apellido_materno=$inscripcion->materno;
-                $estudiante->nombres=$inscripcion->nombres;
-                $estudiante->celular=$inscripcion->celular;
-                $estudiante->save();
-                
-                $usuario=new Usuario;
-                $usuario->username=$inscripcion->email;
-                $usuario->password='$2y$13$T6OEJW0WjS30nlKofw5gTetHkSrhKPAddewnCJR1jkjdljcWw0rvu';
-                $usuario->status=1;
-                $usuario->avatar="no_disponible.jpg";
-                $usuario->estudiante_id=$estudiante->id;
-                $usuario->fecha_registro=date("Y-m-d H:i:s");
-                $usuario->save();
-                echo "Se ha creado: ".$estudiante->dni;
-            }
             
-            if($inscripcion->rol==1)
-            {
-                /*$integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
-                if($integrante)
+            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
+	    if($institucion){
+                $estudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
+                if($estudiante)
                 {
-                    
+                    $estudiante->email=$inscripcion->email;
+                    $estudiante->dni=$inscripcion->dni;
+                    $estudiante->update();
+                    $usuario=Usuario::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+                    $usuario->username=$inscripcion->email;
+                    $usuario->password='$2y$13$T6OEJW0WjS30nlKofw5gTetHkSrhKPAddewnCJR1jkjdljcWw0rvu';
+                    $usuario->update();
+                    echo "se ha actualizado el email,dni y contraseña en base al excel :".$estudiante->dni.", ".$estudiante->email;
                 }
                 else
                 {
+                    $estudiante=new Estudiante();
+                    $estudiante->institucion_id=$institucion->id;
+                    $estudiante->dni=$inscripcion->dni;
+                    $estudiante->email=$inscripcion->email;
+                    $estudiante->apellido_paterno=$inscripcion->paterno;
+                    $estudiante->apellido_materno=$inscripcion->materno;
+                    $estudiante->nombres=$inscripcion->nombres;
+                    $estudiante->celular=$inscripcion->celular;
+                    $estudiante->save();
+                    
+                    $usuario=new Usuario;
+                    $usuario->username=$inscripcion->email;
+                    $usuario->password='$2y$13$T6OEJW0WjS30nlKofw5gTetHkSrhKPAddewnCJR1jkjdljcWw0rvu';
+                    $usuario->status=1;
+                    $usuario->avatar="no_disponible.jpg";
+                    $usuario->estudiante_id=$estudiante->id;
+                    $usuario->fecha_registro=date("Y-m-d H:i:s");
+                    $usuario->save();
+                    echo "Se ha creado al estudiante: ".$estudiante->dni;
+                }
+                
+                if($inscripcion->rol==1)
+                {
+                    $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$estudiante->id])->one();
+                    if($coordinador)
+                    {
+                        $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
+                    }
+                    else
+                    {
+                        $equipo=new Equipo;
+                        $equipo->descripcion_equipo=$inscripcion->equipo;
+                        $equipo->descripcion=$inscripcion->equipo;
+                        $equipo->fecha_registro=date("Y-m-d H:i:s");
+                        $equipo->estado=0;
+                        $equipo->etapa=1;
+                        $equipo->save();
+                        $coordinador=new Integrante;
+                        $coordinador->estudiante_id=$estudiante->id;
+                        $coordinador->equipo_id=$equipo->id;
+                        $coordinador->rol=1;
+                        $coordinador->estado=1;
+                        $coordinador->save();
+                    }
+                }
+            }   
+        }
+    }
+    
+    
+    public function actionProceso2()
+    {
+	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=1')->all();
+	foreach($inscripciones as $inscripcion){
+            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
+            if($institucion)
+            {
+                $estudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
+                $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+                $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
+                $estudiantes_por_invitarlos=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=2 and lider_equipo=:lider_equipo',
+                                                                       [':lider_equipo'=>$estudiante->email])->all();
+                foreach($estudiantes_por_invitarlos as $estudiante_por_invitar){
+                    $institucionx=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$estudiante_por_invitar->codigo_modular])->one();
+                    if($institucionx)
+                    {
+                        $estudianteainvitar=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$estudiante_por_invitar->dni,':email'=>$estudiante_por_invitar->email])->one();
+                        $invitaciones=Invitacion::find()
+                            ->where('estado in (1,2) and estudiante_invitado_id=:estudiante_invitado_id',[':estudiante_invitado_id'=>$estudianteainvitar->id])
+                            ->all();
+                        if($invitaciones)
+                        {
+                            foreach($invitaciones as $invitacion)
+                            {
+                                $invi=Invitacion::findOne($invitacion->id);
+                                if($invitacion->estado==1)
+                                {
+                                    $invi->estado=2;
+                                    $invi->update();
+                                    $integrante=new Integrante;
+                                    $integrante->equipo_id=$equipo->id;
+                                    $integrante->estudiante_id=$estudianteainvitar->id;
+                                    $integrante->rol=2;
+                                    $integrante->estado=1;
+                                    $integrante->save();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            $invitacion=new Invitacion;
+                            $invitacion->equipo_id=$equipo->id;
+                            $invitacion->estudiante_id=$estudiante->id;
+                            $invitacion->estudiante_invitado_id=$estudianteainvitar->id;
+                            $invitacion->estado=2;
+                            $invitacion->fecha_invitacion=date("Y-m-d H:i:s");
+                            $invitacion->fecha_aceptacion=date("Y-m-d H:i:s");
+                            $invitacion->save();
+                            $integrante=new Integrante;
+                            $integrante->equipo_id=$equipo->id;
+                            $integrante->estudiante_id=$estudianteainvitar->id;
+                            $integrante->rol=2;
+                            $integrante->estado=1;
+                            $integrante->save();
+                        }
+                    }
                     
                 }
-                $equipo=Equipo::find()->where()->one();
-                $equipo->*/
             }
+            
+        }
+    }
+    
+    
+    public function actionProceso3()
+    {
+	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=1')->all();
+	foreach($inscripciones as $inscripcion){
+            $estudiante=Estudiante::find()->where('dni=:dni or email like ("%:email%")',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
+            $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+            $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
+            
         }
     }
 }

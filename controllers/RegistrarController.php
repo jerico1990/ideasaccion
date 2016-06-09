@@ -65,6 +65,7 @@ class RegistrarController extends Controller
                 $usuario->estudiante_id=$estudiante->id;
                 $usuario->save();
                 
+                /*
                 $subject="Bienvenido a la plataforma de ideas en acción";
                 $content="¡Bienvenido a ideas en acción!<br><br>
                          Ahora podrás ingresar a tu propia cuenta en la plataforma con estos datos:
@@ -75,11 +76,11 @@ class RegistrarController extends Controller
                          Haz clic en este <a href='http://intranet.ideasenaccion.pe/site/login'>link</a> para poder ingresar a la plataforma.
                          ";
                 Yii::$app->mail->compose('@app/mail/layouts/html',['content'=>$content])
-               ->setFrom('info@ideasenaccion.pe')
+               ->setFrom('info2@ideasenaccion.pe')
                ->setTo($registrar->email)
                ->setSubject($subject)
                ->send();
-                
+                */
                 
                 if($registrar->foto)
                 {
