@@ -12,6 +12,45 @@ use yii\web\JsExpression;
 /* @var $title string */
 
 ?>
+<style>
+    .bootbox-confirm .modal-dialog
+    {
+        z-index: 5000 !important;
+    }
+     .btn-default{
+	width: 100%;
+	background: #f6de34 !important;
+	color: #1f2a69 !important;
+	border-color: #f6de34;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 34px;
+	padding-top: 0;
+	padding-bottom: 0;
+    }
+
+ .btn-default:hover{
+	border-color: #1f2a69 !important;
+}
+
+ .btn-primary{
+	width: 100%;
+	background: #f6de34 !important;
+	color: #1f2a69;
+	border-color: #f6de34;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 34px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.btn-primary:hover{
+	border-color: #1f2a69 !important;
+}
+</style>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <?php if($etapa1 && $equipo->etapa==0){ ?>
 <button class="btn btn-default" type="button" id="btnprimeraentrega" <?= (!$etapa1 || $equipo->etapa==1)?'disabled':'' ?>>Finalizar 1ra entrega</button>
@@ -35,6 +74,7 @@ use yii\web\JsExpression;
 <script>
     
     $('#btnprimeraentrega').click(function(event){
+        var texto="Estas seguro de finalizar la 1ra entrega";
         var actividad=<?= $actividades ?>;
         var cronograma=<?= $cronogramas ?>;
         var planepresupuestales=<?= $planepresupuestales ?>;
@@ -45,30 +85,12 @@ use yii\web\JsExpression;
         
         var error='';
         
-        /*if (actividad<1) {
-            error='Debe ingresar mínimo una actividad <br>'+error;
-        }
-        if (cronograma<1) {
-            error='Debe ingresar mínimo un cronograma <br>'+error;
-        }*/
+        
+        
         if (video<1) {
             error='Debe ingresar el video del proyecto <br>'+error;
         }
-        /*
-        if (planepresupuestales<1) {
-            error='Debe ingresar mínimo un plan presupuestal <br>'+error;
-        }
-        if (asuntosprivados!='') {
-            error=asuntosprivados+error;
-            //error='Debe ingresar mínimo 1 comentario en Foro de "Asuntos Públicos" <br>'+error;
-        }*/
-        /*if (asuntospublicos!='') {
-            error=asuntospublicos+error;
-        }
         
-        if (reflexion!='') {
-            error=reflexion+error;
-        }*/
         
         
         if (error!='') {
@@ -86,30 +108,53 @@ use yii\web\JsExpression;
         }
         else
         {
+            bootbox.confirm({
+                message:texto,
+                buttons: {
+                    'cancel': {
+                        label: 'Cancelar',
+                    },
+                    'confirm': {
+                        label: 'Aceptar',
+                    }
+                },
+                callback: function(result) {
+                
+                    if (result) {
+                        
+                        $.post( "<?= $finalizarprimerentrega ?>", { 'Proyecto[id]':<?= $proyecto->id ?>})
+                        .done(function( data ) {
+                                if (data==1) {
+                                    $.notify({
+                                        message: 'Gracias se ha cerrado la 1era entrega' 
+                                    },{
+                                        type: 'success',
+                                        z_index: 1000000,
+                                        placement: {
+                                            from: 'bottom',
+                                            align: 'right'
+                                        },
+                                    });
+                                    setTimeout(function(){
+                                                    window.location.reload(1);
+                                                }, 2000);   
+                                }
+                        });
+                    }
+                
+                }
+            });
+            /*
             $.ajax({
                 url: '<?= $finalizarprimerentrega ?>',
                 type: 'POST',
                 async: true,
                 data: {'Proyecto[id]':<?= $proyecto->id ?>},
                 success: function(data){
-                    if (data==1) {
-                        $.notify({
-                            message: 'Gracias se ha cerrado la 1era entrega' 
-                        },{
-                            type: 'success',
-                            z_index: 1000000,
-                            placement: {
-                                from: 'bottom',
-                                align: 'right'
-                            },
-                        });
-                        setTimeout(function(){
-                                        window.location.reload(1);
-                                    }, 2000);   
-                    }
+                    
                     
                 }
-            });
+            });*/
             return true;
         }       
     });

@@ -26,6 +26,7 @@ use app\models\VotacionPublica;
 use app\models\Proyecto;
 use app\models\ForoComentario;
 use app\models\Institucion;
+use app\models\Inscripcion;
 use yii\data\Sort;
 
 
@@ -335,5 +336,49 @@ class PanelController extends Controller
         }
         
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
+    }
+    
+    public function actionProceso()
+    {
+	$inscripciones=Inscripcion::find()->all();
+	foreach($inscripciones as $inscripcion){
+            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
+	    $estudiante=Estudiante::find()->where('dni=:dni or email like ("%:email%")',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
+            if($estudiante)
+            {
+                $estudiante->email=$inscripcion->email;
+                $estudiante->dni=$inscripcion->dni;
+                $estudiante->update();
+                $usuario=Usuario::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+                $usuario->username=$inscripcion->email;
+                $usuario->update();
+                echo "se ha actualizado el email y dni en base al excel :".$estudiante->dni.", ".$estudiante->email;
+            }
+            else
+            {
+                $estudiante=new Estudiante();
+                $estudiante->institucion_id=$institucion->id;
+                $estudiante->dni=$inscripcion->dni;
+                $estudiante->email=$inscripcion->email;
+                $estudiante->apellido_paterno=$inscripcion->paterno;
+                $estudiante->apellido_materno=$inscripcion->materno;
+                $estudiante->nombres=$inscripcion->nombres;
+                $estudiante->celular=$inscripcion->celular;
+                $estudiante->save();
+                
+                $usuario=new Usuario;
+                $usuario->username=$inscripcion->email;
+                $usuario->password='$2y$13$T6OEJW0WjS30nlKofw5gTetHkSrhKPAddewnCJR1jkjdljcWw0rvu';
+                $usuario->status=1;
+                $usuario->avatar="no_disponible.jpg";
+                $usuario->estudiante_id=$estudiante->id;
+                $usuario->fecha_registro=date("Y-m-d H:i:s");
+                $usuario->save();
+                echo "Se ha creado: ".$estudiante->dni;
+            }
+            
+            
+            
+        }
     }
 }

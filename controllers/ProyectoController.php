@@ -178,8 +178,8 @@ class ProyectoController extends Controller
         $proyectoexiste=ProyectoCopia::find()->where('id=:id and etapa=1',[':id'=>$proyecto->id])->one();
         if(!$proyectoexiste)
         {
-            $proyectocopia =    'insert into proyecto_copia (id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,etapa)
-                                select id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,1 from proyecto
+            $proyectocopia =    'insert into proyecto_copia (id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,etapa,proyecto_archivo,formato_proyecto)
+                                select id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,1,proyecto_archivo,formato_proyecto from proyecto
                                 where id='.$proyecto->id.'  ';
             \Yii::$app->db->createCommand($proyectocopia)->execute();
             
@@ -195,27 +195,28 @@ class ProyectoController extends Controller
             \Yii::$app->db->createCommand($actividadcopia)->execute();
             
             
-            $planpresupuestalcopia =    'insert into plan_presupuestal_copia (id,actividad_id,recurso,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa,dirigido,recurso_descripcion,unidad)
-                                select plan_presupuestal.id,plan_presupuestal.actividad_id,plan_presupuestal.recurso,
-                                        plan_presupuestal.como_conseguirlo,plan_presupuestal.precio_unitario,plan_presupuestal.cantidad,
-                                        plan_presupuestal.subtotal,plan_presupuestal.estado,1,plan_presupuestal.dirigido,plan_presupuestal.recurso_descripcion,plan_presupuestal.unidad
+            $planpresupuestalcopia =    'insert into plan_presupuestal_copia
+                                (id,actividad_id,dirigido,recurso,recurso_descripcion,unidad,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa)
+                        select  plan_presupuestal.id,plan_presupuestal.actividad_id,plan_presupuestal.dirigido,plan_presupuestal.recurso,
+                                plan_presupuestal.recurso_descripcion,plan_presupuestal.unidad,plan_presupuestal.como_conseguirlo,
+                                plan_presupuestal.precio_unitario,plan_presupuestal.cantidad,plan_presupuestal.subtotal,plan_presupuestal.estado,1
                                 from plan_presupuestal
                                 inner join actividad on plan_presupuestal.actividad_id=actividad.id
                                 inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
                                 where objetivo_especifico.proyecto_id='.$proyecto->id.' and plan_presupuestal.estado=1  ';
             \Yii::$app->db->createCommand($planpresupuestalcopia)->execute();
             
-            $cronogramacopia =    'insert into cronograma_copia (id,actividad_id,fecha_inicio,fecha_fin,duracion,responsable_id,estado,etapa,tarea)
-                                select cronograma.id,cronograma.actividad_id,cronograma.fecha_inicio,cronograma.fecha_fin,
-                                cronograma.duracion,cronograma.responsable_id,cronograma.estado,1,cronograma.tarea
+            $cronogramacopia =    'insert into cronograma_copia (id,actividad_id,tarea,fecha_inicio,fecha_fin,duracion,responsable_id,estado,etapa)
+                                select cronograma.id,cronograma.actividad_id,cronograma.tarea,cronograma.fecha_inicio,cronograma.fecha_fin,
+                                cronograma.duracion,cronograma.responsable_id,cronograma.estado,1
                                 from cronograma
                                 inner join actividad on cronograma.actividad_id=actividad.id
                                 inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
                                 where objetivo_especifico.proyecto_id='.$proyecto->id.' and cronograma.estado=1 ';
             \Yii::$app->db->createCommand($cronogramacopia)->execute();
             
-            $videocopia =    'insert into video_copia (id,proyecto_id,ruta,etapa)
-                                select id,proyecto_id,ruta,1 from video
+            $videocopia =    'insert into video_copia (id,proyecto_id,ruta,etapa,tipo)
+                                select id,proyecto_id,ruta,1,tipo from video
                                 where proyecto_id='.$proyecto->id.' and etapa=0 ';
             \Yii::$app->db->createCommand($videocopia)->execute();
             
@@ -226,14 +227,14 @@ class ProyectoController extends Controller
                                         [':proyecto_id'=>$proyecto->id,':etapa'=>0])->one();
             $video->etapa=1;
             $video->update();
-            $evaluacion = 'insert into evaluacion (evaluacion,proyecto_id,user_id)
+            /*$evaluacion = 'insert into evaluacion (evaluacion,proyecto_id,user_id)
                     select "" , '.$proyecto->id.' , usuario.id from integrante
                     inner join usuario on usuario.estudiante_id=integrante.estudiante_id
                     inner join estudiante on estudiante.id=usuario.estudiante_id
                     where estudiante.grado!=6 and integrante.equipo_id='.$integrante->equipo_id.' ';
             
             \Yii::$app->db->createCommand($evaluacion)->execute();
-            
+            */
             
             
             $proyectoetapa=Proyecto::findOne($proyecto->id);
