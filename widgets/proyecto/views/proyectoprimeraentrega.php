@@ -190,9 +190,19 @@ label{
                     <div class="col-xs-12 col-sm-3 col-md-3">
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                    <video width="320" height="240" controls>
-                        <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" type="video/mp4">  
-                    </video>
+                    <?php if($videoprimera->ruta && $videoprimera->tipo==1){ ?>
+                            <br>
+                            <iframe type="text/html" 
+                                width="320" 
+                                height="240" 
+                                src="https://www.youtube.com/embed/<?= substr($videoprimera->ruta,-11) ?>" 
+                                frameborder="0">
+                            </iframe>
+                            <?php } elseif($videoprimera->tipo==2){ ?>
+                            <video width="320" height="240" controls>
+                                <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" >  
+                            </video>
+                            <?php } ?>
                     </div>
                     <?php } ?>
                     <div class="clearfix"></div>

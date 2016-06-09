@@ -377,8 +377,20 @@ class PanelController extends Controller
                 echo "Se ha creado: ".$estudiante->dni;
             }
             
-            
-            
+            if($inscripcion->rol==1)
+            {
+                /*$integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+                if($integrante)
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+                $equipo=Equipo::find()->where()->one();
+                $equipo->*/
+            }
         }
     }
 }
