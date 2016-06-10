@@ -351,29 +351,29 @@ class PanelController extends Controller
                 $duplicados=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->all();
                 if(!$dni)
                 {
-                    $texto=$texto."    No";    
+                    $texto=$texto."No;";    
                 }
                 else
                 {
-                    $texto=$texto."    Si";
+                    $texto=$texto."Si;";
                 }
                 
                 if(!$email)
                 {
-                    $texto=$texto."    No";    
+                    $texto=$texto."No;";    
                 }
                 else
                 {
-                    $texto=$texto."    Si";
+                    $texto=$texto."Si;";
                 }
                 
                 if($Cantidadestudiante>=2)
                 {
-                    $texto=$texto."    Si";
+                    $texto=$texto."Si;";
                 }
                 else
                 {
-                    $texto=$texto."    No";
+                    $texto=$texto."No;";
                 }
                 if($Cantidadestudiante>=2)
                 {
@@ -382,26 +382,28 @@ class PanelController extends Controller
                     {
                         $txt=$txt."    Si    Datos dni:".$duplicado->dni.", correo:".$duplicado->email."xxx";
                     }
-                    $texto=$texto.$txt;
+                    $texto=$texto.$txt.";";
                 }
                 elseif($Cantidadestudiante==1 && $dni)
                 {
-                    $texto=$texto."    Si    Datos dni:".$dni->dni.", correo:".$dni->email;
+                    $institucion=Institucion::find()->where('id=:id',[':id'=>$dni->institucion_id])->one();
+                    $texto=$texto."Si;".$institucion->codigo_modular.";".$institucion->denominacion.";".$dni->nombres." ".$dni->apellido_paterno." ".$dni->apellido_materno.";".$dni->dni.";".$dni->email;
                 }
                 elseif($Cantidadestudiante==1 && $email)
                 {
-                    $texto=$texto."    Si    Datos dni:".$email->dni.", correo:".$email->email;
+                    $institucion=Institucion::find()->where('id=:id',[':id'=>$email->institucion_id])->one();
+                    $texto=$texto."Si;".$institucion->codigo_modular.";".$institucion->denominacion.";".$email->nombres." ".$email->apellido_paterno." ".$email->apellido_materno.";".$email->dni.";".$email->email;
                 }
                 else
                 {
-                    $texto=$texto."    Si    No";
+                    $texto=$texto."Si;No";
                 }
                 
                 
             }
             else
             {
-                $texto=$texto."No    No    No    No    No";
+                $texto=$texto."No;No;No;No;No";
             }
             echo $texto."<br>";
         }
