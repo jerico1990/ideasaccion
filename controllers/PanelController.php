@@ -501,7 +501,7 @@ class PanelController extends Controller
             
         }
     }
-    /*
+    
     
     public function actionProceso2()
     {
@@ -602,7 +602,7 @@ class PanelController extends Controller
         }
     }
     
-    */
+    
     public function actionProceso3()
     {
 	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=1')->all();
