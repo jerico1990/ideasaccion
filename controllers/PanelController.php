@@ -410,7 +410,7 @@ class PanelController extends Controller
         
         
     }
-    /*public function actionProceso1()
+    public function actionProceso1()
     {
 	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null')->all();
 	foreach($inscripciones as $inscripcion){
@@ -423,6 +423,7 @@ class PanelController extends Controller
                 {
                     if($estudiante)
                     {
+                        /*
                         $estudiante->email=$inscripcion->email;
                         $estudiante->dni=$inscripcion->dni;
                         $estudiante->apellido_paterno=$inscripcion->paterno;
@@ -435,7 +436,7 @@ class PanelController extends Controller
                         $usuario=Usuario::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
                         $usuario->username=$inscripcion->email;
                         $usuario->password='$2y$13$T6OEJW0WjS30nlKofw5gTetHkSrhKPAddewnCJR1jkjdljcWw0rvu';
-                        $usuario->update();
+                        $usuario->update();*/
                         echo "se ha actualizado el email,dni y contraseña en base al excel :".$estudiante->dni."<br>";
                     }
                     else
@@ -462,7 +463,7 @@ class PanelController extends Controller
                         $usuario->save();
                         echo "Se ha creado al estudiante: ".$estudiante->dni."<br>";
                     }
-                    /*
+                    
                     if($inscripcion->rol==1)
                     {
                         $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$estudiante->id])->one();
@@ -500,7 +501,7 @@ class PanelController extends Controller
             
         }
     }
-    
+    /*
     
     public function actionProceso2()
     {
