@@ -337,8 +337,78 @@ class PanelController extends Controller
         
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
     }
-    
-    public function actionProceso1()
+    public function actionProceso()
+    {
+        
+	$inscripciones=Inscripcion::find()->all();
+        foreach($inscripciones as $inscripcion){
+            $texto="";
+            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
+	    if($institucion){
+                $dni=Estudiante::find()->where('dni=:dni',[':dni'=>$inscripcion->dni])->one();
+                $email=Estudiante::find()->where('email=:email',[':email'=>$inscripcion->email])->one();
+                $Cantidadestudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->count();
+                $duplicados=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->all();
+                if(!$dni)
+                {
+                    $texto=$texto."    No";    
+                }
+                else
+                {
+                    $texto=$texto."    Si";
+                }
+                
+                if(!$email)
+                {
+                    $texto=$texto."    No";    
+                }
+                else
+                {
+                    $texto=$texto."    Si";
+                }
+                
+                if($Cantidadestudiante>=2)
+                {
+                    $texto=$texto."    Si";
+                }
+                else
+                {
+                    $texto=$texto."    No";
+                }
+                if($Cantidadestudiante>=2)
+                {
+                    $txt="";
+                    foreach($duplicados as $duplicado)
+                    {
+                        $txt=$txt."    Si    Datos dni:".$duplicado->dni.", correo:".$duplicado->email."xxx";
+                    }
+                    $texto=$texto.$txt;
+                }
+                elseif($Cantidadestudiante==1 && $dni)
+                {
+                    $texto=$texto."    Si    Datos dni:".$dni->dni.", correo:".$dni->email;
+                }
+                elseif($Cantidadestudiante==1 && $email)
+                {
+                    $texto=$texto."    Si    Datos dni:".$email->dni.", correo:".$email->email;
+                }
+                else
+                {
+                    $texto=$texto."    Si    No";
+                }
+                
+                
+            }
+            else
+            {
+                $texto=$texto."No    No    No    No    No";
+            }
+            echo $texto."<br>";
+        }
+        
+        
+    }
+    /*public function actionProceso1()
     {
 	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null')->all();
 	foreach($inscripciones as $inscripcion){
@@ -390,7 +460,7 @@ class PanelController extends Controller
                         $usuario->save();
                         echo "Se ha creado al estudiante: ".$estudiante->dni."<br>";
                     }
-                    
+                    /*
                     if($inscripcion->rol==1)
                     {
                         $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$estudiante->id])->one();
@@ -529,7 +599,7 @@ class PanelController extends Controller
         }
     }
     
-    
+    */
     public function actionProceso3()
     {
 	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=1')->all();
