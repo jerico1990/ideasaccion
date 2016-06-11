@@ -375,14 +375,14 @@ class PanelController extends Controller
                 {
                     $texto=$texto."No;";
                 }
-                if($Cantidadestudiante>=2)
+                /*if($Cantidadestudiante>=2)
                 {
                     $txt="";
                     foreach($duplicados as $duplicado)
                     {
                         $txt=$txt."    Si    Datos dni:".$duplicado->dni.", correo:".$duplicado->email."xxx";
                     }
-                    $texto=$texto.$txt.";";
+                    $texto=$texto.$txt.";;;";
                 }
                 elseif($Cantidadestudiante==1 && $dni)
                 {
@@ -397,7 +397,7 @@ class PanelController extends Controller
                 else
                 {
                     $texto=$texto."Si;No";
-                }
+                }*/
                 
                 
             }
@@ -607,11 +607,16 @@ class PanelController extends Controller
     {
 	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=1')->all();
 	foreach($inscripciones as $inscripcion){
-            Inscripcion::updateAll(['lider_equipo' => $inscripcion->email], 'equipo!="" and equipo is not null and rol=2 and equipo=:equipo',
+            Inscripcion::updateAll(['lider_equipo' => $inscripcion->email,'codigo_modular'=>str_pad($inscripcion->codigo_modular, 7, "0", STR_PAD_LEFT)], 'equipo!="" and equipo is not null and rol=2 and equipo=:equipo',
                                                     [':equipo'=>$inscripcion->equipo]);
             
             
             
         }
+    }
+    
+    public function actionProceso4()
+    {
+        
     }
 }
