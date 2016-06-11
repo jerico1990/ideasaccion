@@ -579,6 +579,8 @@ class PanelController extends Controller
     }
     
     
+    
+    
     public function actionProceso2()
     {
 	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=1')->all();
