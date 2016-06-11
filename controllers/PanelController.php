@@ -411,6 +411,55 @@ class PanelController extends Controller
         
     }
     
+    public function actionProceso6()
+    {
+        
+	$inscripciones=Inscripcion::find()->all();
+        foreach($inscripciones as $inscripcion){
+            $texto="";
+            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
+	    if($institucion){
+                $dni=Estudiante::find()->where('dni=:dni',[':dni'=>$inscripcion->dni])->one();
+                $email=Estudiante::find()->where('email=:email',[':email'=>$inscripcion->email])->one();
+                $Cantidadestudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->count();
+                $duplicados=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->all();
+                
+                
+                if($Cantidadestudiante>=2)
+                {
+                    $txt="";
+                    foreach($duplicados as $duplicado)
+                    {
+                        $txt=$txt."    Si    Datos dni:".$duplicado->dni.", correo:".$duplicado->email."xxx";
+                    }
+                    $texto=$texto.$txt.";;;";
+                }
+                elseif($Cantidadestudiante==1 && $dni)
+                {
+                    $institucion=Institucion::find()->where('id=:id',[':id'=>$dni->institucion_id])->one();
+                    $texto=$texto."Si;".$institucion->codigo_modular.";".$institucion->denominacion.";".$dni->nombres." ".$dni->apellido_paterno." ".$dni->apellido_materno.";".$dni->dni.";".$dni->email;
+                }
+                elseif($Cantidadestudiante==1 && $email)
+                {
+                    $institucion=Institucion::find()->where('id=:id',[':id'=>$email->institucion_id])->one();
+                    $texto=$texto."Si;".$institucion->codigo_modular.";".$institucion->denominacion.";".$email->nombres." ".$email->apellido_paterno." ".$email->apellido_materno.";".$email->dni.";".$email->email;
+                }
+                else
+                {
+                    $texto=$texto.";que paso aca;";
+                }
+                
+                
+            }
+            else
+            {
+                $texto=$texto."No;No;No;No;No";
+            }
+            echo $texto."<br>";
+        }
+        
+        
+    }
     
     public function actionProceso5()
     {
