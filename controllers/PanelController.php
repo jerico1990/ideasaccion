@@ -446,7 +446,7 @@ class PanelController extends Controller
                 }
                 else
                 {
-                    $texto=$texto.";que paso aca;";
+                    $texto=$texto."Si;No";
                 }
                 
                 
@@ -537,7 +537,7 @@ class PanelController extends Controller
                         $usuario->save();
                         echo "Se ha creado al estudiante: ".$estudiante->dni."<br>";
                     }
-                    
+                    /*
                     if($inscripcion->rol==1)
                     {
                         $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$estudiante->id])->one();
@@ -562,7 +562,7 @@ class PanelController extends Controller
                             $coordinador->save();
                             echo "Se ha creado al lider del equipo: ".$inscripcion->equipo." con dni".$inscripcion->dni."<br>";
                         }
-                    }
+                    }*/
                 }
                 else
                 {
