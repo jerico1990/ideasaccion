@@ -486,7 +486,8 @@ class PanelController extends Controller
     
     public function actionProceso1()
     {
-	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null')->all();
+	$inscripciones=Inscripcion::find()->all();
+        $contador=1;
 	foreach($inscripciones as $inscripcion){
             $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
 	    if($institucion){
@@ -572,7 +573,8 @@ class PanelController extends Controller
             else{
                 echo "El usuario DNI:".$inscripcion->dni." su codigo modular se encuentra erroneo <br>";
             }
-            
+            echo $contador;
+            $contador++;
         }
     }
     
