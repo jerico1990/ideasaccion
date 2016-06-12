@@ -585,7 +585,6 @@ class PanelController extends Controller
     {
         /*Para crear lider dentro de integrante y creacion de equipo*/
         $contador=1;
-        $equipos=1;
         $inscripciones=Inscripcion::find()->where('rol=1')->all();
 	foreach($inscripciones as $inscripcion){
             $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
@@ -625,7 +624,7 @@ class PanelController extends Controller
                         $coordinador->estado=1;
                         $coordinador->save();
                         echo "Se ha creado al lider del equipo: ".$inscripcion->equipo." con dni".$inscripcion->dni."<br>";
-                        $equipos++;
+                        //$equipos++;
                     }
                     
                 }
@@ -640,7 +639,6 @@ class PanelController extends Controller
             echo $contador;
             $contador++;
         }
-        echo $equipos;
     }
     
     
