@@ -597,7 +597,7 @@ class PanelController extends Controller
                 {
                     
                     $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
-                    var_dump($coordinador);die;
+                    var_dump($coordinador);
                     if($coordinador && $coordinador->rol==1)
                     {
                         $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
