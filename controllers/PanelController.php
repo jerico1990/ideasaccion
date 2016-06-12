@@ -592,10 +592,10 @@ class PanelController extends Controller
 	    if($institucion){
                 $estudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
                 $estudianteCount=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->count();
-                
+                var_dump($estudianteCount);die;
                 if($estudianteCount<=1 && $inscripcion->rol==1)
                 {
-                    var_dump($estudiante);die;
+                    
                     $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
                     if($coordinador && $coordinador->rol==1)
                     {
