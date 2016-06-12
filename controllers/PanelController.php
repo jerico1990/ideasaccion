@@ -599,13 +599,13 @@ class PanelController extends Controller
                     if($coordinador && $coordinador->rol==1)
                     {
                         $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
-                        echo "Ya es lider del equipo ".$equipo->descripcion_equipo;
+                        echo "Ya es lider del equipo ".$equipo->descripcion_equipo."<br>";
                         
                     }
                     elseif($coordinador && $coordinador->rol==2)
                     {
                         $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
-                        echo "Es integrante del equipo ".$equipo->descripcion_equipo;
+                        echo "Es integrante del equipo ".$equipo->descripcion_equipo."<br>";
                     }
                     else
                     {
@@ -674,7 +674,7 @@ class PanelController extends Controller
                                     if($invitacion_compañero->estado==1 && $invitacion_compañero->estudiante_id==$coordinador->estudiante_id)
                                     {
                                         //Tiene invitación pendiente de tu equipo
-                                        echo "Ya tiene invitación de tu equipo";
+                                        echo "Ya tiene invitación de tu equipo"."<br>";
                                         $invi=Invitacion::find()->where('estado in (1,2) and estudiante_id=:estudiante_id and estudiante_invitado_id=:estudiante_invitado_id',
                                                                               [':estudiante_invitado_id'=>$est->id,':estudiante_id'=>$coordinador->estudiante_id])->one();
                                         $invi->estado=2;
@@ -719,6 +719,7 @@ class PanelController extends Controller
                                 $integrante->rol=2;
                                 $integrante->estado=1;
                                 $integrante->save();
+                                echo "registro de invitacion e integrante"."<br>";
                             }
                             
                             
