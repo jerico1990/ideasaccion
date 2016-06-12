@@ -337,6 +337,8 @@ class PanelController extends Controller
         
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
     }
+    
+    /*
     public function actionProceso()
     {
         
@@ -397,8 +399,7 @@ class PanelController extends Controller
                 else
                 {
                     $texto=$texto."Si;No";
-                }*/
-                
+                }
                 
             }
             else
@@ -482,10 +483,12 @@ class PanelController extends Controller
         
         
     }
-    
+    */
+                
     
     public function actionProceso1()
     {
+        /*sirver para registrar en estudiante y usuario*/
 	$inscripciones=Inscripcion::find()->all();
         $contador=1;
 	foreach($inscripciones as $inscripcion){
@@ -578,12 +581,178 @@ class PanelController extends Controller
         }
     }
     
-    
-    
-    
     public function actionProceso2()
     {
-	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=1')->all();
+        /*Para crear lider dentro de integrante y creacion de equipo*/
+        $contador=1;
+        $inscripciones=Inscripcion::find()->where('rol=1')->all();
+	foreach($inscripciones as $inscripcion){
+            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
+	    if($institucion){
+                $estudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
+                $estudianteCount=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->count();
+                
+                if($estudianteCount<=1 && $inscripcion->rol==1)
+                {
+                    
+                    $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+                    if($coordinador && $coordinador->rol==1)
+                    {
+                        $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
+                        echo "Ya es lider del equipo ".$equipo->descripcion_equipo;
+                        
+                    }
+                    elseif($coordinador && $coordinador->rol==2)
+                    {
+                        $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
+                        echo "Es integrante del equipo ".$equipo->descripcion_equipo;
+                    }
+                    else
+                    {
+                        $equipo=new Equipo;
+                        $equipo->descripcion_equipo=$inscripcion->equipo;
+                        $equipo->descripcion=$inscripcion->equipo;
+                        $equipo->fecha_registro=date("Y-m-d H:i:s");
+                        $equipo->estado=0;
+                        $equipo->etapa=0;
+                        $equipo->save();
+                        $coordinador=new Integrante;
+                        $coordinador->estudiante_id=$estudiante->id;
+                        $coordinador->equipo_id=$equipo->id;
+                        $coordinador->rol=1;
+                        $coordinador->estado=1;
+                        $coordinador->save();
+                        echo "Se ha creado al lider del equipo: ".$inscripcion->equipo." con dni".$inscripcion->dni."<br>";
+                    }
+                    
+                }
+                else
+                {
+                    echo "El usuario DNI:".$inscripcion->dni." presenta doble registro <br>";
+                }
+            }
+            else{
+                echo "El usuario DNI:".$inscripcion->dni." su codigo modular se encuentra erroneo <br>";
+            }
+            echo $contador;
+            $contador++;
+        }
+    }
+    
+    
+    public function actionProceso3()
+    {
+        /*Para realizar invitaciones y pertenecer al equipo*/
+        $contador=1;
+        $inscripciones=Inscripcion::find()->where('rol=1')->all();
+	foreach($inscripciones as $inscripcion){
+            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
+	    if($institucion){
+                $estudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
+                $estudianteCount=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->count();
+                
+                if($estudianteCount<=1 && $inscripcion->rol==1)
+                {
+                    $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+                    if($coordinador && $coordinador->rol==1)
+                    {
+                        $compañeros=Inscripcion::find()->where('lider_equipo=:lider_equipo',[':lider_equipo'=>$coordinador->email])->all();
+                        $bandera_invitacion=0;
+                        foreach($compañeros as $compañero)
+                        {
+                            $est=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
+                            $invitaciones_compañero=Invitacion::find()->where('estado in (1,2)  and estudiante_invitado_id=:estudiante_invitado_id',
+                                                                              [':estudiante_invitado_id'=>$est->id])->all();
+                            
+                            $invitacion_lider=Invitacion::find()->where('estado in (1,2) and estudiante_id=:estudiante_id and estudiante_invitado_id=:estudiante_invitado_id',
+                                                                              [':estudiante_invitado_id'=>$est->id,':estudiante_id'=>$coordinador->estudiante_id])->one();
+                            
+                            if($invitaciones_compañero)
+                            {
+                                foreach($invitaciones_compañero as $invitacion_compañero)
+                                {
+                                    if($invitacion_compañero->estado==1 && $invitacion_compañero->estudiante_id==$coordinador->estudiante_id)
+                                    {
+                                        //Tiene invitación pendiente de tu equipo
+                                        echo "Ya tiene invitación de tu equipo";
+                                        $invi=Invitacion::find()->where('estado in (1,2) and estudiante_id=:estudiante_id and estudiante_invitado_id=:estudiante_invitado_id',
+                                                                              [':estudiante_invitado_id'=>$est->id,':estudiante_id'=>$coordinador->estudiante_id])->one();
+                                        $invi->estado=2;
+                                        $invi->update();
+                                        Invitacion::updateAll(['estado'=>0],'estudiante_invitado_id=:estudiante_invitado_id and id not in ('.$invi->id.')',
+                                                              [':estudiante_invitado_id'=>$est->id]);
+                                        $integrante=new Integrante;
+                                        $integrante->equipo_id=$coordinador->equipo_id;
+                                        $integrante->estudiante_id=$coordinador->estudiante_id;
+                                        $integrante->rol=2;
+                                        $integrante->estado=1;
+                                        $integrante->save();
+                                    }
+                                    elseif($invitacion_compañero->estado==1 && $invitacion_compañero->estudiante_id!=$coordinador->estudiante_id)
+                                    {
+                                        //Tiene invitaciones de otros equipos
+                                        $bandera_invitacion=0;
+                                    }
+                                    elseif($invitacion_compañero->estado==2 && $invitacion_compañero->estudiante_id==$coordinador->estudiante_id)
+                                    {
+                                        //Acepto invitación de tu equipo
+                                    }
+                                    elseif($invitacion_compañero->estado==2 && $invitacion_compañero->estudiante_id!=$coordinador->estudiante_id)
+                                    {
+                                        //Acepto invitación de otro equipo
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                $invitacion=new Invitacion;
+                                $invitacion->equipo_id=$equipo->id;
+                                $invitacion->estudiante_id=$coordinador->estudiante_id;
+                                $invitacion->estudiante_invitado_id=$est->id;
+                                $invitacion->estado=2;
+                                $invitacion->fecha_invitacion=date("Y-m-d H:i:s");
+                                $invitacion->fecha_aceptacion=date("Y-m-d H:i:s");
+                                $invitacion->save();
+                                $integrante=new Integrante;
+                                $integrante->equipo_id=$coordinador->equipo_id;
+                                $integrante->estudiante_id=$est->id;
+                                $integrante->rol=2;
+                                $integrante->estado=1;
+                                $integrante->save();
+                            }
+                            
+                            
+                        }
+                    }
+                    elseif($coordinador && $coordinador->rol==2)
+                    {
+                        $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
+                        echo "Es integrante del equipo ".$equipo->descripcion_equipo;
+                    }
+                    else
+                    {
+                        echo "Lo sentimos sigue intentando";
+                    }
+                    
+                }
+                else
+                {
+                    echo "El usuario DNI:".$inscripcion->dni." presenta doble registro <br>";
+                }
+            }
+            else{
+                echo "El usuario DNI:".$inscripcion->dni." su codigo modular se encuentra erroneo <br>";
+            }
+            echo $contador;
+            $contador++;
+        }
+    }
+    
+    
+    
+    public function actionProceso4()
+    {
+	$inscripciones=Inscripcion::find()->where('rol=1')->all();
 	foreach($inscripciones as $inscripcion){
             $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
             if($institucion)
@@ -681,7 +850,7 @@ class PanelController extends Controller
     }
     
     
-    public function actionProceso3()
+    public function actionProceso5()
     {
 	$inscripciones=Inscripcion::find()->where('equipo!="" and equipo is not null and rol=1')->all();
 	foreach($inscripciones as $inscripcion){
@@ -693,8 +862,5 @@ class PanelController extends Controller
         }
     }
     
-    public function actionProceso4()
-    {
-        
-    }
+    
 }
