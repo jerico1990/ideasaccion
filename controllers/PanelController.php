@@ -599,13 +599,13 @@ class PanelController extends Controller
                     if($coordinador && $coordinador->rol==1)
                     {
                         $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
-                        echo "Ya es lider del equipo ".$equipo->descripcion_equipo."<br>";
+                        echo "Ya es lider del equipo ".$equipo->descripcion_equipo." ".$estudiante->dni."<br>";
                         
                     }
                     elseif($coordinador && $coordinador->rol==2)
                     {
                         $equipo=Equipo::find()->where('id=:id',[':id'=>$coordinador->equipo_id])->one();
-                        echo "Es integrante del equipo ".$equipo->descripcion_equipo."<br>";
+                        echo "Es integrante del equipo ".$equipo->descripcion_equipo." ".$estudiante->dni."<br>";
                     }
                     else
                     {
