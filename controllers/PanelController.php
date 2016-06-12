@@ -1018,10 +1018,6 @@ class PanelController extends Controller
         
         $inscripciones=Inscripcion::find()
                         ->select('lider_id')
-                        ->innerJoin('estudiante e','e.id=inscripcion.estudiante_id')
-                        ->innerJoin('integrante c','c.estudiante_id=e.id')
-                        ->innerJoin('equipo eq','eq.id=c.equipo_id')
-                        ->where('eq.estado=0')
                         ->all();
                         
         foreach($inscripciones as $inscripcion)
