@@ -1015,33 +1015,19 @@ class PanelController extends Controller
     public function actionDejarEquipo()
     {
         //$id=$_POST["id"];
-        $arrays=[5386,
-2805,
-3081,
-5232,
-650,
-3694,
-469,
-2281,
-3144,
-2840,
-1611,
-1497,
-2911,
-2516,
-2524,
-2187,
-2835,
-2528,
-3223,
-5947,
-1557,
-1148,
-5970,
-4418];
-        foreach($arrays as $array => $key)
+        
+        $inscripciones=Inscripcion::find()
+                        ->select('lider_id')
+                        ->innerJoin('estudiante e','e.id=inscripcion.estudiante_id')
+                        ->innerJoin('integrante c','c.estudiante_id=e.id')
+                        ->innerJoin('equipo eq','eq.id=c.equipo_id')
+                        ->where('eq.estado=0')
+                        ->distict('lider_id')
+                        ->all();
+                        
+        foreach($inscripciones as $inscripcion)
         {
-            $id=$key;
+            $id=$inscripcion->lider_id;
             echo $key."<br>";
             $lider=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$id])->one();
             if($lider)
@@ -1056,7 +1042,6 @@ class PanelController extends Controller
             }
             else
             {
-                var_dump($id);
                 Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one()->delete();
                 Invitacion::updateAll(['estado' => 0], 'estudiante_invitado_id=:estudiante_invitado_id',
                                   [':estudiante_invitado_id'=>$id]);
