@@ -1028,7 +1028,6 @@ class PanelController extends Controller
         foreach($inscripciones as $inscripcion)
         {
             $id=$inscripcion->lider_id;
-            echo $key."<br>";
             $lider=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$id])->one();
             if($lider)
             {
