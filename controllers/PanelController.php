@@ -1012,4 +1012,58 @@ class PanelController extends Controller
         }
     }
     
+    public function actionDejarEquipo()
+    {
+        //$id=$_POST["id"];
+        $arrays=[5386,
+2805,
+3081,
+5232,
+650,
+3694,
+469,
+2281,
+3144,
+2840,
+1611,
+1497,
+2911,
+2516,
+2524,
+2187,
+2835,
+2528,
+3223,
+5947,
+1557,
+1148,
+5970,
+4418];
+        foreach($arrays as $array => $key)
+        {
+            $id=$key;
+            echo $key."<br>";
+            $lider=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$id])->one();
+            if($lider)
+            {
+                //Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$lider->equipo_id])->one()->deleteAll();
+                Invitacion::updateAll(['estado' => 0], 'equipo_id=:equipo_id',
+                                  [':equipo_id'=>$lider->equipo_id]);
+                
+                Integrante::deleteAll('equipo_id=:equipo_id',[':equipo_id'=>$lider->equipo_id]);
+                
+                Equipo::find()->where('id=:id',[':id'=>$lider->equipo_id])->one()->delete();
+            }
+            else
+            {
+                var_dump($id);
+                Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$id])->one()->delete();
+                Invitacion::updateAll(['estado' => 0], 'estudiante_invitado_id=:estudiante_invitado_id',
+                                  [':estudiante_invitado_id'=>$id]);
+            }
+            
+        }
+        
+    }
+    
 }
