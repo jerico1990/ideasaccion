@@ -591,7 +591,7 @@ class PanelController extends Controller
 	    if($institucion){
                 $estudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
                 $estudianteCount=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->count();
-                echo $estudiante->id;
+                
                 if($estudianteCount<=1 && $inscripcion->rol==1)
                 {
                     
@@ -624,9 +624,9 @@ class PanelController extends Controller
                         $coordinador->estado=1;
                         $coordinador->save();
                         echo "Se ha creado al lider del equipo: ".$inscripcion->equipo." con dni".$inscripcion->dni."<br>";
-                        //$equipos++;
+                        $equipos++;
                     }
-                    
+                   
                 }
                 else
                 {
@@ -638,7 +638,9 @@ class PanelController extends Controller
             }
             echo $contador;
             $contador++;
+            
         }
+        echo "equipo ".$equipos;
     }
     
     
