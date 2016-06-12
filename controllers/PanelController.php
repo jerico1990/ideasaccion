@@ -864,4 +864,148 @@ class PanelController extends Controller
     }
     
     
+    
+    public function actionProceso10()
+    {
+        /*Para realizar invitaciones y pertenecer al equipo*/
+        $contador=1;
+        $inscripciones=Inscripcion::find()->all();
+	foreach($inscripciones as $inscripcion){
+            $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
+	    if($institucion){
+                $estudiante=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->one();
+                $estudianteCount=Estudiante::find()->where('dni=:dni or email=:email',[':dni'=>$inscripcion->dni,':email'=>$inscripcion->email])->count();
+                
+                if($estudianteCount<=1)
+                {
+                    $coordinador=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+                    
+                    if($coordinador && $coordinador->rol==1)
+                    {
+                        echo "Eres lider <br>";
+                    }
+                    elseif($coordinador && $coordinador->rol==2)
+                    {
+                        echo "Eres integrante <br>";
+                    }
+                    else
+                    {
+                        $invitaciones=Invitacion::find()->where('estudiante_invitado_id=:estudiante_invitado_id and estado=1',[':estudiante_invitado_id'=>$estudiante->id])->all();
+                        
+                        
+                        if($invitaciones)
+                        {
+                            $equipo=Equipo::find()->where('descripcion_equipo=:descripcion_equipo',[':descripcion_equipo'=>$inscripcion->equipo])->one();   
+                            if($equipo)
+                            {
+                                $lider=Integrante::find()->where('equipo_id=:equipo_id and rol=1',[':equipo_id'=>$equipo->id])->one();
+                                $lider_estudiante=Estudiante::find()->where('id=:id',[':id'=>$lider->estudiante_id])->one();
+                                if($lider_estudiante->institucion_id==$estudiante->institucion_id)
+                                {
+                                    $invitacion_lider=Invitacion::find()->where('estudiante_invitado_id=:estudiante_invitado_id and estudiante_id=:estudiante_id and estado=1',
+                                                                            [':estudiante_invitado_id'=>$estudiante->id,':estudiante_id'=>$lider_estudiante->id])
+                                                    ->one();
+                                    if($invitacion_lider)
+                                    {
+                                        $invitacion_lider->estado=2;
+                                        $invitacion_lider->update();
+                                        $integrante=new Integrante;
+                                        $integrante->equipo_id=$equipo->id;
+                                        $integrante->estudiante_id=$estudiante->id;
+                                        $integrante->rol=2;
+                                        $integrante->estado=1;
+                                        $integrante->save();
+                                        Invitacion::updateAll(['estado'=>0],'estudiante_invitado_id=:estudiante_invitado_id and id not in ('.$invitacion_lider->id.')',
+                                                              [':estudiante_invitado_id'=>$estudiante->id]);
+                                        echo "aceptar invitacion e ingresar a integrantes y actualizar los demas registros de mi estudiante_id a 0 dni".$estudiante->dni." <br>";
+                                        
+                                    }
+                                    else
+                                    {
+                                        $invitacion=new Invitacion;
+                                        $invitacion->equipo_id=$equipo->id;
+                                        $invitacion->estudiante_id=$lider->id;
+                                        $invitacion->estudiante_invitado_id=$estudiante->id;
+                                        $invitacion->estado=2;
+                                        $invitacion->fecha_invitacion=date("Y-m-d H:i:s");
+                                        $invitacion->fecha_aceptacion=date("Y-m-d H:i:s");
+                                        $invitacion->save();
+                                        $integrante=new Integrante;
+                                        $integrante->equipo_id=$equipo->id;
+                                        $integrante->estudiante_id=$estudiante->id;
+                                        $integrante->rol=2;
+                                        $integrante->estado=1;
+                                        $integrante->save();
+                                        Invitacion::updateAll(['estado'=>0],'estudiante_invitado_id=:estudiante_invitado_id and id not in ('.$invitacion->id.')',
+                                                              [':estudiante_invitado_id'=>$estudiante->id]);
+                                        echo "se registro una invitacion aceptada y formar parte de integrantes y los demas registros a 0 dni".$estudiante->dni."<br>";
+                                        
+                                    }
+                                }
+                                else
+                                {
+                                     echo "no pertenecen al mismo colegio <br>"."dni estudiante".$estudiante->dni." dni lider ".$lider_estudiante->dni."<br>";
+                                }
+                                
+                                
+                            }
+                            else
+                            {
+                                echo "tu equipo no existe o no se encontro coincidencia <br>";
+                            }
+                            
+                        }
+                        else
+                        {
+                            $equipo=Equipo::find()->where('descripcion_equipo=:descripcion_equipo',[':descripcion_equipo'=>$inscripcion->equipo])->one();   
+                            if($equipo)
+                            {
+                                $lider=Integrante::find()->where('equipo_id=:equipo_id and rol=1',[':equipo_id'=>$equipo->id])->one();
+                                $lider_estudiante=Estudiante::find()->where('id=:id',[':id'=>$lider->estudiante_id])->one();
+                                if($lider_estudiante->institucion_id==$estudiante->institucion_id)
+                                {
+                                    $invitacion=new Invitacion;
+                                    $invitacion->equipo_id=$equipo->id;
+                                    $invitacion->estudiante_id=$lider->id;
+                                    $invitacion->estudiante_invitado_id=$estudiante->id;
+                                    $invitacion->estado=2;
+                                    $invitacion->fecha_invitacion=date("Y-m-d H:i:s");
+                                    $invitacion->fecha_aceptacion=date("Y-m-d H:i:s");
+                                    $invitacion->save();
+                                    $integrante=new Integrante;
+                                    $integrante->equipo_id=$equipo->id;
+                                    $integrante->estudiante_id=$estudiante->id;
+                                    $integrante->rol=2;
+                                    $integrante->estado=1;
+                                    $integrante->save();
+                                    echo "se registro invitacion,integrante dni ".$estudiante->dni."<br>";
+                                }
+                                else
+                                {
+                                    echo "no pertenecen al mismo colegio <br>"."dni estudiante".$estudiante->dni." dni lider ".$lider_estudiante->dni."<br>";
+                                }
+                                
+                            }
+                            else
+                            {
+                                echo "No se encontro coincidencia con los equipos registrados dni ".$estudiante->dni." <br>";
+                            }
+                            
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    echo "El usuario DNI:".$inscripcion->dni." presenta doble registro <br>";
+                }
+            }
+            else{
+                echo "El usuario DNI:".$inscripcion->dni." su codigo modular se encuentra erroneo <br>";
+            }
+            echo $contador."<br>";
+            $contador++;
+        }
+    }
+    
 }
