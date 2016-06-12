@@ -1022,7 +1022,7 @@ class PanelController extends Controller
                         ->innerJoin('integrante c','c.estudiante_id=e.id')
                         ->innerJoin('equipo eq','eq.id=c.equipo_id')
                         ->where('eq.estado=0')
-                        ->distict('lider_id')
+                        ->DISTINCT('lider_id')
                         ->all();
                         
         foreach($inscripciones as $inscripcion)
