@@ -624,7 +624,7 @@ class PanelController extends Controller
                         $coordinador->rol=1;
                         $coordinador->estado=1;
                         $coordinador->save();
-                        $invitados=Inscripcion::find()->where('lider_id=:lider_id',[':lider_id'=>$estudiante->id])->all();
+                        $invitados=Inscripcion::find()->where('lider_id=:lider_id and rol=2',[':lider_id'=>$estudiante->id])->all();
                         foreach($invitados as $invitado)
                         {
                             $invitacion=new Invitacion;
