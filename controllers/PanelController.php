@@ -586,7 +586,7 @@ class PanelController extends Controller
         /*Para crear lider dentro de integrante y creacion de equipo*/
         $contador=1;
         $equipos=1;
-        $inscripciones=Inscripcion::find()->where('rol=1 and lider_id in (5915)')->all();
+        $inscripciones=Inscripcion::find()->where('rol=1 and lider_id in (2220)')->all();
 	foreach($inscripciones as $inscripcion){
             $institucion=Institucion::find()->where('codigo_modular=:codigo_modular',[':codigo_modular'=>$inscripcion->codigo_modular])->one();
 	    if($institucion){
