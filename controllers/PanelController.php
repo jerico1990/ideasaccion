@@ -636,7 +636,7 @@ class PanelController extends Controller
                             $invitacion->save();
                             
                             $integrante=new Integrante;
-                            $integrante->equipo_id=$equipo->equipo_id;
+                            $integrante->equipo_id=$equipo->id;
                             $integrante->estudiante_id=$invitado->estudiante_id;
                             $integrante->rol=2;
                             $integrante->estado=1;
