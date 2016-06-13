@@ -49,7 +49,7 @@ class Actividad extends \yii\db\ActiveRecord
         return [
             //[['objetivos_especificos','actividades','resultados_esperados'],'required'],
             [['objetivo_especifico_id'], 'integer'],
-            [['descripcion'], 'string', 'max' => 150],
+            [['descripcion'], 'string', 'max' => 250],
             [['resultado_esperado'], 'string', 'max' => 15],
             [['objetivos_especificos','actividades','resultados_esperados',
               'recursos','comos_conseguirlos','precios_unitarios','cantidades','subtotales','responsables',
