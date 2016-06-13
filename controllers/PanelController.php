@@ -623,6 +623,29 @@ class PanelController extends Controller
                         $coordinador->rol=1;
                         $coordinador->estado=1;
                         $coordinador->save();
+                        $invitados=Inscripcion::find()->where('lider_id=:lider_id',[':lider_id'=>$estudiante->id])->all();
+                        foreach($invitados as $invitado)
+                        {
+                            $invitacion=new Invitacion;
+                            $invitacion->equipo_id=$equipo->id;
+                            $invitacion->estudiante_id=$coordinador->estudiante_id;
+                            $invitacion->estudiante_invitado_id=$invitado->estudiante_id;
+                            $invitacion->estado=2;
+                            $invitacion->fecha_invitacion=date("Y-m-d H:i:s");
+                            $invitacion->fecha_aceptacion=date("Y-m-d H:i:s");
+                            $invitacion->save();
+                            
+                            $integrante=new Integrante;
+                            $integrante->equipo_id=$equipo->equipo_id;
+                            $integrante->estudiante_id=$invitado->estudiante_id;
+                            $integrante->rol=2;
+                            $integrante->estado=1;
+                            $integrante->save();
+                            
+                        }
+                        
+                        
+                        
                         echo "Se ha creado al lider del equipo: ".$inscripcion->equipo." con dni".$inscripcion->dni."<br>";
                         $equipos++;
                     }
@@ -640,7 +663,7 @@ class PanelController extends Controller
             $contador++;
             
         }
-        echo "equipo ".$equipos;
+        echo "equipo creados".$equipos;
     }
     
     
