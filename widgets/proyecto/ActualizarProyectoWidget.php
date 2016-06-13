@@ -261,7 +261,7 @@ class ActualizarProyectoWidget extends Widget
             if(trim($proyecto->objetivo_especifico_3)!='')
             {
                 
-                if(isset($proyecto->objetivo_especifico_3_id) && $objetivoespecifico3)
+                if(isset($proyecto->objetivo_especifico_3_id))
                 {
                     $objetivoespecifico3=ObjetivoEspecifico::find()->where('id=:id',[':id'=>$proyecto->objetivo_especifico_3_id])->one();
                     $objetivoespecifico3->descripcion=$proyecto->objetivo_especifico_3;
@@ -274,7 +274,7 @@ class ActualizarProyectoWidget extends Widget
                     $objetivoespecifico3->descripcion=$proyecto->objetivo_especifico_3;
                     $objetivoespecifico3->save();
                 }
-                
+                //var_dump($countActividades3);die;
                 for($i=0;$i<$countActividades3;$i++)
                 {
                     if(isset($proyecto->actividades_ids_3[$i]) && trim($proyecto->actividades_3[$i]))

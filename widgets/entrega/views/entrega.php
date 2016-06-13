@@ -82,10 +82,7 @@ use yii\web\JsExpression;
         var asuntospublicos='<?= $errorasuntopublico ?>';
         var reflexion="<?= $errorreflexion?>";
         var video=<?= $videoprimera ?>;
-        
         var error='';
-        
-        
         
         if (video<1) {
             error='Debe ingresar el video del proyecto <br>'+error;

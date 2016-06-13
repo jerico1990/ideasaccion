@@ -923,7 +923,7 @@ label{
                     align: 'right'
                 },
             });
-            $( "#w0" ).submit();
+            //$( "#w0" ).submit();
             setTimeout(function(){
                 window.location.reload(1);
             }, 2000);
