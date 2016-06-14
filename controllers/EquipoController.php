@@ -634,42 +634,48 @@ class EquipoController extends Controller
             //var_dump();die;
             $lider=Estudiante::find()->where('email=:email',[':email'=>$model->email])->one();
             $integrante=Integrante::find()->where('estudiante_id=:estudiante_id and rol=1',[':estudiante_id'=>$lider->id])->one();
-            $id=$integrante->equipo_id;
-            $integrantesEstudiantes=Integrante::find()
-                                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
-                                ->where('integrante.equipo_id=:equipo_id and estudiante.grado!=6',[':equipo_id'=>$id])->count();
-            $integrantesDocentes=Integrante::find()
+            if($integrante->estado==1)
+            {
+                $id=$integrante->equipo_id;
+                $integrantesEstudiantes=Integrante::find()
                                     ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
-                                    ->where('integrante.equipo_id=:equipo_id and estudiante.grado=6',[':equipo_id'=>$id])->count();
-            if($integrantesEstudiantes>=4 && $integrantesDocentes==1)
-            {
-                $equipo=Equipo::findOne($id);
-                if($equipo->foto="")
+                                    ->where('integrante.equipo_id=:equipo_id and estudiante.grado!=6',[':equipo_id'=>$id])->count();
+                $integrantesDocentes=Integrante::find()
+                                        ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                                        ->where('integrante.equipo_id=:equipo_id and estudiante.grado=6',[':equipo_id'=>$id])->count();
+                if($integrantesEstudiantes>=4 && $integrantesDocentes==1)
                 {
-                    $equipo->foto="no_disponible.png"; 
+                    $equipo=Equipo::findOne($id);
+                    if($equipo->foto="")
+                    {
+                        $equipo->foto="no_disponible.png"; 
+                    }
+                    
+                    $equipo->estado=1;
+                    $equipo->etapa=0;
+                    $equipo->update();
+                    
+                    Integrante::updateAll(['estado' => 2], 'estado = 1 and equipo_id=:equipo_id',
+                                      [':equipo_id'=>$id]);
+                    
+                    Invitacion::updateAll(['estado' => 0,'fecha_rechazo'=>date("Y-m-d H:i:s")], 'estado = 1 and equipo_id=:equipo_id',
+                                      [':equipo_id'=>$id]);
+                    
+                    $mensaje="Finalizado correctamente";
                 }
-                
-                $equipo->estado=1;
-                $equipo->etapa=0;
-                $equipo->update();
-                
-                Integrante::updateAll(['estado' => 2], 'estado = 1 and equipo_id=:equipo_id',
-                                  [':equipo_id'=>$id]);
-                
-                Invitacion::updateAll(['estado' => 0,'fecha_rechazo'=>date("Y-m-d H:i:s")], 'estado = 1 and equipo_id=:equipo_id',
-                                  [':equipo_id'=>$id]);
-                
-                $mensaje="Finalizado correctamente";
+                elseif($integrantesEstudiantes<4)
+                {
+                    $mensaje="Muy poco integrantes"; 
+                }
+                elseif($integrantesDocentes<1)
+                {
+                    $mensaje="Le falta docente"; 
+                }
             }
-            elseif($integrantesEstudiantes<4)
+            elseif($integrante->estado==2)
             {
-                $mensaje="Muy poco integrantes"; 
+                $mensaje="Su equipo ya ha sido finalizado"; 
             }
-            elseif($integrantesDocentes<1)
-            {
-                $mensaje="Le falta docente"; 
-            }
-            
             
         }
         
