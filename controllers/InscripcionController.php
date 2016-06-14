@@ -228,7 +228,7 @@ class InscripcionController extends Controller
                     ->where('estudiante.grado=6 and estudiante.institucion_id=:institucion_id and estudiante.id
                             not in (select invitacion.estudiante_invitado_id from invitacion
                                     inner join estudiante on estudiante.id=invitacion.estudiante_invitado_id
-                                    where invitacion.equipo_id='.$equipo->id.' and invitacion.estado=1 and estudiante.grado=6)
+                                    where invitacion.estado=2 and estudiante.grado=6)
                             and estudiante.id
                             not in (select estudiante_id from integrante where equipo_id='.$equipo->id.') and estudiante.id!=:id
                             ',[':institucion_id'=>$institucion->id,':id'=>$institucion->estudiante_id])
