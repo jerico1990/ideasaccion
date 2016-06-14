@@ -161,6 +161,8 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                             <li><?= Html::a("Reportes de estudiantes detalles",['reporte/registrados-detalles'],[]);?></li>
                                             <li><?= Html::a("Reportes de equipos",['reporte/equipo'],[]);?></li>
                                             <li><?= Html::a("Reportes de proyectos",['reporte/proyecto'],[]);?></li>
+                                            <li><?php //= Html::a("Reportes de proyectosequipos",['reporte/proyecto2'],[]);?></li>
+                                            
                                         </ul>
                                     </li>
                                     <!--Fin Reportes-->
@@ -169,6 +171,8 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     <li>
                                         <?= Html::a("Cambio de contraseña",['usuario/cambiar'],[]);?>
                                     </li>
+                                    <li><?= Html::a("Ingreso de equipo ya inscritos",['equipo/finalizar-equipo2'],[]);?></li>
+                                    
                                     <!--Fin Contraseña-->
                                 </ul>
                                 

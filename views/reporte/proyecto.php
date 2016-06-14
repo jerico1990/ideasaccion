@@ -34,10 +34,8 @@ if (isset($_GET['page']) >= 2)
     
     <table class="table">
         <thead style="background: #D9D9D9">
+            <th><b>Institución educativa</b></th>
             <th><b>Título del proyecto</b></th>
-            <th><b># de integrantes</b></th>
-            <th><b>Participación en foro de “Participación estudiantil”</b></th>
-            <th><b>Participación en foro de “Asuntos públicos”</b></th>
             <th><b>Proyecto finalizado</b></th>
             <th><b>Registro del video</b></th>
             <th><b>Registro de reflexión</b></th>
@@ -48,10 +46,10 @@ if (isset($_GET['page']) >= 2)
             $floor_number=$floor++; //?????
             ?>
             <tr>
+                <td><?= $proyecto['denominacion'] ?></td>
                 <td><span class="popover1" data-type='html' style="cursor: pointer"  data-title="Título de proyecto" data-content='<?= str_replace(['\'\'','\''],'"',$proyecto['titulo']) ?>' data-placement="top"><?= substr(str_replace(['\'\'','\''],'"',$proyecto['titulo']),0,14) ?> </span></td>
-                <td><?= $proyecto['total_integrantes'] ?></td>
-                <td><?= ($proyecto['foro_abierto']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
-                <td><?= ($proyecto['foro_asunto']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
+                
+               
                 <td><?= ($proyecto['proyecto_finalizado']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
                 <td><?= ($proyecto['video_check']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>
                 <td><?= ($proyecto['reflexion_check']==1)?'<span class="fa fa-fw fa-check-square"></span>':'' ?></td>

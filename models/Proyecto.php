@@ -82,7 +82,7 @@ class Proyecto extends \yii\db\ActiveRecord
     /*dd*/
     public $foro_id;
     public $ruta;
-    
+    public $denominacion;
     public $total_integrantes;
     public $foro_abierto;
     public $foro_asunto;
@@ -192,6 +192,7 @@ class Proyecto extends \yii\db\ActiveRecord
             ->select(['
                         p.id,
                         p.asunto_id,
+                        ins.denominacion,
                         p.titulo, 
                         COUNT( i.estudiante_id ) AS total_integrantes,
                         IF((select count(DISTINCT integrante.estudiante_id) from foro inner join foro_comentario on foro_comentario.foro_id=foro.id  inner join usuario on usuario.id=foro_comentario.user_id inner join estudiante on estudiante.id=usuario.estudiante_id inner join integrante on integrante.estudiante_id=estudiante.id inner join equipo on equipo.id=integrante.equipo_id where foro.id=2 and estudiante.grado!=6 and p.equipo_id=equipo.id )=(COUNT( i.estudiante_id )-1),1,0) as foro_abierto,
@@ -217,6 +218,7 @@ class Proyecto extends \yii\db\ActiveRecord
             ->select(['
                         p.id,
                         p.asunto_id,
+                        ins.denominacion,
                         p.titulo, 
                         COUNT( i.estudiante_id ) AS total_integrantes,
                         IF((select count(DISTINCT integrante.estudiante_id) from foro inner join foro_comentario on foro_comentario.foro_id=foro.id  inner join usuario on usuario.id=foro_comentario.user_id inner join estudiante on estudiante.id=usuario.estudiante_id inner join integrante on integrante.estudiante_id=estudiante.id inner join equipo on equipo.id=integrante.equipo_id where foro.id=2 and estudiante.grado!=6 and p.equipo_id=equipo.id )=(COUNT( i.estudiante_id )-1),1,0) as foro_abierto,
