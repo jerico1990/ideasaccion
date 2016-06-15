@@ -1039,7 +1039,7 @@ class PanelController extends Controller
     public function actionDejarEquipo()
     {
         //$id=$_POST["id"];
-        $arrays=[877,5507,894,2052,4447,4611,5706];
+        $arrays=[2052,4447,4611,5706,894];
         $inscripciones=Inscripcion::find()
                         ->select('lider_id')
                         ->all();
