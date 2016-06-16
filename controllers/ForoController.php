@@ -169,4 +169,26 @@ class ForoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    
+    public function actionProyecto($id)
+    {
+        $this->layout='estandar';
+        $newComentario = new ForoComentario();
+        $model=$this->findModel($id);
+        
+        
+        if ($newComentario->load(Yii::$app->request->post())) {
+            $newComentario->foro_id = $model->id;
+            if ($newComentario->save()){
+                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Create successfully.'));
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+        
+        return $this->render('proyecto', [
+            'model' => $model,
+            'newComentario'=>$newComentario
+        ]);
+    }
 }

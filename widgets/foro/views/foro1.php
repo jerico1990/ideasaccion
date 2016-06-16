@@ -8,16 +8,12 @@ use yii\widgets\DetailView;
 
 $this->title = $model->titulo;
 $usuario=$model->usuario;
-$posts = $model->getPosts($model->id);
+//$posts = $model->getPosts($model->id);
+$posts = $model->getForo1Entrega($model->id);
 ?>
 
-<div class="box_content contenido_seccion_crear_equipo">
-    <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
-        <h4><b><?= Html::encode($this->title) ?></b></h4>
-    </div>
-    
     <!-- Post Form End -->
-    <?= $this->render('/foro/_posts', [
+    <?= $this->render('/foro/_posts1entrega', [
             'posts'=>$posts['posts'],
             'pageSize'=>$posts['pages']->pageSize, //??
             'pages' => $posts['pages'], //??
@@ -25,12 +21,11 @@ $posts = $model->getPosts($model->id);
         ]);
     ?>
     <!-- Post Form Begin -->
-    <?= $this->render('/foro-comentario/_form',[
+    <?= $this->render('/foro-comentario/_form1entrega',[
             'model'=>$newComentario,
         ]);
     ?>
-    
-</div>
+   
 
 
 

@@ -71,6 +71,11 @@ class Foro extends \yii\db\ActiveRecord
         return $this->hasOne(Asunto::className(), ['id' => 'asunto_id']);
     }
     
+    public function getProyecto()
+    {
+        return $this->hasOne(Proyecto::className(), ['id' => 'proyecto_id']);
+    }
+    
     public function getPosts($id)
     {
         $query = new Query;
@@ -93,6 +98,38 @@ class Foro extends \yii\db\ActiveRecord
         
         
         $result = Yii::$app->tools->Pagination($expenses,10);
+        /*if($id==2){
+            $result = Yii::$app->tools->Pagination($expenses,10);
+        }elseif($id>=3 && $id<=35) {
+            $result = Yii::$app->tools->Pagination($expenses,10);
+        } else{
+            $result = Yii::$app->tools->Pagination($expenses,10);
+        }*/
+        return ['posts' => $result['result'], 'pages' => $result['pages']];
+    }
+    
+    public function getForo1Entrega($id)
+    {
+        $query = new Query;
+        $query->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , es.nombres, es.apellido_paterno , p.valoracion , p.estado')
+            ->from('{{%foro_comentario}} as p')
+            ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
+            ->join('INNER JOIN','{{%estudiante}} as es', 'es.id=u.estudiante_id')
+            ->where('p.foro_id=:id and estado=1', [':id' => $this->id])
+            ->orderBy('p.id desc');
+        
+        $query1 = new Query;
+        $query1->select('p.id,  p.contenido, p.creado_at, p.user_id, u.username, u.avatar , u.name_temporal as nombres , u.username , p.valoracion , p.estado')
+            ->from('{{%foro_comentario}} as p')
+            ->join('LEFT JOIN','{{%usuario}} as u', 'u.id=p.user_id')
+            ->where('p.foro_id=:id and estado=1 and u.id between 2 and 8', [':id' => $this->id]);
+        
+        $query->union($query1);
+        $expenses = new Query();
+        $expenses->select('*')->from(['u' => $query])->orderBy('u.id desc');
+        
+        
+        $result = Yii::$app->tools->Pagination($expenses,4);
         /*if($id==2){
             $result = Yii::$app->tools->Pagination($expenses,10);
         }elseif($id>=3 && $id<=35) {

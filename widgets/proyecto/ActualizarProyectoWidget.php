@@ -36,6 +36,7 @@ class ActualizarProyectoWidget extends Widget
 
     public function run()
     {
+        $etapa=Etapa::find()->where('estado=1')->one();
         $newComentario = new ForoComentario();
         $usuario=Usuario::findOne(\Yii::$app->user->id);
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
@@ -410,12 +411,20 @@ class ActualizarProyectoWidget extends Widget
             }
             
             $proyecto->archivo = UploadedFile::getInstance($proyecto, 'archivo');
-            if($proyecto->archivo) {
+            $proyecto->archivo2 = UploadedFile::getInstance($proyecto, 'archivo2');
+            if($etapa->etapa==1 && $proyecto->archivo) {
                 
                 $proyecto->proyecto_archivo=$proyecto->id. '.' . $proyecto->archivo->extension;
                 $proyecto->formato_proyecto=1;//formato en documento
                 $proyecto->update();
                 $proyecto->archivo->saveAs('proyectos/' . $proyecto->proyecto_archivo);
+            }
+            elseif($etapa->etapa==2 && $proyecto->archivo2)
+            {
+                $proyecto->proyecto_archivo2=$proyecto->id. '_2.' . $proyecto->archivo2->extension;
+                $proyecto->formato_proyecto2=1;//formato en documento
+                $proyecto->update();
+                $proyecto->archivo2->saveAs('proyectos/' . $proyecto->proyecto_archivo2);
             }
             
                 
@@ -453,7 +462,7 @@ class ActualizarProyectoWidget extends Widget
             $disabled='disabled';
         }
         
-        $etapa=Etapa::find()->where('estado=1')->one();
+        
         
         return $this->render('actualizar',
                              ['proyecto'=>$proyecto,

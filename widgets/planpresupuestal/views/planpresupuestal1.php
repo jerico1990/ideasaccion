@@ -21,26 +21,84 @@ foreach($objetivos as $objetivo){
 ?>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/autoNumeric-master/autoNumeric.js"></script>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/jQuery-Plugins-master/numeric/jquery.numeric.js"></script>
+<style>.image-upload > input
+{
+    display: none;
+}
+
+.image-upload img
+{
+    width: 80px;
+    cursor: pointer;
+}
+label{
+    display:inline-block !important ;
+    max-width:100% !important;
+    margin-bottom:5px !important;
+    font-size:14px !important;
+    font-weight:700 !important;
+    color:#1f2a69 !important;
+}
+.form-control
+{
+    color:#59595b !important;
+    font-size:14px !important;
+}
+
+    ul #oespe{
+        content: "";
+        list-style: none; 
+    }
+    ul #act{
+        content: "";
+        list-style: none; 
+    }
+    /*
+    li {
+        
+    }*/
+    #oespe::before
+    {
+        padding-right: 5px;
+        content: "\25BA";
+    }
+    #act::before
+    {
+        padding-right: 5px;
+        content: "\25CF";
+    }
+    
+    #act
+    {
+        padding-top:10px;
+        padding-bottom:10px;
+    }
+</style>
 
 
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-	<div class="form-group  field-proyecto-plan_presupuestal_objetivo_99 required" style="margin:0px;">
-	    <label class="control-label" for="proyecto-plan_presupuestal_objetivo_99">Objetivo</label>
+
+	<div class="form-group  field-proyecto-plan_presupuestal_objetivo_99 required" style="margin: 0px;padding: 0px">
+	    <ul>
+	    <label class="control-label" for="proyecto-plan_presupuestal_objetivo_99"><li id='oespe'><b>Objetivo</b></li></label>
 	    <select id="proyecto-plan_presupuestal_objetivo_99" class="form-control" name="Proyecto[planes_presupuestales_objetivos][]" onchange="actividad($(this).val(),99)" >
 		<option value>Seleccionar</option>
 		<?= $opciones_objetivos ?>
 	    </select>
+	    </ul>
 	</div>
     </div>
     
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
 	<div class="form-group field-proyecto-plan_presupuestal_actividad_99 required" style="margin: 0px;padding: 0px">
-	    <label class="control-label" for="registrar-plan_presupuestal_actividad_99">Actividad</label>
+	    <ul>
+	    <label class="control-label" for="registrar-plan_presupuestal_actividad_99"><li id='oespe'><b>Actividad</b></li></label>
 	    <select id="proyecto-plan_presupuestal_actividad_99" class="form-control" name="Proyecto[planes_presupuestales_actividades]" onchange="presupuesto($(this).val())" >
 		<option value>Seleccionar</option>
 	    </select>
+	    </ul>
 	</div>
     </div>
     <div class="clearfix"></div>

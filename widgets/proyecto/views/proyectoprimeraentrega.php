@@ -75,155 +75,163 @@ label{
     <img src="../img/icon_team_big.jpg" alt="">PRIMERA ENTREGA
 </div>
 <div class="box_content contenido_seccion_crear_equipo">
-    <div class="row">
-        <div class="nav-tabs-custom">
+    <div class="row" >
+        <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
+            <b>Región:</b> <?= $region->department ?><br>
+            <b>Institución educativa:</b> <?= $institucion->denominacion ?><br>
+            <b>Título del proyecto:</b> <?= $proyecto->titulo ?><br>
+        </div> 
+        <div class="nav-tabs-custom" >
             <ul class="nav nav-tabs" style="background: white;">
-                <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Datos generales</a></li>
-                <li class=""><a href="#tab_9" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Objetivos y actividades</a></li>
-                <!--<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Resultado</a></li>-->
-                <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Presupuesto</a></li>
-                <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Cronograma</a></li>
-                <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="true" style="color: #333 !important"> Mi video</a></li>
+                <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Proyecto</a></li>
+                <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Aportes</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-titulo">
-                            <label class="control-label" for="proyecto-titulo">Título del proyecto</label>
-                            <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->titulo ?></p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-asunto required">
-                            <label class="control-label" for="proyecto-asunto" >Asunto público</label>
-                            <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $equipo->asunto->descripcion_cabecera ?></p>
-                        </div>
-                    </div>
-                    
-                    <div class="clearfix"></div>    
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-resumen required">
-                            <label class="control-label" for="proyecto-resumen" >Sumilla / Justificación</label>
-                            <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->resumen ?></p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group label-floating field-proyecto-beneficiario required">
-                            <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
-                            <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->beneficiario ?></p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div><!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_9">
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <h4><b>Objetivos</b>  </h4>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div id="mostrar_oe_actividades">
-                            
-                            <div id="oe_1" class='col-xs-12 col-sm-12 col-md-12'>
-                                <?php if($proyecto->objetivo_especifico_1){ ?>
-                                    <ul>
-                                        <li id='oespe'><b>Objetivo N° 1: <?= $proyecto->objetivo_especifico_1 ?></b> </li>
-                                        <ul>
-                                            <?php foreach($actividades as $actividad){ ?>
-                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){ ?>
-                                                    <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
-                                                <?php  } ?>
-                                            <?php  } ?>
-                                        </ul>
-                                    </ul>
-                                <?php } ?>
+                    <?php if($proyecto->formato_proyecto==0){ ?>
+                        <div class="col-md-12" style="height: 660px; ">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group label-floating field-proyecto-titulo">
+                                    <label class="control-label" for="proyecto-titulo">Título del proyecto</label>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->titulo ?></p>
+                                </div>
                             </div>
-                            <div id="oe_2" class='col-xs-12 col-sm-12 col-md-12'>
-                                <?php if($proyecto->objetivo_especifico_2){  ?>
-                                    <ul>
-                                        <li id='oespe'><b>Objetivo N°2: <?= $proyecto->objetivo_especifico_2 ?></b> </li>
-                                        <ul>
-                                            <?php foreach($actividades as $actividad){ ?>
-                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
-                                                    <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
-                                                <?php } ?>
-                                            <?php  } ?>
-                                        </ul>
-                                    </ul>
-                                <?php } ?>
+                            <div class="clearfix"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group label-floating field-proyecto-asunto required">
+                                    <label class="control-label" for="proyecto-asunto" >Asunto público</label>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $equipo->asunto->descripcion_cabecera ?></p>
+                                </div>
                             </div>
                             
-                            <div id="oe_3" class='col-xs-12 col-sm-12 col-md-12'>
-                                <?php if($proyecto->objetivo_especifico_3) { ?>
-                                    <ul>
-                                        <li id='oespe'><b>Objetivo N°3: <?= $proyecto->objetivo_especifico_3 ?></b> </li>
-                                        <ul>
-                                            <?php foreach($actividades as $actividad){ ?>
-                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
-                                                    <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
-                                                <?php  } ?>
-                                            <?php  } ?>
-                                        </ul>
-                                    </ul>
-                                <?php } ?>
+                            <div class="clearfix"></div>    
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group label-floating field-proyecto-resumen required">
+                                    <label class="control-label" for="proyecto-resumen" >Sumilla / Justificación</label>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->resumen ?></p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div><!-- /.tab-pane -->
-                
-                <div class="tab-pane" id="tab_2">
-                    
-                </div><!-- /.tab-pane -->
-                
-                <div class="tab-pane" id="tab_3">
-                    <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget1::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
-                </div><!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_4">
-                    <?= \app\widgets\cronograma\CronogramaWidget1::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
-                </div><!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_5">
-                    
-                    <?php if($videoprimera){ ?>
-                    <div class="col-xs-12 col-sm-3 col-md-3">
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-                    <?php if($videoprimera->ruta && $videoprimera->tipo==1){ ?>
-                            <br>
-                            <iframe type="text/html" 
-                                width="320" 
-                                height="240" 
-                                src="https://www.youtube.com/embed/<?= substr($videoprimera->ruta,-11) ?>" 
-                                frameborder="0">
-                            </iframe>
+                            <div class="clearfix"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group label-floating field-proyecto-beneficiario required">
+                                    <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
+                                    <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->beneficiario ?></p>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            
+                            <div class="clearfix"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h4><b>Objetivos</b>  </h4>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div id="mostrar_oe_actividades">
+                                    <div id="oe_1" class='col-xs-12 col-sm-12 col-md-12'>
+                                        <?php if($proyecto->objetivo_especifico_1){ ?>
+                                            <ul>
+                                                <li id='oespe'><b>Objetivo N° 1: <?= $proyecto->objetivo_especifico_1 ?></b> </li>
+                                                <ul>
+                                                    <?php foreach($actividades as $actividad){ ?>
+                                                        <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){ ?>
+                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
+                                                        <?php  } ?>
+                                                    <?php  } ?>
+                                                </ul>
+                                            </ul>
+                                        <?php } ?>
+                                    </div>
+                                    <div id="oe_2" class='col-xs-12 col-sm-12 col-md-12'>
+                                        <?php if($proyecto->objetivo_especifico_2){  ?>
+                                            <ul>
+                                                <li id='oespe'><b>Objetivo N°2: <?= $proyecto->objetivo_especifico_2 ?></b> </li>
+                                                <ul>
+                                                    <?php foreach($actividades as $actividad){ ?>
+                                                        <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
+                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
+                                                        <?php } ?>
+                                                    <?php  } ?>
+                                                </ul>
+                                            </ul>
+                                        <?php } ?>
+                                    </div>
+                                    
+                                    <div id="oe_3" class='col-xs-12 col-sm-12 col-md-12'>
+                                        <?php if($proyecto->objetivo_especifico_3) { ?>
+                                            <ul>
+                                                <li id='oespe'><b>Objetivo N°3: <?= $proyecto->objetivo_especifico_3 ?></b> </li>
+                                                <ul>
+                                                    <?php foreach($actividades as $actividad){ ?>
+                                                        <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
+                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?></li>
+                                                        <?php  } ?>
+                                                    <?php  } ?>
+                                                </ul>
+                                            </ul>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h4><b>Presupuesto</b>  </h4>
+                            </div>
+                            <div class="clearfix"></div>
+                            <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget1::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
+                            <div class="clearfix"></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h4><b>Cronograma</b>  </h4>
+                            </div>
+                            <div class="clearfix"></div>
+                            <?= \app\widgets\cronograma\CronogramaWidget1::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?>
+                            <div class="clearfix"></div>
+                            
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <h4><b>Video</b>  </h4>
+                            </div>
+                            <div class="clearfix"></div>
+                             <?php if($videoprimera){ ?>
+                             
+                            <div class="col-xs-12 col-sm-2 col-md-2">
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6">
+                            <?php if($videoprimera->ruta && $videoprimera->tipo==1){ ?>
+                                    <br>
+                                    <iframe type="text/html" 
+                                        width="320" 
+                                        height="240" 
+                                        src="https://www.youtube.com/embed/<?= substr($videoprimera->ruta,-11) ?>" 
+                                        frameborder="0">
+                                    </iframe>
                             <?php } elseif($videoprimera->tipo==2){ ?>
-                            <video width="320" height="240" controls>
-                                <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" >  
-                            </video>
+                                    <video width="320" height="240" controls>
+                                        <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" >  
+                                    </video>
                             <?php } ?>
-                    </div>
-                    <?php } ?>
-                    <div class="clearfix"></div>
-                </div><!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_6">
-                    
-                </div><!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_7">
-                    <div class="clearfix"></div>
-                    <?php if($equipo->etapa==1 || $equipo->etapa==2){ ?>
-                    <div class="col-xs-12 col-sm-7 col-md-5">
-                        <div class="form-group field-proyecto-evaluacion required">
-                            <label class="control-label" for="proyecto-evaluacion" >Evaluación: </label>
-                            <textarea id="proyecto-evaluacion" class="form-control" name="Proyecto[evaluacion]"  placeholder="Evaluación" <?= ($equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->evaluacion?></textarea>
+                            </div>
+                            <?php } ?>
+                                    
+                                
                         </div>
+                        </div>
+                        <?php }else { ?>
+                        <div class="col-md-12" style="height: 660px; ">
+                            <embed style='overflow: hidden' type='text/html' src= "<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" width=100% height=100% >
+                        </div>
+                        <?php } ?>
+                </div>
+                <div class="clearfix"></div>
+                <div class="tab-pane" id="tab_2">
+                    <div class="col-md-12" style="height: 660px; overflow-y: scroll;float: left">
+                        <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
+                            <?= \app\widgets\foro\ForoPrimeraEntregaWidget::widget(['proyecto_id'=>$proyecto->id]); ?> 
+                        <?php }?>
                     </div>
-                    <?php } ?>
-                    <div class="clearfix"></div>
-                </div><!-- /.tab-pane -->
-            </div><!-- /.tab-content -->
-        </div>
+                </div>
+            </div>
+            
+        
+        
     </div>
 </div>
 

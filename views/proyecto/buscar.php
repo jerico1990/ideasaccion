@@ -9,7 +9,10 @@ use yii\widgets\Pjax;
 /* @var $model app\models\ProyectoSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<div class="box_head title_content_box">
+    <img src="../img/icon_team_big.jpg" alt="">Búsqueda de proyectos
+</div>
+<div class="box_content contenido_seccion_crear_equipo">
 <?php Pjax::begin(); ?>
 <?php $form = ActiveForm::begin([
         'action' => ['buscar'],
@@ -72,4 +75,5 @@ use yii\widgets\Pjax;
 </div>
 
 <?php Pjax::end(); ?>
+</div>
 <div class="clearfix"></div>

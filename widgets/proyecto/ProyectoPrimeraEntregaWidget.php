@@ -11,6 +11,9 @@ use app\models\Usuario;
 use app\models\Integrante;
 use app\models\Actividad;
 use app\models\Equipo;
+use app\models\Estudiante;
+use app\models\Institucion;
+use app\models\Ubigeo;
 use app\models\ObjetivoEspecifico;
 use app\models\Evaluacion;
 use app\models\PlanPresupuestal;
@@ -20,6 +23,9 @@ use app\models\VideoCopia;
 use app\models\ProyectoCopia;
 use app\models\ObjetivoEspecificoCopia;
 use app\models\ActividadCopia;
+use app\models\Etapa;
+use app\models\ForoComentario;
+use app\models\Foro;
 use yii\web\UploadedFile;
 Yii::setAlias('video', '@web/video_carga/');
 class ProyectoPrimeraEntregaWidget extends Widget
@@ -34,6 +40,11 @@ class ProyectoPrimeraEntregaWidget extends Widget
     public function run()
     {
         $usuario=Usuario::findOne(\Yii::$app->user->id);
+        
+        $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+        $institucion=Institucion::find()->where('id=:id',[':id'=>$estudiante->institucion_id])->one();
+        $region=Ubigeo::find()->where('district_id=:district_id',[':district_id'=>$institucion->ubigeo_id])->one();
+        
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
         $equipo=Equipo::findOne($integrante->equipo_id);
         $disabled='';
@@ -102,8 +113,17 @@ class ProyectoPrimeraEntregaWidget extends Widget
         $videoprimera=VideoCopia::find()->where('proyecto_id=:proyecto_id and etapa=1',[':proyecto_id'=>$proyecto->id])->one();
         
         
+        $etapa=Etapa::find()->where('estado=1')->one();
+        $newComentario = new ForoComentario();
+        $foro=Foro::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
         
-        
+        if($foro && $newComentario->load(Yii::$app->request->post()) && trim($newComentario->contenido)!='')
+        {
+            $newComentario->foro_id = $foro->id;
+            $newComentario->save();
+        }
+            
+            
         return $this->render('proyectoprimeraentrega',
                              ['proyecto'=>$proyecto,
                               'objetivos_especificos'=>$objetivos_especificos,
@@ -115,7 +135,11 @@ class ProyectoPrimeraEntregaWidget extends Widget
                               'equipo'=>$equipo,
                               'integrante'=>$integrante,
                               'videoprimera'=>$videoprimera,
-                              'entrega'=>$this->entrega]);
+                              'entrega'=>$this->entrega,
+                              'etapa'=>$etapa,
+                              'estudiante'=>$estudiante,
+                              'institucion'=>$institucion,
+                              'region'=>$region]);
     }
     
     public function rename_win($oldfile,$newfile) {

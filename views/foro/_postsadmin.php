@@ -85,31 +85,18 @@ if (isset($_GET['page']) >= 2)
             ?>
             <div class="row post-item">
                 <div class="col-sm-12 col-md-12" >
+                    <?php if($post['user_id']>=2 and $post['user_id']<=8){ ?>
+                    <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">
+                    <?php } else{ ?>
                     <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">
+                    <?php } ?>
                         <?= HtmlPurifier::process($post['contenido']) ?>
                         <div class="post-meta">
                             <?php if(\Yii::$app->user->can('monitor')){ ?>
-                            <?php if($post['valoracion']!=0 && $post['valoracion']!=''){ ?>
-                            <div class="col-sm-12 col-md-12">
-                                <div class="br-wrapper br-theme-fontawesome-stars pull-right">
-                                    <select class="disabled" disabled> <!-- now hidden -->
-                                      <option value></option>
-                                      <option value="1" <?= ($post['valoracion']==1)?'selected':'' ?> >1</option>
-                                      <option value="2" <?= ($post['valoracion']==2)?'selected':'' ?> >2</option>
-                                      <option value="3" <?= ($post['valoracion']==3)?'selected':'' ?> >3</option>
-                                      <option value="4" <?= ($post['valoracion']==4)?'selected':'' ?> >4</option>
-                                      <option value="5" <?= ($post['valoracion']==5)?'selected':'' ?> >5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <?php }else{ ?>
-                                <?php if($post['user_id']>=2 and $post['user_id']<=8){ ?>
-                                <div class="col-sm-12 col-md-12">
-                                </div>
-                                <?php } else{ ?>
+                                <?php if($post['valoracion']!=0 && $post['valoracion']!=''){ ?>
                                 <div class="col-sm-12 col-md-12">
                                     <div class="br-wrapper br-theme-fontawesome-stars pull-right">
-                                        <select class="enable" onchange="Rating($(this).val(),<?= $post['id'] ?>)" > <!-- now hidden -->
+                                        <select class="disabled" disabled> <!-- now hidden -->
                                           <option value></option>
                                           <option value="1" <?= ($post['valoracion']==1)?'selected':'' ?> >1</option>
                                           <option value="2" <?= ($post['valoracion']==2)?'selected':'' ?> >2</option>
@@ -119,8 +106,25 @@ if (isset($_GET['page']) >= 2)
                                         </select>
                                     </div>
                                 </div>
-                                <?php } ?>
-                            <?php }?>
+                                <?php }else{ ?>
+                                    <?php if($post['user_id']>=2 and $post['user_id']<=8){ ?>
+                                    <div class="col-sm-12 col-md-12">
+                                    </div>
+                                    <?php } else{ ?>
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="br-wrapper br-theme-fontawesome-stars pull-right">
+                                            <select class="enable" onchange="Rating($(this).val(),<?= $post['id'] ?>)" > <!-- now hidden -->
+                                              <option value></option>
+                                              <option value="1" <?= ($post['valoracion']==1)?'selected':'' ?> >1</option>
+                                              <option value="2" <?= ($post['valoracion']==2)?'selected':'' ?> >2</option>
+                                              <option value="3" <?= ($post['valoracion']==3)?'selected':'' ?> >3</option>
+                                              <option value="4" <?= ($post['valoracion']==4)?'selected':'' ?> >4</option>
+                                              <option value="5" <?= ($post['valoracion']==5)?'selected':'' ?> >5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                <?php }?>
                             <?php }?>
                             <div class="clearfix"></div>
                             <div class="col-sm-12 col-md-12">

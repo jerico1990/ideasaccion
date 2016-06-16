@@ -568,4 +568,25 @@ class ProyectoController extends Controller
         
         
     }
+    
+    public function actionArchivo2()
+    {
+        //var_dump("primero");die;x
+        $usuario=Usuario::findOne(\Yii::$app->user->id);
+        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+        $estudiante=Estudiante::find()->where('id=:id',[':id'=>$integrante->estudiante_id])->one();
+        $equipo=Equipo::findOne($integrante->equipo_id);
+        $proyecto=Proyecto::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$integrante->equipo_id])->one();
+        
+        $proyecto->archivo2 = UploadedFile::getInstance($proyecto, 'archivo2');
+        if($proyecto->archivo2) {
+            
+            $proyecto->proyecto_archivo2=$proyecto->id. '_2.' . $proyecto->archivo2->extension;
+            $proyecto->formato_proyecto2=1;//formato en documento
+            $proyecto->update();
+            $proyecto->archivo2->saveAs('proyectos/' . $proyecto->proyecto_archivo2);
+        }
+        
+        exit;
+    }
 }

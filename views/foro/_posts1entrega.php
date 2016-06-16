@@ -92,7 +92,7 @@ if (isset($_GET['page']) >= 2)
                             <div class="col-sm-12 col-md-12">
                                 <div class="pull-right">
                                     <div class="col-sm-12 col-md-12">
-                                        Comentario de <?= $post['nombres'] ?> <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?> 
+                                        <?= $post['nombres'] ?> <?= Yii::$app->formatter->asRelativeTime($post['creado_at']) ?> 
                                     </div>
                                 </div>
                             </div>

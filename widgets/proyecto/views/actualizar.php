@@ -95,7 +95,7 @@ label{
                 <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
                 <?php } ?>
                 <?php if(($etapa->etapa==2 || $etapa->etapa==3) && $estudiante->grado!=6){ ?>
-                <li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>
+                <!--<li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>-->
                 <li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Foro</a></li>
                 <?php } ?>
             </ul>
@@ -161,7 +161,7 @@ label{
                         </div>
                         -->
                         <div class="col-xs-12 col-sm-12 col-md-12" >
-                            <?php if(($proyecto->formato_proyecto=='' || $proyecto->formato_proyecto==0) && $integrante->rol==1){ ?>
+                            <?php if(($proyecto->formato_proyecto=='' || $proyecto->formato_proyecto==0) && $integrante->rol==1 && $etapa->etapa==1){ ?>
                             <div class="form-group" style="background: #F0EFF1">
                                 <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
@@ -171,12 +171,31 @@ label{
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <?php } elseif($proyecto->formato_proyecto==1) { ?>
+                            <?php } elseif($proyecto->formato_proyecto==1 && $etapa->etapa==1) { ?>
                             <div class="form-group" style="background: #F0EFF1">
                                 <p class="text-justify" style="margin: 20px;padding-top: 10px">Haz subido tu proyecto en el formato simplificado:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
                                     <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Primera entrega</a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <?php } elseif(($proyecto->formato_proyecto2=='' || $proyecto->formato_proyecto2==0) && $integrante->rol==1 && $etapa->etapa==2){ ?>
+                            <div class="form-group" style="background: #F0EFF1">
+                                <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
+                                <div class="col-xs-12 col-sm-4 col-md-4"></div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                                        <input type="file" id="proyecto-archivo2"  name="Proyecto[archivo2]" />
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <?php } elseif($proyecto->formato_proyecto2==1 && $etapa->etapa==2) { ?>
+                            <div class="form-group" style="background: #F0EFF1">
+                                <p class="text-justify" style="margin: 20px;padding-top: 10px">Haz subido tu proyecto en el formato simplificado:</p>
+                                <div class="col-xs-12 col-sm-4 col-md-4"></div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 text-center">
+                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Segunda entrega</a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -535,7 +554,7 @@ label{
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 "></div>
             <div class="col-xs-12 col-sm-4 col-md-4 ">
-                <?= \app\widgets\entrega\EntregaWidget::widget(); ?>
+                <?php //= \app\widgets\entrega\EntregaWidget::widget(); ?> <!--Activar cuando se acabe la semana de foros-->
             </div>
             
             
@@ -582,6 +601,7 @@ label{
     $reflexion= Yii::$app->getUrlManager()->createUrl('proyecto/reflexion');
     $evaluacion= Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
     $archivo_pro= Yii::$app->getUrlManager()->createUrl('proyecto/archivo');
+    $archivo_pro2= Yii::$app->getUrlManager()->createUrl('proyecto/archivo2');
 ?>
 <!--var i=<?php //= $i ?>;
     var a=<?php //= $a ?>;
@@ -623,7 +643,38 @@ label{
                     });
                 });
         
-    
+        $("#proyecto-archivo2").fileinput({
+                    uploadUrl: "<?= $archivo_pro2 ?>", // server upload action
+                    uploadAsync: false,
+                    showUpload: false, // hide upload button
+                    showRemove: false, // hide remove button
+                    showPreview: false,
+                    showCaption:false,
+                    showCancel:false,
+                    browseLabel:'Subir proyecto',
+                    minFileCount: 1,
+                    maxFileCount: 1,
+                    allowedFileExtensions:['pdf']
+                }).on("filebatchselected", function(event, files) {
+                    // trigger upload method immediately after files are selected
+                    $("#proyecto-archivo2").fileinput("upload");
+                }).on('filebatchuploadcomplete', function(event, data, previewId, index) {
+                    alert("Se ha subido tu proyecto satisfactoriamente");
+                    location.reload();
+                }).on('fileerror', function(event, data, msg) {
+                    
+                    $.notify({
+                        message: "Solo se permite subir archivos con extensiones .pdf"
+                    },{
+                        // settings
+                        type: 'danger',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                });
     });
     
     $("#video-nuevo").click(function(event){

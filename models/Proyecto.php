@@ -29,6 +29,7 @@ class Proyecto extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     public $archivo;
+    public $archivo2;
     public $valorados;
     public $faltan_valorar;
     
@@ -109,13 +110,13 @@ class Proyecto extends \yii\db\ActiveRecord
                 'planes_presupuestales_dirigidos','planes_presupuestales_unidades','planes_presupuestales_recursos_descripciones'],'safe'],
             [['id','actividades_1','actividades_2','actividades_3','actividades_ids_1','actividades_ids_2','actividades_ids_3','cronogramas_tareas'],'safe'],
             [['user_id','asunto_id','objetivo_especifico_1_id','objetivo_especifico_2_id','objetivo_especifico_3_id','equipo_id','region_id'], 'integer'],
-            [['titulo','proyecto_archivo'], 'string', 'max' => 200],
+            [['titulo','proyecto_archivo','proyecto_archivo2'], 'string', 'max' => 200],
             [['ruta'], 'string', 'max' => 250],
             
             [['resumen','beneficiario','evaluacion'], 'string', 'max' => 25000],
             [['p1','p2','p3'], 'string', 'max' => 5000],
             [['forum_url','objetivo_general','objetivo_especifico_1','objetivo_especifico_2','objetivo_especifico_3'], 'string', 'max' => 300],
-            [['archivo'], 'file'],
+            [['archivo','archivo2'], 'file'],
         ];
     }
 
@@ -172,6 +173,7 @@ class Proyecto extends \yii\db\ActiveRecord
                 $this->user_id = \Yii::$app->user->id;
                 $this->equipo_id= $integrante->equipo_id;
                 $this->formato_proyecto=0;
+                $this->formato_proyecto2=0;
             }
             return true;
         } else {
