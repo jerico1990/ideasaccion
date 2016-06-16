@@ -190,43 +190,64 @@ label{
                                 <h4><b>Video</b>  </h4>
                             </div>
                             <div class="clearfix"></div>
-                             <?php if($videoprimera){ ?>
-                             
-                            <div class="col-xs-12 col-sm-2 col-md-2">
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                            <?php if($videoprimera->ruta && $videoprimera->tipo==1){ ?>
-                                    <br>
-                                    <iframe type="text/html" 
-                                        width="320" 
-                                        height="240" 
-                                        src="https://www.youtube.com/embed/<?= substr($videoprimera->ruta,-11) ?>" 
-                                        frameborder="0">
-                                    </iframe>
-                            <?php } elseif($videoprimera->tipo==2){ ?>
-                                    <video width="320" height="240" controls>
-                                        <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" >  
-                                    </video>
-                            <?php } ?>
-                            </div>
+                            <?php if($videoprimera){ ?>
+                                <div class="col-xs-12 col-sm-2 col-md-2">
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                    <?php if($videoprimera->ruta && $videoprimera->tipo==1){ ?>
+                                            <br>
+                                            <iframe type="text/html" 
+                                                width="320" 
+                                                height="240" 
+                                                src="https://www.youtube.com/embed/<?= substr($videoprimera->ruta,-11) ?>" 
+                                                frameborder="0">
+                                            </iframe>
+                                    <?php } elseif($videoprimera->tipo==2){ ?>
+                                            <video width="320" height="240" controls>
+                                                <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" >  
+                                            </video>
+                                    <?php } ?>
+                                </div>
                             <?php } ?>
                                     
                                 
-                        </div>
                         </div>
                         <?php }else { ?>
                         <div class="col-md-12" style="height: 660px; ">
                             <embed style='overflow: hidden' type='text/html' src= "<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" width=100% height=100% >
                         </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                            <h4><b>Video</b>  </h4>
+                        </div>
+                        <div class="clearfix"></div>
+                            <?php if($videoprimera){ ?>
+                                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                <?php if($videoprimera->ruta && $videoprimera->tipo==1){ ?>
+                                        <br>
+                                        <iframe type="text/html" 
+                                            width="320" 
+                                            height="240" 
+                                            src="https://www.youtube.com/embed/<?= substr($videoprimera->ruta,-11) ?>" 
+                                            frameborder="0">
+                                        </iframe>
+                                <?php } elseif($videoprimera->tipo==2){ ?>
+                                        <video width="320" height="240" controls>
+                                            <source src="<?= Yii::getAlias('@video').$videoprimera->ruta ?>" >  
+                                        </video>
+                                <?php } ?>
+                                </div>
+                            <?php } ?>
                         <?php } ?>
                 </div>
                 <div class="clearfix"></div>
                 <div class="tab-pane" id="tab_2">
+                    <div class="clearfix"></div>
                     <div class="col-md-12" style="height: 660px; overflow-y: scroll;float: left">
                         <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
                             <?= \app\widgets\foro\ForoPrimeraEntregaWidget::widget(['proyecto_id'=>$proyecto->id]); ?> 
                         <?php }?>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
             

@@ -84,7 +84,7 @@ if (isset($_GET['page']) >= 2)
             <div class="row post-item">
                 <div class="col-sm-12 col-md-12">
                     <?php if($post['user_id']>=2 and $post['user_id']<=8){ ?>
-                    <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">
+                    <div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #81F1FC">
                         <?= HtmlPurifier::process($post['contenido']) ?>
                         <div class="post-meta">
                             <div class="col-sm-12 col-md-12"></div>
