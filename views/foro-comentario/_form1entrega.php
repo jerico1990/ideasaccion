@@ -28,10 +28,23 @@ use yii\widgets\ActiveForm;
 <script>
     $( '#btncomentar' ).click(function( event ) {
         console.log($("#foro_comentario-contenido").val());
+        var error="";
+        
         if (jQuery.trim($("#foro_comentario-contenido").val())=='') {
+            error=error+"No ha comentado <br>";
+            
+        }
+        
+        
+        if (jQuery.trim($("#proyecto-seccion").val())=='') {
+            error=error+"Seleccione un sección <br>";
+            
+        }
+        
+        if (error!="") {
             $.notify({
                     // options
-                    message: 'No ha comentado' 
+                    message: error
                 },{
                     // settings
                     type: 'danger',

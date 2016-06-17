@@ -481,7 +481,7 @@ label{
                 <?php } ?>
                 <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
                 <div class="tab-pane" id="tab_8">
-                    <?= \app\widgets\foro\ForoWidget::widget(['proyecto_id'=>$proyecto->id]); ?> 
+                    <?php //= \app\widgets\foro\ForoWidget::widget(['proyecto_id'=>$proyecto->id]); ?> 
                 </div><!-- /.tab-pane -->
                 <?php }?>
             </div><!-- /.tab-content -->
