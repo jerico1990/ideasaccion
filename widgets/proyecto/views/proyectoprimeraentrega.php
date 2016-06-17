@@ -70,7 +70,6 @@ label{
     }
 </style>
 
-<?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt="">PRIMERA ENTREGA
 </div>
@@ -256,10 +255,6 @@ label{
     </div>
 </div>
 
-
-
-
-<?php ActiveForm::end(); ?>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>

@@ -91,6 +91,7 @@ class Proyecto extends \yii\db\ActiveRecord
     public $video_check;
     public $reflexion_check;
     public $archivo_proyecto_check;
+    public $seccion;
     public static function tableName()
     {
         return 'proyecto';
@@ -109,7 +110,7 @@ class Proyecto extends \yii\db\ActiveRecord
                 'planes_presupuestales_cantidades','planes_presupuestales_subtotales','planes_presupuestal_ids',
                 'planes_presupuestales_dirigidos','planes_presupuestales_unidades','planes_presupuestales_recursos_descripciones'],'safe'],
             [['id','actividades_1','actividades_2','actividades_3','actividades_ids_1','actividades_ids_2','actividades_ids_3','cronogramas_tareas'],'safe'],
-            [['user_id','asunto_id','objetivo_especifico_1_id','objetivo_especifico_2_id','objetivo_especifico_3_id','equipo_id','region_id'], 'integer'],
+            [['seccion','user_id','asunto_id','objetivo_especifico_1_id','objetivo_especifico_2_id','objetivo_especifico_3_id','equipo_id','region_id'], 'integer'],
             [['titulo','proyecto_archivo','proyecto_archivo2'], 'string', 'max' => 200],
             [['ruta'], 'string', 'max' => 250],
             

@@ -12,7 +12,7 @@ $usuario=$model->usuario;
 $posts = $model->getForo1Entrega($model->id,$seccion);
 ?>
     <?php $form = ActiveForm::begin([
-        'action' => ['primera'],
+        'action' => ['proyecto','id'=>$model->id],
         'method' => 'get',
     ]); ?>
     <div class="md-col-6">

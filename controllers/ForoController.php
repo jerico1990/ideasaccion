@@ -6,7 +6,7 @@ use Yii;
 use app\models\Foro;
 use app\models\ForoSearch;
 use app\models\ForoComentario;
-
+use app\models\Proyecto;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -176,9 +176,11 @@ class ForoController extends Controller
         $this->layout='estandar';
         $newComentario = new ForoComentario();
         $model=$this->findModel($id);
-        
+        $seccion=new Proyecto;
+        $seccion->load(Yii::$app->request->queryParams);
         
         if ($newComentario->load(Yii::$app->request->post())) {
+            $newComentario->seccion=$seccion->seccion;
             $newComentario->foro_id = $model->id;
             if ($newComentario->save()){
                 return $this->refresh();

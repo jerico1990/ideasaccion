@@ -103,14 +103,19 @@ class ProyectoBuscarPrimeraEntregaWidget extends Widget
         
         
         $etapa=Etapa::find()->where('estado=1')->one();
+        $seccion=new Proyecto;
+        $seccion->load(Yii::$app->request->queryParams);
         $newComentario = new ForoComentario();
         $foro=Foro::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
         
         if($foro && $newComentario->load(Yii::$app->request->post()) && trim($newComentario->contenido)!='')
         {
+            $newComentario->seccion=$seccion->seccion;
             $newComentario->foro_id = $foro->id;
-            $newComentario->save();
+            //$newComentario->save();
         }
+        
+        
             
             
         return $this->render('proyectobuscarprimeraentrega',
@@ -127,7 +132,8 @@ class ProyectoBuscarPrimeraEntregaWidget extends Widget
                               'etapa'=>$etapa,
                               'estudiante'=>$estudiante,
                               'institucion'=>$institucion,
-                              'region'=>$region]);
+                              'region'=>$region,
+                              'seccion'=>$seccion]);
     }
     
     public function rename_win($oldfile,$newfile) {

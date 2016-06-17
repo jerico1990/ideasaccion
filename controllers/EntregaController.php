@@ -20,6 +20,9 @@ use app\models\Etapa;
 use app\models\Evaluacion;
 use app\models\PlanPresupuestal;
 use app\models\Equipo;
+use app\models\ForoComentario;
+use app\models\Foro;
+
 
 
 /**
@@ -76,6 +79,23 @@ class EntregaController extends Controller
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
         $equipo=Equipo::findOne($integrante->equipo_id);
         
+        $proyecto=Proyecto::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$equipo->id])->one();
+        $newComentario = new ForoComentario();
+        $model=Foro::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
+        $seccion=new Proyecto;
+        $seccion->load(Yii::$app->request->queryParams);
+        
+        if ($newComentario->load(Yii::$app->request->post())) {
+            
+           
+            $newComentario->seccion=$seccion->seccion;
+            $newComentario->foro_id = $model->id;
+            if ($newComentario->save()){
+                return $this->refresh();
+            }
+            
+        }
+        //var_dump("a");die;
         
         return $this->render('primera',['equipo'=>$equipo]);
     }

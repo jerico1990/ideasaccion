@@ -13,7 +13,7 @@ use app\models\Proyecto;
 use app\models\Equipo;
 use app\models\Foro;
 
-class ForoPrimeraEntregaWidget extends Widget
+class ForoPrimeraEntregaProyectoWidget extends Widget
 {
     public $proyecto_id;
     public $seccion;
@@ -31,7 +31,7 @@ class ForoPrimeraEntregaWidget extends Widget
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
         }
         
-        return $this->render('foro1', [
+        return $this->render('foro1proyecto', [
             'model' => $model,
             'newComentario'=>$newComentario,
             'seccion'=>$this->seccion
