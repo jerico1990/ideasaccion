@@ -96,7 +96,7 @@ label{
                 <?php } ?>
                 <?php if(($etapa->etapa==2 || $etapa->etapa==3) && $estudiante->grado!=6){ ?>
                 <!--<li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>-->
-                <li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Foro</a></li>
+                <!--<li class=""><a href="#tab_8" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Foro</a></li>-->
                 <?php } ?>
             </ul>
             <div class="tab-content">

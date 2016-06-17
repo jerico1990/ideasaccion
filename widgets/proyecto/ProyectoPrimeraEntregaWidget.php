@@ -32,6 +32,7 @@ class ProyectoPrimeraEntregaWidget extends Widget
 {
     public $message;
     public $entrega;
+    public $seccion;
     public function init()
     {
         parent::init();
@@ -114,7 +115,7 @@ class ProyectoPrimeraEntregaWidget extends Widget
         
         
         $etapa=Etapa::find()->where('estado=1')->one();
-        $newComentario = new ForoComentario();
+        /*$newComentario = new ForoComentario();
         $foro=Foro::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
         
         if($foro && $newComentario->load(Yii::$app->request->post()) && trim($newComentario->contenido)!='')
@@ -122,7 +123,7 @@ class ProyectoPrimeraEntregaWidget extends Widget
             $newComentario->foro_id = $foro->id;
             $newComentario->save();
         }
-            
+        */
             
         return $this->render('proyectoprimeraentrega',
                              ['proyecto'=>$proyecto,
@@ -139,7 +140,8 @@ class ProyectoPrimeraEntregaWidget extends Widget
                               'etapa'=>$etapa,
                               'estudiante'=>$estudiante,
                               'institucion'=>$institucion,
-                              'region'=>$region]);
+                              'region'=>$region,
+                              'seccion'=>$this->seccion]);
     }
     
     public function rename_win($oldfile,$newfile) {

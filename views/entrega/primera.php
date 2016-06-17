@@ -14,7 +14,7 @@ $this->title="Ideas en acción";
 ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-<?= \app\widgets\proyecto\ProyectoPrimeraEntregaWidget::widget(); ?>
+<?= \app\widgets\proyecto\ProyectoPrimeraEntregaWidget::widget(['seccion'=>$seccion]); ?>
 
 
 

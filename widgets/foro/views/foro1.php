@@ -10,6 +10,7 @@ $this->title = $model->titulo;
 $usuario=$model->usuario;
 //$posts = $model->getPosts($model->id);
 $posts = $model->getForo1Entrega($model->id,$seccion);
+
 ?>
     <?php $form = ActiveForm::begin([
         'action' => ['primera'],

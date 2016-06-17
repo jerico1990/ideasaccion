@@ -85,7 +85,7 @@ class EntregaController extends Controller
         $seccion=new Proyecto;
         $seccion->load(Yii::$app->request->queryParams);
         
-        if ($newComentario->load(Yii::$app->request->post())) {
+        if ($model && $newComentario->load(Yii::$app->request->post()) && trim($newComentario->contenido)!='') {
             
            
             $newComentario->seccion=$seccion->seccion;
@@ -95,9 +95,9 @@ class EntregaController extends Controller
             }
             
         }
-        //var_dump("a");die;
         
-        return $this->render('primera',['equipo'=>$equipo]);
+        
+        return $this->render('primera',['equipo'=>$equipo,'seccion'=>$seccion->seccion]);
     }
     
     public function actionSegunda()
