@@ -181,8 +181,7 @@ class ForoController extends Controller
         if ($newComentario->load(Yii::$app->request->post())) {
             $newComentario->foro_id = $model->id;
             if ($newComentario->save()){
-                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Create successfully.'));
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->refresh();
             }
         }
         

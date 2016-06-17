@@ -66,7 +66,7 @@ use yii\widgets\Pjax;
             'template' => '{view}',
             'buttons' => [
                 'view' => function ($url,$model,$key) {
-                    return Html::a('<span class="glyphicon glyphicon-edit"></span>',['foro/view?id='.$model->foro_id],[]);
+                    return Html::a('<span class="glyphicon glyphicon-edit"></span>',['foro/proyecto?id='.$model->foro_id],[]);
                 }
             ],
         ]

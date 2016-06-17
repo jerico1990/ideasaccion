@@ -44,14 +44,14 @@ class ProyectoSearch extends Proyecto
         $usuario=Usuario::findOne(\Yii::$app->user->id);
         $estudiante=Estudiante::findOne($usuario->estudiante_id);
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
-        
+        $equipo=Equipo::find()->where('id=:id',[':id'=>$integrante->equipo_id])->one();
         
         $query = Proyecto::find()
                     ->select('foro.id foro_id,proyecto.id,proyecto.titulo,proyecto.region_id')
                     ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
-                    ->innerJoin('asunto','asunto.id=equipo.asunto_id')
+                    ->innerJoin('asunto','asunto.id=proyecto.asunto_id')
                     ->innerJoin('foro','foro.proyecto_id=proyecto.id')
-                    ->where('proyecto.equipo_id not in ('.$integrante->equipo_id.') and equipo.etapa in (1,2)')
+                    ->where('asunto.id='.$equipo->asunto_id.' and proyecto.equipo_id not in ('.$integrante->equipo_id.') and equipo.etapa in (1,2)')
                     ->groupBy('proyecto.titulo');
 
         $dataProvider = new ActiveDataProvider([
