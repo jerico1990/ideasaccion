@@ -18,7 +18,7 @@ class ProyectoSearch extends Proyecto
     public function rules()
     {
         return [
-            [['id', 'user_id','region_id'], 'integer'],
+            [['id', 'user_id','region_id','asunto_id'], 'integer'],
             [['titulo', 'resumen', 'objetivo_general','forum_url'], 'safe'],
         ];
     }
@@ -44,14 +44,14 @@ class ProyectoSearch extends Proyecto
         $usuario=Usuario::findOne(\Yii::$app->user->id);
         $estudiante=Estudiante::findOne($usuario->estudiante_id);
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
-        $equipo=Equipo::find()->where('id=:id',[':id'=>$integrante->equipo_id])->one();
+        //$equipo=Equipo::find()->where('id=:id',[':id'=>$integrante->equipo_id])->one();
         
         $query = Proyecto::find()
                     ->select('foro.id foro_id,proyecto.id,proyecto.titulo,proyecto.region_id')
                     ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
                     ->innerJoin('asunto','asunto.id=proyecto.asunto_id')
                     ->innerJoin('foro','foro.proyecto_id=proyecto.id')
-                    ->where('asunto.id='.$equipo->asunto_id.' and proyecto.equipo_id not in ('.$integrante->equipo_id.') and equipo.etapa in (1,2)')
+                    ->where('proyecto.equipo_id not in ('.$integrante->equipo_id.') and equipo.etapa in (1,2)')
                     ->groupBy('proyecto.titulo');
 
         $dataProvider = new ActiveDataProvider([
@@ -70,7 +70,8 @@ class ProyectoSearch extends Proyecto
             'id' => $this->id,
             //'proyecto.user_id' => \Yii::$app->user->id,
             //'equipo.etapa'=>1,
-            'proyecto.region_id'=>$this->region_id
+            'proyecto.region_id'=>$this->region_id,
+            'asunto.id'=>$this->asunto_id,
         ]);
 
         $query->andFilterWhere(['like', 'proyecto.titulo', $this->titulo])

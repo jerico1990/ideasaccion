@@ -79,7 +79,7 @@ label{
 
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
-    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO (Segunda entrega)
 </div>
 <div class="box_content contenido_seccion_crear_equipo">
     <div class="row">
@@ -92,7 +92,7 @@ label{
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi video</a></li>
                 <?php if($estudiante->grado!=6){?>
-                <li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
+                <!--<li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
                 <?php } ?>
                 <?php if(($etapa->etapa==2 || $etapa->etapa==3) && $estudiante->grado!=6){ ?>
                 <!--<li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>-->
@@ -111,7 +111,7 @@ label{
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-equipo-asunto_id required" >
                                 <label class="control-label" for="proyecto-asunto_id">Selecciona el Asunto de Público sobre el que trabajará tu equipo</label>
-                                <select id="proyecto-asunto_id" class="form-control" name="Proyecto[asunto_id]" <?= $disabled ?>>
+                                <select id="proyecto-asunto_id" class="form-control" name="Proyecto[asunto_id]" disabled>
                                     <option value=""></option>
                                     <?php
                                         $resultados=Resultados::find()->where('region_id=:region_id',['region_id'=>$institucion->department_id])->all();

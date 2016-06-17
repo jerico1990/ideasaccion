@@ -350,4 +350,38 @@ class Proyecto extends \yii\db\ActiveRecord
         
         return ['proyectos' => $result['result'], 'pages' => $result['pages']];
     }
+    
+    public function Asuntos($asunto_id,$region)
+    {
+        
+        $data="";
+        if($asunto_id && $region)
+        {
+            $countAsuntos=Resultados::find()
+                        ->select('a.id,a.descripcion_cabecera')
+                        ->innerJoin('asunto a','a.id=resultados.asunto_id')
+                        ->where('resultados.region_id=:region_id',[':region_id'=>$region])->groupBy('a.id,a.descripcion_cabecera')->count();
+            $asuntos=Resultados::find()->select('a.id,a.descripcion_cabecera')
+                            ->innerJoin('asunto a','a.id=resultados.asunto_id')
+                            ->where('resultados.region_id=:region_id',[':region_id'=>$region])->groupBy('a.id,a.descripcion_cabecera')->orderBy('descripcion_cabecera')->all();
+            
+            if($countAsuntos>0){
+                foreach($asuntos as $asunto){
+                    if($asunto->id==$asunto_id)
+                    {
+                        $data=$data."<option value='".$asunto->id."'  selected>".$asunto->descripcion_cabecera."</option>";    
+                    }
+                    else
+                    {
+                        $data=$data."<option value='".$asunto->id."'  >".$asunto->descripcion_cabecera."</option>";
+                    }
+                    
+                }
+            }
+             
+        }
+        
+        return $data;
+        
+    }
 }

@@ -23,7 +23,7 @@ use app\models\VotacionInterna;
 use app\models\Ubigeo;
 use app\models\VotacionPublica;
 use app\models\Estudiante;
-
+use app\models\Resultados;
 use yii\db\Query;
 use yii\web\UploadedFile;
 /**
@@ -402,11 +402,32 @@ class ProyectoController extends Controller
         $this->layout='estandar';
         $searchModel = new ProyectoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
-        
+        $model=new Proyecto;
         return $this->render('buscar',[
                                         'searchModel' => $searchModel,
-                                        'dataProvider' => $dataProvider,]);
+                                        'dataProvider' => $dataProvider,
+                                        'model'=>$model]);
+    }
+    public function actionAsunto($region)
+    {
+        
+        $countAsuntos=Resultados::find()
+                        ->select('a.id,a.descripcion_cabecera')
+                        ->innerJoin('asunto a','a.id=resultados.asunto_id')
+                        ->where('resultados.region_id=:region_id',[':region_id'=>$region])->groupBy('a.id,a.descripcion_cabecera')->count();
+        $asuntos=Resultados::find()->select('a.id,a.descripcion_cabecera')
+                        ->innerJoin('asunto a','a.id=resultados.asunto_id')
+                        ->where('resultados.region_id=:region_id',[':region_id'=>$region])->groupBy('a.id,a.descripcion_cabecera')->orderBy('descripcion_cabecera')->all();
+        
+        if($countAsuntos>0){
+            echo "<option value></option>";
+            foreach($asuntos as $asunto){
+                echo "<option value='".$asunto->id."'>".$asunto->descripcion_cabecera."</option>";
+            }
+        }
+        else{
+            echo "<option value></option>";
+        }
     }
     
     public function actionVotacion()

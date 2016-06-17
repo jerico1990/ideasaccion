@@ -256,7 +256,7 @@ if($key==4)
                                                         <span class="ia_icon ia_icon_delivery"></span>
                                                     </div>
                                                     <div class="cell_div">
-                                                        Búsqueda de proyectos <span class="hide">></span>
+                                                        Aporta a otros proyectos <span class="hide">></span>
                                                     </div>
                                                 </div>
                                             </div>',['proyecto/buscar'],[]);?>
