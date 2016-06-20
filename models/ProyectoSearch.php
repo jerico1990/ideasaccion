@@ -82,6 +82,45 @@ class ProyectoSearch extends Proyecto
         return $dataProvider;
     }
     
+    public function monitor($params)
+    {
+       
+        
+        $query = Proyecto::find()
+                    ->select('foro.id foro_id,proyecto.id,proyecto.titulo,proyecto.region_id')
+                    ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
+                    ->innerJoin('asunto','asunto.id=proyecto.asunto_id')
+                    ->innerJoin('foro','foro.proyecto_id=proyecto.id')
+                    ->where(' equipo.etapa in (1,2)')
+                    ->groupBy('proyecto.titulo');
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'id' => $this->id,
+            //'proyecto.user_id' => \Yii::$app->user->id,
+            //'equipo.etapa'=>1,
+            'proyecto.region_id'=>$this->region_id,
+        ]);
+
+        $query->andFilterWhere(['like', 'proyecto.titulo', $this->titulo])
+            ->andFilterWhere(['like', 'resumen', $this->resumen]);
+            
+            
+
+        return $dataProvider;
+    }
+    
     public function votacion($params)
     {
         

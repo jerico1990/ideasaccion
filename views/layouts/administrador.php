@@ -153,6 +153,36 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                     
                                     <!--Reportes-->
                                     <li>
+                                        <?= Html::a("Reportes de votación de asuntos públicos",['#'],['class'=>'sub_menu']);?>
+                                        <ul>
+                                            <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
+                                            <li><?= Html::a("Reportes de votación por región ",['reporte/region'],[]);?></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <?= Html::a("Reporte de inscripcrión a la plataforma",['#'],['class'=>'sub_menu']);?>
+                                        <ul>
+                                            <li><?= Html::a("Reportes de estudiantes ",['reporte/registrados'],[]);?></li>
+                                            <li><?= Html::a("Reportes de estudiantes detalles",['reporte/registrados-detalles'],[]);?></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <?= Html::a("Reporte de primera entrega",['#'],['class'=>'sub_menu']);?>
+                                        <ul>
+                                            <li><?= Html::a("Reportes de equipos",['reporte/equipo'],[]);?></li>
+                                            <li><?= Html::a("Reportes de proyectos",['reporte/proyecto'],[]);?></li>
+                                            <li><?= Html::a("Reportes de proyectos regionales",['reporte/proyecto2'],[]);?></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <?= Html::a("Reporte de segunda entrega",['#'],['class'=>'sub_menu']);?>
+                                        <ul>
+                                            <li><?= Html::a("Reportes de aportes de proyectos",['proyecto/buscar-monitor'],[]);?></li>
+                                            
+                                        </ul>
+                                    </li>
+                                    <?php /*
+                                    <li>
                                         <?= Html::a("Reportes",['#'],['class'=>'sub_menu']);?>
                                         <ul>
                                             <li><?= Html::a("Reportes de votación de asuntos públicos",['reporte/index'],[]);?></li>
@@ -165,14 +195,17 @@ $foros=Foro::find()->orderBy('id DESC')->all();
                                             
                                         </ul>
                                     </li>
+                                    */
+                                    ?>
                                     <!--Fin Reportes-->
                                     
                                     <!--Contraseña-->
+                                    <?php /*
                                     <li>
-                                        <?= Html::a("Cambio de contraseña",['usuario/cambiar'],[]);?>
+                                        <?php //= Html::a("Cambio de contraseña",['usuario/cambiar'],[]);?>
                                     </li>
-                                    <li><?= Html::a("Ingreso de equipo ya inscritos",['equipo/finalizar-equipo2'],[]);?></li>
-                                    
+                                    <li><?php //= Html::a("Ingreso de equipo ya inscritos",['equipo/finalizar-equipo2'],[]);?></li>
+                                    */ ?>
                                     <!--Fin Contraseña-->
                                 </ul>
                                 

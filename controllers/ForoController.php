@@ -192,4 +192,26 @@ class ForoController extends Controller
             'newComentario'=>$newComentario
         ]);
     }
+    
+    public function actionProyectoMonitor($id)
+    {
+        $this->layout='administrador';
+        $newComentario = new ForoComentario();
+        $model=$this->findModel($id);
+        $seccion=new Proyecto;
+        $seccion->load(Yii::$app->request->queryParams);
+        
+        if ($newComentario->load(Yii::$app->request->post())) {
+            $newComentario->seccion=$seccion->seccion;
+            $newComentario->foro_id = $model->id;
+            if ($newComentario->save()){
+                return $this->refresh();
+            }
+        }
+        
+        return $this->render('proyecto-monitor', [
+            'model' => $model,
+            'newComentario'=>$newComentario
+        ]);
+    }
 }

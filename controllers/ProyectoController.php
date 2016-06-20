@@ -408,6 +408,18 @@ class ProyectoController extends Controller
                                         'dataProvider' => $dataProvider,
                                         'model'=>$model]);
     }
+    
+    public function actionBuscarMonitor()
+    {
+        $this->layout='administrador';
+        $searchModel = new ProyectoSearch();
+        $dataProvider = $searchModel->monitor(Yii::$app->request->queryParams);
+        $model=new Proyecto;
+        return $this->render('buscar-monitor',[
+                                        'searchModel' => $searchModel,
+                                        'dataProvider' => $dataProvider,
+                                        'model'=>$model]);
+    }
     public function actionAsunto($region)
     {
         
