@@ -446,4 +446,99 @@ class ReporteController extends Controller
             'proyectos' => $proyectos
         ]);
     }
+    
+    
+    public function actionProyecto3()
+    {
+        $this->layout='administrador';
+        
+        $sort = new Sort([
+            'attributes' => [
+                'department' => [
+                    'label' => 'Región',
+                ],
+                'province' => [
+                    'label' => '# de estudiantes registrados',
+                ],
+                'district' => [
+                    'label' => '# de equipos',
+                ],
+                'department_id' => [
+                    'label' => '# de estudiantes en equipos finalizados',
+                ],
+                'province_id' => [
+                    'label' => '# de proyectos creados',
+                ],
+                'district_id' => [
+                    'label' => '# de proyecto finalizados',
+                ],
+            ],
+        ]);
+        $model = new Proyecto();
+        $model->load(Yii::$app->request->queryParams);
+        return $this->render('proyecto3', [
+            'model' => $model,
+            'sort' => $sort,
+        ]);
+    }
+    
+    
+    
+    public function actionProyecto3Descargar($region=null)
+    {
+        $proyectos=Ubigeo::find()->select(['DISTINCT
+                            department,
+                            (
+                                SELECT count(e.id) FROM estudiante e
+                                INNER JOIN institucion i ON i.id = e.institucion_id
+                                INNER JOIN ubigeo u ON u.district_id = i.ubigeo_id
+                                WHERE u.department_id=ubigeo.department_id
+                                GROUP BY u.department
+                            ) AS province,
+                            (
+                                SELECT count(eq.id) FROM equipo eq
+                                INNER JOIN integrante i ON i.equipo_id=eq.id
+                                INNER JOIN estudiante es ON es.id = i.estudiante_id
+                                INNER JOIN institucion it ON it.id = es.institucion_id
+                                INNER JOIN ubigeo u ON u.district_id = it.ubigeo_id
+                                WHERE i.rol=1 AND u.department_id=ubigeo.department_id
+                                GROUP BY u.department
+                            ) AS district,
+                            (
+                                SELECT count(eq.id) FROM equipo eq
+                                INNER JOIN integrante i ON i.equipo_id=eq.id
+                                INNER JOIN estudiante es ON es.id = i.estudiante_id
+                                INNER JOIN institucion it ON it.id = es.institucion_id
+                                INNER JOIN ubigeo u ON u.district_id = it.ubigeo_id
+                                WHERE eq.estado=1 AND u.department_id=ubigeo.department_id
+                                GROUP BY u.department
+                            ) AS department_id,
+                            (
+                                SELECT count(p.id) FROM proyecto p
+                                INNER JOIN equipo eq ON eq.id=p.equipo_id
+                                INNER JOIN integrante i ON i.equipo_id=eq.id
+                                INNER JOIN estudiante es ON es.id = i.estudiante_id
+                                INNER JOIN institucion it ON it.id = es.institucion_id
+                                INNER JOIN ubigeo u ON u.district_id = it.ubigeo_id
+                                WHERE eq.estado=1 AND i.rol=1 AND u.department_id=ubigeo.department_id
+                                GROUP BY u.department
+                            ) AS province_id,
+                            (
+                                SELECT count(p.id) FROM proyecto p
+                                INNER JOIN equipo eq ON eq.id=p.equipo_id
+                                INNER JOIN integrante i ON i.equipo_id=eq.id
+                                INNER JOIN estudiante es ON es.id = i.estudiante_id
+                                INNER JOIN institucion it ON it.id = es.institucion_id
+                                INNER JOIN ubigeo u ON u.district_id = it.ubigeo_id
+                                WHERE eq.estado=1 AND i.rol=1 AND eq.etapa=1 AND u.department_id=ubigeo.department_id
+                                GROUP BY u.department
+                            ) AS district_id
+                            
+                            '])
+                    ->all();
+        
+        return $this->render('proyecto3-descargar', [
+            'proyectos' => $proyectos
+        ]);
+    }
 }
