@@ -3,12 +3,16 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Foro;
 use app\models\ForoComentario;
 use app\models\ForoComentarioSearch;
+use app\models\Usuario;
+use app\models\Estudiante;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\HtmlPurifier;
 /**
  * ForoComentarioController implements the CRUD actions for ForoComentario model.
  */
@@ -146,6 +150,443 @@ class ForoComentarioController extends Controller
         else
         {
             $this->redirect(['site/resultados']);
+        }
+    }
+    
+    public function actionComentario()
+    {
+        
+        if(isset($_POST["id"]) && isset($_POST["seccion"]))
+        {
+            
+            $data="";
+            $id=$_POST["id"];
+            $seccion=$_POST["seccion"];
+            //var_dump($id);die;
+            $model=Foro::findOne($id);
+            $posts=$model->getForo1Entrega($id,$seccion);
+            $data=$data.'<section class="posts">';
+            foreach($posts['posts'] as $post):
+                    
+                    $data=$data.'<div class="row post-item">';
+                        $data=$data.'<div class="col-sm-12 col-md-12">';
+                            if($post['user_id']>=2 and $post['user_id']<=8) {
+                            $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
+                                $data=$data.' '.HtmlPurifier::process($post['contenido']);
+                                $data=$data.'<div class="post-meta">';
+                                    $data=$data.'<div class="col-sm-12 col-md-12"></div>';
+                                    $data=$data.'<div class="clearfix"></div>';
+                                    $data=$data.'<div class="col-sm-12 col-md-12">';
+                                        $data=$data.'<div class="pull-right">';
+                                            $data=$data.'<div class="col-sm-12 col-md-12">';
+                                                $data=$data.' '.$post['nombres'].' '.Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                                            $data=$data.'</div>'; 
+                                        $data=$data.'</div>';
+                                    $data=$data.'</div>';
+                                $data=$data.'</div>';
+                                $data=$data.'<div class="clearfix"></div>';
+                            $data=$data.'</div>';
+                            }
+                            else
+                            {
+                            $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
+                                $data=$data.HtmlPurifier::process($post['contenido']);
+                                $data=$data.'<div class="post-meta">';
+                                    $data=$data.'<div class="col-sm-12 col-md-12"></div>';
+                                    $data=$data.'<div class="col-sm-12 col-md-12">';
+                                        $data=$data.'<div class="br-wrapper br-theme-fontawesome-stars pull-right">';
+                                            $data=$data.'<select class="disabled" disabled>'; 
+                                              $data=$data.'<option value></option>';
+                                              $data=$data.'<option value="1" ';
+                                              if($post["valoracion"]==1){$data=$data."selected";}else{$data=$data."";} $data=$data.' >1</option>';
+                                              $data=$data.'<option value="2" ';
+                                              if($post["valoracion"]==2){$data=$data."selected";}else{$data=$data."";} $data=$data.' >2</option>';
+                                              $data=$data.'<option value="3" ';
+                                              if($post["valoracion"]==3){$data=$data."selected";}else{$data=$data."";} $data=$data.' >3</option>';
+                                              $data=$data.'<option value="4" ';
+                                              if($post["valoracion"]==4){$data=$data."selected";}else{$data=$data."";} $data=$data.' >4</option>';
+                                              $data=$data.'<option value="5" ';
+                                              if($post["valoracion"]==5){$data=$data."selected";}else{$data=$data."";} $data=$data.' >5</option>';
+                                            $data=$data.'</select>';
+                                        $data=$data.'</div>';
+                                    $data=$data.'</div>';
+                                    $data=$data.'<div class="clearfix"></div>';
+                                    $data=$data.'<div class="col-sm-12 col-md-12" style="padding-left:0px">';
+                                        $data=$data.'<div class="pull-left">';
+                                            $data=$data.'<span style="cursor: pointer" onclick="Responder('.$post['id'].')">Responder</span>';
+                                        $data=$data.'</div>';
+                                        
+                                        $data=$data.'<div class="pull-right">';
+                                            $data=$data.'Comentario de '.$post['nombres'].' '.$post['apellido_paterno'] .' '. Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                                        $data=$data.'</div>';
+                                    $data=$data.'</div>';
+                                $data=$data.'</div>';
+                                $data=$data.'<div class="clearfix"></div>';
+                            $data=$data.'</div>';
+                            } 
+                        $data=$data.'</div>';
+                    $data=$data.'</div>';
+                    $data=$data.'<div class="clearfix"></div>';
+                    
+                    $data=$data.'<div class="row post-item">';
+                        $data=$data.'<div class="col-sm-1 col-md-1">';
+                        $data=$data.'</div>';
+                        $data=$data.'<div class="col-sm-11 col-md-11">';
+                            $data=$data.'<div id="hijo_'.$post['id'].'"></div>';
+                        $data=$data.'</div>';
+                    $data=$data.'</div>';
+                    $data=$data.'<div class="clearfix"></div>';
+                    foreach(ForoComentario::find()->where('foro_comentario_hijo_id=:foro_comentario_hijo_id',
+                                                          [':foro_comentario_hijo_id'=>$post['id']])->all() as $hijo){
+                    $data=$data.'<div class="row post-item">';
+                        
+                        $data=$data.'<div class="clearfix"></div>';
+                        $data=$data.'<div class="col-sm-1 col-md-1">';
+                        $data=$data.'</div>';
+                        $data=$data.'<div class="col-sm-11 col-md-11">';
+                            $data=$data.'<div class="row post-item">';
+                                $data=$data.'<div class="col-sm-12 col-md-12">';
+                                    if($hijo->user_id>=2 and $hijo->user_id<=8) {
+                                    $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
+                                        $data=$data.' '.HtmlPurifier::process($hijo->contenido);
+                                        $data=$data.'<div class="post-meta">';
+                                            $data=$data.'<div class="col-sm-12 col-md-12"></div>';
+                                            $data=$data.'<div class="clearfix"></div>';
+                                            $data=$data.'<div class="col-sm-12 col-md-12">';
+                                                $data=$data.'<div class="pull-right">';
+                                                    $data=$data.'<div class="col-sm-12 col-md-12">';
+                                                        $data=$data.' '.$hijo->usuario->estudiante->nombres.' '.Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                                                    $data=$data.'</div'; 
+                                                $data=$data.'</div>';
+                                            $data=$data.'</div>';
+                                        $data=$data.'</div>';
+                                        $data=$data.'<div class="clearfix"></div';
+                                    $data=$data.'</div>';
+                                    }
+                                    else
+                                    {
+                                    $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
+                                        $data=$data.HtmlPurifier::process($hijo->contenido);
+                                        $data=$data.'<div class="post-meta">';
+                                            $data=$data.'<div class="col-sm-12 col-md-12"></div>';
+                                            $data=$data.'<div class="col-sm-12 col-md-12">';
+                                                $data=$data.'<div class="br-wrapper br-theme-fontawesome-stars pull-right">';
+                                                    $data=$data.'<select class="disabled" disabled>'; 
+                                                      $data=$data.'<option value></option>';
+                                                      $data=$data.'<option value="1" ';
+                                                      if($post["valoracion"]==1){$data=$data."selected";}else{$data=$data."";} $data=$data.' >1</option>';
+                                                      $data=$data.'<option value="2" ';
+                                                      if($post["valoracion"]==2){$data=$data."selected";}else{$data=$data."";} $data=$data.' >2</option>';
+                                                      $data=$data.'<option value="3" ';
+                                                      if($post["valoracion"]==3){$data=$data."selected";}else{$data=$data."";} $data=$data.' >3</option>';
+                                                      $data=$data.'<option value="4" ';
+                                                      if($post["valoracion"]==4){$data=$data."selected";}else{$data=$data."";} $data=$data.' >4</option>';
+                                                      $data=$data.'<option value="5" ';
+                                                      if($post["valoracion"]==5){$data=$data."selected";}else{$data=$data."";} $data=$data.' >5</option>';
+                                                    $data=$data.'</select>';
+                                                $data=$data.'</div>';
+                                            $data=$data.'</div>';
+                                            $data=$data.'<div class="clearfix"></div>';
+                                            $data=$data.'<div class="col-sm-12 col-md-12" style="padding-left:0px">';
+                                                $data=$data.'<div class="pull-left">';
+                                                    //$data=$data.'<span style="cursor: pointer" onclick="Responder('.$hijo->id.')">Responder</span>';
+                                                $data=$data.'</div>';
+                                                
+                                                $data=$data.'<div class="pull-right">';
+                                                    $data=$data.'Comentario de '.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .' '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                                                $data=$data.'</div>';
+                                            $data=$data.'</div>';
+                                        $data=$data.'</div>';
+                                        $data=$data.'<div class="clearfix"></div>';
+                                    $data=$data.'</div>';
+                                    } 
+                                $data=$data.'</div>';
+                            $data=$data.'</div>';
+                            $data=$data.'<div class="clearfix"></div>';
+                        $data=$data.'</div>';
+                        $data=$data.'<div class="clearfix"></div>';
+                        
+                    $data=$data.'</div>';
+                    }
+                //$data=$data.$post['contenido'];
+            endforeach;
+            $data=$data.'</section>';
+            echo $data;
+        }
+    }
+    
+    public function actionComentarioMonitor()
+    {
+        
+        if(isset($_POST["id"]) && isset($_POST["seccion"]))
+        {
+            
+            $data="";
+            $id=$_POST["id"];
+            $seccion=$_POST["seccion"];
+            //var_dump($id);die;
+            $model=Foro::findOne($id);
+            $posts=$model->getForo1Entrega($id,$seccion);
+            $data=$data.'<section class="posts">';
+            foreach($posts['posts'] as $post):
+                    
+                    $data=$data.'<div class="row post-item">';
+                        $data=$data.'<div class="col-sm-12 col-md-12">';
+                            if($post['user_id']>=2 and $post['user_id']<=8) {
+                            $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
+                                $data=$data.' '.HtmlPurifier::process($post['contenido']);
+                                $data=$data.'<div class="post-meta">';
+                                    $data=$data.'<div class="col-sm-12 col-md-12"></div>';
+                                    $data=$data.'<div class="clearfix"></div>';
+                                    $data=$data.'<div class="col-sm-12 col-md-12">';
+                                        $data=$data.'<div class="pull-right">';
+                                            $data=$data.'<div class="col-sm-12 col-md-12">';
+                                                $data=$data.' '.$post['nombres'].' '.Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                                            $data=$data.'</div>'; 
+                                        $data=$data.'</div>';
+                                    $data=$data.'</div>';
+                                $data=$data.'</div>';
+                                $data=$data.'<div class="clearfix"></div>';
+                            $data=$data.'</div>';
+                            }
+                            else
+                            {
+                            $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
+                                $data=$data.HtmlPurifier::process($post['contenido']);
+                                $data=$data.'<div class="post-meta">';
+                                    if($post['valoracion']!=0 && $post['valoracion']!=''){ 
+                                    $data=$data.'<div class="col-sm-12 col-md-12"></div>';
+                                    $data=$data.'<div class="col-sm-12 col-md-12">';
+                                        $data=$data.'<div class="br-wrapper br-theme-fontawesome-stars pull-right">';
+                                            $data=$data.'<select class="disabled" disabled>'; 
+                                              $data=$data.'<option value></option>';
+                                              $data=$data.'<option value="1" ';
+                                              if($post["valoracion"]==1){$data=$data."selected";}else{$data=$data."";} $data=$data.' >1</option>';
+                                              $data=$data.'<option value="2" ';
+                                              if($post["valoracion"]==2){$data=$data."selected";}else{$data=$data."";} $data=$data.' >2</option>';
+                                              $data=$data.'<option value="3" ';
+                                              if($post["valoracion"]==3){$data=$data."selected";}else{$data=$data."";} $data=$data.' >3</option>';
+                                              $data=$data.'<option value="4" ';
+                                              if($post["valoracion"]==4){$data=$data."selected";}else{$data=$data."";} $data=$data.' >4</option>';
+                                              $data=$data.'<option value="5" ';
+                                              if($post["valoracion"]==5){$data=$data."selected";}else{$data=$data."";} $data=$data.' >5</option>';
+                                            $data=$data.'</select>';
+                                        $data=$data.'</div>';
+                                    $data=$data.'</div>';
+                                    }else{
+                                        if($post['user_id']>=2 and $post['user_id']<=8){
+                                        $data=$data.'<div class="col-sm-12 col-md-12">';
+                                        $data=$data.'</div>';
+                                        } else{
+                                        $data=$data.'<div class="col-sm-12 col-md-12">';
+                                            $data=$data.'<div class="br-wrapper br-theme-fontawesome-stars pull-right">';
+                                                $data=$data.'<select class="enable" onchange="Rating($(this).val(),'.$post['id'].')">'; 
+                                                  $data=$data.'<option value></option>';
+                                                  $data=$data.'<option value="1" ';
+                                                  if($post["valoracion"]==1){$data=$data."selected";}else{$data=$data."";} $data=$data.' >1</option>';
+                                                  $data=$data.'<option value="2" ';
+                                                  if($post["valoracion"]==2){$data=$data."selected";}else{$data=$data."";} $data=$data.' >2</option>';
+                                                  $data=$data.'<option value="3" ';
+                                                  if($post["valoracion"]==3){$data=$data."selected";}else{$data=$data."";} $data=$data.' >3</option>';
+                                                  $data=$data.'<option value="4" ';
+                                                  if($post["valoracion"]==4){$data=$data."selected";}else{$data=$data."";} $data=$data.' >4</option>';
+                                                  $data=$data.'<option value="5" ';
+                                                  if($post["valoracion"]==5){$data=$data."selected";}else{$data=$data."";} $data=$data.' >5</option>';
+                                                $data=$data.'</select>';
+                                            $data=$data.'</div>';
+                                        $data=$data.'</div>';
+                                        }
+                                    }
+                                    $data=$data.'<div class="clearfix"></div>';
+                                    $data=$data.'<div class="col-sm-12 col-md-12" style="padding-left:0px">';
+                                        $data=$data.'<div class="pull-left">';
+                                            $data=$data.'<span style="cursor: pointer" onclick="Responder('.$post['id'].')">Responder</span>';
+                                        $data=$data.'</div>';
+                                        
+                                        $data=$data.'<div class="pull-right">';
+                                            $data=$data.'Comentario de '.$post['nombres'].' '.$post['apellido_paterno'] .' '. Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                                        $data=$data.'</div>';
+                                    $data=$data.'</div>';
+                                $data=$data.'</div>';
+                                $data=$data.'<div class="clearfix"></div>';
+                            $data=$data.'</div>';
+                            } 
+                        $data=$data.'</div>';
+                    $data=$data.'</div>';
+                    $data=$data.'<div class="clearfix"></div>';
+                    
+                    $data=$data.'<div class="row post-item">';
+                        $data=$data.'<div class="col-sm-1 col-md-1">';
+                        $data=$data.'</div>';
+                        $data=$data.'<div class="col-sm-11 col-md-11">';
+                            $data=$data.'<div id="hijo_'.$post['id'].'"></div>';
+                        $data=$data.'</div>';
+                    $data=$data.'</div>';
+                    $data=$data.'<div class="clearfix"></div>';
+                    foreach(ForoComentario::find()->where('foro_comentario_hijo_id=:foro_comentario_hijo_id',
+                                                          [':foro_comentario_hijo_id'=>$post['id']])->all() as $hijo){
+                    $data=$data.'<div class="row post-item">';
+                        
+                        $data=$data.'<div class="clearfix"></div>';
+                        $data=$data.'<div class="col-sm-1 col-md-1">';
+                        $data=$data.'</div>';
+                        $data=$data.'<div class="col-sm-11 col-md-11">';
+                            $data=$data.'<div class="row post-item">';
+                                $data=$data.'<div class="col-sm-12 col-md-12">';
+                                    if($hijo->user_id>=2 and $hijo->user_id<=8) {
+                                    $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #4EB3C7">';
+                                        $data=$data.' '.HtmlPurifier::process($hijo->contenido);
+                                        $data=$data.'<div class="post-meta">';
+                                            $data=$data.'<div class="col-sm-12 col-md-12"></div>';
+                                            $data=$data.'<div class="clearfix"></div>';
+                                            $data=$data.'<div class="col-sm-12 col-md-12">';
+                                                $data=$data.'<div class="pull-right">';
+                                                    $data=$data.'<div class="col-sm-12 col-md-12">';
+                                                        $data=$data.'Comentario Monitor '.Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                                                        //$data=$data.' '.$hijo->usuario->estudiante->nombres.' '.Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                                                    $data=$data.'</div>'; 
+                                                $data=$data.'</div>';
+                                            $data=$data.'</div>';
+                                        $data=$data.'</div>';
+                                        $data=$data.'<div class="clearfix"></div>';
+                                    $data=$data.'</div>';
+                                    }
+                                    else
+                                    {
+                                    $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
+                                        $data=$data.HtmlPurifier::process($hijo->contenido);
+                                        $data=$data.'<div class="post-meta">';
+                                            $data=$data.'<div class="col-sm-12 col-md-12"></div>';
+                                            $data=$data.'<div class="col-sm-12 col-md-12">';
+                                                $data=$data.'<div class="br-wrapper br-theme-fontawesome-stars pull-right">';
+                                                    $data=$data.'<select class="disabled" disabled>'; 
+                                                      $data=$data.'<option value></option>';
+                                                      $data=$data.'<option value="1" ';
+                                                      if($post["valoracion"]==1){$data=$data."selected";}else{$data=$data."";} $data=$data.' >1</option>';
+                                                      $data=$data.'<option value="2" ';
+                                                      if($post["valoracion"]==2){$data=$data."selected";}else{$data=$data."";} $data=$data.' >2</option>';
+                                                      $data=$data.'<option value="3" ';
+                                                      if($post["valoracion"]==3){$data=$data."selected";}else{$data=$data."";} $data=$data.' >3</option>';
+                                                      $data=$data.'<option value="4" ';
+                                                      if($post["valoracion"]==4){$data=$data."selected";}else{$data=$data."";} $data=$data.' >4</option>';
+                                                      $data=$data.'<option value="5" ';
+                                                      if($post["valoracion"]==5){$data=$data."selected";}else{$data=$data."";} $data=$data.' >5</option>';
+                                                    $data=$data.'</select>';
+                                                $data=$data.'</div>';
+                                            $data=$data.'</div>';
+                                            $data=$data.'<div class="clearfix"></div>';
+                                            $data=$data.'<div class="col-sm-12 col-md-12" style="padding-left:0px">';
+                                                $data=$data.'<div class="pull-left">';
+                                                    //$data=$data.'<span style="cursor: pointer" onclick="Responder('.$hijo->id.')">Responder</span>';
+                                                $data=$data.'</div>';
+                                                
+                                                $data=$data.'<div class="pull-right">';
+                                                    $data=$data.'Comentario de Monitor '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);;
+                                                    //$data=$data.'Comentario de '.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .' '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                                                $data=$data.'</div>';
+                                            $data=$data.'</div>';
+                                        $data=$data.'</div>';
+                                        $data=$data.'<div class="clearfix"></div>';
+                                    $data=$data.'</div>';
+                                    } 
+                                $data=$data.'</div>';
+                            $data=$data.'</div>';
+                            $data=$data.'<div class="clearfix"></div>';
+                        $data=$data.'</div>';
+                        $data=$data.'<div class="clearfix"></div>';
+                        
+                    $data=$data.'</div>';
+                    }
+                //$data=$data.$post['contenido'];
+            endforeach;
+            $data=$data.'</section>';
+            echo $data;
+        }
+    }
+    
+    public function actionInsertarComentario()
+    {
+        if(isset($_POST["id"]) && isset($_POST["seccion"]) && isset($_POST["contenido"]))
+        {
+            $id=$_POST["id"];
+            $seccion=$_POST["seccion"];
+            $contenido=$_POST["contenido"];
+            $foro=Foro::findOne($id);
+            $newComentario = new ForoComentario();
+            $newComentario->seccion=$seccion;
+            $newComentario->foro_id = $foro->id;
+            $newComentario->contenido=$contenido;
+            $newComentario->save();
+            
+            $usuario=Usuario::findOne(\Yii::$app->user->id);
+            $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+            
+            echo $estudiante->nombres." ".$estudiante->apellido_paterno;
+        }
+    }
+    
+    public function actionInsertarComentarioMonitor()
+    {
+        if(isset($_POST["id"]) && isset($_POST["seccion"]) && isset($_POST["contenido"]))
+        {
+            $id=$_POST["id"];
+            $seccion=$_POST["seccion"];
+            $contenido=$_POST["contenido"];
+            $foro=Foro::findOne($id);
+            $newComentario = new ForoComentario();
+            $newComentario->seccion=$seccion;
+            $newComentario->foro_id = $foro->id;
+            $newComentario->contenido=$contenido;
+            $newComentario->save();
+            
+            $usuario=Usuario::findOne(\Yii::$app->user->id);
+            $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+            
+            echo "Monitor";
+        }
+    }
+    
+    public function actionInsertarComentarioHijo()
+    {
+        //var_dump($_REQUEST);
+        if(isset($_POST["id"]) && isset($_POST["contenido"]) && isset($_POST["padre"]))
+        {
+            $id=$_POST["id"];
+            $contenido=$_POST["contenido"];
+            $padre=$_POST["padre"];
+            $foro=Foro::findOne($id);
+            $newComentario = new ForoComentario();
+            $newComentario->foro_id = $foro->id;
+            $newComentario->foro_comentario_hijo_id=$padre;
+            $newComentario->contenido=$contenido;
+            $newComentario->save();
+            
+            $usuario=Usuario::findOne(\Yii::$app->user->id);
+            $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+            
+            echo $estudiante->nombres." ".$estudiante->apellido_paterno;
+        }
+    }
+    
+    public function actionInsertarComentarioHijoMonitor()
+    {
+        //var_dump($_REQUEST);
+        if(isset($_POST["id"]) && isset($_POST["contenido"]) && isset($_POST["padre"]))
+        {
+            $id=$_POST["id"];
+            $contenido=$_POST["contenido"];
+            $padre=$_POST["padre"];
+            $foro=Foro::findOne($id);
+            $newComentario = new ForoComentario();
+            $newComentario->foro_id = $foro->id;
+            $newComentario->foro_comentario_hijo_id=$padre;
+            $newComentario->contenido=$contenido;
+            $newComentario->save();
+            
+            $usuario=Usuario::findOne(\Yii::$app->user->id);
+            $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+            
+            echo "Monitor";
         }
     }
 }

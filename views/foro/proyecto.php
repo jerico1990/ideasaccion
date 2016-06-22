@@ -12,5 +12,6 @@ $this->params['breadcrumbs'][] = $this->title;
 $usuario=$model->usuario;
 $posts = $model->getPosts($model->id);
 ?>
+
    <?= \app\widgets\proyecto\ProyectoBuscarPrimeraEntregaWidget::widget(['proyecto_id'=>$model->proyecto_id]); ?>
 

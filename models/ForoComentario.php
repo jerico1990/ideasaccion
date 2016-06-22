@@ -68,4 +68,9 @@ class ForoComentario extends \yii\db\ActiveRecord
     {
         return Yii::$app->db->createCommand("UPDATE {{%foro}} SET post_count=post_count+1 WHERE id=".$this->foro_id)->execute();
     }
+    
+    public function getUsuario()
+    {
+        return $this->hasOne(Usuario::className(), ['id' => 'user_id']);
+    }
 }

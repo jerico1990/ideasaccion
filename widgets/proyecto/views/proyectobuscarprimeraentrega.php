@@ -198,7 +198,7 @@ label{
                         <div class="col-md-12" style="height: 660px; ">
                             <embed style='overflow: hidden' type='text/html' src= "<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" width=100% height=100% >
                         </div>
-                        <div class="col-md-12" style="height: 660px; overflow-y: scroll;float: left">
+                        <div class="col-md-12" style="height: 660px; float: left">
                             <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
                                 <?= \app\widgets\foro\ForoPrimeraEntregaProyectoWidget::widget(['proyecto_id'=>$proyecto->id,'seccion'=>$seccion->seccion]); ?> 
                             <?php }?>
