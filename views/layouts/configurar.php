@@ -264,7 +264,7 @@ if($key==4)
                                         </li>
                                         <?php }?>
                                         
-                                        <?php if($integrante && $equipo && $proyecto && ($etapa2 || $etapa3) && ($equipo->etapa==1 || $equipo->etapa==2 || $equipo->etapa==3) && $estudiante->grado!=6){?>
+                                        <?php if($integrante && $equipo && $proyecto && ($etapa2 || $etapa3) && ($equipo->etapa==1 || $equipo->etapa==2 ) && $estudiante->grado!=6){?>
                                         <li><?= Html::a('<div class="table_div">
                                                 <div class="row_div">
                                                     <div class="cell_div div_ia_icon">
