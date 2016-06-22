@@ -15,7 +15,8 @@ use yii\widgets\Pjax;
 <div class="box_content contenido_seccion_crear_equipo">
     <div class="clearfix"></div>
     <div class="col-xs-12 col-sm-12 col-md-12">
-       <b> Busca los proyectos a nivel nacional para conocerlos y dar tus aportes.</b>
+       <b> Haz clic aquí y encuentra otros proyectos a nivel nacional.</b><br>
+       <b style="font-size: 11px">Si quieres ver tu proyecto, haz clic en “mi proyecto”</b>
     </div>
     
 <?php Pjax::begin(); ?>
