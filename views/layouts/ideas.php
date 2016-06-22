@@ -263,6 +263,20 @@ if($key==4)
                                         </li>
                                         <?php }?>
                                         
+                                        <?php if($integrante && $equipo && $etapa3 && ($equipo->etapa==2) && $estudiante->grado!=6){?>
+                                        <li><?= Html::a('<div class="table_div">
+                                                <div class="row_div">
+                                                    <div class="cell_div div_ia_icon">
+                                                        <span class="ia_icon ia_icon_delivery"></span>
+                                                    </div>
+                                                    <div class="cell_div">
+                                                        Votación interna <span class="hide">></span>
+                                                    </div>
+                                                </div>
+                                            </div>',['proyecto/votacion'],[]);?>
+                                        </li>
+                                        <?php }?>
+                                        
                                     <?php } ?>
                                 </ul>
                             </div>

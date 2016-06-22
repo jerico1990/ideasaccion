@@ -160,15 +160,15 @@ use yii\web\JsExpression;
                 <?php } ?>
                 <div class="clearfix"></div>
             </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_16">
+            <!--<div class="tab-pane" id="tab_16">
                 <div class="col-xs-12 col-sm-7 col-md-5">
                     <div class="form-group field-proyecto-reflexion required">
                         <label class="control-label" for="proyecto-reflexion" >Reflexión: </label>
-                        <textarea id="proyecto-reflexion" class="form-control" name="Proyecto[reflexion]"  placeholder="Reflexión" <?= ($equipo->etapa==1  || $equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->reflexion?></textarea>
+                        <textarea id="proyecto-reflexion" class="form-control" name="Proyecto[reflexion]"  placeholder="Reflexión" <?= ($equipo->etapa==1  || $equipo->etapa==2)?'disabled':''; ?>><?php //= $proyecto->reflexion?></textarea>
                     </div>
                 </div>
                 <div class="clearfix"></div>
-            </div><!-- /.tab-pane -->
+            </div>tab-pane -->
             <div class="tab-pane" id="tab_17">
                 <div class="clearfix"></div>
                 <?php if($equipo->etapa==1 || $equipo->etapa==2){ ?>

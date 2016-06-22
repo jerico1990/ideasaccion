@@ -179,8 +179,8 @@ label{
                                     <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Primera entrega</a>
                                 </div>
                                 <div class="clearfix"></div>
-                            </div>
-                            <?php } elseif(($proyecto->formato_proyecto2=='' || $proyecto->formato_proyecto2==0) && $integrante->rol==1 && $etapa->etapa==2){ ?>
+                            </div><!--César has cambiado el elseif agregandole && $equipo->etapa==1 recuerda 22062016-->
+                            <?php } elseif(($proyecto->formato_proyecto2=='' || $proyecto->formato_proyecto2==0) && $integrante->rol==1 && $etapa->etapa==2 && $equipo->etapa==1){ ?>
                             <div class="form-group" style="background: #F0EFF1">
                                 <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>

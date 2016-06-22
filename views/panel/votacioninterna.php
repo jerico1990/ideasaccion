@@ -10,68 +10,72 @@ use yii\widgets\Pjax;
 /* @var $model app\models\ProyectoSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
-<?php Pjax::begin(); ?>
-<?php $form = ActiveForm::begin([
-        'action' => ['votacioninterna'],
-        'method' => 'get',
-    ]); ?>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group label-floating field-votacion_interna_search-region_id required">
-            <label class="control-label" for="votacion_interna_search-region_id">Región</label>
-            <select id="votacion_interna_search-region_id" class="form-control" name="VotacionInternaSearch[region_id]" >
-                <option value></option>
-                <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
-                    <option value="<?= $departamento->department_id ?>" <?= ($searchModel->region_id==$departamento->department_id)?'selected':'' ?>><?= $departamento->department ?></option>
-                <?php } ?>
-            </select>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group label-floating field-votacion_interna_search-titulo required">
-            <label class="control-label" for="votacion_interna_search-titulo">Proyecto</label>
-            <input type="text" name="VotacionInternaSearch[titulo]" class="form-control" value="<?= $searchModel->titulo?>">
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-default']) ?>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-<?php ActiveForm::end(); ?>
-<?php Pjax::end(); ?>
-
-<div class="col-md-6">
+<div class="box_head title_content_box">
+    <img src="../img/icon_team_big.jpg" alt="">Votación interna administrador
+</div>
+<div class="box_content contenido_seccion_crear_equipo" >
     <?php Pjax::begin(); ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-    
-            'titulo',
-            'voto',
-            [
-                'label'=>'Valor %',
-                //'attribute' => 'codigo_modular',
-                'format'=>'raw',
-                'value'=>function($data) {
-                    return "<input type='number'  onfocusout='grabado_automatico($(this),".$data->id.",".$data->voto.")' class='form-group' maxlength=3 value='".$data->valor."'>";
-                },
-            ],
-            [
-                'label'=>'Resultado',
-                //'attribute' => 'codigo_modular',
-                'format'=>'raw',
-                'value'=>function($data) {
-                    return "<div id='proyecto_".$data->id."'> ".(double)$data->resultado."</div>";
-                },
-            ],
-            
-        ],
-    ]); ?>
+    <?php $form = ActiveForm::begin([
+            'action' => ['votacioninterna'],
+            'method' => 'get',
+        ]); ?>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group label-floating field-votacion_interna_search-region_id required">
+                <label class="control-label" for="votacion_interna_search-region_id">Región</label>
+                <select id="votacion_interna_search-region_id" class="form-control" name="VotacionInternaSearch[region_id]" >
+                    <option value></option>
+                    <?php foreach(Ubigeo::find()->select('department_id,department')->groupBy('department')->all() as $departamento){ ?>
+                        <option value="<?= $departamento->department_id ?>" <?= ($searchModel->region_id==$departamento->department_id)?'selected':'' ?>><?= $departamento->department ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group label-floating field-votacion_interna_search-titulo required">
+                <label class="control-label" for="votacion_interna_search-titulo">Proyecto</label>
+                <input type="text" name="VotacionInternaSearch[titulo]" class="form-control" value="<?= $searchModel->titulo?>">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-default']) ?>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    <?php ActiveForm::end(); ?>
     <?php Pjax::end(); ?>
+    
+    <div class="col-md-12">
+        <?php Pjax::begin(); ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            //'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+        
+                'titulo',
+                'voto',
+                [
+                    'label'=>'Valor %',
+                    //'attribute' => 'codigo_modular',
+                    'format'=>'raw',
+                    'value'=>function($data) {
+                        return "<input type='number'  onfocusout='grabado_automatico($(this),".$data->id.",".$data->voto.")' class='form-group' maxlength=3 value='".$data->valor."'>";
+                    },
+                ],
+                [
+                    'label'=>'Resultado',
+                    //'attribute' => 'codigo_modular',
+                    'format'=>'raw',
+                    'value'=>function($data) {
+                        return "<div id='proyecto_".$data->id."'> ".(double)$data->resultado."</div>";
+                    },
+                ],
+                
+            ],
+        ]); ?>
+        <?php Pjax::end(); ?>
+    </div>
 </div>
 <?php
     $valoraporcentualadministrador= Yii::$app->getUrlManager()->createUrl('proyecto/valoraporcentualadministrador');
