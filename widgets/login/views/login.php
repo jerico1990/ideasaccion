@@ -52,7 +52,7 @@ use yii\web\JsExpression;
             </div>
             <div class="line_separator"></div>
             <div class="form-group no_apuntado text-center" style="margin: 0px">
-            <p>¿Aún no te has apuntado?</p>
+            <?php //<p>¿Aún no te has apuntado?</p> ?>
             <?php //= Html::a('Regístrate',['registrar/index'],['class'=>'btn btn-default']);?>
             </div>
             <?php } ?>
