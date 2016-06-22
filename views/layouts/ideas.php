@@ -90,7 +90,7 @@ if($key==4)
             <tbody>
                 <tr>
                     <td>
-                        Recuerda, <b>además <br>de la conformación de <br>tu equipo, debes <br>finalizar con la primera<br> entrega de tu <br>proyecto.</b>
+                        No olvides dejar tus comentarios. <br>Es requisito para seguir en el concurso.
                     </td>
                 </tr>
             </tbody>
