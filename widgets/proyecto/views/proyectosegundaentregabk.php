@@ -12,59 +12,6 @@ use yii\web\JsExpression;
 /* @var $title string */
 
 ?>
-<style>.image-upload > input
-{
-    display: none;
-}
-
-.image-upload img
-{
-    width: 80px;
-    cursor: pointer;
-}
-label{
-    display:inline-block !important ;
-    max-width:100% !important;
-    margin-bottom:5px !important;
-    font-size:14px !important;
-    font-weight:700 !important;
-    color:#1f2a69 !important;
-}
-.form-control
-{
-    color:#59595b !important;
-    font-size:14px !important;
-}
-
-    ul #oespe{
-        content: "";
-        list-style: none; 
-    }
-    ul #act{
-        content: "";
-        list-style: none; 
-    }
-    /*
-    li {
-        
-    }*/
-    #oespe::before
-    {
-        padding-right: 5px;
-        content: "\25BA";
-    }
-    #act::before
-    {
-        padding-right: 5px;
-        content: "\25CF";
-    }
-    
-    #act
-    {
-        padding-top:10px;
-        padding-bottom:10px;
-    }
-</style>
 
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="box_head title_content_box">

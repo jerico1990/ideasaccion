@@ -27,6 +27,8 @@ use app\models\Proyecto;
 use app\models\ForoComentario;
 use app\models\Institucion;
 use app\models\Inscripcion;
+use app\models\ProyectoCopia;
+use app\models\Video;
 use yii\data\Sort;
 
 
@@ -1069,4 +1071,78 @@ class PanelController extends Controller
         
     }
     
+    
+    public function actionProyectos()
+    {
+        $etapa=Etapa::find()->where('estado=1')->one();
+        $proyectosx=ProyectoCopia::find()->where('etapa=1 and id not in (7)')->all();
+        
+        $proyecto=new Proyecto;
+        $proyecto->load(Yii::$app->request->post());
+        foreach($proyectosx as $proyectox)
+        {
+            $proyectoexiste=ProyectoCopia::find()->where('id=:id and etapa=2',[':id'=>$proyectox->id])->one();
+            if(!$proyectoexiste)
+            {
+                $proyectocopia =    'insert into proyecto_copia (id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,etapa)
+                                    select id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,2 from proyecto
+                                    where id='.$proyectox->id.'  ';
+                \Yii::$app->db->createCommand($proyectocopia)->execute();
+                
+                $objetivosespecificoscopia =    'insert into objetivo_especifico_copia (id,proyecto_id,descripcion,etapa)
+                                    select id,proyecto_id,descripcion,2 from objetivo_especifico
+                                    where proyecto_id='.$proyectox->id.'  ';
+                \Yii::$app->db->createCommand($objetivosespecificoscopia)->execute();
+                
+                $actividadcopia =    'insert into actividad_copia (id,objetivo_especifico_id,descripcion,resultado_esperado,estado,etapa)
+                                    select actividad.id,actividad.objetivo_especifico_id,actividad.descripcion,actividad.resultado_esperado,actividad.estado,2 from actividad
+                                    inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
+                                    where objetivo_especifico.proyecto_id='.$proyectox->id.' and actividad.estado=1 ';
+                \Yii::$app->db->createCommand($actividadcopia)->execute();
+                
+                
+                $planpresupuestalcopia =    'insert into plan_presupuestal_copia (id,actividad_id,recurso,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa,dirigido,recurso_descripcion,unidad)
+                                    select plan_presupuestal.id,plan_presupuestal.actividad_id,plan_presupuestal.recurso,
+                                            plan_presupuestal.como_conseguirlo,plan_presupuestal.precio_unitario,plan_presupuestal.cantidad,
+                                            plan_presupuestal.subtotal,plan_presupuestal.estado,2,plan_presupuestal.dirigido,plan_presupuestal.recurso_descripcion,plan_presupuestal.unidad
+                                    from plan_presupuestal
+                                    inner join actividad on plan_presupuestal.actividad_id=actividad.id
+                                    inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
+                                    where objetivo_especifico.proyecto_id='.$proyectox->id.' and plan_presupuestal.estado=1  ';
+                \Yii::$app->db->createCommand($planpresupuestalcopia)->execute();
+                
+                $cronogramacopia =    'insert into cronograma_copia (id,actividad_id,fecha_inicio,fecha_fin,duracion,responsable_id,estado,etapa,tarea)
+                                    select cronograma.id,cronograma.actividad_id,cronograma.fecha_inicio,cronograma.fecha_fin,
+                                    cronograma.duracion,cronograma.responsable_id,cronograma.estado,2,cronograma.tarea
+                                    from cronograma
+                                    inner join actividad on cronograma.actividad_id=actividad.id
+                                    inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
+                                    where objetivo_especifico.proyecto_id='.$proyectox->id.' and cronograma.estado=1 ';
+                \Yii::$app->db->createCommand($cronogramacopia)->execute();
+                
+                $videocopia =    'insert into video_copia (id,proyecto_id,ruta,etapa)
+                                    select id,proyecto_id,ruta,2 from video
+                                    where proyecto_id='.$proyectox->id.' and etapa=0';
+                \Yii::$app->db->createCommand($videocopia)->execute();
+                
+                
+                $usuario=Usuario::findOne($proyectox->user_id);
+                $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+                $video=Video::find()->where('proyecto_id=:proyecto_id and etapa=:etapa',
+                                            [':proyecto_id'=>$proyectox->id,':etapa'=>0])->one();
+                if($video)
+                {
+                    $video->etapa=2;
+                    $video->update();
+                }
+                
+                $proyectoetapa=Proyecto::findOne($proyectox->id);
+                $equipo=Equipo::findOne($proyectoetapa->equipo_id);
+                $equipo->etapa=$etapa->etapa;
+                $equipo->update();
+                
+                echo 1;
+            }
+        }
+    }
 }
