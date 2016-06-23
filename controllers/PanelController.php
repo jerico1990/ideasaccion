@@ -1071,7 +1071,7 @@ class PanelController extends Controller
         
     }
     
-    
+    /*
     public function actionProyectos()
     {
         $etapa=Etapa::find()->where('estado=1')->one();
@@ -1144,5 +1144,5 @@ class PanelController extends Controller
                 echo 1;
             }
         }
-    }
+    }*/
 }
