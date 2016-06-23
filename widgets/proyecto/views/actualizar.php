@@ -111,7 +111,7 @@ label{
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-equipo-asunto_id required" >
                                 <label class="control-label" for="proyecto-asunto_id">Selecciona el Asunto de Público sobre el que trabajará tu equipo</label>
-                                <select id="proyecto-asunto_id" class="form-control" name="Proyecto[asunto_id]" disabled>
+                                <select id="proyecto-asunto_id" class="form-control" name="Proyecto[asunto_id]">
                                     <option value=""></option>
                                     <?php
                                         $resultados=Resultados::find()->where('region_id=:region_id',['region_id'=>$institucion->department_id])->all();
