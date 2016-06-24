@@ -8,11 +8,15 @@ use app\models\ForoComentario;
 use app\models\ForoComentarioSearch;
 use app\models\Usuario;
 use app\models\Estudiante;
+use app\models\Institucion;
+use app\models\Ubigeo;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\helpers\HtmlPurifier;
+
+
 /**
  * ForoComentarioController implements the CRUD actions for ForoComentario model.
  */
@@ -236,8 +240,10 @@ class ForoComentarioController extends Controller
                         $data=$data.'</div>';
                     $data=$data.'</div>';
                     $data=$data.'<div class="clearfix"></div>';
-                    foreach(ForoComentario::find()->where('foro_comentario_hijo_id=:foro_comentario_hijo_id',
-                                                          [':foro_comentario_hijo_id'=>$post['id']])->all() as $hijo){
+                    $hijos=ForoComentario::find()
+                            ->where('foro_comentario_hijo_id=:foro_comentario_hijo_id',
+                                                          [':foro_comentario_hijo_id'=>$post['id']])->all();
+                    foreach($hijos as $hijo){
                     $data=$data.'<div class="row post-item">';
                         
                         $data=$data.'<div class="clearfix"></div>';
@@ -255,16 +261,20 @@ class ForoComentarioController extends Controller
                                             $data=$data.'<div class="col-sm-12 col-md-12">';
                                                 $data=$data.'<div class="pull-right">';
                                                     $data=$data.'<div class="col-sm-12 col-md-12">';
-                                                        $data=$data.' '.$hijo->usuario->estudiante->nombres.' '.Yii::$app->formatter->asRelativeTime($hijo->creado_at);
-                                                    $data=$data.'</div'; 
+                                                        $data=$data.' Comentario de Monitor  '.Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                                                    $data=$data.'</div>'; 
                                                 $data=$data.'</div>';
                                             $data=$data.'</div>';
                                         $data=$data.'</div>';
-                                        $data=$data.'<div class="clearfix"></div';
+                                        $data=$data.'<div class="clearfix"></div>';
                                     $data=$data.'</div>';
                                     }
                                     else
                                     {
+                                    $usuario=Usuario::findOne($hijo->user_id);
+                                    $estudiante=Estudiante::findOne($usuario->estudiante_id);
+                                    $institucion=Institucion::findOne($estudiante->institucion_id);
+                                    $ubigeo=Ubigeo::find()->where('district_id=:district_id',[':district_id'=>$institucion->ubigeo_id])->one();
                                     $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
                                         $data=$data.HtmlPurifier::process($hijo->contenido);
                                         $data=$data.'<div class="post-meta">';
@@ -293,7 +303,7 @@ class ForoComentarioController extends Controller
                                                 $data=$data.'</div>';
                                                 
                                                 $data=$data.'<div class="pull-right">';
-                                                    $data=$data.'Comentario de <span  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: '.$post['department'].' <br> II.EE: '.$post['denominacion'].'" data-placement="top" >'.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .'</span> '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                                                    $data=$data.'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: '.$ubigeo->department.' <br> II.EE: '.$institucion->denominacion.'" data-placement="top" >'.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .'</span> '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
                                                 $data=$data.'</div>';
                                             $data=$data.'</div>';
                                         $data=$data.'</div>';
@@ -351,6 +361,12 @@ class ForoComentarioController extends Controller
                             }
                             else
                             {
+                            $usuario=Usuario::findOne($post['user_id']);
+                            $estudiante=Estudiante::findOne($usuario->estudiante_id);
+                            $institucion=Institucion::findOne($estudiante->institucion_id);
+                            $ubigeo=Ubigeo::find()->where('district_id=:district_id',[':district_id'=>$institucion->ubigeo_id])->one();
+                                    
+                                
                             $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
                                 $data=$data.HtmlPurifier::process($post['contenido']);
                                 $data=$data.'<div class="post-meta">';
@@ -404,7 +420,9 @@ class ForoComentarioController extends Controller
                                         $data=$data.'</div>';
                                         
                                         $data=$data.'<div class="pull-right">';
-                                            $data=$data.'Comentario de '.$post['nombres'].' '.$post['apellido_paterno'] .' '. Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                                            $data=$data.'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: '.$ubigeo->department.' <br> II.EE: '.$institucion->denominacion.'" data-placement="top" >'.$post['nombres'].' '.$post['apellido_paterno'] .'</span> '. Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                                        
+                                            //$data=$data.'Comentario de '.$post['nombres'].' '.$post['apellido_paterno'] .' '. Yii::$app->formatter->asRelativeTime($post['creado_at']);
                                         $data=$data.'</div>';
                                     $data=$data.'</div>';
                                 $data=$data.'</div>';
@@ -423,8 +441,10 @@ class ForoComentarioController extends Controller
                         $data=$data.'</div>';
                     $data=$data.'</div>';
                     $data=$data.'<div class="clearfix"></div>';
-                    foreach(ForoComentario::find()->where('foro_comentario_hijo_id=:foro_comentario_hijo_id',
-                                                          [':foro_comentario_hijo_id'=>$post['id']])->all() as $hijo){
+                    $hijos=ForoComentario::find()
+                            ->where('foro_comentario_hijo_id=:foro_comentario_hijo_id',
+                                                          [':foro_comentario_hijo_id'=>$post['id']])->all();
+                    foreach($hijos as $hijo){
                     $data=$data.'<div class="row post-item">';
                         
                         $data=$data.'<div class="clearfix"></div>';
@@ -453,6 +473,12 @@ class ForoComentarioController extends Controller
                                     }
                                     else
                                     {
+                                        
+                                    $usuario=Usuario::findOne($hijo->user_id);
+                                    $estudiante=Estudiante::findOne($usuario->estudiante_id);
+                                    $institucion=Institucion::findOne($estudiante->institucion_id);
+                                    $ubigeo=Ubigeo::find()->where('district_id=:district_id',[':district_id'=>$institucion->ubigeo_id])->one();
+                                    
                                     $data=$data.'<div class="post-content" style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1">';
                                         $data=$data.HtmlPurifier::process($hijo->contenido);
                                         $data=$data.'<div class="post-meta">';
@@ -481,7 +507,7 @@ class ForoComentarioController extends Controller
                                                 $data=$data.'</div>';
                                                 
                                                 $data=$data.'<div class="pull-right">';
-                                                    $data=$data.'Comentario de Monitor '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);;
+                                                    $data=$data.'Comentario de <span class="popover1"  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: '.$ubigeo->department.' <br> II.EE: '.$institucion->denominacion.'" data-placement="top" >'.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .'</span> '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
                                                     //$data=$data.'Comentario de '.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .' '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
                                                 $data=$data.'</div>';
                                             $data=$data.'</div>';
