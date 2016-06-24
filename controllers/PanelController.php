@@ -65,6 +65,7 @@ class PanelController extends Controller
     public function actionIdeasAccion()
     {
         $this->layout='ideas';
+        $msg="";
         if(\Yii::$app->user->can('administrador'))
         {
             return $this->redirect(['panel/acciones']);
@@ -73,9 +74,37 @@ class PanelController extends Controller
         {
             return $this->redirect(['reporte/index']);
         }
+        else
+        {
+            $usuario=Usuario::findOne(\Yii::$app->user->id);
+            $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+            $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$estudiante->id])->one();
+            if($integrante)
+            {
+                $equipo=Equipo::findOne($integrante->equipo_id);
+                if($equipo && $equipo->etapa==1)
+                {
+                    $msg="¡Felicitaciones!
+                            Tú y tu equipo pasaron a la siguiente etapa
+                            Ahora deben dar aportes a otros proyectos
+                            y mejorar su proyecto
+                            No te olvides de hacer tu video de la primera actividad.
+                            Sigue poniendo tus ideas en acción";
+                }
+                elseif($equipo && ($equipo->etapa==0 || $equipo->etapa==NULL))
+                {
+                    $msg="Felicitaciones por tu esfuerzo.
+                        Si bien no pasaste a la siguiente etapa,
+                        te invitamos a participar de los foros
+                        y seguir poniendo tus ideas en acción.";
+                }
+            }
+            
+            
+        }
         
         
-        return $this->render('ideas-accion');
+        return $this->render('ideas-accion',['msg'=>$msg]);
     }
     public function actionIndex()
     {

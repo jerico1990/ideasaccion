@@ -2,7 +2,29 @@
 $this->title='Ideas en acción';
 
 ?>
+<div class="popup" id="msg">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group text-justify"><br>
+				<?= $msg ?>
+			</div>
+		</form>
+	</div>
+</div>
+<?php if (Yii::$app->session->hasFlash('lightbox')): ?>
+<script>
+    $('#msg').show();
+    
+    $(".popup .close_popup,.popup .btn_close_popup").on('click', function (e) {
+        e.preventDefault();
+        var _popup = $(this).parents('.popup');
+        _popup.hide();
+        
+    });
 
+</script>
+<?php endif; ?>
 
 <div class="box_head title_content_box">
     <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_ideas_big.png" alt=""> Ideas en acción

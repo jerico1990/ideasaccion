@@ -76,6 +76,7 @@ class SiteController extends Controller
             $log->user_id=\Yii::$app->user->id;
             $log->hora_logeo=date("Y-m-d H:i:s");
             $log->save();
+            Yii::$app->session->setFlash('lightbox');
             return $this->redirect(['panel/ideas-accion']);
         }
         return $this->render('login', [
