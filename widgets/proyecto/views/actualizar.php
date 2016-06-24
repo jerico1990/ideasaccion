@@ -104,14 +104,14 @@ label{
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-titulo required">
                                 <label class="control-label" for="proyecto-titulo">Título del proyecto</label>
-                                <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= $proyecto->titulo ?>" <?= $disabled ?>>
+                                <input type="text" id="proyecto-titulo" class="form-control" name="Proyecto[titulo]" maxlength="200" title="Máximo 200 palabras" value="<?= $proyecto->titulo ?>" disabled <?php //= $disabled ?>>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-equipo-asunto_id required" >
                                 <label class="control-label" for="proyecto-asunto_id">Selecciona el Asunto de Público sobre el que trabajará tu equipo</label>
-                                <select id="proyecto-asunto_id" class="form-control" name="Proyecto[asunto_id]">
+                                <select id="proyecto-asunto_id" class="form-control" name="Proyecto[asunto_id]" disabled>
                                     <option value=""></option>
                                     <?php
                                         $resultados=Resultados::find()->where('region_id=:region_id',['region_id'=>$institucion->department_id])->all();

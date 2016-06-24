@@ -67,7 +67,7 @@ class InscripcionController extends Controller
                             not in (select integrante.estudiante_id from integrante
                                     inner join estudiante on estudiante.id=integrante.estudiante_id
                                     where estudiante.grado!=6)
-                            and estudiante.id!=:id
+                            and estudiante.id!=:id and estudiante.id not in (selecte estudiante_id from integrante)
                             ',[':institucion_id'=>$institucion->id,':id'=>$institucion->estudiante_id])
                     ->orderBy('grado asc')->all();
         
@@ -219,8 +219,9 @@ class InscripcionController extends Controller
                             not in (select invitacion.estudiante_invitado_id from invitacion
                                     inner join estudiante on estudiante.id=invitacion.estudiante_invitado_id
                                     where invitacion.equipo_id='.$equipo->id.' and invitacion.estado=1 and estudiante.grado!=6)
-                            and estudiante.id
+                            and estudiante.id 
                             not in (select estudiante_id from integrante where equipo_id='.$equipo->id.') and estudiante.id!=:id
+                            and estudiante.id not in (selecte estudiante_id from integrante)
                             ',[':institucion_id'=>$institucion->id,':id'=>$institucion->estudiante_id])
                     ->orderBy('grado asc')->all();
                     
