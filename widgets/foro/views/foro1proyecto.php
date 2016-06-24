@@ -16,6 +16,10 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
 <link href="<?= \Yii::$app->request->BaseUrl ?>/ratings/dist/themes/fontawesome-stars.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="<?= \Yii::$app->request->BaseUrl ?>/ratings/dist/jquery.barrating.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
+
+    <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
 <style>
     .pagination>li:first-child>a, .pagination>li:first-child>span
     {
@@ -174,6 +178,8 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
                         hoverState: false,
                         readonly: true
                     });
+                    
+                    $('.popover1').webuiPopover();
                 }
             });
 	});
@@ -340,6 +346,9 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
                 return true;
             //}
         });
+        
+        
+        
     });
     
     function Responder(value) {
@@ -352,5 +361,6 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
         var _popup = $(this).parents('.popup');
         _popup.hide();
     });
+    
 </script>
 

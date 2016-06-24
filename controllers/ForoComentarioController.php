@@ -217,7 +217,7 @@ class ForoComentarioController extends Controller
                                         $data=$data.'</div>';
                                         
                                         $data=$data.'<div class="pull-right">';
-                                            $data=$data.'Comentario de '.$post['nombres'].' '.$post['apellido_paterno'] .' '. Yii::$app->formatter->asRelativeTime($post['creado_at']);
+                                            $data=$data.'Comentario de <span class="popover1" data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: '.$post['department'].' <br> II.EE: '.$post['denominacion'].'" data-placement="top" >'.$post['nombres'].' '.$post['apellido_paterno'] .'</span> '. Yii::$app->formatter->asRelativeTime($post['creado_at']);
                                         $data=$data.'</div>';
                                     $data=$data.'</div>';
                                 $data=$data.'</div>';
@@ -293,7 +293,7 @@ class ForoComentarioController extends Controller
                                                 $data=$data.'</div>';
                                                 
                                                 $data=$data.'<div class="pull-right">';
-                                                    $data=$data.'Comentario de '.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .' '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
+                                                    $data=$data.'Comentario de <span  data-type="html" style="cursor: pointer"  data-title="Información" data-content="Región: '.$post['department'].' <br> II.EE: '.$post['denominacion'].'" data-placement="top" >'.$hijo->usuario->estudiante->nombres.' '.$hijo->usuario->estudiante->apellido_paterno .'</span> '. Yii::$app->formatter->asRelativeTime($hijo->creado_at);
                                                 $data=$data.'</div>';
                                             $data=$data.'</div>';
                                         $data=$data.'</div>';
