@@ -28,10 +28,13 @@ class CronogramaWidget1 extends Widget
     public function run()
     {
         $disabled=$this->disabled;
-        $usuario=Usuario::findOne(\Yii::$app->user->id);
-        $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
-        $responsables=Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$integrante->equipo_id])->all();
         $proyecto=ProyectoCopia::findOne($this->proyecto_id);
+        
+        //$usuario=Usuario::findOne(\Yii::$app->user->id);
+        //$integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
+        $responsables=Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$proyecto->equipo_id])->all();
+        
+        
         $objetivos=ObjetivoEspecificoCopia::find()->where('proyecto_id=:proyecto_id and etapa=1',[':proyecto_id'=>$proyecto->id])->all();
         $actividades=ActividadCopia::find()
                     ->innerJoin('objetivo_especifico_copia','objetivo_especifico_copia.id=actividad_copia.objetivo_especifico_id')

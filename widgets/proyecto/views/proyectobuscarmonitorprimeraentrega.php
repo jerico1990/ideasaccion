@@ -85,6 +85,7 @@ label{
             <ul class="nav nav-tabs" style="background: white;">
                 <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Proyecto</a></li>
                 <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Video</a></li>
+                <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Reflexión</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
@@ -235,10 +236,12 @@ label{
                    
                     <div class="clearfix"></div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="tab-pane" id="tab_3">
+                    <?= $proyecto->p1 ?>
+                </div>
             </div>
-            
-        
-        
+        </div>
     </div>
 </div>
 

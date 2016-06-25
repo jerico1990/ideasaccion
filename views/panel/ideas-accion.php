@@ -6,7 +6,7 @@ $this->title='Ideas en acción';
 	<div class="popup_content">
 		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
 		<form action="#" method="get">
-			<div class="form-group text-justify"><br>
+			<div class="form-group text-center" style="font-size: 16px"><br>
 				<?= $msg ?>
 			</div>
 		</form>

@@ -65,7 +65,10 @@ class PanelController extends Controller
     public function actionIdeasAccion()
     {
         $this->layout='ideas';
-        $msg="";
+        $msg=           "Felicitaciones por tu esfuerzo.<br>
+                        Si bien no pasaste a la siguiente etapa,<br>
+                        te invitamos a participar de los foros<br>
+                        y <b>¡seguir poniendo tus ideas en acción!</b>.";
         if(\Yii::$app->user->can('administrador'))
         {
             return $this->redirect(['panel/acciones']);
@@ -84,19 +87,19 @@ class PanelController extends Controller
                 $equipo=Equipo::findOne($integrante->equipo_id);
                 if($equipo && $equipo->etapa==1)
                 {
-                    $msg="¡Felicitaciones!
-                            Tú y tu equipo pasaron a la siguiente etapa
-                            Ahora deben dar aportes a otros proyectos
-                            y mejorar su proyecto
-                            No te olvides de hacer tu video de la primera actividad.
-                            Sigue poniendo tus ideas en acción";
+                    $msg="  ¡Felicitaciones!<br>
+                            Tú y tu equipo pasaron a la siguiente etapa<br>
+                            Ahora deben dar aportes a otros proyectos<br>
+                            y mejorar su proyecto<br>
+                            No te olvides de hacer tu video de la primera actividad.<br>
+                            <b>¡Sigue poniendo tus ideas en acción!</b>";
                 }
                 elseif($equipo && ($equipo->etapa==0 || $equipo->etapa==NULL))
                 {
-                    $msg="Felicitaciones por tu esfuerzo.
-                        Si bien no pasaste a la siguiente etapa,
-                        te invitamos a participar de los foros
-                        y seguir poniendo tus ideas en acción.";
+                    $msg="Felicitaciones por tu esfuerzo.<br>
+                        Si bien no pasaste a la siguiente etapa,<br>
+                        te invitamos a participar de los foros<br>
+                        y ¡seguir poniendo tus ideas en acción!.";
                 }
             }
             
