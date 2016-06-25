@@ -83,8 +83,13 @@ label{
         </div> 
         <div class="nav-tabs-custom" >
             <ul class="nav nav-tabs" style="background: white;">
+                <div class="col-md-12 text-center">
+                    <button style="background:#f6de34;color: #1f2a69;border-color:#f6de34;font-weight:bold" class="btn  btn-lateral" href="#tab_1" data-toggle="tab" aria-expanded="false">Proyecto</button>
+                    <button style="background:#f6de34;color: #1f2a69;border-color:#f6de34;font-weight:bold" class="btn  btn-lateral" href="#tab_2" data-toggle="tab" aria-expanded="false">Video</button>
+                </div>
+                <!--
                 <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Proyecto</a></li>
-                <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Video</a></li>
+                <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Video</a></li>-->
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
@@ -209,13 +214,10 @@ label{
                 <div class="tab-pane" id="tab_2">
                     <div class="clearfix"></div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                                <h4><b>Video</b>  </h4>
                             </div>
                             <div class="clearfix"></div>
                             <?php if($videoprimera){ ?>
-                                <div class="col-xs-12 col-sm-2 col-md-2">
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                                     <?php if($videoprimera->ruta && $videoprimera->tipo==1){ ?>
                                             <br>
                                             <iframe type="text/html" 

@@ -85,9 +85,9 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
     ]); ?>
     <div class="md-col-6">
         <div class="form-group label-floating field-voto-region">
-            <label>Sección (Selecciona una sección para comentar el proyecto)</label>
-            <select id="proyecto-seccion" name="Proyecto[seccion]" class="form-control" >
-                <option value></option>
+            <label>Sección</label>
+            <select style="border: 2px solid #1f2a69;padding: 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-seccion" name="Proyecto[seccion]" class="form-control" >
+                <option value>Selecciona una sección para comentar el proyecto</option>
                 <option value="1" <?= ($seccion==1)?'selected':'' ?>>Nombre del proyecto</option>
                 <option value="2" <?= ($seccion==2)?'selected':'' ?>>Resumen del proyecto</option>
                 <option value="3" <?= ($seccion==3)?'selected':'' ?>>Beneficiarios</option>

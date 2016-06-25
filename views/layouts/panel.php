@@ -286,7 +286,7 @@ if($key==4)
                                                         Aporta a otros proyectos <span class="hide">></span>
                                                     </div>
                                                 </div>
-                                            </div>',['proyecto/buscar'],[]);?>
+                                            </div>',['proyecto/buscar'],['style'=>'background:#f6de34;color:#1f2a69 !important']);?>
                                         </li>
                                         <?php }?>
                                         
@@ -309,7 +309,7 @@ if($key==4)
                             </div>
     
                             <a href="#" data-toggle="modal" data-target="#myModalVideo" class="btn btn-default btn-lateral">
-                                <span class="icon_play"> Video de etapas del concurso</span>
+                                <span class="icon_play"> Video tutorial para hacer <br>proyectos</span>
                             </a>
     
                             <a href="<?= \Yii::$app->request->BaseUrl ?>/guia_final.pdf" target="_blank" class="btn btn-default btn-lateral">
