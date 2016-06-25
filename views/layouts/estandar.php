@@ -306,12 +306,12 @@ if($key==4)
                                 </ul>
                             </div>
     
-                            <a href="#" data-toggle="modal" data-target="#myModalVideo" class="btn btn-default btn-lateral">
+                            <a href="#" data-toggle="modal" data-target="#myModalVideo" class="btn btn-default btn-lateral" style="line-height:20px !important">
                                 <span class="icon_play"> Video tutorial para hacer <br>proyectos</span>
                             </a>
     
                             <a href="<?= \Yii::$app->request->BaseUrl ?>/guia_final.pdf" target="_blank" class="btn btn-default btn-lateral">
-                                <span class="icon_download"> GUÍA DE ORIENTACIÓN</span>
+                                <span class="icon_download"> GUÍA DE PROYECTO</span>
                             </a>
                             <a href="<?= \Yii::$app->request->BaseUrl ?>/esquema_rapido_del_proyecto.pdf" target="_blank" class="btn btn-default btn-lateral">
                                 <span class="icon_download"> ESQUEMA DE PROYECTO</span>
@@ -433,7 +433,8 @@ if($key==4)
         <div class="modal-content">
             <div class="modal-body ">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <iframe width="492" height="277" src="https://www.youtube.com/embed/qjS7HMqyfcg" frameborder="0" allowfullscreen></iframe>
+                    <!--<iframe width="492" height="277" src="https://www.youtube.com/embed/qjS7HMqyfcg" frameborder="0" allowfullscreen></iframe>-->
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/oKzLuHSvCYU" frameborder="0" allowfullscreen></iframe>
                 </div>
                 
             </div>
