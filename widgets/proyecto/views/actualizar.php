@@ -79,7 +79,7 @@ label{
 
 <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 <div class="box_head title_content_box">
-    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO (Segunda entrega)
+    <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_project_big.png" alt="">MI PROYECTO <?= ($equipo->etapa==1 || $equipo->etapa==2)?'(Segunda entrega)':'' ?>
 </div>
 <div class="box_content contenido_seccion_crear_equipo">
     <div class="row">
