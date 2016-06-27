@@ -635,7 +635,7 @@ label{
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 "></div>
             <div class="col-xs-12 col-sm-4 col-md-4 ">
-                <?php //= \app\widgets\entrega\EntregaWidget::widget(); ?> <!--Activar cuando se acabe la semana de foros-->
+                <?= \app\widgets\entrega\EntregaWidget::widget(); ?> <!--Activar cuando se acabe la semana de foros-->
             </div>
             
             

@@ -259,8 +259,9 @@ class ProyectoController extends Controller
         $proyectoexiste=ProyectoCopia::find()->where('id=:id and etapa=2',[':id'=>$proyecto->id])->one();
         if(!$proyectoexiste)
         {
-            $proyectocopia =    'insert into proyecto_copia (id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,etapa)
-                                select id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,2 from proyecto
+            \Yii::$app->db->createCommand($proyectocopia)->execute();
+            $proyectocopia =    'insert into proyecto_copia (id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,etapa,proyecto_archivo,formato_proyecto,proyecto_archivo2,formato_proyecto2)
+                                select id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,2,proyecto_archivo,formato_proyecto,proyecto_archivo2,formato_proyecto2 from proyecto
                                 where id='.$proyecto->id.'  ';
             \Yii::$app->db->createCommand($proyectocopia)->execute();
             
@@ -275,11 +276,11 @@ class ProyectoController extends Controller
                                 where objetivo_especifico.proyecto_id='.$proyecto->id.' and actividad.estado=1 ';
             \Yii::$app->db->createCommand($actividadcopia)->execute();
             
-            
-            $planpresupuestalcopia =    'insert into plan_presupuestal_copia (id,actividad_id,recurso,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa,dirigido,recurso_descripcion,unidad)
-                                select plan_presupuestal.id,plan_presupuestal.actividad_id,plan_presupuestal.recurso,
-                                        plan_presupuestal.como_conseguirlo,plan_presupuestal.precio_unitario,plan_presupuestal.cantidad,
-                                        plan_presupuestal.subtotal,plan_presupuestal.estado,2,plan_presupuestal.dirigido,plan_presupuestal.recurso_descripcion,plan_presupuestal.unidad
+            $planpresupuestalcopia =    'insert into plan_presupuestal_copia
+                                (id,actividad_id,dirigido,recurso,recurso_descripcion,unidad,como_conseguirlo,precio_unitario,cantidad,subtotal,estado,etapa)
+                        select plan_presupuestal.id,plan_presupuestal.actividad_id,plan_presupuestal.dirigido,plan_presupuestal.recurso,
+                                plan_presupuestal.recurso_descripcion,plan_presupuestal.unidad,plan_presupuestal.como_conseguirlo,
+                                plan_presupuestal.precio_unitario,plan_presupuestal.cantidad,plan_presupuestal.subtotal,plan_presupuestal.estado,2
                                 from plan_presupuestal
                                 inner join actividad on plan_presupuestal.actividad_id=actividad.id
                                 inner join objetivo_especifico on objetivo_especifico.id=actividad.objetivo_especifico_id
