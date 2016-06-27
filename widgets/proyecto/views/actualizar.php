@@ -91,8 +91,9 @@ label{
                 <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Presupuesto</a></li>
                 <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab" aria-expanded="false"  style="color: #333 !important">Mi video</a></li>
-                <?php if($estudiante->grado!=6){?>
+                <?php if($equipo->etapa==1 && $estudiante->grado!=6){?>
                 <!--<li class=""><a href="#tab_6" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>-->
+                <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important" >Reflexión</a></li>
                 <?php } ?>
                 <?php if(($etapa->etapa==2 || $etapa->etapa==3) && $estudiante->grado!=6){ ?>
                 <!--<li class=""><a href="#tab_7" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi evaluación</a></li>-->
@@ -466,6 +467,86 @@ label{
                     </div>
                     <div class="clearfix"></div>
                 </div><!-- /.tab-pane -->
+                <?php if($equipo->etapa==1){ ?>
+                <div class="tab-pane" id="tab_15">
+                    <div class="clearfix"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 form-group">
+                        <label>1.- Aportes del equipo MINEDU</label>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group label-floating field-proyecto-p4 required">
+                            <label class="control-label" for="proyecto-p4" >¿Qué aportes incluyeron en su proyecto participativo?</label>
+                            <!--<textarea style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p1" class="form-control" rows="3" name="Proyecto[p1]"  </textarea>-->
+                            <select style="border: 2px solid #1f2a69;padding: 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p4" class="form-control" name="Proyecto[p4]" <?= $disabled ?> />
+                                <option value=""></option>
+                                <?php foreach($comen_monitores as $comen_monitor){ ?>
+                                <option value="<?= $comen_monitor->id ?>" <?= ($comen_monitor->id==$proyecto->p4)?'selected':'' ?>><?= $comen_monitor->contenido ?></option>
+                                <?php }?>
+                            </select>
+                        </div>
+                        <div class="form-group label-floating field-proyecto-p2 required">
+                            <label class="control-label" for="proyecto-p2" >¿Qué debilidades encuentras en tu escuela o comunidad para trabajar tu proyecto?</label>
+                            <div class="col-md-6">
+                                <input type="checkbox" id="proyecto-p5_1" name="Proyecto[p5_1]" value="1" <?= ($proyecto->p5_1==1)?'checked':'' ?> onclick="Check('5','1')">Título<br>
+                                <input type="checkbox" id="proyecto-p5_2" name="Proyecto[p5_2]" value="1" <?= ($proyecto->p5_2==1)?'checked':'' ?> onclick="Check('5','2')">Resumen<br>
+                                <input type="checkbox" id="proyecto-p5_3" name="Proyecto[p5_3]" value="1" <?= ($proyecto->p5_3==1)?'checked':'' ?> onclick="Check('5','3')">Beneficiarios<br>
+                                <input type="checkbox" id="proyecto-p5_4" name="Proyecto[p5_4]" value="1" <?= ($proyecto->p5_4==1)?'checked':'' ?> onclick="Check('5','4')">Objetivos
+                            </div>
+                            <div class="col-md-6">
+                                <input type="checkbox" id="proyecto-p5_5" name="Proyecto[p5_5]" value="1" <?= ($proyecto->p5_5==1)?'checked':'' ?> onclick="Check('5','5')">Actividades<br>
+                                <input type="checkbox" id="proyecto-p5_6" name="Proyecto[p5_6]" value="1" <?= ($proyecto->p5_6==1)?'checked':'' ?> onclick="Check('5','6')">Cronograma<br>
+                                <input type="checkbox" id="proyecto-p5_7" name="Proyecto[p5_7]" value="1" <?= ($proyecto->p5_7==1)?'checked':'' ?> onclick="Check('5','7')">Presupuesto<br>
+                                <input type="checkbox" id="proyecto-p5_8" name="Proyecto[p5_8]" value="1" <?= ($proyecto->p5_8==1)?'checked':'' ?> onclick="Check('5','8')">Video
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 form-group">
+                        <label>2.- Aportes de otros participantes</label>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group label-floating field-proyecto-p6 required">
+                            <label class="control-label" for="proyecto-p6" >¿Qué aportes incluyeron en su proyecto participativo? (el que más influyó en su proyecto)</label>
+                            <!--<textarea style="border: 2px solid #1f2a69;padding: 10px 5px 5px 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p1" class="form-control" rows="3" name="Proyecto[p1]"  </textarea>-->
+                            <select style="border: 2px solid #1f2a69;padding: 10px;margin-top: 10px;margin-bottom: 3px;background: #F0EFF1" id="proyecto-p6" class="form-control" name="Proyecto[p6]" <?= $disabled ?> />
+                                <option value=""></option>
+                                <?php foreach($comen_participantes as $comen_participante){ ?>
+                                <option value="<?= $comen_participante->id ?>" <?= ($comen_participante->id==$proyecto->p6)?'selected':'' ?> ><?= $comen_participante->contenido ?></option>
+                                <?php }?>
+                            </select>
+                        </div>
+                        <div class="form-group label-floating field-proyecto-p7 required">
+                            <label class="control-label" for="proyecto-p7" >¿Qué debilidades encuentras en tu escuela o comunidad para trabajar tu proyecto?</label>
+                            <div class="col-md-6">
+                                <input type="checkbox" id="proyecto-p7_1" name="Proyecto[p7_1]"  <?= ($proyecto->p7_1==1)?'checked':'' ?> onclick="Check('7','1')">Título<br>
+                                <input type="checkbox" id="proyecto-p7_2" name="Proyecto[p7_2]"  <?= ($proyecto->p7_2==1)?'checked':'' ?> onclick="Check('7','2')">Resumen<br>
+                                <input type="checkbox" id="proyecto-p7_3" name="Proyecto[p7_3]"  <?= ($proyecto->p7_3==1)?'checked':'' ?> onclick="Check('7','3')">Beneficiarios<br>
+                                <input type="checkbox" id="proyecto-p7_4" name="Proyecto[p7_4]"  <?= ($proyecto->p7_4==1)?'checked':'' ?> onclick="Check('7','4')">Objetivos
+                            </div>
+                            <div class="col-md-6">
+                                <input type="checkbox" id="proyecto-p7_5" name="Proyecto[p7_5]"  <?= ($proyecto->p7_5==1)?'checked':'' ?> onclick="Check('7','5')">Actividades<br>
+                                <input type="checkbox" id="proyecto-p7_6" name="Proyecto[p7_6]"  <?= ($proyecto->p7_6==1)?'checked':'' ?> onclick="Check('7','6')">Cronograma<br>
+                                <input type="checkbox" id="proyecto-p7_7" name="Proyecto[p7_7]"  <?= ($proyecto->p7_7==1)?'checked':'' ?> onclick="Check('7','7')">Presupuesto<br>
+                                <input type="checkbox" id="proyecto-p7_8" name="Proyecto[p7_8]"  <?= ($proyecto->p7_8==1)?'checked':'' ?> onclick="Check('7','8')">Video
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 form-group">
+                        <label>3.- ¿Consideran importante los aportes entre equipos?</label>
+                        <div class="col-md-12">
+                            <input type="radio" name="Proyecto[p8]" value="1" <?= ($proyecto->p8==1)?'checked':'' ?> >No, porque es un concurso<br>
+                            <input type="radio" name="Proyecto[p8]" value="2" <?= ($proyecto->p8==2)?'checked':'' ?> >No, porque ellos no saben cómo es mi proyecto<br>
+                            <input type="radio" name="Proyecto[p8]" value="3" <?= ($proyecto->p8==3)?'checked':'' ?>>Sí, porque me ayudó a mejorar mi proyecto<br>
+                            <input type="radio" name="Proyecto[p8]" value="4" <?= ($proyecto->p8==4)?'checked':'' ?>>Sí, porque todos nos ayudamos y mejoramos nuestra escuela, comunidad o región.
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div><!-- /.tab-pane -->
+                <?php } ?>
                 <?php if($etapa->etapa==1 || $etapa->etapa==2 || $etapa->etapa==3){ ?>
                 
                 <div class="tab-pane" id="tab_7">
@@ -1466,6 +1547,21 @@ label{
             return true;
         }
     }
+    
+    function Check(v1,v2) {
+        
+        if ($('#proyecto-p'+v1+'_'+v2).is(':checked')) {
+            $('#proyecto-p'+v1+'_'+v2).val('1');
+            console.log('1');
+        }
+        else
+        {
+            console.log("0");
+            $('#proyecto-p'+v1+'_'+v2).val('0');
+        }
+        
+    }
+    
 </script>
 
 <script src="<?= \Yii::$app->request->BaseUrl ?>/js/bootstrap-notify.js"></script>

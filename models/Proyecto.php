@@ -50,6 +50,25 @@ class Proyecto extends \yii\db\ActiveRecord
     public $p1;
     public $p2;
     public $p3;
+    public $p4;
+    public $p5_1;
+    public $p5_2;
+    public $p5_3;
+    public $p5_4;
+    public $p5_5;
+    public $p5_6;
+    public $p5_7;
+    public $p5_8;
+    public $p6;
+    public $p7_1;
+    public $p7_2;
+    public $p7_3;
+    public $p7_4;
+    public $p7_5;
+    public $p7_6;
+    public $p7_7;
+    public $p7_8;
+    public $p8;
     public $evaluacion;
     public $forum_url;
     
@@ -110,7 +129,7 @@ class Proyecto extends \yii\db\ActiveRecord
                 'planes_presupuestales_cantidades','planes_presupuestales_subtotales','planes_presupuestal_ids',
                 'planes_presupuestales_dirigidos','planes_presupuestales_unidades','planes_presupuestales_recursos_descripciones'],'safe'],
             [['id','actividades_1','actividades_2','actividades_3','actividades_ids_1','actividades_ids_2','actividades_ids_3','cronogramas_tareas'],'safe'],
-            [['seccion','user_id','asunto_id','objetivo_especifico_1_id','objetivo_especifico_2_id','objetivo_especifico_3_id','equipo_id','region_id'], 'integer'],
+            [['seccion','user_id','asunto_id','objetivo_especifico_1_id','objetivo_especifico_2_id','objetivo_especifico_3_id','equipo_id','region_id','p4','p5_1','p5_2','p5_3','p5_4','p5_5','p5_6','p5_7','p5_8','p6','p7_1','p7_2','p7_3','p7_4','p7_5','p7_6','p7_7','p7_8','p8'], 'integer'],
             [['titulo','proyecto_archivo','proyecto_archivo2'], 'string', 'max' => 200],
             [['ruta'], 'string', 'max' => 250],
             

@@ -58,6 +58,18 @@ class ActualizarProyectoWidget extends Widget
         
         $proyecto=Proyecto::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$integrante->equipo_id])->one();
         $objetivos_especificos=ObjetivoEspecifico::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->all();
+        $foro=Foro::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
+        if($proyecto && $foro)
+        {
+            $comen_monitores=ForoComentario::find()->where('foro_id=:foro_id and user_id between 2 and 8',[':foro_id'=>$foro->id])->all();
+            $comen_participantes=ForoComentario::find()->where('foro_id=:foro_id and user_id>=9',[':foro_id'=>$foro->id])->all();
+        }
+        else
+        {
+            $comen_monitores=new ForoComentario;
+            $comen_participantes=new ForoComentario;
+        }
+        
         
         $video=Video::find()->where('proyecto_id=:proyecto_id and etapa=:etapa',
                                     [':proyecto_id'=>$proyecto->id,':etapa'=>0])->one();
@@ -109,6 +121,25 @@ class ActualizarProyectoWidget extends Widget
             $proyecto->p1=$reflexion->p1;
             $proyecto->p2=$reflexion->p2;
             $proyecto->p3=$reflexion->p3;
+            $proyecto->p4=$reflexion->p4;
+            $proyecto->p5_1=$reflexion->p5_1;
+            $proyecto->p5_2=$reflexion->p5_2;
+            $proyecto->p5_3=$reflexion->p5_3;
+            $proyecto->p5_4=$reflexion->p5_4;
+            $proyecto->p5_5=$reflexion->p5_5;
+            $proyecto->p5_6=$reflexion->p5_6;
+            $proyecto->p5_7=$reflexion->p5_7;
+            $proyecto->p5_8=$reflexion->p5_8;
+            $proyecto->p6=$reflexion->p6;
+            $proyecto->p7_1=$reflexion->p7_1;
+            $proyecto->p7_2=$reflexion->p7_2;
+            $proyecto->p7_3=$reflexion->p7_3;
+            $proyecto->p7_4=$reflexion->p7_4;
+            $proyecto->p7_5=$reflexion->p7_5;
+            $proyecto->p7_6=$reflexion->p7_6;
+            $proyecto->p7_7=$reflexion->p7_7;
+            $proyecto->p7_8=$reflexion->p7_8;
+            $proyecto->p8=$reflexion->p8;
         }
         
         if ($proyecto->load(\Yii::$app->request->post())) {
@@ -129,7 +160,171 @@ class ActualizarProyectoWidget extends Widget
                 $reflexion->p1=trim($proyecto->p1);
                 $reflexion->p2=trim($proyecto->p2);
                 $reflexion->p3=trim($proyecto->p3);
+                $reflexion->p4=$proyecto->p4;
+                
+                if(isset($_POST["Proyecto"]["p5_1"]))
+                {
+                    $reflexion->p5_1=1;
+                }
+                else
+                {
+                    $reflexion->p5_1=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p5_2"]))
+                {
+                    $reflexion->p5_2=1;
+                }
+                else
+                {
+                    $reflexion->p5_2=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p5_3"]))
+                {
+                    $reflexion->p5_3=1;
+                }
+                else
+                {
+                    $reflexion->p5_3=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p5_4"]))
+                {
+                    $reflexion->p5_4=1;
+                }
+                else
+                {
+                    $reflexion->p5_4=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p5_5"]))
+                {
+                    $reflexion->p5_5=1;
+                }
+                else
+                {
+                    $reflexion->p5_5=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p5_6"]))
+                {
+                    $reflexion->p5_6=1;
+                }
+                else
+                {
+                    $reflexion->p5_6=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p5_7"]))
+                {
+                    $reflexion->p5_7=1;
+                }
+                else
+                {
+                    $reflexion->p5_7=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p5_8"]))
+                {
+                    $reflexion->p5_8=1;
+                }
+                else
+                {
+                    $reflexion->p5_8=0;
+                }
+                
+                /*$reflexion->p5_1=$proyecto->p5_1;
+                $reflexion->p5_2=$proyecto->p5_2;
+                $reflexion->p5_3=$proyecto->p5_3;
+                $reflexion->p5_4=$proyecto->p5_4;
+                $reflexion->p5_5=$proyecto->p5_5;
+                $reflexion->p5_6=$proyecto->p5_6;
+                $reflexion->p5_7=$proyecto->p5_7;
+                $reflexion->p5_8=$proyecto->p5_8;*/
+                $reflexion->p6=$proyecto->p6;
+                if(isset($_POST["Proyecto"]["p7_1"]))
+                {
+                    $reflexion->p7_1=1;
+                }
+                else
+                {
+                    $reflexion->p7_1=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p7_2"]))
+                {
+                    $reflexion->p7_2=1;
+                }
+                else
+                {
+                    $reflexion->p7_2=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p7_3"]))
+                {
+                    $reflexion->p7_3=1;
+                }
+                else
+                {
+                    $reflexion->p7_3=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p7_4"]))
+                {
+                    $reflexion->p7_4=1;
+                }
+                else
+                {
+                    $reflexion->p7_4=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p7_5"]))
+                {
+                    $reflexion->p7_5=1;
+                }
+                else
+                {
+                    $reflexion->p7_5=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p7_6"]))
+                {
+                    $reflexion->p7_6=1;
+                }
+                else
+                {
+                    $reflexion->p7_6=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p7_7"]))
+                {
+                    $reflexion->p7_7=1;
+                }
+                else
+                {
+                    $reflexion->p7_7=0;
+                }
+                
+                if(isset($_POST["Proyecto"]["p7_8"]))
+                {
+                    $reflexion->p7_8=1;
+                }
+                else
+                {
+                    $reflexion->p7_8=0;
+                }
+                /*
+                $reflexion->p7_2=$proyecto->p7_2;
+                $reflexion->p7_3=$proyecto->p7_3;
+                $reflexion->p7_4=$proyecto->p7_4;
+                $reflexion->p7_5=$proyecto->p7_5;
+                $reflexion->p7_6=$proyecto->p7_6;
+                $reflexion->p7_7=$proyecto->p7_7;
+                $reflexion->p7_8=$proyecto->p7_8;*/
+                $reflexion->p8=$proyecto->p8;
                 $reflexion->update();
+                //var_dump($reflexion->p7_1);die;
             }
             
             //var_dump(\Yii::$app->request->post());die;
@@ -480,7 +675,9 @@ class ActualizarProyectoWidget extends Widget
                               'entrega'=>$this->entrega,
                               'etapa'=>$etapa,
                               'estudiante'=>$estudiante,
-                              'institucion'=>$institucion]);
+                              'institucion'=>$institucion,
+                              'comen_monitores'=>$comen_monitores,
+                              'comen_participantes'=>$comen_participantes]);
     }
     
     public function rename_win($oldfile,$newfile) {
