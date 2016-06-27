@@ -20,6 +20,9 @@ use app\models\VideoCopia;
 use app\models\ProyectoCopia;
 use app\models\ObjetivoEspecificoCopia;
 use app\models\ActividadCopia;
+use app\models\Estudiante;
+use app\models\Institucion;
+use app\models\Ubigeo;
 use yii\web\UploadedFile;
 Yii::setAlias('video', '@web/video_carga/');
 class ProyectoSegundaEntregaWidget extends Widget
@@ -34,6 +37,10 @@ class ProyectoSegundaEntregaWidget extends Widget
     public function run()
     {
         $usuario=Usuario::findOne(\Yii::$app->user->id);
+        $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+        $institucion=Institucion::find()->where('id=:id',[':id'=>$estudiante->institucion_id])->one();
+        $region=Ubigeo::find()->where('district_id=:district_id',[':district_id'=>$institucion->ubigeo_id])->one();
+        
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
         $equipo=Equipo::findOne($integrante->equipo_id);
         $disabled='';
@@ -112,7 +119,9 @@ class ProyectoSegundaEntregaWidget extends Widget
                               'equipo'=>$equipo,
                               'integrante'=>$integrante,
                               'videosegunda'=>$videosegunda,
-                              'entrega'=>$this->entrega]);
+                              'entrega'=>$this->entrega,
+                              'region'=>$region,
+                              'institucion'=>$institucion]);
     }
     
     public function rename_win($oldfile,$newfile) {

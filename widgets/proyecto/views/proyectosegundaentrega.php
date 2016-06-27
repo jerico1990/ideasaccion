@@ -71,174 +71,198 @@ label{
     <img src="../img/icon_team_big.jpg" alt="">SEGUNDA ENTREGA
 </div>
 <div class="box_content contenido_seccion_equipo">
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs" style="background: white;">
-            <li class="active"><a href="#tab_11" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Datos generales</a></li>
-            <li class=""><a href="#tab_19" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Objetivos y actividades</a></li>
-            <!--<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Resultado</a></li>
-            <li class=""><a href="#tab_12" data-toggle="tab" aria-expanded="false">Resultado</a></li>-->
-            <li class=""><a href="#tab_13" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Presupuesto</a></li>
-            <li class=""><a href="#tab_14" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
-            <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi Video</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab_11">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Título:</label> </h4>
-                    <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->titulo ?></p>
+    <div class="row" >
+        <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
+            <b>Región:</b> <?= $region->department ?><br>
+            <b>Institución educativa:</b> <?= $institucion->denominacion ?><br>
+            <b>Título del proyecto:</b> <?= $proyecto->titulo ?><br>
+        </div>
+        
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs" style="background: white;">
+                <div class="col-md-12 text-center">
+                    <button style="background:#f6de34;color: #1f2a69;border-color:#f6de34;font-weight:bold" class="btn  btn-lateral" href="#tab_11" data-toggle="tab" aria-expanded="false">Proyecto</button>
+                    <button style="background:#f6de34;color: #1f2a69;border-color:#f6de34;font-weight:bold" class="btn  btn-lateral" href="#tab_12" data-toggle="tab" aria-expanded="false">Video</button>
                 </div>
-                <div class="clearfix"></div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Resumen:</label> </h4>
-                    <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->resumen ?></p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Beneficiario:</label> </h4>
-                    <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->beneficiario ?></p>
-                </div>
-                <div class="clearfix"></div>
-            </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_19">
-                <div class="clearfix"></div>
-                <div class="col-xs-12 col-sm-3 col-md-3"></div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="clearfix"></div>
-                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Objetivo general</label> </h4>
-                        <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->objetivo_general ?></p>
-                    </div>
-                   <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                            <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Objetivos especificos</label>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div id="mostrar_oe_actividades">
-                            <div class='col-xs-12 col-sm-12 col-md-12'>
-                                <?php if($proyecto->objetivo_especifico_1){ ?>
-                                    <li><b><?= $proyecto->objetivo_especifico_1 ?></b></li>
-                                        <input type='hidden' value='<?= $proyecto->objetivo_especifico_1 ?>' name='Proyecto[objetivo_especifico_1]'>
-                                    <ul>
-                                        <?php foreach($actividades as $actividad){ ?>
-                                            <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
-                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
-                                                <input type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    </ul>
-                                    <?php $contoe=1; ?>
-                                <?php } ?>
-                            </div>
-                            
-                            <div class='col-xs-12 col-sm-12 col-md-12'>
-                                <?php if($proyecto->objetivo_especifico_2){  ?>
-                                    <li><b><?= $proyecto->objetivo_especifico_2 ?></b></li>
-                                        <input type='hidden' value='<?= $proyecto->objetivo_especifico_2 ?>' name='Proyecto[objetivo_especifico_2]'>
-                                    <ul>
-                                        <?php foreach($actividades as $actividad){ ?>
-                                            <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
-                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
-                                                <input type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    </ul>
-                                    <?php $contoe=2; ?>
-                                <?php } ?>
-                            </div>
-                            
-                            <div class='col-xs-12 col-sm-12 col-md-12'>
-                                <?php if($proyecto->objetivo_especifico_3) { ?>
-                                    <li><b><?= $proyecto->objetivo_especifico_3 ?></b></li>
-                                        <input type='hidden' value='<?= $proyecto->objetivo_especifico_3 ?>' name='Proyecto[objetivo_especifico_3]'>
-                                    <ul>
-                                        <?php foreach($actividades as $actividad){ ?>
-                                            <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
-                                                <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
-                                                <input type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    </ul>
-                                    <?php $contoe=3; ?>
-                                <?php } ?>
+                <?php /*<li class="active"><a href="#tab_11" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Datos generales</a></li>
+                <li class=""><a href="#tab_19" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Objetivos y actividades</a></li>
+                <!--<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="true" style="color: #333 !important">Resultado</a></li>
+                <li class=""><a href="#tab_12" data-toggle="tab" aria-expanded="false">Resultado</a></li>-->
+                <li class=""><a href="#tab_13" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Presupuesto</a></li>
+                <li class=""><a href="#tab_14" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Cronograma</a></li>
+                <li class=""><a href="#tab_15" data-toggle="tab" aria-expanded="false" style="color: #333 !important">Mi Video</a></li> */?>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_11">
+                    <?php if($proyecto->formato_proyecto2==0){ ?>
+                    <div class="col-md-12" style="height: 660px; ">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Título:</label> </h4>
+                            <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->titulo ?></p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group label-floating field-proyecto-asunto required">
+                                <label class="control-label" for="proyecto-asunto" >Asunto público</label>
+                                <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $equipo->asunto->descripcion_cabecera ?></p>
                             </div>
                         </div>
+                        
+                        <div class="clearfix"></div>    
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group label-floating field-proyecto-resumen required">
+                                <label class="control-label" for="proyecto-resumen" >Sumilla / Justificación</label>
+                                <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->resumen ?></p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group label-floating field-proyecto-beneficiario required">
+                                <label class="control-label" for="proyecto-beneficiario">Beneficiario</label>
+                                <p class="text-justify" style="padding-bottom: 5px;padding-top: 9px"><?= $proyecto->beneficiario ?></p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <h4><b>Objetivos</b>  </h4>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div id="mostrar_oe_actividades">
+                                <div class='col-xs-12 col-sm-12 col-md-12'>
+                                    <?php if($proyecto->objetivo_especifico_1){ ?>
+                                        <li><b><?= $proyecto->objetivo_especifico_1 ?></b></li>
+                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_1 ?>' name='Proyecto[objetivo_especifico_1]'>
+                                        <ul>
+                                            <?php foreach($actividades as $actividad){ ?>
+                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
+                                                    <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
+                                                    <input type="hidden" name="Proyecto[actividades_ids_1][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </ul>
+                                        <?php $contoe=1; ?>
+                                    <?php } ?>
+                                </div>
+                                
+                                <div class='col-xs-12 col-sm-12 col-md-12'>
+                                    <?php if($proyecto->objetivo_especifico_2){  ?>
+                                        <li><b><?= $proyecto->objetivo_especifico_2 ?></b></li>
+                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_2 ?>' name='Proyecto[objetivo_especifico_2]'>
+                                        <ul>
+                                            <?php foreach($actividades as $actividad){ ?>
+                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
+                                                    <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
+                                                    <input type="hidden" name="Proyecto[actividades_ids_2][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </ul>
+                                        <?php $contoe=2; ?>
+                                    <?php } ?>
+                                </div>
+                                
+                                <div class='col-xs-12 col-sm-12 col-md-12'>
+                                    <?php if($proyecto->objetivo_especifico_3) { ?>
+                                        <li><b><?= $proyecto->objetivo_especifico_3 ?></b></li>
+                                            <input type='hidden' value='<?= $proyecto->objetivo_especifico_3 ?>' name='Proyecto[objetivo_especifico_3]'>
+                                        <ul>
+                                            <?php foreach($actividades as $actividad){ ?>
+                                                <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
+                                                    <li><?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
+                                                    <input type="hidden" name="Proyecto[actividades_ids_3][]" placeholder="Actividad" value="<?= $actividad->actividad_id ?>" <?= $disabled ?>/>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </ul>
+                                        <?php $contoe=3; ?>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <table class="table">
+                                <thead>
+                                <th>Actividad</th>
+                                <th>Resultado</th>
+                                </thead>
+                                <tbody>
+                            <?php $i=0;?>
+                            <?php foreach($actividades as $actividad){ ?>
+                                <tr>
+                                    <td><?= $actividad->descripcion ?></td>
+                                    <td>
+                                        <div class="form-group field-proyecto-resultado_esperado_<?= $i ?> required">
+                                            <input type="hidden"  class="form-control" name="Proyecto[resultados_ids][]" value="<?= $actividad->actividad_id ?>" >
+                                            <input type="text" id="proyecto-resultado_esperado_<?= $i ?>" class="form-control" name="Proyecto[resultados_esperados][]" placeholder="Resultado #<?= $i ?>" value="<?= $actividad->resultado_esperado ?>" <?= $disabled ?> >
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                            <?php $i++; } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <h4><b>Presupuesto</b>  </h4>
+                        </div>
+                        <div class="clearfix"></div>
+                        <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget2::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <h4><b>Cronograma</b>  </h4>
+                        </div>
+                        <div class="clearfix"></div>
+                        <?= \app\widgets\cronograma\CronogramaWidget2::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12" style="height: 660px; overflow-y: scroll;float: left">
+                            <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
+                                <?php //= \app\widgets\foro\ForoPrimeraEntregaWidget::widget(['proyecto_id'=>$proyecto->id,'seccion'=>$seccion]); ?> 
+                            <?php }?>
+                        </div>
+                        
+                        
                     </div>
+                <?php }else{ ?>
+                        <div class="col-md-12" style="height: 660px; ">
+                            <embed style='overflow: hidden' type='text/html' src= "<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" width=100% height=100% >
+                        </div>
+                        <div class="col-md-12" style="height: 660px; overflow-y: scroll;float: left">
+                            <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
+                                <?php //= \app\widgets\foro\ForoPrimeraEntregaWidget::widget(['proyecto_id'=>$proyecto->id,'seccion'=>$seccion]); ?> 
+                            <?php }?>
+                        </div>
+                
+                <?php } ?>
+                </div><!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_12">
+                    <div class="clearfix"></div>
+                    <?php if($videosegunda){ ?>
+                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                        <?php if($videosegunda->ruta && $videosegunda->tipo==1){ ?>
+                                <br>
+                                <iframe type="text/html" 
+                                    width="320" 
+                                    height="240" 
+                                    src="https://www.youtube.com/embed/<?= substr($videosegunda->ruta,-11) ?>" 
+                                    frameborder="0">
+                                </iframe>
+                        <?php } elseif($videosegunda->tipo==2){ ?>
+                                <video width="320" height="240" controls>
+                                    <source src="<?= Yii::getAlias('@video').$videosegunda->ruta ?>" >  
+                                </video>
+                        <?php } ?>
+                        </div>
+                    <?php } ?>
                     <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
-            </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_12">
-                <div class="clearfix"></div>
-                <div class="col-xs-12 col-sm-8 col-md-8">
-                    <table class="table">
-                        <thead>
-                        <th>Actividad</th>
-                        <th>Resultado</th>
-                        </thead>
-                        <tbody>
-                    <?php $i=0;?>
-                    <?php foreach($actividades as $actividad){ ?>
-                        <tr>
-                            <td><?= $actividad->descripcion ?></td>
-                            <td>
-                                <div class="form-group field-proyecto-resultado_esperado_<?= $i ?> required">
-                                    <input type="hidden"  class="form-control" name="Proyecto[resultados_ids][]" value="<?= $actividad->actividad_id ?>" >
-                                    <input type="text" id="proyecto-resultado_esperado_<?= $i ?>" class="form-control" name="Proyecto[resultados_esperados][]" placeholder="Resultado #<?= $i ?>" value="<?= $actividad->resultado_esperado ?>" <?= $disabled ?> >
-                                </div>
-                            </td>
-                        </tr>
-                        
-                    <?php $i++; } ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="clearfix"></div>
-            </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_13">
-                <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
-            </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_14">
-                <?= \app\widgets\cronograma\CronogramaWidget::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?> 
-            </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_15">
                 
-                <?php if($videosegunda){ ?>
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <video width="320" height="240" controls>
-                        <source src="<?= Yii::getAlias('@video').$videosegunda->ruta ?>">  
-                    </video>
-                </div>
-                <?php } ?>
-                <div class="clearfix"></div>
-            </div><!-- /.tab-pane -->
-            <!--<div class="tab-pane" id="tab_16">
-                <div class="col-xs-12 col-sm-7 col-md-5">
-                    <div class="form-group field-proyecto-reflexion required">
-                        <label class="control-label" for="proyecto-reflexion" >Reflexión: </label>
-                        <textarea id="proyecto-reflexion" class="form-control" name="Proyecto[reflexion]"  placeholder="Reflexión" <?= ($equipo->etapa==1  || $equipo->etapa==2)?'disabled':''; ?>><?php //= $proyecto->reflexion?></textarea>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>tab-pane -->
-            <div class="tab-pane" id="tab_17">
-                <div class="clearfix"></div>
-                <?php if($equipo->etapa==1 || $equipo->etapa==2){ ?>
-                <div class="col-xs-12 col-sm-7 col-md-5">
-                    <div class="form-group field-proyecto-evaluacion required">
-                        <label class="control-label" for="proyecto-evaluacion" >Evaluación: </label>
-                        <textarea id="proyecto-evaluacion" class="form-control" name="Proyecto[evaluacion]"  placeholder="Evaluación" <?= ($equipo->etapa==2)?'disabled':''; ?>><?= $proyecto->evaluacion?></textarea>
-                    </div>
-                </div>
-                <?php } ?>
-                <div class="clearfix"></div>
-            </div><!-- /.tab-pane -->
-        </div><!-- /.tab-content -->
-    </div>
+            </div><!-- /.tab-content -->
+        </div>
     
     <div class="clearfix"></div>
-    
+    </div>
 </div>
 
 

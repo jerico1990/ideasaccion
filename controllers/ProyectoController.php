@@ -259,7 +259,7 @@ class ProyectoController extends Controller
         $proyectoexiste=ProyectoCopia::find()->where('id=:id and etapa=2',[':id'=>$proyecto->id])->one();
         if(!$proyectoexiste)
         {
-            \Yii::$app->db->createCommand($proyectocopia)->execute();
+            
             $proyectocopia =    'insert into proyecto_copia (id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,etapa,proyecto_archivo,formato_proyecto,proyecto_archivo2,formato_proyecto2)
                                 select id,titulo,resumen,objetivo_general,beneficiario,user_id,asunto_id,equipo_id,2,proyecto_archivo,formato_proyecto,proyecto_archivo2,formato_proyecto2 from proyecto
                                 where id='.$proyecto->id.'  ';

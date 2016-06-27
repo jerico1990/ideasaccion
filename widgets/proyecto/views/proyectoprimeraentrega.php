@@ -125,8 +125,6 @@ label{
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                            
-                            <div class="clearfix"></div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <h4><b>Objetivos</b>  </h4>
                             </div>
