@@ -314,7 +314,7 @@ if($key==4)
                                 <span class="icon_download"> GUÍA DE PROYECTO</span>
                             </a>
                             <a href="<?= \Yii::$app->request->BaseUrl ?>/esquema_rapido_del_proyecto.pdf" target="_blank" class="btn btn-default btn-lateral">
-                                <span class="icon_download"> ESQUEMA DE PROYECTO</span>
+                                <span class="icon_download"> Formato 2da entrega</span>
                             </a>
                             <!--
                             <a href="#" class="btn btn-default btn-lateral">
