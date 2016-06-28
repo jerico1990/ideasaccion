@@ -162,8 +162,9 @@ label{
                         </div>
                         -->
                         <div class="col-xs-12 col-sm-12 col-md-12" >
-                            <?php if(($proyecto->formato_proyecto=='' || $proyecto->formato_proyecto==0) && $integrante->rol==1 && $etapa->etapa==1){ ?>
-                            <div class="form-group" style="background: #F0EFF1">
+                            
+                            <?php //if(($proyecto->formato_proyecto=='' || $proyecto->formato_proyecto==0) && $integrante->rol==1 && $etapa->etapa==1){ ?>
+                            <!--<div class="form-group" style="background: #F0EFF1">
                                 <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
@@ -171,17 +172,18 @@ label{
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="clearfix"></div>
-                            </div>
-                            <?php } elseif($proyecto->formato_proyecto==1 && $etapa->etapa==1) { ?>
+                            </div>-->
+                            <?php if($proyecto->formato_proyecto==1 && ($equipo->etapa==1 || $equipo->etapa==0 || $equipo->etapa==NULL)) { ?>
                             <div class="form-group" style="background: #F0EFF1">
-                                <p class="text-justify" style="margin: 20px;padding-top: 10px">Haz subido tu proyecto en el formato simplificado:</p>
+                                <p class="text-justify" style="margin: 20px;padding-top: 10px"></p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
                                     <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Primera entrega</a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div><!--César has cambiado el elseif agregandole && $equipo->etapa==1 recuerda 22062016-->
-                            <?php } elseif(($proyecto->formato_proyecto2=='' || $proyecto->formato_proyecto2==0) && $integrante->rol==1 && $etapa->etapa==2 && $equipo->etapa==1){ ?>
+                            <?php } ?>
+                            <?php if(($proyecto->formato_proyecto2=='' || $proyecto->formato_proyecto2==0) && $integrante->rol==1 && $etapa->etapa==2 && $equipo->etapa==1){ ?>
                             <div class="form-group" style="background: #F0EFF1">
                                 <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
