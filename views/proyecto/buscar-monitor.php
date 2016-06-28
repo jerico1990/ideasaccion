@@ -71,7 +71,7 @@ use yii\widgets\Pjax;
         ['class' => 'yii\grid\SerialColumn'],
 
         'titulo',
-        
+        'total',
 
         [
             'class' => 'yii\grid\ActionColumn',
