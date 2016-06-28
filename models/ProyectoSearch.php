@@ -18,7 +18,7 @@ class ProyectoSearch extends Proyecto
     public function rules()
     {
         return [
-            [['id', 'user_id','region_id','asunto_id'], 'integer'],
+            [['id', 'user_id','region_id','asunto_id','total'], 'integer'],
             [['titulo', 'resumen', 'objetivo_general','forum_url'], 'safe'],
         ];
     }
@@ -88,7 +88,8 @@ class ProyectoSearch extends Proyecto
        
         
         $query = Proyecto::find()
-                    ->select('foro.id foro_id,proyecto.id,proyecto.titulo,proyecto.region_id')
+                    ->select(['foro.id foro_id','proyecto.id','proyecto.titulo',
+                              '(select count(*) from foro_comentario where foro_comentario.foro_id=foro.id) as total','proyecto.region_id'])
                     ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
                     ->innerJoin('asunto','asunto.id=proyecto.asunto_id')
                     ->innerJoin('foro','foro.proyecto_id=proyecto.id')
