@@ -52,7 +52,7 @@ class ProyectoSearch extends Proyecto
                     ->innerJoin('asunto','asunto.id=proyecto.asunto_id')
                     ->innerJoin('foro','foro.proyecto_id=proyecto.id')
                     ->where('proyecto.equipo_id not in ('.$integrante->equipo_id.') and equipo.etapa in (1,2)')
-                    ->groupBy('proyecto.titulo')
+                    ->groupBy('proyecto.titulo,foro_id')
                     ->orderBy('RAND()');
 
         $dataProvider = new ActiveDataProvider([
@@ -92,7 +92,8 @@ class ProyectoSearch extends Proyecto
                     ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
                     ->innerJoin('asunto','asunto.id=proyecto.asunto_id')
                     ->innerJoin('foro','foro.proyecto_id=proyecto.id')
-                    ->where(' equipo.etapa=1');
+                    ->where(' equipo.etapa=1')
+                    ->groupBy('proyecto.titulo,foro_id');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
