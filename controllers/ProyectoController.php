@@ -624,6 +624,17 @@ class ProyectoController extends Controller
         exit;
     }
     
-    
+    public function actionEliminarArchivo2()
+    {
+        if(isset($_POST["id"]))
+        {
+            $id=$_POST["id"];
+            $proyecto=Proyecto::findOne($id);
+            $proyecto->proyecto_archivo2=NULL;
+            $proyecto->formato_proyecto2=NULL;
+            $proyecto->update();
+        }
+        
+    }
     
 }

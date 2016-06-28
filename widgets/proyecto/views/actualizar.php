@@ -198,7 +198,7 @@ label{
                                 <p class="text-justify" style="margin: 20px;padding-top: 10px">Haz subido tu proyecto en el formato simplificado:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
-                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Segunda entrega</a>
+                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Segunda entrega</a> <span style="cursor: pointer;color: red" onclick="EliminarArchivo(<?= $proyecto->id ?>)"><b>(x)</b></span>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -685,6 +685,7 @@ label{
     $evaluacion= Yii::$app->getUrlManager()->createUrl('proyecto/evaluacion');
     $archivo_pro= Yii::$app->getUrlManager()->createUrl('proyecto/archivo');
     $archivo_pro2= Yii::$app->getUrlManager()->createUrl('proyecto/archivo2');
+    $eliminararchivo_pro2= Yii::$app->getUrlManager()->createUrl('proyecto/eliminar-archivo2');
 ?>
 <!--var i=<?php //= $i ?>;
     var a=<?php //= $a ?>;
@@ -1562,6 +1563,31 @@ label{
             $('#proyecto-p'+v1+'_'+v2).val('0');
         }
         
+    }
+    
+    function EliminarArchivo(proyecto) {
+        $.ajax({
+            url: '<?= $eliminararchivo_pro2 ?>',
+            type: 'POST',
+            async: true,
+            data: {'id':proyecto},
+            success: function(data){
+                $.notify({
+                    message: 'Se ha ha elimando el archivo del proyecto 2' 
+                },{
+                    type: 'success',
+                    z_index: 1000000,
+                    placement: {
+                        from: 'bottom',
+                        align: 'right'
+                    },
+                });
+                
+                setTimeout(function(){
+                                    window.location.reload(1);
+                                }, 2000); 
+            }
+        });
     }
     
 </script>
