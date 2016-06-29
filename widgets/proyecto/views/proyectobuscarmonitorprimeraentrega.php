@@ -194,7 +194,7 @@ label{
                             <div class="clearfix"></div>
                             <div class="col-md-12" style="height: 660px; overflow-y: scroll;float: left">
                                 <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
-                                    <?= \app\widgets\foro\ForoPrimeraEntregaProyectoWidget::widget(['proyecto_id'=>$proyecto->id,'seccion'=>$seccion->seccion]); ?> 
+                                    <?= \app\widgets\foro\ForoMonitorPrimeraEntregaProyectoWidget::widget(['proyecto_id'=>$proyecto->id,'seccion'=>$seccion->seccion]); ?> 
                                 <?php }?>
                             </div>
                             
