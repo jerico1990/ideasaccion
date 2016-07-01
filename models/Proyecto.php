@@ -156,7 +156,9 @@ class Proyecto extends \yii\db\ActiveRecord
             'objetivo_general' => 'Objetivo General',
             'user_id' => 'User ID',
             'total_monitor'=>'# comentarios monitor',
-            'total_estudiante'=>'# comentarios de estudiantes'
+            'total_estudiante'=>'# comentarios de estudiantes',
+            'total_monitor_respuesta'=>'# de respuestas al monitor'
+            
         ];
     }
 
