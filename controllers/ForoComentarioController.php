@@ -514,7 +514,7 @@ class ForoComentarioController extends Controller
                                                     } else{
                                                     $data=$data.'<div class="col-sm-12 col-md-12">';
                                                         $data=$data.'<div class="br-wrapper br-theme-fontawesome-stars pull-right">';
-                                                            $data=$data.'<select class="enable" onchange="Rating($(this).val(),'.$hijo->ids.')">'; 
+                                                            $data=$data.'<select class="enable" onchange="Rating($(this).val(),'.$hijo->id.')">'; 
                                                               $data=$data.'<option value></option>';
                                                               $data=$data.'<option value="1" ';
                                                               if($hijo->valoracion==1){$data=$data."selected";}else{$data=$data."";} $data=$data.' >1</option>';
