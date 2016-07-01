@@ -73,6 +73,7 @@ use yii\widgets\Pjax;
         'titulo',
         'total_monitor',
         'total_estudiante',
+        'total_monitor_respuesta',
 
         [
             'class' => 'yii\grid\ActionColumn',

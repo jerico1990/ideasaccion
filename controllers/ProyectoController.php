@@ -350,7 +350,6 @@ class ProyectoController extends Controller
         $etapa=Etapa::find()->where('estado=1 and etapa=1')->one();
         if($proyectoexiste && $etapa)
         {
-            
             $foros = 'insert into foro (titulo,descripcion,user_id,post_count,proyecto_id)
                     select proyecto.titulo,proyecto.resumen,1,0,proyecto.id from proyecto
                     inner join equipo on equipo.id=proyecto.equipo_id

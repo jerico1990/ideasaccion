@@ -171,7 +171,7 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
                 data: {id:"<?= $model->id ?>",seccion:$("#proyecto-seccion").val()},
                 dataType : "html",
                 success: function(data){
-                    
+                   
                     $('#comentarios').append(data);
                     $('.disabled').barrating({
                         theme: 'fontawesome-stars',
@@ -181,7 +181,6 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
                     
                     $('.enable').barrating({
                         theme: 'fontawesome-stars',
-                        
                       });
                     $('.popover1').webuiPopover();
                     
@@ -270,27 +269,6 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
         
         $( '#btncomentarhijo' ).click(function( event ) {
             var error="";
-            /*if (jQuery.trim($("#foro_comentario-contenido_hijo").val())=='') {
-                error=error+"No ha comentado <br>"                
-            }
-            console.log("cesar");
-            if (error!="") {
-                /*$.notify({
-                        // options
-                        message: error
-                    },{
-                        // settings
-                        type: 'danger',
-                        z_index: 1000000,
-                        placement: {
-                                from: 'bottom',
-                                align: 'right'
-                        },
-                    });
-                return false;
-            }
-            else
-            {*/
                 $.ajax({
                     url: '<?= $insertarcomentarioshijos ?>',
                     type: 'POST',
@@ -331,8 +309,20 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
                     }
                 });
                 return true;
-            //}
         });
+        
+        function Rating(rating,id) {
+            console.log("1");
+            $.ajax({
+                url: '<?= $rating ?>',
+                type: 'GET',
+                async: true,
+                data: {rating:rating,comentario_id:id},
+                success: function(data){
+                    
+                }
+            });
+        }
     });
     
     function Responder(value) {
@@ -347,7 +337,7 @@ $posts = $model->getForo1Entrega($model->id,$seccion);
     });
     
     function Rating(rating,id) {
-        
+        console.log("2");
         $.ajax({
             url: '<?= $rating ?>',
             type: 'GET',
