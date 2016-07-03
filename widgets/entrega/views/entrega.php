@@ -158,17 +158,18 @@ use yii\web\JsExpression;
     
     $('#btnsegundaentrega').click(function(event){
         var error='';
-        var evaluacion='<?= $errorevaluacion ?>';
-        var recomendacion='<?= $errorrecomendaciones ?>';
+        //var evaluacion='<?= $errorevaluacion ?>';
+       // var recomendacion='<?= $errorrecomendaciones ?>';
         var video=<?= $videosegunda ?>;
         
         
-        if (evaluacion!='') {
+        /*if (evaluacion!='') {
             error=evaluacion+error;
-        }
+        }*/
+        /*
         if (recomendacion!='') {
             error=recomendacion+error;
-        }
+        }*/
         if (video<1) {
             error='Debe ingresar el video de la Segunda etapa del proyecto <br>'+error;
         }

@@ -296,8 +296,8 @@ class ProyectoController extends Controller
                                 where objetivo_especifico.proyecto_id='.$proyecto->id.' and cronograma.estado=1 ';
             \Yii::$app->db->createCommand($cronogramacopia)->execute();
             
-            $videocopia =    'insert into video_copia (id,proyecto_id,ruta,etapa)
-                                select id,proyecto_id,ruta,2 from video
+            $videocopia =    'insert into video_copia (id,proyecto_id,ruta,etapa,tipo)
+                                select id,proyecto_id,ruta,2,tipo from video
                                 where proyecto_id='.$proyecto->id.' and etapa=0';
             \Yii::$app->db->createCommand($videocopia)->execute();
             

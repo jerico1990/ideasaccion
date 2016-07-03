@@ -70,7 +70,7 @@ label{
 <div class="box_head title_content_box">
     <img src="../img/icon_team_big.jpg" alt="">SEGUNDA ENTREGA
 </div>
-<div class="box_content contenido_seccion_equipo">
+<div class="box_content contenido_seccion_crear_equipo">
     <div class="row" >
         <div style="border: 2px solid #1f2a69;padding: 10px" class="text-justify">
             <b>Región:</b> <?= $region->department ?><br>
@@ -100,7 +100,6 @@ label{
                             <h4 style="margin-bottom: 0px;padding-bottom: 0px;color: black"><label>Título:</label> </h4>
                             <p class="text-justify" style="padding-bottom: 5px"><?= $proyecto->titulo ?></p>
                         </div>
-                        <div class="clearfix"></div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group label-floating field-proyecto-asunto required">
@@ -181,30 +180,6 @@ label{
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <table class="table">
-                                <thead>
-                                <th>Actividad</th>
-                                <th>Resultado</th>
-                                </thead>
-                                <tbody>
-                            <?php $i=0;?>
-                            <?php foreach($actividades as $actividad){ ?>
-                                <tr>
-                                    <td><?= $actividad->descripcion ?></td>
-                                    <td>
-                                        <div class="form-group field-proyecto-resultado_esperado_<?= $i ?> required">
-                                            <input type="hidden"  class="form-control" name="Proyecto[resultados_ids][]" value="<?= $actividad->actividad_id ?>" >
-                                            <input type="text" id="proyecto-resultado_esperado_<?= $i ?>" class="form-control" name="Proyecto[resultados_esperados][]" placeholder="Resultado #<?= $i ?>" value="<?= $actividad->resultado_esperado ?>" <?= $disabled ?> >
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                            <?php $i++; } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
                             <h4><b>Presupuesto</b>  </h4>
                         </div>
                         <div class="clearfix"></div>
@@ -216,14 +191,15 @@ label{
                         <div class="clearfix"></div>
                         <?= \app\widgets\cronograma\CronogramaWidget2::widget(['proyecto_id'=>$proyecto->id,'disabled'=>$disabled]); ?>
                         <div class="clearfix"></div>
-                        <div class="col-md-12" style="height: 660px; overflow-y: scroll;float: left">
-                            <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
+                        <div class="col-md-12" >
+                            <?php /*if($etapa->etapa==2 || $etapa->etapa==3){ ?>
                                 <?php //= \app\widgets\foro\ForoPrimeraEntregaWidget::widget(['proyecto_id'=>$proyecto->id,'seccion'=>$seccion]); ?> 
-                            <?php }?>
+                            <?php }*/ ?>
                         </div>
                         
                         
                     </div>
+                    <div class="clearfix"></div>
                 <?php }else{ ?>
                         <div class="col-md-12" style="height: 660px; ">
                             <embed style='overflow: hidden' type='text/html' src= "<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" width=100% height=100% >
@@ -239,6 +215,7 @@ label{
                 <div class="tab-pane" id="tab_12">
                     <div class="clearfix"></div>
                     <?php if($videosegunda){ ?>
+                    
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <?php if($videosegunda->ruta && $videosegunda->tipo==1){ ?>
                                 <br>
@@ -260,11 +237,10 @@ label{
                 
             </div><!-- /.tab-content -->
         </div>
-    
-    <div class="clearfix"></div>
     </div>
+    <div class="clearfix"></div>
 </div>
-
+<div class="clearfix"></div>
 
 
 
