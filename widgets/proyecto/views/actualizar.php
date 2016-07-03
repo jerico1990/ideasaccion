@@ -173,7 +173,7 @@ label{
                                 </div>
                                 <div class="clearfix"></div>
                             </div>-->
-                            <?php if($proyecto->formato_proyecto==1 && ($equipo->etapa==1 || $equipo->etapa==0 || $equipo->etapa==NULL)) { ?>
+                            <?php if($proyecto->formato_proyecto==1 && ($equipo->etapa==2 || $equipo->etapa==1 || $equipo->etapa==0 || $equipo->etapa==NULL)) { ?>
                             <div class="form-group" style="background: #F0EFF1">
                                 <p class="text-justify" style="margin: 20px;padding-top: 10px"></p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
@@ -198,7 +198,7 @@ label{
                                 <p class="text-justify" style="margin: 20px;padding-top: 10px">Haz subido tu proyecto en el formato simplificado:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
                                 <div class="col-xs-12 col-sm-4 col-md-4 text-center">
-                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Segunda entrega</a> <span style="cursor: pointer;color: red" onclick="EliminarArchivo(<?= $proyecto->id ?>)"><b>(x)</b></span>
+                                    <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Segunda entrega</a> <?= ($equipo->etapa!=2)?'<span style="cursor: pointer;color: red" onclick="EliminarArchivo('.$proyecto->id.')"><b>(x)</b></span>':''; ?>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>

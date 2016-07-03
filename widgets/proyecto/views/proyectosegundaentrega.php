@@ -204,10 +204,10 @@ label{
                         <div class="col-md-12" style="height: 660px; ">
                             <embed style='overflow: hidden' type='text/html' src= "<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $proyecto->proyecto_archivo2 ?>" width=100% height=100% >
                         </div>
-                        <div class="col-md-12" style="height: 660px; overflow-y: scroll;float: left">
-                            <?php if($etapa->etapa==2 || $etapa->etapa==3){ ?>
+                        <div class="col-md-12" >
+                            <?php //if($etapa->etapa==2 || $etapa->etapa==3){ ?>
                                 <?php //= \app\widgets\foro\ForoPrimeraEntregaWidget::widget(['proyecto_id'=>$proyecto->id,'seccion'=>$seccion]); ?> 
-                            <?php }?>
+                            <?php //}?>
                         </div>
                 
                 <?php } ?>
