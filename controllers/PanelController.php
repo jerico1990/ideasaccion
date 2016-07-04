@@ -85,7 +85,7 @@ class PanelController extends Controller
             if($integrante)
             {
                 $equipo=Equipo::findOne($integrante->equipo_id);
-                if($equipo && $equipo->etapa==1)
+                if($equipo && ($equipo->etapa==1 || $equipo->etapa==2))
                 {
                     $msg="  ¡Felicitaciones!<br>
                             Tú y tu equipo pasaron a la siguiente etapa<br>
