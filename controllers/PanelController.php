@@ -97,7 +97,7 @@ class PanelController extends Controller
                 elseif($equipo && $equipo->etapa==2)
                 {
                     $msg="  ¡Felicitaciones!<br>
-                            Haz finalizado tu segunda etapa<br>
+                            Haz finalizado tu 2da entrega<br>
                             <b>¡Sigue poniendo tus ideas en acción!</b>";
                 }
                 elseif($equipo && ($equipo->etapa==0 || $equipo->etapa==NULL))
