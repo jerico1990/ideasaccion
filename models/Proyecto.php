@@ -229,7 +229,7 @@ class Proyecto extends \yii\db\ActiveRecord
                         IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.proyecto_id = p.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") >=1, 1, 0 ) AS video_check,
                         IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = p.id AND TRIM( reflexion.p1 ) IS NOT NULL and TRIM( reflexion.p1 )!="" AND TRIM( reflexion.p2 ) IS NOT NULL and TRIM( reflexion.p2 )!="" AND TRIM( reflexion.p3 ) IS NOT NULL and TRIM( reflexion.p3 )!="") =1, 1, 0 ) AS reflexion_check,
                         IF(trim(p.proyecto_archivo)!="",1,0) as archivo_proyecto_check,
-                        IF(e.etapa=1,1,0) as proyecto_finalizado
+                        IF(e.etapa=1 || e.etapa=2,1,0) as proyecto_finalizado
                       '])
             ->from('proyecto p')
             ->innerJoin('equipo e','e.id = p.equipo_id')
@@ -255,7 +255,7 @@ class Proyecto extends \yii\db\ActiveRecord
                         IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.proyecto_id = p.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") =1, 1, 0 ) AS video_check,
                         IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = p.id AND TRIM( reflexion.p1 ) IS NOT NULL and TRIM( reflexion.p1 )!="" AND TRIM( reflexion.p2 ) IS NOT NULL and TRIM( reflexion.p2 )!="" AND TRIM( reflexion.p3 ) IS NOT NULL and TRIM( reflexion.p3 )!="") =1, 1, 0 ) AS reflexion_check,
                         IF(trim(p.proyecto_archivo)!="",1,0) as archivo_proyecto_check,
-                        IF(e.etapa=1,1,0) as proyecto_finalizado
+                        IF(e.etapa=1 || e.etapa=2,1,0) as proyecto_finalizado
                       '])
             ->from('proyecto p')
             ->innerJoin('equipo e','e.id = p.equipo_id')
@@ -263,6 +263,68 @@ class Proyecto extends \yii\db\ActiveRecord
             ->innerJoin('estudiante es','es.id=i.estudiante_id')
             ->innerJoin('institucion ins','ins.id=es.institucion_id')
             ->innerJoin('ubigeo u','u.district_id=ins.ubigeo_id')
+            ->groupBy('p.id,p.titulo')
+            ->orderBy($sort);
+        }
+        
+            
+        $result = Yii::$app->tools->Pagination($query,10);
+        
+        return ['proyectos' => $result['result'], 'pages' => $result['pages']];
+    }
+    
+    public function getProyectos2($sort,$region)
+    {
+        
+        //total_equipos province   total_alumnos  district  total_equipos_nofinalizado latitude  total_alumnos_nofinalizado longitud
+        $query = new Query;
+        if($region)
+        {
+            $query
+            ->select(['
+                        p.id,
+                        p.asunto_id,
+                        ins.denominacion,
+                        p.titulo, 
+                        COUNT( i.estudiante_id ) AS total_integrantes,
+                        IF((select count(DISTINCT integrante.estudiante_id) from foro inner join foro_comentario on foro_comentario.foro_id=foro.id  inner join usuario on usuario.id=foro_comentario.user_id inner join estudiante on estudiante.id=usuario.estudiante_id inner join integrante on integrante.estudiante_id=estudiante.id inner join equipo on equipo.id=integrante.equipo_id where foro.id=2 and estudiante.grado!=6 and p.equipo_id=equipo.id )=(COUNT( i.estudiante_id )-1),1,0) as foro_abierto,
+                        IF((select count(DISTINCT integrante.estudiante_id) from foro inner join foro_comentario on foro_comentario.foro_id=foro.id  inner join usuario on usuario.id=foro_comentario.user_id inner join estudiante on estudiante.id=usuario.estudiante_id inner join integrante on integrante.estudiante_id=estudiante.id inner join equipo on equipo.id=integrante.equipo_id where foro.asunto_id=p.asunto_id and estudiante.grado!=6 and p.equipo_id=equipo.id )=(COUNT( i.estudiante_id )-1),1,0) as foro_asunto,
+                        IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.etapa=2 and video.proyecto_id = p.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") >=1, 1, 0 ) AS video_check,
+                        IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = p.id AND TRIM( reflexion.p4 ) IS NOT NULL and TRIM( reflexion.p4 )!="" AND TRIM( reflexion.p6 ) IS NOT NULL and TRIM( reflexion.p6 )!="" AND TRIM( reflexion.p8 ) IS NOT NULL and TRIM( reflexion.p8 )!="") =1, 1, 0 ) AS reflexion_check,
+                        IF(trim(p.proyecto_archivo2)!="",1,0) as archivo_proyecto_check,
+                        IF(e.etapa=2,1,0) as proyecto_finalizado
+                      '])
+            ->from('proyecto p')
+            ->innerJoin('equipo e','e.id = p.equipo_id')
+            ->innerJoin('integrante i','i.equipo_id = e.id')
+            ->innerJoin('estudiante es','es.id=i.estudiante_id')
+            ->innerJoin('institucion ins','ins.id=es.institucion_id')
+            ->innerJoin('ubigeo u','u.district_id=ins.ubigeo_id')
+            ->where('u.department_id=:department_id and e.etapa=2',[':department_id'=>$region])
+            ->groupBy('p.id,p.titulo')
+            ->orderBy($sort);
+        }
+        else
+        {
+            $query
+            ->select(['
+                        p.id,
+                        p.asunto_id,
+                        ins.denominacion,
+                        p.titulo, 
+                        COUNT( i.estudiante_id ) AS total_integrantes,
+                        IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.etapa=2 and video.proyecto_id = p.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") =1, 1, 0 ) AS video_check,
+                        IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = p.id AND TRIM( reflexion.p1 ) IS NOT NULL and TRIM( reflexion.p1 )!="" AND TRIM( reflexion.p2 ) IS NOT NULL and TRIM( reflexion.p2 )!="" AND TRIM( reflexion.p3 ) IS NOT NULL and TRIM( reflexion.p3 )!="") =1, 1, 0 ) AS reflexion_check,
+                        IF(trim(p.proyecto_archivo2)!="",1,0) as archivo_proyecto_check,
+                        IF(e.etapa=2,1,0) as proyecto_finalizado
+                      '])
+            ->from('proyecto p')
+            ->innerJoin('equipo e','e.id = p.equipo_id')
+            ->innerJoin('integrante i','i.equipo_id = e.id')
+            ->innerJoin('estudiante es','es.id=i.estudiante_id')
+            ->innerJoin('institucion ins','ins.id=es.institucion_id')
+            ->innerJoin('ubigeo u','u.district_id=ins.ubigeo_id')
+            ->where('e.etapa=2')
             ->groupBy('p.id,p.titulo')
             ->orderBy($sort);
         }
@@ -317,7 +379,7 @@ class Proyecto extends \yii\db\ActiveRecord
                                     INNER JOIN estudiante es ON es.id=i.estudiante_id
                                     INNER JOIN institucion a ON a.id=es.institucion_id
                                     INNER JOIN ubigeo u ON u.district_id=a.ubigeo_id
-                                WHERE e.estado=1 AND i.rol=1 AND  i.estado=2  AND u.department_id=ubigeo.department_id AND e.etapa=1 
+                                WHERE e.estado=1 AND i.rol=1 AND  i.estado=2  AND u.department_id=ubigeo.department_id AND e.etapa in (1,2) 
                                 GROUP BY u.department_id
                             ) AS district_id
                             '])
@@ -365,7 +427,7 @@ class Proyecto extends \yii\db\ActiveRecord
                                     INNER JOIN estudiante es ON es.id=i.estudiante_id
                                     INNER JOIN institucion a ON a.id=es.institucion_id
                                     INNER JOIN ubigeo u ON u.district_id=a.ubigeo_id
-                                WHERE e.estado=1 AND i.rol=1 AND  i.estado=2  AND u.department_id=ubigeo.department_id AND e.etapa=1 
+                                WHERE e.estado=1 AND i.rol=1 AND  i.estado=2  AND u.department_id=ubigeo.department_id AND e.etapa in (1,2)
                                 GROUP BY u.department_id
                             ) AS district_id
                             '])

@@ -311,6 +311,26 @@ class ReporteController extends Controller
         ]);
     }
     
+    public function actionProyecto2entrega()
+    {
+        $this->layout='administrador';
+        
+        $sort = new Sort([
+            'attributes' => [
+                /*'department' => [
+                    'label' => 'Región',
+                ],*/
+            ],
+        ]);
+        
+        $model = new Proyecto();
+        $model->load(Yii::$app->request->queryParams);
+        return $this->render('proyecto2entrega', [
+            'model' => $model,
+            'sort' => $sort,
+        ]);
+    }
+    
     public function actionProyectoDescargar($region=null)
     {
         if($region)
