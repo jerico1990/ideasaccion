@@ -17,7 +17,7 @@ if (isset($_GET['page']) >= 2)
 </div>
 <div ng-app="ideasaccion" class="box_content contenido_seccion_crear_equipo">
     <?php $form = ActiveForm::begin([
-        'action' => ['proyecto'],
+        'action' => ['proyecto2entrega'],
         'method' => 'get',
     ]); ?>
         <div class="md-col-6">
