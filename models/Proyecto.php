@@ -592,4 +592,40 @@ class Proyecto extends \yii\db\ActiveRecord
         
         return ['proyectos' => $result['result'], 'pages' => $result['pages']];
     }
+    
+    public function getProyectoVotacion($region)
+    {
+        $query = new Query;
+        if($region!="")
+        {
+            
+            $query->select(['
+                            proyecto.id,
+                            proyecto.titulo,
+                            proyecto.resumen,
+                            equipo.descripcion_equipo,
+                            ubigeo.department
+                            '])
+                ->from('proyecto')
+                ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
+                ->innerJoin('integrante','integrante.equipo_id=equipo.id')
+                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
+                ->innerJoin('ubigeo','ubigeo.district_id=institucion.ubigeo_id')
+                ->where('integrante.rol=1 and equipo.etapa=2 and ubigeo.department_id='.$region.'');
+            
+        }
+        else
+        {
+            $query->select(['DISTINCT
+                            department,
+                            
+                            '])
+                ->from('ubigeo')
+                ->orderBy('department asc');
+        }
+        $result = Yii::$app->tools->Pagination($query,27);
+        
+        return ['votaciones' => $result['result'], 'pages' => $result['pages']];
+    }
 }

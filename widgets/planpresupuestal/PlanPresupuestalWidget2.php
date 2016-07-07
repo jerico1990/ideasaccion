@@ -45,7 +45,7 @@ class PlanPresupuestalWidget2 extends Widget
                                 actividad_copia.etapa=2 and objetivo_especifico_copia.etapa=2',[':proyecto_id'=>$proyecto->id])
                     ->all();
                     
-        return $this->render('planpresupuestal1',['proyecto'=>$proyecto,
+        return $this->render('planpresupuestal2',['proyecto'=>$proyecto,
                                                  'objetivos'=>$objetivos,
                                                  'actividades'=>$actividades,
                                                  'planespresupuestales'=>$planespresupuestales,

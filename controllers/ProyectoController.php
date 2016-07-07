@@ -445,6 +445,7 @@ class ProyectoController extends Controller
     public function actionVotacion()
     {
         $this->layout='estandar';
+        $model=new Proyecto;
         $searchModel = new ProyectoSearch();
         $dataProvider = $searchModel->votacion(Yii::$app->request->queryParams);
         $votacionesinternas=VotacionInterna::find()
@@ -463,6 +464,7 @@ class ProyectoController extends Controller
                             ->count();                    
         $votacion_publica=VotacionPublica::find()->all();                    
         return $this->render('votacion',[
+                                        'model'=>$model,
                                         'searchModel' => $searchModel,
                                         'dataProvider' => $dataProvider,
                                         'votacionesinternas'=>$votacionesinternas,

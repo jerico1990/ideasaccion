@@ -32,7 +32,7 @@ class CronogramaWidget2 extends Widget
         $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
         $responsables=Integrante::find()->where('equipo_id=:equipo_id',[':equipo_id'=>$integrante->equipo_id])->all();
         $proyecto=ProyectoCopia::findOne($this->proyecto_id);
-        $objetivos=ObjetivoEspecificoCopia::find()->where('proyecto_id=:proyecto_id and etapa=1',[':proyecto_id'=>$proyecto->id])->all();
+        $objetivos=ObjetivoEspecificoCopia::find()->where('proyecto_id=:proyecto_id and etapa=2',[':proyecto_id'=>$proyecto->id])->all();
         $actividades=ActividadCopia::find()
                     ->innerJoin('objetivo_especifico_copia','objetivo_especifico_copia.id=actividad_copia.objetivo_especifico_id')
                     ->where('objetivo_especifico_copia.proyecto_id=:proyecto_id and actividad_copia.etapa=2 and
@@ -49,7 +49,7 @@ class CronogramaWidget2 extends Widget
                             objetivo_especifico_copia.etapa=2 and actividad_copia.etapa=2 and cronograma_copia.etapa=2',[':proyecto_id'=>$proyecto->id])
                     ->all();
         
-        return $this->render('cronograma1',['proyecto'=>$proyecto,
+        return $this->render('cronograma2',['proyecto'=>$proyecto,
                                                  'objetivos'=>$objetivos,
                                                  'actividades'=>$actividades,
                                                  'cronogramas'=>$cronogramas,

@@ -22,27 +22,19 @@ foreach($objetivos as $objetivo){
     
     
     <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-	<div class="form-group field-proyecto-cronograma_objetivo_99 required" style="margin:0px;">
-	    <ul>
-	    <label class="control-label" for="proyecto-cronograma_objetivo_99"><li id='oespe'><b>Objetivo</b></li></label>
-	    <select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" >
-		<option value>Seleccionar</option>
-		<?= $opciones_objetivos ?>
-	    </select>
-	    </ul>
-	</div>
+    <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
+    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
+	<select id="proyecto-cronograma_objetivo_99" class="form-control" name="Proyecto[cronogramas_objetivos][]" onchange="actividad2($(this).val(),99)" >
+	    <option value>seleccionar</option>
+	    <?= $opciones_objetivos ?>
+	</select>
     </div>
     <div class="clearfix"></div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-	<div class="form-group field-proyecto-cronograma_actividad_99 required" style="margin: 0px;padding: 0px">
-	    <ul>
-	    <label class="control-label" for="registrar-cronograma_actividad_99"><li id='oespe'><b>Actividad</b></li></label>
-	    <select id="proyecto-cronograma_actividad_99" class="form-control" name="Proyecto[cronogramas_actividades]"  onchange="cronograma($(this).val())">
-		<option value>Seleccionar</option>
-	    </select>
-	    </ul>
-	</div>
+    <div class="col-xs-12 col-sm-3 col-md-3 text-center"></div>
+    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
+	<select id="proyecto-cronograma_actividad_99" class="form-control" name="Proyecto[cronogramas_actividades]" onchange="cronograma($(this).val())" >
+	    <option value>seleccionar</option>
+	</select>
     </div>
     <div class="clearfix"></div>
 	<div class="col-xs-12 col-sm-12 col-md-12">
@@ -256,12 +248,12 @@ foreach($objetivos as $objetivo){
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_fecha_inicio_"+i+" required form-control-wrapper' style='margin-top: 0px'>"+
-						"<input type='text'  id='proyecto-cronograma_fecha_inicio_"+i+"' class='form-control label-floating date1' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' value='"+star.fecha_inicio+"' <?= $disabled?> />"+
+						"<input type='date'  id='proyecto-cronograma_fecha_inicio_"+i+"' class='form-control label-floating date1' name='Proyecto[cronogramas_fechas_inicios][]' placeholder='Fecha inicio' value='"+star.fecha_inicio+"' <?= $disabled?> />"+
 					    "</div>"+
 					"</td>"+
 					"<td style='padding: 2px'>"+
 					    "<div class='form-group field-proyecto-cronograma_fecha_fin_"+i+" required' style='margin-top: 0px'>"+
-						"<input type='text' id='proyecto-cronograma_fecha_fin_"+i+"' class='form-control' name='Proyecto[cronogramas_fechas_fines][]' placeholder='Fecha fin' value='"+star.fecha_fin+"' <?= $disabled?>/>"+
+						"<input type='date' id='proyecto-cronograma_fecha_fin_"+i+"' class='form-control' name='Proyecto[cronogramas_fechas_fines][]' placeholder='Fecha fin' value='"+star.fecha_fin+"' <?= $disabled?>/>"+
 					    "</div>"+
 					"</td>"+
 					<?php if($disabled==''){?>
