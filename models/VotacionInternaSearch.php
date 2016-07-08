@@ -72,13 +72,26 @@ class VotacionInternaSearch extends VotacionInterna
                         ->where('estado=2')
                     ->groupBy('proyecto_id')->orderBy('maximo desc')->one();
         //var_dump($countInterna->maximo);die;
-        $query =    VotacionInterna::find()
+        /*$query =    VotacionInterna::find()
                     ->select(['proyecto.id','proyecto.titulo','votacion_interna.region_id','count(proyecto.id) voto','proyecto.valor_porcentual_administrador valor','((count(proyecto.id)/'.$countInterna->maximo.')*0.7 + ((proyecto.valor_porcentual_administrador/40))*0.3)*100  resultado '])
                     ->innerJoin('proyecto','proyecto.id=votacion_interna.proyecto_id')
                     ->where('votacion_interna.estado=2')
                     ->groupBy('proyecto.id,proyecto.titulo,votacion_interna.region_id')
                     ->orderBy('voto desc');
+        */            
                     
+        $query= Proyecto::find()
+                ->select(['proyecto.id','proyecto.titulo','ubigeo.department_id','count(proyecto.id) voto','proyecto.valor_porcentual_administrador valor','((count(proyecto.id)/'.$countInterna->maximo.')*0.7 + ((proyecto.valor_porcentual_administrador/40))*0.3)*100  resultado '])
+                ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
+                ->innerJoin('integrante','integrante.equipo_id=equipo.id')
+                ->innerJoin('estudiante','estudiante.id = integrante.estudiante_id')
+                ->innerJoin('institucion','institucion.id = estudiante.institucion_id')
+                ->innerJoin('ubigeo','ubigeo.district_id = institucion.ubigeo_id')
+                ->leftJoin('votacion_interna','votacion_interna.proyecto_id=proyecto.id AND votacion_interna.estado=2')
+                ->where('equipo.etapa=2 AND integrante.rol=1')
+                ->groupBy('proyecto.id,proyecto.titulo,ubigeo.department_id')
+                ->orderBy('voto desc');
+        
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -93,10 +106,10 @@ class VotacionInternaSearch extends VotacionInterna
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'proyecto_id' => $this->proyecto_id,
+            //'proyecto_id' => $this->proyecto_id,
             'votacion_interna.region_id' => $this->region_id,
-            'user_id' => $this->user_id,
-            'estado' => 2,
+            //'user_id' => $this->user_id,
+            //'estado' => 2,
         ]);
         
         $query->andFilterWhere(['like', 'proyecto.titulo', $this->titulo]);
