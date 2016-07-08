@@ -18,7 +18,7 @@ class VotacionInternaSearch extends VotacionInterna
     public function rules()
     {
         return [
-            [['id', 'proyecto_id', 'region_id', 'user_id', 'estado' ,'voto'], 'integer'],
+            [['id', 'proyecto_id', 'region_id', 'user_id', 'estado' ,'voto','department_id'], 'integer'],
             [['titulo'],'safe']
         ];
     }
