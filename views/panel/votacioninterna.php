@@ -31,12 +31,6 @@ use yii\widgets\Pjax;
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group label-floating field-votacion_interna_search-titulo required">
-                <label class="control-label" for="votacion_interna_search-titulo">Proyecto</label>
-                <input type="text" name="VotacionInternaSearch[titulo]" class="form-control" value="<?= $searchModel->titulo?>">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <?= Html::submitButton('Buscar', ['class' => 'btn btn-raised btn-default']) ?>
             </div>
