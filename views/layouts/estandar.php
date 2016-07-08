@@ -284,7 +284,7 @@ if($key==4)
                                                         Aporta a otros proyectos <span class="hide">></span>
                                                     </div>
                                                 </div>
-                                            </div>',['proyecto/buscar'],['style'=>'background:#f6de34;color:#1f2a69 !important']);?>
+                                            </div>',['proyecto/buscar'],[]);?>
                                         </li>
                                         <?php }?>
                                         
@@ -298,7 +298,7 @@ if($key==4)
                                                         Votación interna <span class="hide">></span>
                                                     </div>
                                                 </div>
-                                            </div>',['proyecto/votacion'],[]);?>
+                                            </div>',['proyecto/votacion'],['style'=>'background:#f6de34;color:#1f2a69 !important']);?>
                                         </li>
                                         <?php }?>
                                         

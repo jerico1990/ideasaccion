@@ -183,7 +183,7 @@ label{
                                 <div class="clearfix"></div>
                             </div><!--César has cambiado el elseif agregandole && $equipo->etapa==1 recuerda 22062016-->
                             <?php } ?>
-                            <?php if(($proyecto->formato_proyecto2=='' || $proyecto->formato_proyecto2==0) && $integrante->rol==1 && $etapa->etapa==2 && $equipo->etapa==1){ ?>
+                            <?php if(($proyecto->formato_proyecto2=='' || $proyecto->formato_proyecto2==0) && $integrante->rol==1 && ($etapa->etapa==2 || $etapa->etapa==3) && $equipo->etapa==1){ ?>
                             <div class="form-group" style="background: #F0EFF1">
                                 <p class="text-justify" style="margin-left: 20px;margin-bottom: 0px;margin-top: 20px;padding-top: 10px">Tambien puedes subir tu proyecto:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
@@ -193,7 +193,7 @@ label{
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                            <?php } elseif($proyecto->formato_proyecto2==1 && $etapa->etapa==2) { ?>
+                            <?php } elseif($proyecto->formato_proyecto2==1 && ($etapa->etapa==2 || $etapa->etapa==3)) { ?>
                             <div class="form-group" style="background: #F0EFF1">
                                 <p class="text-justify" style="margin: 20px;padding-top: 10px">Haz subido tu proyecto en el formato simplificado:</p>
                                 <div class="col-xs-12 col-sm-4 col-md-4"></div>
