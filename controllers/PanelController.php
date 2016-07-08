@@ -226,7 +226,9 @@ class PanelController extends Controller
         
         $searchModel = new VotacionInternaSearch();
         $dataProvider = $searchModel->votacion(Yii::$app->request->queryParams);
-        $countInterna=VotacionInterna::find()->select(['count(proyecto_id) as maximo'])->groupBy('proyecto_id')->one();
+        $countInterna=VotacionInterna::find()->select(['count(proyecto_id) as maximo'])
+                        ->where('estado=2')
+                    ->groupBy('proyecto_id')->orderBy('1 desc')->one();
         
         return $this->render('votacioninterna',[
                                         'searchModel' => $searchModel,
