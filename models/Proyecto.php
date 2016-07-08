@@ -610,7 +610,11 @@ class Proyecto extends \yii\db\ActiveRecord
                             proyecto.id,
                             proyecto.titulo,
                             proyecto.resumen,
-                            equipo.descripcion_equipo
+                            equipo.descripcion_equipo,
+                            ubigeo.department,
+                            proyecto.beneficiario,
+                            proyecto.proyecto_archivo,
+                            proyecto.proyecto_archivo2
                             ')
                 ->from('proyecto')
                 ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
@@ -627,7 +631,11 @@ class Proyecto extends \yii\db\ActiveRecord
                             proyecto.id,
                             proyecto.titulo,
                             proyecto.resumen,
-                            equipo.descripcion_equipo
+                            equipo.descripcion_equipo,
+                            ubigeo.department,
+                            proyecto.beneficiario,
+                            proyecto.proyecto_archivo,
+                            proyecto.proyecto_archivo2
                             ')
                 ->from('proyecto')
                 ->innerJoin('equipo','equipo.id=proyecto.equipo_id')

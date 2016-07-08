@@ -4,7 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Ubigeo;
 use app\models\Proyecto;
+use app\models\Video;
 use app\models\VotacionInterna;
+use app\models\ObjetivoEspecifico;
+use app\models\Actividad;
+
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $model app\models\ProyectoSearch */
@@ -145,8 +149,8 @@ if (isset($_GET['page']) >= 2)
                         <?php $voto=VotacionInterna::find()->where('user_id=:user_id and proyecto_id=:proyecto_id',
                                                                    [':user_id'=>\Yii::$app->user->id,':proyecto_id'=>$votacion["id"]])->one(); ?>
                         <div class="box_content_option" data-id="<?= $votacion["id"] ?>" data-title="<?= $votacion["titulo"] ?>">
-                            <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_votation_info.jpg" class="icon_votation_info">
-                            <a href="#" class="btn_votation_item <?= ($voto)?'active':''; ?>">
+                            <img data-toggle="modal" data-target="#myModal<?= $votacion["id"] ?>" src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_votation_info.jpg" class="icon_votation_info">
+                            <a  href="#" class="btn_votation_item <?= ($voto)?'active':''; ?>">
                                 Vote
                             </a>
                             <h1 class="box_option_title">> TITULO</h1>
@@ -159,6 +163,216 @@ if (isset($_GET['page']) >= 2)
                             </p>
                         </div>
                         
+                        <div class="modal fade" id="myModal<?= $votacion["id"] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                            <div class="popup_mi_busqueda">
+                                <div class="popup_content">
+                                    <a href="#" class="popup_close">
+                                        <img src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_close_popup.png">
+                                    </a>
+
+                                    <div class="popup_content_scroll">
+                                        <div class="box_search_border_blue">
+                                            <h1 class="h1_box_search">
+                                                > TITULO
+                                            </h1>
+                                            <p class="box_search_content">
+                                                <?= $votacion["titulo"] ?>
+                                            </p>
+
+                                            <h1 class="h1_box_search">
+                                                > SUMILLA / JUSTIFICACIÓN
+                                            </h1>
+                                            <p class="box_search_content text-justify">
+                                                <?= $votacion["resumen"] ?>
+                                            </p>
+
+                                            <h1 class="h1_box_search">
+                                                > EQUIPO / IIEE
+                                            </h1>
+                                            <p class="box_search_content">
+                                                <?= $votacion["descripcion_equipo"] ?>
+                                            </p>
+
+                                            <h1 class="h1_box_search">
+                                                > REGIÓN
+                                            </h1>
+                                            <p class="box_search_content">
+                                                <?= $votacion["department"] ?>
+                                            </p>
+
+                                            <h1 class="h1_box_search">
+                                                > BENEFICIARIOS
+                                            </h1>
+                                            <p class="box_search_content">
+                                                <?= $votacion["beneficiario"] ?>
+                                            </p>
+
+                                            <h1 class="h1_box_search">
+                                                > OBJETIVO GENERAL
+                                            </h1>
+                                            <p class="box_search_content">
+                                                
+                                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div id="mostrar_oe_actividades">
+                                                    <div id="oe_1" class='col-xs-12 col-sm-12 col-md-12'>
+                                                        <?php $objetivos_especificos=ObjetivoEspecifico::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$votacion["id"]])->all(); ?>
+                                                        <?php
+                                                        $proyecto= new Proyecto;
+                                                        $b=1;
+                                                        foreach($objetivos_especificos as $objetivo_especifico)
+                                                        {
+                                                            if($b==1)
+                                                            {
+                                                                $proyecto->objetivo_especifico_1_id=$objetivo_especifico->id;
+                                                                $proyecto->objetivo_especifico_1=$objetivo_especifico->descripcion;
+                                                            }
+                                                            if($b==2)
+                                                            {
+                                                                $proyecto->objetivo_especifico_2_id=$objetivo_especifico->id;
+                                                                $proyecto->objetivo_especifico_2=$objetivo_especifico->descripcion;
+                                                            }
+                                                            if($b==3)
+                                                            {
+                                                                $proyecto->objetivo_especifico_3_id=$objetivo_especifico->id;
+                                                                $proyecto->objetivo_especifico_3=$objetivo_especifico->descripcion;
+                                                            }
+                                                            $b++;
+                                                        }
+                                                        $actividades=Actividad::find()
+                                                        ->select('objetivo_especifico.id objetivo_especifico_id,actividad.id actividad_id,actividad.descripcion,actividad.resultado_esperado')
+                                                        ->innerJoin('objetivo_especifico','objetivo_especifico.id=actividad.objetivo_especifico_id')
+                                                        ->where('proyecto_id=:proyecto_id and actividad.estado=1',[':proyecto_id'=>$votacion["id"]])->all();
+                                                        
+                                                        $acti1=1;
+                                                        $acti2=1;
+                                                        $acti3=1;
+                                                        ?>
+                                                        
+                                                        
+                                                        <?php if($proyecto->objetivo_especifico_1){ ?>
+                                                            <ul>
+                                                                <li id='oespe'><b>Objetivo N° 1: <?= $proyecto->objetivo_especifico_1 ?></b>   </li>
+                                                                <ul>
+                                                                    <?php foreach($actividades as $actividad){ ?>
+                                                                        <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_1_id){?>
+                                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_1][]'></li>
+                                                                            
+                                                                        <?php $acti1 ++; } ?>
+                                                                    <?php  } ?>
+                                                                </ul>
+                                                            </ul>
+                                                        <?php } ?>
+                                                    </div>
+                                                    
+                                                    <div id="oe_2" class='col-xs-12 col-sm-12 col-md-12'>
+                                                        <?php if($proyecto->objetivo_especifico_2){  ?>
+                                                            <ul>
+                                                                <li id='oespe'><b>Objetivo N°2: <?= $proyecto->objetivo_especifico_2 ?></b>  </li>
+                                                                    
+                                                                <ul>
+                                                                    <?php foreach($actividades as $actividad){ ?>
+                                                                        <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_2_id){?>
+                                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_2][]'></li>
+                                                                            
+                                                                        <?php $acti2++;} ?>
+                                                                    <?php  } ?>
+                                                                </ul>
+                                                            </ul>
+                                                            <?php $contoe=2; ?>
+                                                        <?php } ?>
+                                                    </div>
+                                                    
+                                                    <div id="oe_3" class='col-xs-12 col-sm-12 col-md-12'>
+                                                        <?php if($proyecto->objetivo_especifico_3) { ?>
+                                                            <ul>
+                                                                <li id='oespe'><b>Objetivo N°3: <?= $proyecto->objetivo_especifico_3 ?></b> </li>
+                                                                    
+                                                                <ul>
+                                                                    <?php foreach($actividades as $actividad){ ?>
+                                                                        <?php if($actividad->objetivo_especifico_id==$proyecto->objetivo_especifico_3_id){?>
+                                                                            <li id='act'>Actividad: <?= $actividad->descripcion ?><input type='hidden' value='<?= $actividad->descripcion ?>' name='Proyecto[actividades_3][]'></li>
+                                                                        <?php $acti3++;  } ?>
+                                                                    <?php  } ?>
+                                                                </ul>
+                                                            </ul>
+                                                            <?php $contoe=3; ?>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                        
+                                            </p>
+                                            
+                                            <h1 class="h1_box_search">
+                                                > PLAN PRESUPUESTAL
+                                            </h1>
+                                            <p class="box_search_content">
+                                                <?= \app\widgets\planpresupuestal\PlanPresupuestalWidget::widget(['proyecto_id'=>$votacion["id"],'disabled'=>true]); ?> 
+                                            </p>
+                                            
+                                            <h1 class="h1_box_search">
+                                                > CRONOGRAMA
+                                            </h1>
+                                            <p class="box_search_content">
+                                                <?= \app\widgets\cronograma\CronogramaWidget::widget(['proyecto_id'=>$votacion["id"],'disabled'=>true]); ?> 
+                                            </p>
+                                            
+                                            <h1 class="h1_box_search">
+                                                > PRIMER ARCHIVO
+                                            </h1>
+                                            <p class="box_search_content">
+                                                <?php if($votacion["proyecto_archivo"]!=NULL){ ?>
+                                                <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $votacion["proyecto_archivo"] ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Primera entrega</a> 
+                                                <?php } ?>
+                                            </p>
+                                            
+                                            <h1 class="h1_box_search">
+                                                > PRIMER VIDEO
+                                            </h1>
+                                            <?php $video1=Video::find()->where('proyecto_id=:proyecto_id and etapa=1',[':proyecto_id'=>$votacion["id"]])->one(); ?>
+                                            <p class="box_search_content">
+                                                <?php if($video1){ ?>
+                                                <iframe type="text/html" 
+                                                    width="320" 
+                                                    height="240" 
+                                                    src="https://www.youtube.com/embed/<?= substr($video1->ruta,-11) ?>" 
+                                                    frameborder="0">
+                                                </iframe>
+                                                <?php } ?>
+                                            </p>
+                                            
+                                            <h1 class="h1_box_search">
+                                                > SEGUNDO ARCHIVO
+                                            </h1>
+                                            <p class="box_search_content">
+                                                <?php if($votacion["proyecto_archivo2"]!=NULL){ ?>
+                                                <a href="<?= \Yii::$app->request->BaseUrl ?>/proyectos/<?= $votacion["proyecto_archivo2"] ?>" target="_blank" class=" btn-lateral"><img height=22px src="<?= \Yii::$app->request->BaseUrl ?>/img/pdf.png"> Segunda entrega</a> 
+                                                <?php } ?>
+                                            </p>
+                                            
+                                            <h1 class="h1_box_search">
+                                                > SEGUNDO VIDEO
+                                            </h1>
+                                            <?php $video2=Video::find()->where('proyecto_id=:proyecto_id and etapa=2',[':proyecto_id'=>$votacion["id"]])->one(); ?>
+                                            <p class="box_search_content">
+                                                <?php if($video2){ ?>
+                                                <iframe type="text/html" 
+                                                    width="320" 
+                                                    height="240" 
+                                                    src="https://www.youtube.com/embed/<?= substr($video2->ruta,-11) ?>" 
+                                                    frameborder="0">
+                                                </iframe>
+                                                <?php } ?>
+                                            </p>
+                                            
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>		
+                        </div>
                         <?php endforeach; ?>
                         
                     </div>
@@ -269,7 +483,6 @@ if (isset($_GET['page']) >= 2)
         <script>
             var p=$('#v'+<?= $a ?>);
             p.addClass('active');
-            console.log(p);
             p.attr("data-option", "<?= $votacion["id"] ?>");
 			    
                 $(".box_votacion_content", p).html("<?= $votacion["titulo"] ?>");
@@ -280,7 +493,24 @@ if (isset($_GET['page']) >= 2)
         <?php $a++; ?>
     <?php } ?>
 <?php endforeach; ?>                                     
-                                                                   
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>                                                                  
 
 <script src="<?= \Yii::$app->request->BaseUrl ?>/js/app.js" charset="utf-8"></script>
 <?php
