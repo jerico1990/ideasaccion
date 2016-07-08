@@ -71,7 +71,7 @@ class VotacionInternaSearch extends VotacionInterna
         $countInterna=VotacionInterna::find()->select(['count(proyecto_id) as maximo'])->groupBy('proyecto_id')->one();
         //var_dump($countInterna->maximo);die;
         $query =    VotacionInterna::find()
-                    ->select(['proyecto.id','proyecto.titulo','votacion_interna.region_id','count(proyecto.id) voto','proyecto.valor_porcentual_administrador valor','((count(proyecto.id)*100)/'.$countInterna->maximo.')*0.7 + (proyecto.valor_porcentual_administrador)*0.3  resultado '])
+                    ->select(['proyecto.id','proyecto.titulo','votacion_interna.region_id','count(proyecto.id) voto','proyecto.valor_porcentual_administrador valor','(count(proyecto.id)/'.$countInterna->maximo.')*0.7 + ((proyecto.valor_porcentual_administrador/40))*0.3  resultado '])
                     ->innerJoin('proyecto','proyecto.id=votacion_interna.proyecto_id')
                     ->groupBy('proyecto.id,proyecto.titulo,votacion_interna.region_id')
                     ->orderBy('voto desc');

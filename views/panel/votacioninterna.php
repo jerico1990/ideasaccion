@@ -83,11 +83,11 @@ use yii\widgets\Pjax;
 <script type="application/x-javascript">
 
 function grabado_automatico(element,proyecto_id,voto) {
-    console.log(element.val());
-    var resultado=((voto*100)/<?= $countInterna->maximo ?>)*0.7+element.val()*0.3;
-    if (element.val()<0 || element.val()>100) {
+    
+    var resultado=(voto/<?= $countInterna->maximo ?>)*0.7+(element.val()/40)*0.3;
+    if (element.val()<0 || element.val()>40) {
         $.notify({
-            message: 'Debe estar en el intervalo de 1 a 100' 
+            message: 'Debe estar en el intervalo de 1 a 40' 
         },{
             type: 'danger',
             z_index: 1000000,
