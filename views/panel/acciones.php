@@ -29,7 +29,7 @@ if($votacionpublica || $etapa->etapa!=3)
         <div class="clearfix"></div><p></p>
         <button class="btn btn-raised btn-default" id="cerrar2entrega" <?= ($etapa->etapa!=2)?'disabled':'' ?> >cerrar 2da entrega</button>
         <div class="clearfix"></div><p></p>
-        <?= Html::a('Votación interna',['votacioninterna'],['id'=>'btnvotacioninterna','class'=>'btn btn-raised btn-default','disabled'=>$disabled]); ?>
+        <?php  //Html::a('Votación interna',['votacioninterna'],['id'=>'btnvotacioninterna','class'=>'btn btn-raised btn-default','disabled'=>$disabled]); ?>
         <div class="clearfix"></div><p></p>
         <button class="btn btn-raised btn-default" disabled=true id="cerrarvotacioninterna" <?= ($votacionpublica || $etapa->etapa!=3)?'disabled':'' ?> >cerrar votación interna</button>
     </div>
