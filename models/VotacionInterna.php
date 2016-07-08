@@ -22,6 +22,7 @@ class VotacionInterna extends \yii\db\ActiveRecord
     public $valor;
     public $resultado;
     public $maximo;
+    public $department_id;
     public static function tableName()
     {
         return 'votacion_interna';
@@ -33,7 +34,7 @@ class VotacionInterna extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['proyecto_id', 'region_id', 'user_id','voto','resultado'], 'integer'],
+            [['proyecto_id', 'region_id', 'user_id','voto','resultado','department_id'], 'integer'],
             [['titulo'],'safe']
         ];
     }
