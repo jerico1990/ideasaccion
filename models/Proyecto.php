@@ -114,6 +114,8 @@ class Proyecto extends \yii\db\ActiveRecord
     public $total_monitor;
     public $total_estudiante;
     public $total_monitor_respuesta;
+    
+    
     public static function tableName()
     {
         return 'proyecto';
@@ -593,38 +595,49 @@ class Proyecto extends \yii\db\ActiveRecord
         return ['proyectos' => $result['result'], 'pages' => $result['pages']];
     }
     
-    public function getProyectoVotacion($region)
+    public function getProyectoVotacion($titulo)
     {
+        $usuario=Usuario::findOne(\Yii::$app->user->id);
+        $estudiante=Estudiante::findOne($usuario->estudiante_id);
+        $institucion=Institucion::findOne($estudiante->institucion_id);
+        $ubigeo=Ubigeo::find()->where('district_id=:district_id',[':district_id'=>$institucion->ubigeo_id])->one();
+        
         $query = new Query;
-        if($region!="")
+        if($titulo!="")
         {
             
-            $query->select(['
+            $query->select('
                             proyecto.id,
                             proyecto.titulo,
                             proyecto.resumen,
-                            equipo.descripcion_equipo,
-                            ubigeo.department
-                            '])
+                            equipo.descripcion_equipo
+                            ')
                 ->from('proyecto')
                 ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
                 ->innerJoin('integrante','integrante.equipo_id=equipo.id')
                 ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
                 ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
                 ->innerJoin('ubigeo','ubigeo.district_id=institucion.ubigeo_id')
-                ->where('integrante.rol=1 and equipo.etapa=2 and ubigeo.department_id='.$region.'');
+                ->where('integrante.rol=1 and equipo.etapa=2 and proyecto.titulo like "%'.$titulo.'%" and ubigeo.department_id="'.$ubigeo->department_id.'"');
             
         }
         else
         {
-            $query->select(['DISTINCT
-                            department,
-                            
-                            '])
-                ->from('ubigeo')
-                ->orderBy('department asc');
+            $query->select('
+                            proyecto.id,
+                            proyecto.titulo,
+                            proyecto.resumen,
+                            equipo.descripcion_equipo
+                            ')
+                ->from('proyecto')
+                ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
+                ->innerJoin('integrante','integrante.equipo_id=equipo.id')
+                ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
+                ->innerJoin('ubigeo','ubigeo.district_id=institucion.ubigeo_id')
+                ->where('integrante.rol=1 and equipo.etapa=2 and ubigeo.department_id="'.$ubigeo->department_id.'"');
         }
-        $result = Yii::$app->tools->Pagination($query,27);
+        $result = Yii::$app->tools->Pagination($query,150);
         
         return ['votaciones' => $result['result'], 'pages' => $result['pages']];
     }

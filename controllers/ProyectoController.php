@@ -497,6 +497,47 @@ class ProyectoController extends Controller
                 $votacioninterna->estado=1;
                 $votacioninterna->save();
                 echo 1;
+            }/*
+            else
+            {
+                VotacionInterna::find()
+                                ->where('proyecto_id=:proyecto_id and user_id=:user_id and estado=1',
+                                        [':proyecto_id'=>$proyecto->id,':user_id'=>\Yii::$app->user->id])
+                                ->one()
+                                ->delete();
+                echo 2;
+            }*/
+        }
+        else
+        {
+            echo 3;
+        }
+    }
+    
+    public function actionVotacioninternaeliminar($id)
+    {
+        $proyecto=Proyecto::findOne($id);
+        $votacioninterna=VotacionInterna::find()
+                            ->where('proyecto_id=:proyecto_id and user_id=:user_id and estado=1',
+                                    [':proyecto_id'=>$proyecto->id,':user_id'=>\Yii::$app->user->id])
+                            ->one();
+        
+        $countvotacioninterna=VotacionInterna::find()
+                            ->where( 'user_id=:user_id',
+                                    [':user_id'=>\Yii::$app->user->id])
+                            ->count();
+                            
+        if($countvotacioninterna<3 || $votacioninterna)
+        {
+            if(!$votacioninterna)
+            {
+                $votacioninterna=new VotacionInterna;
+                $votacioninterna->proyecto_id=$proyecto->id;
+                $votacioninterna->region_id=$proyecto->region_id;
+                $votacioninterna->user_id=\Yii::$app->user->id;
+                $votacioninterna->estado=1;
+                $votacioninterna->save();
+                echo 1;
             }
             else
             {
@@ -512,8 +553,6 @@ class ProyectoController extends Controller
         {
             echo 3;
         }
-        
-        
     }
     
     public function actionFinalizarvotacioninterna()
