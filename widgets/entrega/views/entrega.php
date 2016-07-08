@@ -55,9 +55,14 @@ use yii\web\JsExpression;
 <?php if($etapa1 && $equipo->etapa==0){ ?>
 <button class="btn btn-default" type="button" id="btnprimeraentrega" <?= (!$etapa1 || $equipo->etapa==1)?'disabled':'' ?>>Finalizar 1ra entrega</button>
 <?php }?>
-<?php if($etapa2 && $equipo->etapa==1){ ?>
+<?php /*if($etapa2 && $equipo->etapa==1){ ?>
 <button class="btn btn-default" type="button" id="btnsegundaentrega" <?= (!$etapa2 || $equipo->etapa==2)?'disabled':'' ?>>Finalizar 2da entrega</button>
+<?php }*/?>
+<?php if($equipo->etapa==1){ ?>
+<button class="btn btn-default" type="button" id="btnsegundaentrega" >Finalizar 2da entrega</button>
 <?php }?>
+
+
 
 <?php if($equipo->etapa==1 || $equipo->etapa==2){?>
 <?php //= \app\widgets\proyecto\ProyectoPrimeraEntregaWidget::widget(); ?>

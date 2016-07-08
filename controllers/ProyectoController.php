@@ -310,7 +310,7 @@ class ProyectoController extends Controller
             $video->update();
             $proyectoetapa=Proyecto::findOne($proyecto->id);
             $equipo=Equipo::findOne($proyectoetapa->equipo_id);
-            $equipo->etapa=$etapa->etapa;
+            $equipo->etapa=2;
             $equipo->update();
             
             echo 1;
