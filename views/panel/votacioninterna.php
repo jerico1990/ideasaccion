@@ -50,7 +50,7 @@ use yii\widgets\Pjax;
                 'titulo',
                 'voto',
                 [
-                    'label'=>'Valor %',
+                    'label'=>'Valor del 0-40',
                     //'attribute' => 'codigo_modular',
                     'format'=>'raw',
                     'value'=>function($data) {
@@ -80,7 +80,7 @@ function grabado_automatico(element,proyecto_id,voto) {
     console.log(voto);
     console.log(<?= $countInterna->maximo ?>);
     console.log(element.val());
-    var resultado=(voto/<?= $countInterna->maximo ?>)*(0.7)+(element.val()/40)*(0.3);
+    var resultado=((voto/<?= $countInterna->maximo ?>)*(0.7)+(element.val()/40)*(0.3))*100;
     console.log(resultado);
     if (element.val()<0 || element.val()>40) {
         $.notify({
