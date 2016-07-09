@@ -107,7 +107,7 @@ class VotacionInternaSearch extends VotacionInterna
         $query->andFilterWhere([
             'id' => $this->id,
             //'proyecto_id' => $this->proyecto_id,
-            'votacion_interna.region_id' => $this->region_id,
+            'ubigeo.department_id' => $this->region_id,
             //'user_id' => $this->user_id,
             //'estado' => 2,
         ]);
