@@ -57,12 +57,16 @@ $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
 // Add some data
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A1', 'Región')
-            ->setCellValue('B1', 'Institucion Educativa')
-	    ->setCellValue('C1', 'Título del proyecto')
-	    ->setCellValue('D1', 'Proyecto finalizado')
-	    ->setCellValue('E1', 'Registro del video')
-            ->setCellValue('F1', 'Registro de reflexión')
-            ->setCellValue('G1', 'Archivo de proyecto');
+            ->setCellValue('B1', 'Código modular')
+	    ->setCellValue('C1', 'Institucion Educativa')
+	    ->setCellValue('D1', 'Nombres')
+	    ->setCellValue('E1', 'Ap. Paterno')
+            ->setCellValue('F1', 'Ap. Materno')
+            ->setCellValue('G1', 'Email')
+            ->setCellValue('H1', 'Celular')
+            ->setCellValue('I1', 'Grado')
+            ->setCellValue('J1', 'Título')
+            ->setCellValue('K1', 'Equipo');
 
 // Miscellaneous glyphs, UTF-8
     $i=2;
@@ -71,12 +75,16 @@ $objPHPExcel->setActiveSheetIndex(0)
     
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A'.$i, $proyecto->department)
-            ->setCellValue('B'.$i, $proyecto->denominacion)
-	    ->setCellValue('C'.$i, $proyecto->titulo)
-	    ->setCellValue('D'.$i, $proyecto->proyecto_finalizado)
-	    ->setCellValue('E'.$i, $proyecto->video_check)
-            ->setCellValue('F'.$i, $proyecto->reflexion_check)
-            ->setCellValue('G'.$i, $proyecto->archivo_proyecto_check);
+            ->setCellValue('B'.$i, $proyecto->codigo_modular)
+	    ->setCellValue('C'.$i, $proyecto->denominacion)
+	    ->setCellValue('D'.$i, $proyecto->nombres)
+	    ->setCellValue('E'.$i, $proyecto->apellido_paterno)
+            ->setCellValue('F'.$i, $proyecto->apellido_materno)
+            ->setCellValue('G'.$i, $proyecto->email)
+            ->setCellValue('H'.$i, $proyecto->celular)
+            ->setCellValue('I'.$i, $proyecto->grado)
+            ->setCellValue('J'.$i, $proyecto->titulo)
+            ->setCellValue('K'.$i, $proyecto->descripcion_equipo);
     $i++;
     endforeach; 
 

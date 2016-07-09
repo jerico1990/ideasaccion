@@ -338,16 +338,17 @@ class ReporteController extends Controller
         if($region)
         {
             $proyectos=Proyecto::find()->select(['
-                    proyecto.id,
-                    proyecto.asunto_id,
                     u.department,
+                    ins.codigo_modular,
                     ins.denominacion,
-                    proyecto.titulo, 
-                    COUNT( i.estudiante_id ) AS total_integrantes,
-                    IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.etapa=2 and video.proyecto_id = proyecto.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") >=1, 1, 0 ) AS video_check,
-                    IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = proyecto.id AND TRIM( reflexion.p4 ) IS NOT NULL and TRIM( reflexion.p4 )!="" AND TRIM( reflexion.p6 ) IS NOT NULL and TRIM( reflexion.p6 )!="" AND TRIM( reflexion.p8 ) IS NOT NULL and TRIM( reflexion.p8 )!="") =1, 1, 0 ) AS reflexion_check,
-                    IF(trim(proyecto.proyecto_archivo2)!="",1,0) as archivo_proyecto_check,
-                    IF(e.etapa=2,1,0) as proyecto_finalizado
+                    es.nombres,
+                    es.apellido_paterno,
+                    es.apellido_materno,
+                    es.email,
+                    es.celular,
+                    es.grado,
+                    proyecto.titulo,
+                    e.descripcion_equipo
                   '])
             ->innerJoin('equipo e','e.id = proyecto.equipo_id')
             ->innerJoin('integrante i','i.equipo_id = e.id')
@@ -360,16 +361,17 @@ class ReporteController extends Controller
         }
         else{
             $proyectos=Proyecto::find()->select(['
-                    proyecto.id,
-                    proyecto.asunto_id,
                     u.department,
+                    ins.codigo_modular,
                     ins.denominacion,
-                    proyecto.titulo, 
-                    COUNT( i.estudiante_id ) AS total_integrantes,
-                    IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.etapa=2 and video.proyecto_id = proyecto.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") >=1, 1, 0 ) AS video_check,
-                    IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = proyecto.id AND TRIM( reflexion.p4 ) IS NOT NULL and TRIM( reflexion.p4 )!="" AND TRIM( reflexion.p6 ) IS NOT NULL and TRIM( reflexion.p6 )!="" AND TRIM( reflexion.p8 ) IS NOT NULL and TRIM( reflexion.p8 )!="") =1, 1, 0 ) AS reflexion_check,
-                    IF(trim(proyecto.proyecto_archivo2)!="",1,0) as archivo_proyecto_check,
-                    IF(e.etapa=2,1,0) as proyecto_finalizado
+                    es.nombres,
+                    es.apellido_paterno,
+                    es.apellido_materno,
+                    es.email,
+                    es.celular,
+                    es.grado,
+                    proyecto.titulo,
+                    e.descripcion_equipo
                   '])
             ->innerJoin('equipo e','e.id = proyecto.equipo_id')
             ->innerJoin('integrante i','i.equipo_id = e.id')
