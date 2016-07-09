@@ -150,9 +150,11 @@ if (isset($_GET['page']) >= 2)
                                                                    [':user_id'=>\Yii::$app->user->id,':proyecto_id'=>$votacion["id"]])->one(); ?>
                         <div class="box_content_option" data-id="<?= $votacion["id"] ?>" data-title="<?= $votacion["titulo"] ?>">
                             <img data-toggle="modal" data-target="#myModal<?= $votacion["id"] ?>" src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_votation_info.jpg" class="icon_votation_info">
+                            <?php if (!$votacionesinternasfinalizadasCount){ ?>
                             <a  href="#" class="btn_votation_item <?= ($voto)?'active':''; ?>">
                                 Vote
                             </a>
+                            <?php } ?>
                             <h1 class="box_option_title">> TITULO</h1>
                             <p class="box_option_content">
                                 <?= $votacion["titulo"] ?>
@@ -627,5 +629,112 @@ $('#btnfinalizarvotacion').click(function(event){
     return true;
     
 });
-
+$(document).ready(function(){
+    $(document).on('click', '.btn-send-votation', function (e) {
+            e.preventDefault();
+            var o = $(this);
+            var d = o.parent();
+            var flag=<?= $regionCount ?>;
+            var pasar=0;
+            var numOptions = 0;
+            
+            $(".input_votation_option").each(function(){
+                    var obj = $(this);
+                    if(obj.val() != "") numOptions++;
+            });
+            if (flag>=3) {
+                if(numOptions == 3){
+                    d.addClass("form_send");
+                    o.hide();
+                    
+                    $.ajax({
+                        url: 'finalizarvotacioninterna',
+                        type: 'GET',
+                        async: true,
+                        success: function(data){
+                            if (data==1) {
+                                $.notify({
+                                    // options
+                                    message: 'Ha finalizado el proceso de votación interna' 
+                                },{
+                                    // settings
+                                    type: 'success',
+                                    z_index: 1000000,
+                                    placement: {
+                                            from: 'bottom',
+                                            align: 'right'
+                                    },
+                                });
+                                setTimeout(function(){
+                                        window.location.reload(1);
+                                    }, 2000);
+                            }
+                        }
+                    });
+                }else{
+                    $.notify({
+                        // options
+                        message: 'Debes votar por 3 proyectos' 
+                    },{
+                        // settings
+                        type: 'danger',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                        //alert("Se deben seleccionar 3 opciones para culminar la votación.");
+                }   
+            }
+            else if (flag<3) {
+                if(numOptions >= 1){
+                    d.addClass("form_send");
+                    o.hide();
+                    
+                    $.ajax({
+                        url: 'finalizarvotacioninterna',
+                        type: 'GET',
+                        async: true,
+                        success: function(data){
+                            if (data==1) {
+                                $.notify({
+                                    // options
+                                    message: 'Ha finalizado el proceso de votación interna' 
+                                },{
+                                    // settings
+                                    type: 'success',
+                                    z_index: 1000000,
+                                    placement: {
+                                            from: 'bottom',
+                                            align: 'right'
+                                    },
+                                });
+                                setTimeout(function(){
+                                        window.location.reload(1);
+                                    }, 2000);
+                            }
+                        }
+                    });
+                }else{
+                    $.notify({
+                        // options
+                        message: 'Debes votar por los menos 1 proyecto' 
+                    },{
+                        // settings
+                        type: 'danger',
+                        z_index: 1000000,
+                        placement: {
+                                from: 'bottom',
+                                align: 'right'
+                        },
+                    });
+                        //alert("Se deben seleccionar 3 opciones para culminar la votación.");
+                }
+            }
+            
+            
+    });
+    
+});
 </script>

@@ -37,7 +37,6 @@ $(document).ready(function(){
 	    e.preventDefault();
 	    var obj = $(this);
 	    var div = obj.parent();
-	    console.log(div.data("id"));
 	    if(!obj.hasClass("active")){
 		var apply = false;
 
@@ -87,8 +86,7 @@ $(document).ready(function(){
 
 				if(_div.attr("data-id") == div.attr("data-option")){
 					var id=div.attr("data-option");// console.log(div.attr("data-option"));
-					div.attr("data-option", "")
-					console.log(div.attr("data-option"));
+					div.attr("data-option", "");
 					$(".btn_votation_item", _div).removeClass("active");
 
 					$("#input_votation_"+ div.attr("data-id")).val("");
@@ -107,60 +105,5 @@ $(document).ready(function(){
 		}
 	});
 
-	$(document).on('click', '.btn-send-votation', function (e) {
-		e.preventDefault();
-		var o = $(this);
-		var d = o.parent();
-		
-		var numOptions = 0;
-		
-		$(".input_votation_option").each(function(){
-			var obj = $(this);
-			if(obj.val() != "") numOptions++;
-		});
-		
-		if(numOptions == 3){
-			d.addClass("form_send");
-			o.hide();
-			
-			$.ajax({
-			    url: 'finalizarvotacioninterna',
-			    type: 'GET',
-			    async: true,
-			    success: function(data){
-				if (data==1) {
-				    $.notify({
-					// options
-					message: 'Ha finalizado el proceso de votación interna' 
-				    },{
-					// settings
-					type: 'success',
-					z_index: 1000000,
-					placement: {
-						from: 'bottom',
-						align: 'right'
-					},
-				    });
-				    setTimeout(function(){
-					    window.location.reload(1);
-					}, 2000);
-				}
-			    }
-			});
-		}else{
-		    $.notify({
-			// options
-			message: 'Debes votar por 3 proyectos' 
-		    },{
-			// settings
-			type: 'danger',
-			z_index: 1000000,
-			placement: {
-				from: 'bottom',
-				align: 'right'
-			},
-		    });
-			//alert("Se deben seleccionar 3 opciones para culminar la votación.");
-		}
-	});
+	
 });

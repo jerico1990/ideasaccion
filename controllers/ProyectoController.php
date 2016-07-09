@@ -24,6 +24,8 @@ use app\models\Ubigeo;
 use app\models\VotacionPublica;
 use app\models\Estudiante;
 use app\models\Resultados;
+use app\models\Institucion;
+
 use yii\db\Query;
 use yii\web\UploadedFile;
 /**
@@ -452,8 +454,21 @@ class ProyectoController extends Controller
                             ->where('user_id=:user_id and estado in (1,2)',
                                     [':user_id'=>\Yii::$app->user->id])
                             ->all();
-                            
-                            
+        $usuario=Usuario::findOne(\Yii::$app->user->id);
+        $estudiante=Estudiante::findOne($usuario->estudiante_id);
+        $institucion=Institucion::findOne($estudiante->institucion_id);
+        $ubigeo=Ubigeo::find()->where('district_id=:district_id',[':district_id'=>$institucion->ubigeo_id])->one();
+        
+        $regionCount=Equipo::find()
+                        ->innerJoin('proyecto','proyecto.equipo_id=equipo.id')
+                        ->innerJoin('integrante','integrante.equipo_id=equipo.id')
+                        ->innerJoin('estudiante','estudiante.id=integrante.estudiante_id')
+                        ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
+                        ->innerJoin('ubigeo','ubigeo.district_id=institucion.ubigeo_id')
+                        ->where('integrante.rol=1 and equipo.etapa=2 and ubigeo.department_id=:department_id',[':department_id'=>$ubigeo->department_id])
+                        ->count();
+         
+        
         $votacionesinternasCount=VotacionInterna::find()
                             ->where('user_id=:user_id and estado=1',
                                     [':user_id'=>\Yii::$app->user->id])
@@ -470,7 +485,8 @@ class ProyectoController extends Controller
                                         'votacionesinternas'=>$votacionesinternas,
                                         'votacionesinternasCount'=>$votacionesinternasCount,
                                         'votacionesinternasfinalizadasCount'=>$votacionesinternasfinalizadasCount,
-                                        'votacion_publica'=>$votacion_publica]);
+                                        'votacion_publica'=>$votacion_publica,
+                                        'regionCount'=>$regionCount]);
     }
     
     public function actionVotacioninterna($id)
