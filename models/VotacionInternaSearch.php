@@ -81,7 +81,8 @@ class VotacionInternaSearch extends VotacionInterna
         */            
                     
         $query= Proyecto::find()
-                ->select(['proyecto.id','proyecto.titulo','ubigeo.department_id','count(proyecto.id) voto','proyecto.valor_porcentual_administrador valor','((count(proyecto.id)/'.$countInterna->maximo.')*0.7 + ((proyecto.valor_porcentual_administrador/40))*0.3)*100  resultado '])
+                //->select(['proyecto.id','proyecto.titulo','ubigeo.department_id','count(proyecto.id) voto','proyecto.valor_porcentual_administrador valor','((count(proyecto.id)/'.$countInterna->maximo.')*0.7 + ((proyecto.valor_porcentual_administrador/40))*0.3)*100 as resultado '])
+                ->select(['proyecto.id','proyecto.titulo','ubigeo.department_id','count(proyecto.id) voto','proyecto.valor_porcentual_administrador valor','proyecto.resultado'])
                 ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
                 ->innerJoin('integrante','integrante.equipo_id=equipo.id')
                 ->innerJoin('estudiante','estudiante.id = integrante.estudiante_id')

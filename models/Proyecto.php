@@ -115,7 +115,6 @@ class Proyecto extends \yii\db\ActiveRecord
     public $total_estudiante;
     public $total_monitor_respuesta;
     public $voto;
-    public $resultado;
     public $department_id;
     public $valor;
     public $department;
