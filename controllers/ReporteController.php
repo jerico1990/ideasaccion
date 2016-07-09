@@ -337,7 +337,7 @@ class ReporteController extends Controller
         
         if($region)
         {
-            $proyectos=Proyecto::find()->select(['
+            $proyectos=Proyecto::find()->select('
                     u.department,
                     ins.codigo_modular,
                     ins.denominacion,
@@ -349,18 +349,17 @@ class ReporteController extends Controller
                     es.grado,
                     proyecto.titulo,
                     e.descripcion_equipo
-                  '])
+                  ')
             ->innerJoin('equipo e','e.id = proyecto.equipo_id')
             ->innerJoin('integrante i','i.equipo_id = e.id')
             ->innerJoin('estudiante es','es.id=i.estudiante_id')
             ->innerJoin('institucion ins','ins.id=es.institucion_id')
             ->innerJoin('ubigeo u','u.district_id=ins.ubigeo_id')
             ->where('u.department_id=:department_id and e.etapa=2',[':department_id'=>$region])
-            ->groupBy('proyecto.id,proyecto.titulo')
             ->all();
         }
         else{
-            $proyectos=Proyecto::find()->select(['
+            $proyectos=Proyecto::find()->select('
                     u.department,
                     ins.codigo_modular,
                     ins.denominacion,
@@ -372,14 +371,13 @@ class ReporteController extends Controller
                     es.grado,
                     proyecto.titulo,
                     e.descripcion_equipo
-                  '])
+                  ')
             ->innerJoin('equipo e','e.id = proyecto.equipo_id')
             ->innerJoin('integrante i','i.equipo_id = e.id')
             ->innerJoin('estudiante es','es.id=i.estudiante_id')
             ->innerJoin('institucion ins','ins.id=es.institucion_id')
             ->innerJoin('ubigeo u','u.district_id=ins.ubigeo_id')
             ->where('e.etapa=2')
-            ->groupBy('proyecto.id,proyecto.titulo')
             ->all();
         }
         

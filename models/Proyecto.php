@@ -119,6 +119,14 @@ class Proyecto extends \yii\db\ActiveRecord
     public $department_id;
     public $valor;
     public $department;
+    public $codigo_modular;
+    public $nombres;
+    public $apellido_paterno;
+    public $apellido_materno;
+    public $email;
+    public $celular;
+    public $grado;
+    public $descripcion_equipo;
     public static function tableName()
     {
         return 'proyecto';
