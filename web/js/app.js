@@ -31,6 +31,7 @@ $(document).ready(function(){
 	$(document).on('click', '.popup_mi_busqueda .popup_close', function (e) {
 		e.preventDefault();
 		$(this).parent().parent().hide();
+		$('.md').modal('hide');
 	});
 
 	$(document).on('click', '.box_content_option .btn_votation_item', function (e) {

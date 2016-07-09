@@ -149,7 +149,7 @@ if (isset($_GET['page']) >= 2)
                         <?php $voto=VotacionInterna::find()->where('user_id=:user_id and proyecto_id=:proyecto_id',
                                                                    [':user_id'=>\Yii::$app->user->id,':proyecto_id'=>$votacion["id"]])->one(); ?>
                         <div class="box_content_option" data-id="<?= $votacion["id"] ?>" data-title="<?= $votacion["titulo"] ?>">
-                            <img data-toggle="modal" data-target="#myModal<?= $votacion["id"] ?>" src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_votation_info.jpg" class="icon_votation_info">
+                            <img data-toggle="modal" data-target="#myModal<?= $votacion["id"] ?>" src="<?= \Yii::$app->request->BaseUrl ?>/img/icon_votation_info.jpg" class="icon_votation_info md">
                             <?php if (!$votacionesinternasfinalizadasCount){ ?>
                             <a  href="#" class="btn_votation_item <?= ($voto)?'active':''; ?>">
                                 Vote
@@ -165,7 +165,7 @@ if (isset($_GET['page']) >= 2)
                             </p>
                         </div>
                         
-                        <div class="modal fade" id="myModal<?= $votacion["id"] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                        <div class="modal fade md" id="myModal<?= $votacion["id"] ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
                             <div class="popup_mi_busqueda">
                                 <div class="popup_content">
                                     <a href="#" class="popup_close">
