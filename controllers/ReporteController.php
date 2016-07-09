@@ -331,6 +331,61 @@ class ReporteController extends Controller
         ]);
     }
     
+    public function actionProyecto2entregaDescargar($region=null)
+    {
+        $this->layout='administrador';
+        
+        if($region)
+        {
+            $proyectos=Proyecto::find()->select(['
+                    proyecto.id,
+                    proyecto.asunto_id,
+                    u.department,
+                    ins.denominacion,
+                    proyecto.titulo, 
+                    COUNT( i.estudiante_id ) AS total_integrantes,
+                    IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.etapa=2 and video.proyecto_id = proyecto.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") >=1, 1, 0 ) AS video_check,
+                    IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = proyecto.id AND TRIM( reflexion.p4 ) IS NOT NULL and TRIM( reflexion.p4 )!="" AND TRIM( reflexion.p6 ) IS NOT NULL and TRIM( reflexion.p6 )!="" AND TRIM( reflexion.p8 ) IS NOT NULL and TRIM( reflexion.p8 )!="") =1, 1, 0 ) AS reflexion_check,
+                    IF(trim(proyecto.proyecto_archivo2)!="",1,0) as archivo_proyecto_check,
+                    IF(e.etapa=2,1,0) as proyecto_finalizado
+                  '])
+            ->innerJoin('equipo e','e.id = proyecto.equipo_id')
+            ->innerJoin('integrante i','i.equipo_id = e.id')
+            ->innerJoin('estudiante es','es.id=i.estudiante_id')
+            ->innerJoin('institucion ins','ins.id=es.institucion_id')
+            ->innerJoin('ubigeo u','u.district_id=ins.ubigeo_id')
+            ->where('u.department_id=:department_id and e.etapa=2',[':department_id'=>$region])
+            ->groupBy('proyecto.id,proyecto.titulo')
+            ->all();
+        }
+        else{
+            $proyectos=Proyecto::find()->select(['
+                    proyecto.id,
+                    proyecto.asunto_id,
+                    u.department,
+                    ins.denominacion,
+                    proyecto.titulo, 
+                    COUNT( i.estudiante_id ) AS total_integrantes,
+                    IF((SELECT COUNT(video.proyecto_id) FROM video WHERE video.etapa=2 and video.proyecto_id = proyecto.id AND TRIM( video.ruta ) IS NOT NULL and TRIM( video.ruta )!="") >=1, 1, 0 ) AS video_check,
+                    IF( ( SELECT COUNT( reflexion.proyecto_id ) FROM reflexion WHERE reflexion.proyecto_id = proyecto.id AND TRIM( reflexion.p4 ) IS NOT NULL and TRIM( reflexion.p4 )!="" AND TRIM( reflexion.p6 ) IS NOT NULL and TRIM( reflexion.p6 )!="" AND TRIM( reflexion.p8 ) IS NOT NULL and TRIM( reflexion.p8 )!="") =1, 1, 0 ) AS reflexion_check,
+                    IF(trim(proyecto.proyecto_archivo2)!="",1,0) as archivo_proyecto_check,
+                    IF(e.etapa=2,1,0) as proyecto_finalizado
+                  '])
+            ->innerJoin('equipo e','e.id = proyecto.equipo_id')
+            ->innerJoin('integrante i','i.equipo_id = e.id')
+            ->innerJoin('estudiante es','es.id=i.estudiante_id')
+            ->innerJoin('institucion ins','ins.id=es.institucion_id')
+            ->innerJoin('ubigeo u','u.district_id=ins.ubigeo_id')
+            ->where('e.etapa=2')
+            ->groupBy('proyecto.id,proyecto.titulo')
+            ->all();
+        }
+        
+        return $this->render('proyecto2entrega-descargar', [
+            'proyectos' => $proyectos,
+        ]);
+    }
+    
     public function actionProyectoDescargar($region=null)
     {
         if($region)

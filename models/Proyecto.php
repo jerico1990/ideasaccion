@@ -118,7 +118,7 @@ class Proyecto extends \yii\db\ActiveRecord
     public $resultado;
     public $department_id;
     public $valor;
-    
+    public $department;
     public static function tableName()
     {
         return 'proyecto';
