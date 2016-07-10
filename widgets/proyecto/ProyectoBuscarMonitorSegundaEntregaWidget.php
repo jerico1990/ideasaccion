@@ -83,11 +83,43 @@ class ProyectoBuscarMonitorSegundaEntregaWidget extends Widget
                     ->select('objetivo_especifico_copia.id objetivo_especifico_id,actividad_copia.id actividad_id,actividad_copia.descripcion')
                     ->innerJoin('objetivo_especifico_copia','objetivo_especifico_copia.id=actividad_copia.objetivo_especifico_id')
                     ->where('proyecto_id=:proyecto_id and actividad_copia.estado=1 and objetivo_especifico_copia.id=:id  and actividad_copia.etapa=2',[':proyecto_id'=>$proyecto->id,':id'=>$proyecto->objetivo_especifico_3_id])->all();
-                    
+        $foro=Foro::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
+        if($proyecto && $foro)
+        {
+            $comen_monitores=ForoComentario::find()->where('foro_id=:foro_id and user_id between 2 and 8',[':foro_id'=>$foro->id])->all();
+            $comen_participantes=ForoComentario::find()->where('foro_id=:foro_id and user_id>=9',[':foro_id'=>$foro->id])->all();
+        }
+        else
+        {
+            $comen_monitores=new ForoComentario;
+            $comen_participantes=new ForoComentario;
+        }     
         $reflexion=Reflexion::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$proyecto->id])->one();
-        $proyecto->p1=$reflexion->p1;
-        $proyecto->p2=$reflexion->p2;
-        $proyecto->p3=$reflexion->p3;
+        if($reflexion)
+        {
+            $proyecto->p1=$reflexion->p1;
+            $proyecto->p2=$reflexion->p2;
+            $proyecto->p3=$reflexion->p3;
+            $proyecto->p4=$reflexion->p4;
+            $proyecto->p5_1=$reflexion->p5_1;
+            $proyecto->p5_2=$reflexion->p5_2;
+            $proyecto->p5_3=$reflexion->p5_3;
+            $proyecto->p5_4=$reflexion->p5_4;
+            $proyecto->p5_5=$reflexion->p5_5;
+            $proyecto->p5_6=$reflexion->p5_6;
+            $proyecto->p5_7=$reflexion->p5_7;
+            $proyecto->p5_8=$reflexion->p5_8;
+            $proyecto->p6=$reflexion->p6;
+            $proyecto->p7_1=$reflexion->p7_1;
+            $proyecto->p7_2=$reflexion->p7_2;
+            $proyecto->p7_3=$reflexion->p7_3;
+            $proyecto->p7_4=$reflexion->p7_4;
+            $proyecto->p7_5=$reflexion->p7_5;
+            $proyecto->p7_6=$reflexion->p7_6;
+            $proyecto->p7_7=$reflexion->p7_7;
+            $proyecto->p7_8=$reflexion->p7_8;
+            $proyecto->p8=$reflexion->p8;
+        }
         
         
         
@@ -111,7 +143,9 @@ class ProyectoBuscarMonitorSegundaEntregaWidget extends Widget
                               'etapa'=>$etapa,
                               'estudiante'=>$estudiante,
                               'institucion'=>$institucion,
-                              'region'=>$region,]);
+                              'region'=>$region,
+                              'comen_monitores'=>$comen_monitores,
+                              'comen_participantes'=>$comen_participantes]);
     }
     
     public function rename_win($oldfile,$newfile) {

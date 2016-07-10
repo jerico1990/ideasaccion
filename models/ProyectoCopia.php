@@ -45,6 +45,25 @@ class ProyectoCopia extends \yii\db\ActiveRecord
     public $p1;
     public $p2;
     public $p3;
+    public $p4;
+    public $p5_1;
+    public $p5_2;
+    public $p5_3;
+    public $p5_4;
+    public $p5_5;
+    public $p5_6;
+    public $p5_7;
+    public $p5_8;
+    public $p6;
+    public $p7_1;
+    public $p7_2;
+    public $p7_3;
+    public $p7_4;
+    public $p7_5;
+    public $p7_6;
+    public $p7_7;
+    public $p7_8;
+    public $p8;
     public $evaluacion;
     public $forum_url;
     public static function tableName()
