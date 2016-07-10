@@ -214,4 +214,13 @@ class ForoController extends Controller
             'newComentario'=>$newComentario
         ]);
     }
+    
+    public function actionProyectoMonitorVotacion($id)
+    {
+        $this->layout='administrador';
+        //$model=$this->findModel($id);
+        return $this->render('proyecto-monitor-votacion', [
+            'id' => $id
+        ]);
+    }
 }

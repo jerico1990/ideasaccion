@@ -46,8 +46,15 @@ use yii\widgets\Pjax;
             //'filterModel' => $searchModel,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-        
-                'titulo',
+                [
+                    'label'=>'Proyecto',
+                    'format'=>'raw',
+                    'value'=>function($data)
+                    {
+                        return Html::a($data->titulo,['foro/proyecto-monitor-votacion','id'=>$data->id],['target'=>'blank']);
+                    },
+                ],
+                
                 'voto',
                 [
                     'label'=>'Valor del 0-40',
@@ -64,7 +71,7 @@ use yii\widgets\Pjax;
                     'value'=>function($data) {
                         return "<div id='proyecto_".$data->id."'> ".(double)$data->resultado."</div>";
                     },
-                ],
+                ]
                 
             ],
         ]); ?>
