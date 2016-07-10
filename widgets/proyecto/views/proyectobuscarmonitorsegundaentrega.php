@@ -72,7 +72,7 @@ label{
 
 
 <div class="box_head title_content_box">
-    <img src="../img/icon_team_big.jpg" alt="">PRIMERA ENTREGA
+    <img src="../img/icon_team_big.jpg" alt="">SEGUNDA ENTREGA
 </div>
 <div class="box_content contenido_seccion_crear_equipo">
     <div class="row" >
