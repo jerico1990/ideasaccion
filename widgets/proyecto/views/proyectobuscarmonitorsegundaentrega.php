@@ -95,7 +95,7 @@ label{
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                    <?php if($proyecto->formato_proyecto==0){ ?>
+                    <?php if($proyecto->formato_proyecto2==0){ ?>
                         <div class="col-md-12" style="height: 660px; ">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group label-floating field-proyecto-titulo">
