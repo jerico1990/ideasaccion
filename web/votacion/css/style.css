@@ -514,11 +514,11 @@ section.map .info_deptos .text_end{
 }
 
 .box_option_voto.active{
-	border-color: #a330d4;
+	border-color: #2D3362;
 }
 
 .box_option_voto.active .box-head-voto{
-	background: #a330d4;
+	background: #2D3362;
 	color: #FFF;
 }
 
@@ -666,6 +666,20 @@ section.map .info_deptos .text_end{
 	section.vote .vote_options .options_form .opt_title{
 		font-size: 18px;
 		padding: 15px 0;
+	}
+}
+
+@media screen and (max-width: 1300px) {
+	.personaje_derecha_fixed{
+		width: 145px;
+		bottom: 5%;
+	}
+
+	.personaje_derecha_fixed .text {
+		width: 100%;
+		font-size: 14px;
+		top: 0;
+		height: 114px;
 	}
 }
 

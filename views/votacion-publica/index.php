@@ -920,7 +920,7 @@ use yii\helpers\Html;
 		<div class="col-md-8 options_voto_map">
 			<div class="col-md-7 resultados">
                                 <?php foreach($resultados as $resultado){ ?>
-				<div data-id="<?= $resultado->proyecto_id ?>" class="box_option_voto">
+				<div id="v_<?= $resultado->proyecto_id ?>" data-id="<?= $resultado->proyecto_id ?>" class="box_option_voto">
 					<div class="box-head-voto">
 						<div class="row">
 							<div class="col-md-7 bhb_left">
@@ -968,12 +968,14 @@ use yii\helpers\Html;
                                                 <div class="line_yellow"></div>
 						<div class="end_body_voto">
 							Pasa la voz a tu mancha
+							<!--
 							<a href="#" class="share_fb">
 								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
 							</a>
 							<a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
 								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
 							</a>
+							-->
 							<span style="cursor: pointer" onclick="Informacion(<?= $resultado["proyecto_id"] ?>)">Más información</span>
 						</div>
 					</div>
@@ -1106,7 +1108,7 @@ use yii\helpers\Html;
 					MI SELECCIÓN:
 				</div>
 
-				<div class="box_votation_small" data-id="1" data-option="">
+				<div class="box_votation_small" data-id="1" data-option="" style="border:solid 2px #FFD400">
 					<a href="#" class="icon_delete_box">
 						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
 					</a>
@@ -1120,7 +1122,7 @@ use yii\helpers\Html;
 					<div class="box_votacion_arrow"></div>
 				</div>
 
-				<div class="box_votation_small" data-id="2" data-option="">
+				<div class="box_votation_small" data-id="2" data-option="" style="border:solid 2px #be2cd9">
 					<a href="#" class="icon_delete_box">
 						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
 					</a>
@@ -1134,7 +1136,7 @@ use yii\helpers\Html;
 					<div class="box_votacion_arrow"></div>
 				</div>
 
-				<div class="box_votation_small" data-id="3" data-option="">
+				<div class="box_votation_small" data-id="3" data-option="" style="border:solid 2px #009DBA">
 					<a href="#" class="icon_delete_box">
 						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
 					</a>
@@ -1346,6 +1348,9 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 <script type="text/javascript">
 	var myArray = [];
 	var indices=[1,2,3];
+	
+	
+	
 	String.prototype.capitalizeFirstLetter = function() {
 		return this.charAt(0).toUpperCase() + this.slice(1);
 	}
@@ -1403,6 +1408,11 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 		$(document).on('click', '.st0', function (e) {
 			var _st = $(this);
 			if(_st.attr("data-active") != 'false'){
+				$.each( myArray, function( key, value ) {
+				    console.log(value);
+				    $("#v_"+value).addClass("active");
+				});
+			    
 				$(".st0").attr("class", "st0");
 				$(".name_deptos_map").attr("class","name_deptos_map");
 				_st.attr("class", "st0 active");
