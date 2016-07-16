@@ -1535,11 +1535,11 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 			var obj = $(this);
 			var div = obj.parent();
 			notificacion=jQuery.inArray( div.attr("data-option"), myArray );
-						myArray.splice(notificacion, 1);
-						console.log(myArray);
+			myArray.splice(notificacion, 1);
+			console.log(myArray);
 			if(div.hasClass("active")){
 				div.removeClass("active");
-
+				
 				$(".options_voto_map .box_option_voto").each(function(){
 					var _div = $(this);
 
@@ -1549,9 +1549,9 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 						$(".box-body-voto", _div).stop(true).slideUp();
 						
 						div.attr("data-option", "");
-
+						$(".box_votacion_arrow",div).html("");
 						$(".btn_votation_item", _div).removeClass("active");
-
+						
 						$("#input_votation_"+ div.attr("data-id")).val("");
 					}
 				});
