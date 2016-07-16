@@ -114,6 +114,8 @@ class PanelController extends Controller
                             realices tu proyecto; también podrás participar en los foros.<br>
                             <b>¡Sigue poniendo tus ideas en acción!</b>";
                     }
+                    
+                    
                 }
                 elseif($equipo && ($equipo->etapa==0 || $equipo->etapa==NULL))
                 {

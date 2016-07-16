@@ -16,6 +16,7 @@ use app\models\Estudiante;
 /**
  * VotoController implements the CRUD actions for Voto model.
  */
+Yii::setAlias('video', '@web/video_carga/');
 class VotoController extends Controller
 {
     public function behaviors()
