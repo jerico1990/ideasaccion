@@ -1409,11 +1409,7 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 		$(document).on('click', '.st0', function (e) {
 			var _st = $(this);
 			if(_st.attr("data-active") != 'false'){
-				$.each( myArray, function( key, value ) {
-				    console.log(value);
-				    $("#v_"+value).addClass("active");
-				});
-			    
+				
 				$(".st0").attr("class", "st0");
 				$(".name_deptos_map").attr("class","name_deptos_map");
 				_st.attr("class", "st0 active");
@@ -1428,6 +1424,10 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
                                         $('.resultados').html(data);
                                     }
                                 });
+				$.each( myArray, function( key, value ) {
+				    console.log($("#v_"+value));
+				    $("#v_"+value);
+				});
                         }
 		});
 		

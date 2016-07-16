@@ -27,15 +27,15 @@ $this->title="Ideas en acción";
     <meta property="og:image"              content="http://204.93.161.103/ideas_en_accion/images/share_facebook_image.png" />
 </head>
 <body>
-
+<?php
+$mensajes=['Conoce los proyectos finalistas de las 26 regiones.','Selecciona los 03 proyectos más pajas.','Recuerda que pueden ser de <u>DISTINTAS</u> regiones.'];
+$key=array_rand($mensajes);
+?>
 <div class="personaje_derecha_fixed personaje_entregas">
     <table cellpadding="0" cellspacing="0" border="0" align="right" class="text">
 	    <tr>
 		    <td>
-			    Selecciona<br>
-			    una región del<br>
-			    mapa y conoce<br>
-			    los finalistas.
+			    <?= $mensajes[$key] ?>
 		    </td>
 	    </tr>
     </table>

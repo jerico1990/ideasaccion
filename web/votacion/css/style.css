@@ -610,12 +610,12 @@ section.map .info_deptos .text_end{
 	width: 89%;
 	position: absolute;
 	z-index: 2;
-	height: 70px;
+	height: 60px;
 	text-align: center;
 	font-family: 'Raleway', sans-serif;
 	color: #1f2a69;
 	font-weight: bold;
-	top: 8px;
+	top: 6px;
 }
 
 .personaje_derecha_fixed .text_gato_chicha{
