@@ -29,11 +29,11 @@ use yii\helpers\Html;
 
 				.st5{fill-rule:evenodd;clip-rule:evenodd;fill:none;}
 				.st6{fill:#2C3461;}
-				.st7{font-family:'Raleway-Bold';}
+				.st7{font-family:'Raleway', sans-serif;}
 				.st8{font-size:12px;}
 
-				.st11{font-family:'Raleway-Bold'; font-size:11px; text-transform: uppercase;}
-				.st111{font-family:'Raleway-Bold'; font-size:10px; text-transform: uppercase;}
+				.st11{font-family:'Raleway', sans-serif; font-size:11px; text-transform: uppercase;}
+				.st111{font-family:'Raleway', sans-serif; font-size:10px; text-transform: uppercase;}
 				.color_black{fill:#000000;}
 				.color_white{fill:#FFFFFF;}
 
@@ -1505,7 +1505,7 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 						divVotation.attr("data-option", _idOption);
 						myArray.push(_idOption);
 						$(".box_votacion_content", divVotation).html( $(".bhb_left", d).html() );
-						
+						$(".box_votacion_arrow",divVotation).html($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ') );
 						$("#contd").html(myArray.length);
 						$("#contd3").html(myArray.length);
 						$("#input_votation_"+ divVotation.attr("data-id")).val(_idOption);
