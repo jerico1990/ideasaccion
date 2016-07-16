@@ -1518,13 +1518,13 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 						{
 						    $("#form_mensaje_region_3").show();
 						}
-						
+						console.log(myArray);
 					}
 				});
 
 				if(!apply){
 				    console.log("a");
-					$("#alert_error").show();
+				    $("#alert_error").show();
 				}
 			}
 		});
@@ -1534,12 +1534,20 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 			e.preventDefault();
 			var obj = $(this);
 			var div = obj.parent();
-			notificacion=jQuery.inArray( div.attr("data-option"), myArray );
-			myArray.splice(notificacion, 1);
+			
+			var removeItem = div.attr("data-option");
+			
+			myArray = jQuery.grep(myArray, function(value) {
+			  return value != removeItem;
+			});
+			
+			//notificacion=jQuery.inArray( div.attr("data-option"), myArray );
+			//console.log(notificacion);
+			//myArray.splice(notificacion, 1);
 			console.log(myArray);
 			if(div.hasClass("active")){
 				div.removeClass("active");
-				
+				$(".box_votacion_arrow",div).html("");
 				$(".options_voto_map .box_option_voto").each(function(){
 					var _div = $(this);
 
@@ -1549,7 +1557,7 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 						$(".box-body-voto", _div).stop(true).slideUp();
 						
 						div.attr("data-option", "");
-						$(".box_votacion_arrow",div).html("");
+						
 						$(".btn_votation_item", _div).removeClass("active");
 						
 						$("#input_votation_"+ div.attr("data-id")).val("");
