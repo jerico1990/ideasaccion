@@ -934,7 +934,7 @@ use yii\helpers\Html;
 
 					<div class="box-body-voto">
 						<b>Resumen:</b><br>
-						<?= $resultado->resumen ?>
+						<p class="text-justify"><?= $resultado->resumen ?></p>
 						<div class="line_yellow"></div>
 						<b>IIEE:</b><br>
 						<?= $resultado->denominacion ?>
