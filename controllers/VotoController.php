@@ -12,6 +12,7 @@ use yii\db\StaleObjectException;
 use app\models\VotacionPublica;
 use app\models\VotacionFinal;
 use app\models\Ubigeo;
+use app\models\Estudiante;
 /**
  * VotoController implements the CRUD actions for Voto model.
  */
@@ -291,31 +292,307 @@ class VotoController extends Controller
     
     public function actionMostrarvotacionpublica($region)
     {
-        $htmlvotacionespublicas='';
-        $i=0;
-        $votacionespublicas=VotacionPublica::find()->where('region_id=:region_id',[':region_id'=>$region])->all();
-        foreach($votacionespublicas as $votacionpublica)
+        if($region=="amazonas")
         {
-            $htmlvotacionespublicas=$htmlvotacionespublicas.'<br>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">'.$votacionpublica->proyecto->titulo .'</h3>
-                </div>
-                <div class="panel-body">
-                    Resumen:<p>'.$votacionpublica->proyecto->resumen .'</p>
-                    Objetivo general:<p>'.$votacionpublica->proyecto->objetivo_general .'</p>
-                    <button  type="button" class="" onclick="votar('.$votacionpublica->proyecto_id.')" >votar</button>
-                </div>
-                
-            </div>
-            ';
-            $i++;
+            $region="01";
+        }
+        elseif($region=="ancash")
+        {
+            $region="02";
+        }
+        elseif($region=="apurimac")
+        {
+            $region="03";
+        }
+        elseif($region=="arequipa")
+        {
+            $region="04";
+        }
+        elseif($region=="ayacucho")
+        {
+            $region="05";
+        }
+        elseif($region=="cajamarca")
+        {
+            $region="06";
+        }
+        elseif($region=="callao")
+        {
+            $region="07";
+        }
+        elseif($region=="cuzco")
+        {
+            $region="08";
+        }
+        elseif($region=="huancavelica")
+        {
+            $region="09";
+        }
+        elseif($region=="huanuco")
+        {
+            $region="10";
+        }
+        elseif($region=="ica")
+        {
+            $region="11";
+        }
+        elseif($region=="junin")
+        {
+            $region="12";
+        }
+        elseif($region=="la_libertad")
+        {
+            $region="13";
+        }
+        elseif($region=="lambayeque")
+        {
+            $region="14";
+        }
+        elseif($region=="lima")
+        {
+            $region="15";
+        }
+        elseif($region=="loreto")
+        {
+            $region="16";
+        }
+        elseif($region=="madre_de_dios")
+        {
+            $region="17";
+        }
+        elseif($region=="moquegua")
+        {
+            $region="18";
+        }
+        elseif($region=="pasco")
+        {
+            $region="19";
+        }
+        elseif($region=="piura")
+        {
+            $region="20";
+        }
+        elseif($region=="puno")
+        {
+            $region="21";
+        }
+        elseif($region=="san_martin")
+        {
+            $region="22";
+        }
+        elseif($region=="tacna")
+        {
+            $region="23";
+        }
+        elseif($region=="tumbes")
+        {
+            $region="24";
+        }
+        elseif($region=="ucayali")
+        {
+            $region="25";
+        }
+        elseif($region=="lima_provincias")
+        {
+            $region="26";
         }
         
+        
+        $htmlvotacionespublicas='';
+        $i=0;
+        $votacionespublicas=VotacionPublica::find()
+                        ->select('votacion_publica.proyecto_id,proyecto.titulo,proyecto.resumen,institucion.denominacion,equipo.id as equipo_id,video.tipo,video.ruta')
+                        ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
+                        ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
+                        ->innerJoin('video','video.proyecto_id=proyecto.id and video.etapa=2')
+                        ->innerJoin('usuario','usuario.id=proyecto.user_id')
+                        ->innerJoin('estudiante','estudiante.id=usuario.estudiante_id')
+                        ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
+                        ->where('votacion_publica.region_id=:region_id',[':region_id'=>$region])
+                        ->all();
+                        //var_dump($region);
+        if($region==15)
+        {
+            $htmlvotacionespublicas=$htmlvotacionespublicas.'
+                                                            <div class="form-group">
+                                                                <select id="lima-lima" class="form-control">
+                                                                    <option>Seleccionar</option>
+                                                                    <option value="07">Callao</option>
+                                                                    <option value="15">Lima Metropolitana</option>
+                                                                    <option value="26">Lima Provincias</option>
+                                                                </select>
+                                                            </div>
+                                                            <div id="lima-resultados"></div>
+                                                            ';
+        }
+        else
+        {
+            foreach($votacionespublicas as $resultado)
+            {
+                
+                $htmlvotacionespublicas=$htmlvotacionespublicas.'
+                                        <div data-id="'.$resultado->proyecto_id.'" class="box_option_voto">
+                                            <div class="box-head-voto">
+                                                    <div class="row">
+                                                            <div class="col-md-7 bhb_left">
+                                                                '.$resultado->titulo.'
+                                                            </div>
+                                                            <div class="col-md-5 bhb_right">
+                                                                    '.VotacionFinal::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count().' votos <span class="vote_icon_map"></span>
+                                                            </div>
+                                                    </div>
+                                            </div>
+    
+                                            <div class="box-body-voto">
+                                                <b>Resumen:</b><br>
+                                                '.$resultado->resumen.'
+                                                <div class="line_yellow"></div>
+                                                <b>IIEE:</b><br>
+                                                '.$resultado->denominacion.'
+                                                <div class="line_yellow"></div>
+                                                <b>Equipo:</b><br>';
+                                                
+                                                $integrantes=Estudiante::find()
+                                                            ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
+                                                            ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->all();
+                                             
+                                                foreach($integrantes as $integrante){
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'- '.$integrante->nombres.' '.$integrante->apellido_paterno.' '.$integrante->apellido_materno.'<br>';
+                                                }
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'<b>Docente asesor</b><br>';
+                                               
+                                                $docente=Estudiante::find()
+                                                            ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
+                                                            ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->one();
+                                                
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'-'.$docente->nombres.' '.$docente->apellido_paterno.' '.$docente->apellido_materno.'<br>';
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>';
+                                                if($resultado->tipo==1){
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<iframe width="300" height="169" src="https://www.youtube.com/embed/'.substr($resultado->ruta,-11).'" frameborder="0" allowfullscreen></iframe>';
+                                                }else{
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<video width="320" height="169" controls>';
+                                                       $htmlvotacionespublicas=$htmlvotacionespublicas.'<source src="'.Yii::getAlias('@video').$resultado->ruta.'" >';  
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'</video>';
+                                                }
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>
+                                                <div class="end_body_voto">
+                                                        Pasa la voz a tu mancha
+                                                        <a href="#" class="share_fb">
+                                                                <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
+                                                        </a>
+                                                        <a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
+                                                                <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
+                                                        </a>
+                                                </div>
+                                            </div>
+                                        </div>';
+                $i++;
+            }
+        }
         echo $htmlvotacionespublicas;
     
     }
     
+    
+    public function actionMostrarvotacionpublicalima($region)
+    {
+        if($region=="callao")
+        {
+            $region="07";
+        }
+        elseif($region=="lima")
+        {
+            $region="15";
+        }
+        elseif($region=="lima_provincias")
+        {
+            $region="26";
+        }
+        
+        
+        $htmlvotacionespublicas='';
+        $i=0;
+        $votacionespublicas=VotacionPublica::find()
+                        ->select('votacion_publica.proyecto_id,proyecto.titulo,proyecto.resumen,institucion.denominacion,equipo.id as equipo_id,video.tipo,video.ruta')
+                        ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
+                        ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
+                        ->innerJoin('video','video.proyecto_id=proyecto.id and video.etapa=2')
+                        ->innerJoin('usuario','usuario.id=proyecto.user_id')
+                        ->innerJoin('estudiante','estudiante.id=usuario.estudiante_id')
+                        ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
+                        ->where('votacion_publica.region_id=:region_id',[':region_id'=>$region])
+                        ->all();
+                        //var_dump($region);
+        
+            foreach($votacionespublicas as $resultado)
+            {
+                
+                $htmlvotacionespublicas=$htmlvotacionespublicas.'
+                                        <div data-id="'.$resultado->proyecto_id.'" class="box_option_voto">
+                                            <div class="box-head-voto">
+                                                    <div class="row">
+                                                            <div class="col-md-7 bhb_left">
+                                                                '.strtoupper($resultado->titulo).'
+                                                            </div>
+                                                            <div class="col-md-5 bhb_right">
+                                                                    '.VotacionFinal::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count().' votos <span class="vote_icon_map"></span>
+                                                            </div>
+                                                    </div>
+                                            </div>
+    
+                                            <div class="box-body-voto">
+                                                <b>Resumen:</b><br>
+                                                '.$resultado->resumen.'
+                                                <div class="line_yellow"></div>
+                                                <b>IIEE:</b><br>
+                                                '.$resultado->denominacion.'
+                                                <div class="line_yellow"></div>
+                                                <b>Equipo:</b><br>';
+                                                
+                                                $integrantes=Estudiante::find()
+                                                            ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
+                                                            ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->all();
+                                             
+                                                foreach($integrantes as $integrante){
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'- '.$integrante->nombres.' '.$integrante->apellido_paterno.' '.$integrante->apellido_materno.'<br>';
+                                                }
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'<b>Docente asesor</b><br>';
+                                               
+                                                $docente=Estudiante::find()
+                                                            ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
+                                                            ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->one();
+                                                
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'-'.$docente->nombres.' '.$docente->apellido_paterno.' '.$docente->apellido_materno.'<br>';
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>';
+                                                if($resultado->tipo==1){
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<iframe width="300" height="169" src="https://www.youtube.com/embed/'.substr($resultado->ruta,-11).'" frameborder="0" allowfullscreen></iframe>';
+                                                }else{
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'<video width="320" height="169" controls>';
+                                                       $htmlvotacionespublicas=$htmlvotacionespublicas.'<source src="'.Yii::getAlias('@video').$resultado->ruta.'" >';  
+                                                    $htmlvotacionespublicas=$htmlvotacionespublicas.'</video>';
+                                                }
+                                                $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>
+                                                <div class="end_body_voto">
+                                                        Pasa la voz a tu mancha
+                                                        <a href="#" class="share_fb">
+                                                                <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
+                                                        </a>
+                                                        <a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
+                                                                <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
+                                                        </a>
+                                                </div>
+                                            </div>
+                                        </div>';
+                $i++;
+            }
+            
+        echo $htmlvotacionespublicas;
+    
+    }
     
     public function actionValidardnivotacionpublica($dni)
     {

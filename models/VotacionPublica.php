@@ -18,6 +18,12 @@ class VotacionPublica extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $denominacion;
+    public $titulo;
+    public $resumen;
+    public $equipo_id;
+    public $tipo;
+    public $ruta;
     public static function tableName()
     {
         return 'votacion_publica';

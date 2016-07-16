@@ -56,7 +56,11 @@ class SiteController extends Controller
     {
         return $this->redirect(['site/votacion']);
     }
-
+    public function actionBases()
+    {
+        $this->layout='minedu';
+        return $this->render('bases');
+    }
     public function actionLogin()
     {
         $this->layout='login';
@@ -182,4 +186,6 @@ class SiteController extends Controller
         $this->layout='prueba';
         return $this->render('error');
     }
+    
+    
 }

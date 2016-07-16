@@ -13,7 +13,7 @@ use app\models\Equipo;
 use app\models\Proyecto;
 use app\models\Etapa;
 use app\models\Estudiante;
-
+use app\models\VotacionPublica;
 use app\models\Invitacion;
 AppEstandarAsset::register($this);
 if (!\Yii::$app->user->isGuest) {
@@ -22,6 +22,7 @@ $etapa2=Etapa::find()->where('etapa=2')->one();
 $etapa3=Etapa::find()->where('etapa=3')->one();
 $usuario=Usuario::find()->where('id=:id',[':id'=>\Yii::$app->user->id])->one();
 $estudiante=Estudiante::find()->where('id=:id',[':id'=>$usuario->estudiante_id])->one();
+$votacionpublica=VotacionPublica::find()->all();
 //$invitacion=Invitacion::find()->where('equipo_id=:equipo_id and estado=1',[':equipo_id'=>$equipo->id])->one();
 $integrante=Integrante::find()->where('estudiante_id=:estudiante_id',[':estudiante_id'=>$usuario->estudiante_id])->one();
 if($integrante)
@@ -274,7 +275,7 @@ if($key==4)
                                         </li>
                                         <?php }?>
                                         
-                                        <?php if($integrante && $equipo && $proyecto && $etapa3 && ($equipo->etapa==2 || $equipo->etapa==3) && $estudiante->grado!=6){?>
+                                        <?php if(!$votacionpublica && $integrante && $equipo && $proyecto && $etapa3 && ($equipo->etapa==2 || $equipo->etapa==3) && $estudiante->grado!=6){?>
                                         <li><?= Html::a('<div class="table_div">
                                                 <div class="row_div">
                                                     <div class="cell_div div_ia_icon">
