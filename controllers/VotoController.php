@@ -478,8 +478,9 @@ class VotoController extends Controller
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>
                                                 <div class="end_body_voto">
-                                                        Pasa la voz a tu mancha
                                                         <!--
+                                                        Pasa la voz a tu mancha
+                                                        
                                                         <a href="#" class="share_fb">
                                                                 <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
                                                         </a>
@@ -579,8 +580,9 @@ class VotoController extends Controller
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>
                                                 <div class="end_body_voto">
-                                                        Pasa la voz a tu mancha
                                                         <!--
+                                                        Pasa la voz a tu mancha
+                                                        
                                                         <a href="#" class="share_fb">
                                                                 <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
                                                         </a>

@@ -27,7 +27,7 @@ $this->title="Ideas en acción";
     <meta property="og:image"              content="http://204.93.161.103/ideas_en_accion/images/share_facebook_image.png" />
 </head>
 <body>
-<!--
+
 <div class="personaje_derecha_fixed personaje_entregas">
     <table cellpadding="0" cellspacing="0" border="0" align="right" class="text">
 	    <tr>
@@ -40,7 +40,7 @@ $this->title="Ideas en acción";
 	    </tr>
     </table>
     <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/munecos/mono.png" class="" alt="" />
-</div>-->
+</div>
 <header>
     <div class="bar_yellow"></div>
 
