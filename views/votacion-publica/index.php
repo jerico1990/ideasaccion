@@ -1321,6 +1321,20 @@ use yii\helpers\Html;
 		</form>
 	</div>
 </div>
+
+<div class="popup" id="proyectos_duplicados">
+	<div class="popup_content">
+		<a href="#" class="close_popup"><img src="<?= \Yii::$app->request->BaseUrl ?>/images/vote_popup_close.png" alt=""></a>
+		<form action="#" method="get">
+			<div class="form-group">
+				Debes seleccionar 3 proyectos diferentes.
+			</div>
+			<div class="form-group">
+				<button type="button" id="aceptar_proyecto_duplicado" class="btn btn-default btn_close_popup">ACEPTAR</button>
+			</div>
+		</form>
+	</div>
+</div>
 <?php
 $validardni= Yii::$app->getUrlManager()->createUrl('votacion-publica/validar-dni');
 $mostrarvotacionpublica= Yii::$app->getUrlManager()->createUrl('voto/mostrarvotacionpublica');
@@ -1567,7 +1581,7 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 		});
 	});
 	
-	function Votar() {
+    function Votar() {
         var error='';
         if($('#voto-dni').val()=='' && $('#voto-region').val()=='')
         {
@@ -1623,6 +1637,12 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
                         $('#form_votar').hide();
                         $('#voto-dni').val('');
                     }
+		    else if (data==2) {
+			$('#proyectos_duplicados').show();
+			$('#form_votar').hide();
+			$('#voto-dni').val('');
+			$('#voto-region').val('');
+		    }
 		    
 		    
 	    });
@@ -1733,6 +1753,12 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
         $('#form_votar').show();
         $('#dni_duplicado').hide();
     });
+    $("#aceptar_proyecto_duplicado").on('click', function (e) {
+        e.preventDefault();
+        $('#form_votar').show();
+        $('#proyectos_duplicados').hide();
+    });
+    
     
     function Informacion(proyecto)
     {
