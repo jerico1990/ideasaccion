@@ -1504,42 +1504,41 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 			$(".box-body-voto", d).stop(true).slideToggle();
 
 			if(!d.hasClass("active")){
-				var _idOption = d.data("id");
-				var apply = false;
+			    var _idOption = d.data("id");
+			    var apply = false;
 
-				$(".col_right_options .box_votation_small").each(function(e){
-					var divVotation = $(this);
-					if(divVotation.attr("data-option") == "" && !apply){
-						d.addClass("active");
-						if(myArray.length<=3)
-						{
-						    apply = true;
-						}
-						divVotation.addClass("active");
-						divVotation.attr("data-option", _idOption);
-						myArray.push(_idOption);
-						$(".box_votacion_content", divVotation).html( $(".bhb_left", d).html() );
-						$(".box_votacion_arrow",divVotation).html($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ') );
-						$("#contd").html(myArray.length);
-						$("#contd3").html(myArray.length);
-						$("#input_votation_"+ divVotation.attr("data-id")).val(_idOption);
-						
-						if(myArray.length<3)
-						{
-						    $("#form_mensaje_region").show();
-						}
-						else
-						{
-						    $("#form_mensaje_region_3").show();
-						}
-						console.log(myArray);
-					}
-				});
+			    $(".col_right_options .box_votation_small").each(function(e){
+				    var divVotation = $(this);
+				    if(divVotation.attr("data-option") == "" && !apply){
+					    d.addClass("active");
+					    if(myArray.length<=3)
+					    {
+						apply = true;
+					    }
+					    divVotation.addClass("active");
+					    divVotation.attr("data-option", _idOption);
+					    myArray.push(_idOption);
+					    $(".box_votacion_content", divVotation).html( $(".bhb_left", d).html() );
+					    $(".box_votacion_arrow", divVotation).html(ucFirstAllWords($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ')));
+					    $("#contd").html(myArray.length);
+					    $("#contd3").html(myArray.length);
+					    $("#input_votation_"+ divVotation.attr("data-id")).val(_idOption);
+					    
+					    if(myArray.length<3)
+					    {
+						$("#form_mensaje_region").show();
+					    }
+					    else
+					    {
+						$("#form_mensaje_region_3").show();
+					    }
+					    console.log(myArray);
+				    }
+			    });
 
-				if(!apply){
-				    console.log("a");
-				    $("#alert_error").show();
-				}
+			    if(!apply){
+				$("#alert_error").show();
+			    }
 			}
 		});
 
@@ -1564,8 +1563,8 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 				$(".box_votacion_arrow",div).html("");
 				$(".options_voto_map .box_option_voto").each(function(){
 					var _div = $(this);
-
-					if(_div.attr("data-id") == div.attr("data-option")){
+					
+					//if(_div.attr("data-id") == div.attr("data-option")){
 						
 						_div.removeClass("active");
 						$(".box-body-voto", _div).stop(true).slideUp();
@@ -1575,7 +1574,7 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 						$(".btn_votation_item", _div).removeClass("active");
 						
 						$("#input_votation_"+ div.attr("data-id")).val("");
-					}
+					//}
 				});
 			}
 		});
@@ -1759,7 +1758,19 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
         $('#proyectos_duplicados').hide();
     });
     
-    
+    function capitalize (text) {
+	return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+    function ucFirstAllWords( str )
+    {
+	var pieces = str.split(" ");
+	for ( var i = 0; i < pieces.length; i++ )
+	{
+	    var j = pieces[i].charAt(0).toUpperCase();
+	    pieces[i] = j + pieces[i].substr(1);
+	}
+	return pieces.join(" ");
+    }
     function Informacion(proyecto)
     {
 	
