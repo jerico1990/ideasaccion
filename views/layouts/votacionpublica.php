@@ -45,8 +45,8 @@ $key=array_rand($mensajes);
     <div class="bar_yellow"></div>
 
     <div class="container">
-	    <a href="#" class="logos"><img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/logo.jpg" alt=""></a>
-	    <a href="#" class="logos ideas"><img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/logo_ideas_en_accion.png" alt=""></a>
+	    <a href="http://www.minedu.gob.pe/ideasenaccion/" class="logos"><img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/logo.jpg" alt=""></a>
+	    <a href="http://www.minedu.gob.pe/ideasenaccion/" class="logos ideas"><img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/logo_ideas_en_accion.png" alt=""></a>
     </div>
 </header>
 <section class="map container" style="padding-top: 21px">
