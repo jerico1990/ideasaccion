@@ -72,12 +72,13 @@ class VotacionPublicaController extends Controller
         {
             $dni=$_POST["dni"];
             $region=$_POST["region"];
+            $Countdni=strlen(trim($_POST["dni"]));
             $v1=$_POST["v1"];
             $v2=$_POST["v2"];
             $v3=$_POST["v3"];
             $bandera=0;
             $existe=VotacionFinal::find()->where('dni=:dni',[':dni'=>$dni])->one();
-            if(!$existe)
+            if(!$existe && $Countdni==8)
             {
                 if($v1==$v2 || $v1==$v3 || $v2==$v3)
                 {
@@ -136,4 +137,5 @@ class VotacionPublicaController extends Controller
             echo $bandera;
         //}
     }
+    
 }
