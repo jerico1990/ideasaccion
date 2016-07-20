@@ -971,13 +971,12 @@ use yii\helpers\Html;
 						    
 							Pasa la voz a tu mancha
 							<a href="#" class="share_fb"
-							data-project="SENSIBILIZANDO A LA COMUNIDAD ADOLESCENTE DE LA I.E. SAN LORENZO DE CONCHAMARCA PARA ASUMIR UNA SEXUALIDAD RESPONSABLE Y ASEGURAR EL ÉXITO"
+							data-project="<?= $resultado->titulo ?>"
 							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
 							data-link="http://face.ideasenaccion.pe/votacion-publica">
 								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
 							</a>
 							
-							<span style="cursor: pointer" onclick="Informacion(<?= $resultado["proyecto_id"] ?>)">Más información</span>
 						    
 						</div>
 					</div>

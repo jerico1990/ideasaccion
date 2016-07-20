@@ -481,16 +481,13 @@ class VotoController extends Controller
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>
                                                 <div class="end_body_voto">
-                                                        <!--
                                                         Pasa la voz a tu mancha
-                                                        
-                                                        <a href="#" class="share_fb">
-                                                                <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
-                                                        </a>
-                                                        <a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
-                                                                <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
-                                                        </a>
-                                                        -->
+                                                        <a href="#" class="share_fb"
+							data-project="'.$resultado->titulo.'"
+							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
+							data-link="http://face.ideasenaccion.pe/votacion-publica">
+								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
+							</a>
                                                 </div>
                                             </div>
                                         </div>';
@@ -585,16 +582,13 @@ class VotoController extends Controller
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>
                                                 <div class="end_body_voto">
-                                                        <!--
                                                         Pasa la voz a tu mancha
-                                                        
-                                                        <a href="#" class="share_fb">
-                                                                <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
-                                                        </a>
-                                                        <a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
-                                                                <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
-                                                        </a>
-                                                        -->
+                                                        <a href="#" class="share_fb"
+							data-project="'.$resultado->titulo.'"
+							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
+							data-link="http://face.ideasenaccion.pe/votacion-publica">
+								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
+							</a>
                                                 </div>
                                             </div>
                                         </div>';
