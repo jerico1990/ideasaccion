@@ -1435,19 +1435,36 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 				_st.attr("class", "st0 active");
 				$("#name_depto_"+ _st.attr('data-id')).attr("class","name_deptos_map active");
 				$(".department_name").html( _st.attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ') );
-                                $.ajax({
+                                
+				$.ajax({
                                     url: '<?= $mostrarvotacionpublica ?>',
                                     dataType: 'html',
                                     type: 'GET',
                                     data: {region:_st.attr('data-id')},
                                     success: function(data){
                                         $('.resultados').html(data);
+					
+					
+					$('.share_fb').on('click', function (e) {
+				    e.preventDefault();
+				    var obj = $(this);
+				    FB.ui({
+					    method: 'feed',
+					    caption : 'Ideas en acción | MINEDU.',
+					    description :  obj.data('project')+' Vota por este proyecto de la región '+ucFirstAllWords($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ')),
+					    picture : obj.data('image'),
+					    link: obj.data('link')
+				    }, function(response){});
+			    });
+					
                                     }
                                 });
 				$.each( myArray, function( key, value ) {
 				    console.log($("#v_"+value));
 				    $("#v_"+value);
 				});
+				
+				
                         }
 		});
 		
