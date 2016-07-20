@@ -439,7 +439,7 @@ class VotoController extends Controller
                                                                 '.$resultado->titulo.'
                                                             </div>
                                                             <div class="col-md-5 bhb_right">
-                                                                    '.VotacionFinal::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count().' votos <span class="vote_icon_map"></span>
+                                                                    '.VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count().' votos <span class="vote_icon_map"></span>
                                                             </div>
                                                     </div>
                                             </div>
@@ -454,6 +454,7 @@ class VotoController extends Controller
                                                 <b>Equipo:</b><br>';
                                                 
                                                 $integrantes=Estudiante::find()
+                                                            ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->all();
@@ -464,6 +465,7 @@ class VotoController extends Controller
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<b>Docente asesor</b><br>';
                                                
                                                 $docente=Estudiante::find()
+                                                            ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->one();
@@ -541,7 +543,7 @@ class VotoController extends Controller
                                                                 '.strtoupper($resultado->titulo).'
                                                             </div>
                                                             <div class="col-md-5 bhb_right">
-                                                                    '.VotacionFinal::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count().' votos <span class="vote_icon_map"></span>
+                                                                    '.VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count().' votos <span class="vote_icon_map"></span>
                                                             </div>
                                                     </div>
                                             </div>
@@ -556,6 +558,7 @@ class VotoController extends Controller
                                                 <b>Equipo:</b><br>';
                                                 
                                                 $integrantes=Estudiante::find()
+                                                            ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->all();
@@ -566,6 +569,7 @@ class VotoController extends Controller
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<b>Docente asesor</b><br>';
                                                
                                                 $docente=Estudiante::find()
+                                                            ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->one();

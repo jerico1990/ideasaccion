@@ -24,7 +24,7 @@ $this->title="Ideas en acción";
     <!-- Facebook Share Tags -->
     <meta property="og:title"              content="Ideas en Acción - Votación" />
     <meta property="og:description"        content="¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también y hagamos la diferencia." />
-    <meta property="og:image"              content="http://204.93.161.103/ideas_en_accion/images/share_facebook_image.png" />
+    <meta property="og:image"              content="http://ideasenaccion.pe/ideas_en_accion/images/share_facebook_image.png" />
 </head>
 <body>
 <?php

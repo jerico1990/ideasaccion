@@ -927,7 +927,7 @@ use yii\helpers\Html;
                                                             <?= $resultado->titulo ?>
                                                         </div>
 							<div class="col-md-5 bhb_right">
-								<?= VotacionFinal::find()->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count(); ?> votos <span class="vote_icon_map"></span>
+								<?= VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count(); ?> votos <span class="vote_icon_map"></span>
 							</div>
 						</div>
 					</div>
@@ -942,6 +942,7 @@ use yii\helpers\Html;
 						<b>Equipo:</b><br>
                                                 <?php
                                                 $integrantes=Estudiante::find()
+							    ->select('estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->all();
@@ -960,24 +961,24 @@ use yii\helpers\Html;
 						<div class="line_yellow"></div>
                                                 <?php if($resultado->tipo==1){ ?>
                                                     <iframe width="300" height="169" src="https://www.youtube.com/embed/<?= substr($resultado->ruta,-11) ?>" frameborder="0" allowfullscreen></iframe>
-						<?php }else{?>
+						<?php }else{ ?>
                                                     <video width="320" height="169" controls>
                                                         <source src="<?= Yii::getAlias('@video').$resultado->ruta ?>" >  
                                                     </video>
                                                 <?php }?>
                                                 <div class="line_yellow"></div>
 						<div class="end_body_voto">
-							<!--Pasa la voz a tu mancha
-							
-							<a href="#" class="share_fb">
+						    
+							Pasa la voz a tu mancha
+							<a href="#" class="share_fb"
+							data-project="SENSIBILIZANDO A LA COMUNIDAD ADOLESCENTE DE LA I.E. SAN LORENZO DE CONCHAMARCA PARA ASUMIR UNA SEXUALIDAD RESPONSABLE Y ASEGURAR EL ÉXITO"
+							data-image="http://face.ideasenaccion.pe/web/votacion/images/logo_for_fb.jpg"
+							data-link="http://face.ideasenaccion.pe/">
 								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
-							</a>
-							<a href="https://twitter.com/share?url=http%3A%2F%2Fvotacion.ideasenaccion.pe&text=¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también aquí." target="_blank">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_tw_normal.png" alt="">
 							</a>
 							
 							<span style="cursor: pointer" onclick="Informacion(<?= $resultado["proyecto_id"] ?>)">Más información</span>
-							-->
+						    
 						</div>
 					</div>
 				</div>
@@ -1386,14 +1387,19 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 			$(this).parent().parent().hide();
 		});
 
+		
 		$('.share_fb').on('click', function (e) {
 			e.preventDefault();
+			var obj = $(this);
 			FB.ui({
-				method: 'share',
-				mobile_iframe: true,
-				href: 'http://204.93.161.103/ideas_en_accion/mapa_nuevo.html'
+				method: 'feed',
+				caption : 'Ideas en acción | MINEDU.',
+				description : 'Vota por mi proyecto: '+ obj.data('project'),
+				picture : obj.data('image'),
+				link: obj.data('link')
 			}, function(response){});
 		});
+		
 
 		$('#form_vote_send').on('submit', function(e){
 			e.preventDefault();
