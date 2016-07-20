@@ -22,7 +22,7 @@ $this->title="Ideas en acción";
     <link rel="stylesheet" href="<?= \Yii::$app->request->BaseUrl ?>/votacion/css/style.css">
 
     <!-- Facebook Share Tags -->
-    <meta property="og:title"              content="Ideas en Acción - Votación" />
+    <meta property="og:title"              content="Ideas en Acción | Minedu" />
     <meta property="og:description"        content="¡Ya elegí mis proyectos favoritos en Ideas en Acción! Vota tu también y hagamos la diferencia." />
     <meta property="og:image"              content="http://face.ideasenaccion.pe/images/share_facebook_image.png" />
 </head>
