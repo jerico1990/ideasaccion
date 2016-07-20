@@ -3,7 +3,7 @@
 /* @var $content string */
 use yii\helpers\Html;
 
-$this->title="Ideas en accióna";
+$this->title="Ideas en acción";
 ?>
 
 <?php $this->beginPage() ?>

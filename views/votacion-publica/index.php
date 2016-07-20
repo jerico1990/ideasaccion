@@ -1345,7 +1345,7 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 <script>
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId      : '1030208590393151',
+			appId      : '1614163145472793',
 			xfbml      : true,
 			version    : 'v2.6'
 		});
