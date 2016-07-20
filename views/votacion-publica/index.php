@@ -1393,7 +1393,7 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 			FB.ui({
 				method: 'feed',
 				caption : 'Ideas en acción | MINEDU.',
-				description : 'Vota por mi proyecto: '+ obj.data('project'),
+				description : 'Vota por mi proyecto: '+ obj.data('project')+'<br>Región: Lima',
 				picture : obj.data('image'),
 				link: obj.data('link')
 			}, function(response){});
