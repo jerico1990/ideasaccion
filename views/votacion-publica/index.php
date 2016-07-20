@@ -6,6 +6,7 @@ use app\models\Ubigeo;
 use app\models\VotacionFinal;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+
 ?>
 <div class="row">
 		<div class="col-md-12 title_map">
