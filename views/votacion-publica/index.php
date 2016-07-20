@@ -1446,16 +1446,16 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 					
 					
 					$('.share_fb').on('click', function (e) {
-				    e.preventDefault();
-				    var obj = $(this);
-				    FB.ui({
-					    method: 'feed',
-					    caption : 'Ideas en acción | MINEDU.',
-					    description :  obj.data('project')+' Vota por este proyecto de la región '+ucFirstAllWords($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ')),
-					    picture : obj.data('image'),
-					    link: obj.data('link')
-				    }, function(response){});
-			    });
+						e.preventDefault();
+						var obj = $(this);
+						FB.ui({
+							method: 'feed',
+							caption : 'Ideas en acción | MINEDU.',
+							description :  obj.data('project')+' Vota por este proyecto de la región '+ucFirstAllWords($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ')),
+							picture : obj.data('image'),
+							link: obj.data('link')
+						}, function(response){});
+					});
 					
                                     }
                                 });
@@ -1482,6 +1482,17 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
                                     data: {region:_st.val()},
                                     success: function(data){
                                         $('#lima-resultados').html(data);
+					$('.share_fb').on('click', function (e) {
+						e.preventDefault();
+						var obj = $(this);
+						FB.ui({
+							method: 'feed',
+							caption : 'Ideas en acción | MINEDU.',
+							description :  obj.data('project')+' Vota por este proyecto de la región '+ucFirstAllWords($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ')),
+							picture : obj.data('image'),
+							link: obj.data('link')
+						}, function(response){});
+					});
                                     }
                                 });
                         }
