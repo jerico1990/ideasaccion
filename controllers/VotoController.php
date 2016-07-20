@@ -486,7 +486,7 @@ class VotoController extends Controller
 							data-project="'.$resultado->titulo.'"
 							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
 							data-link="http://face.ideasenaccion.pe/votacion-publica">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
+								<img src="'.\Yii::$app->request->BaseUrl.'/votacion/images/icon_fb_normal.png" alt="">
 							</a>
                                                 </div>
                                             </div>
@@ -587,7 +587,7 @@ class VotoController extends Controller
 							data-project="'.$resultado->titulo.'"
 							data-image="http://face.ideasenaccion.pe/images/logo_for_fb.jpg"
 							data-link="http://face.ideasenaccion.pe/votacion-publica">
-								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
+								<img src="'.\Yii::$app->request->BaseUrl.'/votacion/images/icon_fb_normal.png" alt="">
 							</a>
                                                 </div>
                                             </div>
