@@ -27,6 +27,7 @@ $this->title="Ideas en acción";
     <meta property="og:image"              content="http://face.ideasenaccion.pe/images/share_facebook_image.png" />
 </head>
 <body>
+    cesar
 <?php
 $mensajes=['Conoce los proyectos finalistas de las 26 regiones.','Selecciona los 03 proyectos más pajas.','Recuerda que pueden ser de <u>DISTINTAS</u> regiones.'];
 $key=array_rand($mensajes);
