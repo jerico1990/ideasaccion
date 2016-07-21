@@ -14,7 +14,7 @@ use app\models\VotacionFinal;
 use app\models\Ubigeo;
 use app\models\Estudiante;
 use app\models\VistaResultado;
-
+use app\models\VistaIntegrantes;
 
 /**
  * VotoController implements the CRUD actions for Voto model.
@@ -461,24 +461,31 @@ class VotoController extends Controller
                                                 '.$resultado->denominacion.'
                                                 <div class="line_yellow"></div>
                                                 <b>Equipo:</b><br>';
-                                                
+                                                /*
                                                 $integrantes=Estudiante::find()
                                                             ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->all();*/
+                                                $integrantes=VistaIntegrantes::find()
+							    ->select('nombres,apellido_paterno,apellido_materno')
+                                                            ->where('grado!=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->all();
-                                             
                                                 foreach($integrantes as $integrante){
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'- '.$integrante->nombres.' '.$integrante->apellido_paterno.' '.$integrante->apellido_materno.'<br>';
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<b>Docente asesor</b><br>';
-                                               
+                                                $docente=VistaIntegrantes::find()
+							    ->select('nombres,apellido_paterno,apellido_materno')
+                                                            ->where('grado=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->one();
+                                                            /*
                                                 $docente=Estudiante::find()
                                                             ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->one();
-                                                
+                                                */
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'-'.$docente->nombres.' '.$docente->apellido_paterno.' '.$docente->apellido_materno.'<br>';
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>';
                                                 if($resultado->tipo==1){
@@ -569,24 +576,33 @@ class VotoController extends Controller
                                                 '.$resultado->denominacion.'
                                                 <div class="line_yellow"></div>
                                                 <b>Equipo:</b><br>';
-                                                
+                                                $integrantes=VistaIntegrantes::find()
+							    ->select('nombres,apellido_paterno,apellido_materno')
+                                                            ->where('grado!=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->all();
+                                                            /*
                                                 $integrantes=Estudiante::find()
                                                             ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->all();
+                                                            ->all();*/
                                              
                                                 foreach($integrantes as $integrante){
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'- '.$integrante->nombres.' '.$integrante->apellido_paterno.' '.$integrante->apellido_materno.'<br>';
                                                 }
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<b>Docente asesor</b><br>';
                                                
+                                                $docente=VistaIntegrantes::find()
+							    ->select('nombres,apellido_paterno,apellido_materno')
+                                                            ->where('grado=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->one();
+                                                            /*
                                                 $docente=Estudiante::find()
                                                             ->select('nombres,apellido_paterno,apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->one();
-                                                
+                                                */
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'-'.$docente->nombres.' '.$docente->apellido_paterno.' '.$docente->apellido_materno.'<br>';
                                                 $htmlvotacionespublicas=$htmlvotacionespublicas.'<div class="line_yellow"></div>';
                                                 if($resultado->tipo==1){

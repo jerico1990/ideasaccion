@@ -4,6 +4,7 @@ use app\models\Equipo;
 use app\models\Estudiante;
 use app\models\Ubigeo;
 use app\models\VotacionFinal;
+use app\models\VistaIntegrantes;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
@@ -949,20 +950,25 @@ use yii\helpers\Html;
 						<div class="line_yellow"></div>
 						<b>Equipo:</b><br>
                                                 <?php
+						$integrantes=VistaIntegrantes::find()
+							    ->select('nombres,apellido_paterno,apellido_materno')
+                                                            ->where('grado!=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                            ->all();
+							    /*
                                                 $integrantes=Estudiante::find()
 							    ->select('estudiante.nombres,estudiante.apellido_paterno,estudiante.apellido_materno')
                                                             ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
                                                             ->where('estudiante.grado!=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
-                                                            ->all();
+                                                            ->all();*/
                                                 ?>
                                                 <?php foreach($integrantes as $integrante){ ?>
                                                 - <?= $integrante->nombres." ".$integrante->apellido_paterno." ".$integrante->apellido_materno ?> <br>
                                                 <?php } ?>
 						<b>Docente asesor</b><br>
                                                 <?php
-                                                $docente=Estudiante::find()
-                                                            ->innerJoin('integrante','estudiante.id=integrante.estudiante_id')
-                                                            ->where('estudiante.grado=6 and integrante.equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
+                                                $docente=VistaIntegrantes::find()
+							    ->select('nombres,apellido_paterno,apellido_materno')
+                                                            ->where('grado=6 and equipo_id=:equipo_id',[':equipo_id'=>$resultado->equipo_id])
                                                             ->one();
                                                 ?>
                                                 - <?= $docente->nombres." ".$docente->apellido_paterno." ".$docente->apellido_materno ?> <br>
