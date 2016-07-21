@@ -986,10 +986,10 @@ use yii\helpers\Html;
 					</div>
 				</div>
                                 <?php } ?>
-				<div class="box text-justify" style="border: 2px solid #2C3461;padding: 5px;">
-				    <b>Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC. <br>
-					    La relación de los proyectos vitrina serán publicados luego de dicho proceso
+				<!--<div class="box text-justify" style="border: 2px solid #2C3461;padding: 5px;font-size: 10px">
+				    <b>Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC.<br> La relación de los proyectos vitrina serán publicados luego de dicho proceso
 				</div>
+			-->
 <!--
 				<div data-id="2" class="box_option_voto">
 					<div class="box-head-voto">
