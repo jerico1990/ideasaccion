@@ -78,7 +78,7 @@ class VotacionPublicaController extends Controller
             $v2=$_POST["v2"];
             $v3=$_POST["v3"];
             $bandera=0;
-            $existe=VotacionFinal::find()->where('dni=:dni',[':dni'=>$dni])->one();
+            $existe=VotacionFinal::find()->select("dni")->where('dni=:dni',[':dni'=>$dni])->one();
             if(!$existe && $Countdni==8)
             {
                 if($v1==$v2 || $v1==$v3 || $v2==$v3)
@@ -129,7 +129,7 @@ class VotacionPublicaController extends Controller
         //if(isset($_POST["dni"]) && $_POST["dni"]!="")
         //{
             //$dni=$_POST["dni"];
-            $existe=VotacionFinal::find()->where('dni=:dni',[':dni'=>$dni])->one();
+            $existe=VotacionFinal::find()->select("dni")->where('dni=:dni',[':dni'=>$dni])->one();
             $bandera=0;
             if($existe)
             {
