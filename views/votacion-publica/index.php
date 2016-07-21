@@ -918,6 +918,10 @@ use yii\helpers\Html;
 			
 			</svg>
 			<!-- FIN MAPA PERU -->
+			<div class="box text-justify" style="border: 2px solid #2C3461;position: absolute; left: 0px;top: 88%;width: 220px;padding: 5px;font-size: 9px;margin-bottom: 10px">
+			    <b>Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC.<br>
+			    La relación de los proyectos vitrina serán publicados luego de dicho proceso
+			</div>
 			
 		</div>
 
@@ -986,10 +990,6 @@ use yii\helpers\Html;
 					</div>
 				</div>
                                 <?php } ?>
-				<!--<div class="box text-justify" style="border: 2px solid #2C3461;padding: 5px;font-size: 10px">
-				    <b>Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC.<br> La relación de los proyectos vitrina serán publicados luego de dicho proceso
-				</div>
-			-->
 <!--
 				<div data-id="2" class="box_option_voto">
 					<div class="box-head-voto">
@@ -1237,7 +1237,7 @@ use yii\helpers\Html;
 		<form action="#" method="get">
 			<div class="form-group">
 				<b>¡LISTO!</b><br>
-				Tu voto ha sido registrado.
+				Tu voto a sido registrado.
 			</div>
 			<div class="form-group">
 				<button id="voto_registrado" type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
