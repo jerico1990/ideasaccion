@@ -54,7 +54,7 @@ class VotacionPublicaController extends Controller
     {
         $this->layout='votacionpublica';
         $resultados=VotacionPublica::find()
-                    ->select('votacion_publica.proyecto_id,proyecto.titulo,proyecto.resumen,institucion.denominacion,equipo.id as equipo_id,video.tipo,video.ruta')
+                    ->select(['votacion_publica.proyecto_id','proyecto.titulo','proyecto.resumen','institucion.denominacion','equipo.id as equipo_id','video.tipo','video.ruta','(select count(proyecto_id) from votacion_final where proyecto_id=proyecto.id) as votos'])
                     ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
                     ->innerJoin('equipo','equipo.id=proyecto.equipo_id')
                     ->innerJoin('video','video.proyecto_id=proyecto.id and video.etapa=2')
@@ -62,6 +62,7 @@ class VotacionPublicaController extends Controller
                     ->innerJoin('estudiante','estudiante.id=usuario.estudiante_id')
                     ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
                     ->where('votacion_publica.region_id=:region_id',[':region_id'=>16])
+                    ->orderBy('votos desc')
                     ->all();
         return $this->render('index',['resultados'=>$resultados]);
     }

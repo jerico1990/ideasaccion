@@ -10,13 +10,11 @@ use yii\helpers\Html;
 ?>
 <div class="row">
 		<div class="col-md-12 title_map">
-			Los finalistas de la región <span class="department_name">Loreto</span> son:
-			<div class="subtitle_map">
-				¡Vota por proyecto favorito!
-			</div>
+			Los resultados de la región <span class="department_name">Loreto</span> son:
+		</div>
+		<div class="col-md-1" id="map_peru">
 		</div>
 		<div class="col-md-4" id="map_peru">
-		    
 			<!-- MAPA PERU -->
 			<?xml version="1.0" encoding="utf-8"?>
 			<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -915,28 +913,29 @@ use yii\helpers\Html;
 					c0.4-0.8,0.8-1.6,1.1-2.4C89.4,206.1,89.5,205.6,89.4,205z M85.5,207.4c-1.1,0-2.1-0.9-2.1-2.1c0-1.1,0.9-2.1,2.1-2.1
 					c1.1,0,2.1,0.9,2.1,2.1C87.6,206.4,86.6,207.4,85.5,207.4z"/>
 			</g>
-			
 			</svg>
 			<!-- FIN MAPA PERU -->
-			
 		</div>
 
-		<div class="col-md-8 options_voto_map">
-			<div class="col-md-7 resultados">
+		<div class="col-md-7 options_voto_map">
+			<div class="col-md-8 resultados">
+			    <?php $a=1; ?>
                                 <?php foreach($resultados as $resultado){ ?>
-				<div id="v_<?= $resultado->proyecto_id ?>" data-id="<?= $resultado->proyecto_id ?>" class="box_option_voto">
+				<div id="v_<?= $resultado->proyecto_id ?>" data-id="<?= $resultado->proyecto_id ?>" class="<?= ($a==1)?'box_option_voto_ganador':'box_option_voto' ?>  ">
 					<div class="box-head-voto">
 						<div class="row">
-							<div class="col-md-7 bhb_left">
-                                                            <?= $resultado->titulo ?>
+							<div class="col-md-7 bhb_left ">
+                                                            <?= $resultado->titulo ?><br>
+							    <b style="font-size: 9px"><?= ($a==1)?'Finalista':'' ?></b>
                                                         </div>
 							<div class="col-md-5 bhb_right">
-								<?= VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count(); ?> votos <span class="vote_icon_map"></span>
+								<?= $resultado["votos"]; ?> votos  <span class="<?= ($a==1)?'vote_icon_map_ganador':'vote_icon_map' ?>"></span>
+								
 							</div>
 						</div>
 					</div>
 
-					<div class="box-body-voto">
+					<div class="box-body-voto" <?= ($a==1)?'style="background:white"':'' ?>>
 						<b>Resumen:</b><br>
 						<p class="text-justify"><?= $resultado->resumen ?></p>
 						<div class="line_yellow"></div>
@@ -972,7 +971,7 @@ use yii\helpers\Html;
                                                 <?php }?>
                                                 <div class="line_yellow"></div>
 						<div class="end_body_voto">
-						    
+						    <!--
 							Pasa la voz a tu mancha
 							<a href="#" class="share_fb"
 							data-project="<?= $resultado->titulo ?>"
@@ -980,16 +979,13 @@ use yii\helpers\Html;
 							data-link="http://votacion.ideasenaccion.pe/votacion-publica">
 								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
 							</a>
-							
+							-->
 						    
 						</div>
 					</div>
 				</div>
+				<?php $a++; ?>
                                 <?php } ?>
-				<div class="box text-justify" style="border: 2px solid #2C3461;padding: 5px;">
-				    <b>Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC. <br>
-					    La relación de los proyectos vitrina serán publicados luego de dicho proceso
-				</div>
 <!--
 				<div data-id="2" class="box_option_voto">
 					<div class="box-head-voto">
@@ -1111,7 +1107,7 @@ use yii\helpers\Html;
 			-->
                         </div>
 
-			<div class="col-md-5 col_right_options">
+			<!--<div class="col-md-5 col_right_options">
 				<div class="title_col">
 					<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_heart_small.jpg" alt="">
 					MI SELECCIÓN:
@@ -1160,6 +1156,7 @@ use yii\helpers\Html;
 				</div>
 				<button type="button" class="btn btn-default btn-send-votation">VOTAR</button>
 			</div>
+		-->
 		</div>
 	</div>
 
@@ -1237,7 +1234,7 @@ use yii\helpers\Html;
 		<form action="#" method="get">
 			<div class="form-group">
 				<b>¡LISTO!</b><br>
-				Tu voto ha sido registrado.
+				Tu voto a sido registrado.
 			</div>
 			<div class="form-group">
 				<button id="voto_registrado" type="button" class="btn btn-default btn_close_popup">ACEPTAR</button>
@@ -1504,15 +1501,21 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
                                 });
                         }
 		});
-		
+		$(document).on('click', ".options_voto_map .box_option_voto_ganador .box-head-voto", function(e){
+			
+			var o = $(this);
+			var d = o.parent();
 
+			$(".box-body-voto", d).stop(true).slideToggle();
+		});
+		
 		$(document).on('click', ".options_voto_map .box_option_voto .box-head-voto", function(e){
 			
 			var o = $(this);
 			var d = o.parent();
 
 			$(".box-body-voto", d).stop(true).slideToggle();
-
+/*
 			if(!d.hasClass("active")){
 				var _idOption = d.data("id");
 				var apply = false;
@@ -1534,9 +1537,9 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 				if(!apply){
 					$("#alert_error").show();
 				}
-			}
+			}*/
 		});
-		
+		/*
 		$(document).on('click', ".options_voto_map .box_option_voto .box-head-voto .vote_icon_map", function(e){
 		    
 			var o = $(this).parents('.box-head-voto');
@@ -1582,7 +1585,7 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 			    }
 			}
 		});
-
+*/
 		$(document).on('click', ".col_right_options .box_votation_small .icon_delete_box", function(e){
 		    console.log("b");
 			e.preventDefault();

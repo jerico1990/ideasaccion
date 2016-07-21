@@ -24,6 +24,7 @@ class VotacionPublica extends \yii\db\ActiveRecord
     public $equipo_id;
     public $tipo;
     public $ruta;
+    public $votos;
     public static function tableName()
     {
         return 'votacion_publica';
