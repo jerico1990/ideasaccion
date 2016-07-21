@@ -976,7 +976,7 @@ use yii\helpers\Html;
                                                 <?php }?>
                                                 <div class="line_yellow"></div>
 						<div class="end_body_voto">
-						    
+						    <!--
 							Pasa la voz a tu mancha
 							<a href="#" class="share_fb"
 							data-project="<?= $resultado->titulo ?>"
@@ -984,7 +984,7 @@ use yii\helpers\Html;
 							data-link="http://votacion.ideasenaccion.pe/votacion-publica">
 								<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_fb_normal.png" alt="">
 							</a>
-							
+						    -->
 						    
 						</div>
 					</div>
