@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\VotacionPublica;
 use app\models\VotacionFinal;
+use app\models\VistaResultado;
+
 Yii::setAlias('video', '@web/video_carga/');
 class VotacionPublicaController extends Controller
 {
@@ -53,6 +55,7 @@ class VotacionPublicaController extends Controller
     public function actionIndex()
     {
         $this->layout='votacionpublica';
+        /*
         $resultados=VotacionPublica::find()
                     ->select(['votacion_publica.proyecto_id','proyecto.titulo','proyecto.resumen','institucion.denominacion','equipo.id as equipo_id','video.tipo','video.ruta','(select count(proyecto_id) from votacion_final where proyecto_id=proyecto.id) as votos'])
                     ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
@@ -63,6 +66,11 @@ class VotacionPublicaController extends Controller
                     ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
                     ->where('votacion_publica.region_id=:region_id',[':region_id'=>16])
                     ->orderBy('votos desc')
+                    ->all();
+                    */
+        $resultados=VistaResultado::find()
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta'])
+                    ->where('region_id=:region_id',[':region_id'=>16])
                     ->all();
         return $this->render('index',['resultados'=>$resultados]);
     }

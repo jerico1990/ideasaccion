@@ -13,6 +13,9 @@ use app\models\VotacionPublica;
 use app\models\VotacionFinal;
 use app\models\Ubigeo;
 use app\models\Estudiante;
+use app\models\VistaResultado;
+
+
 /**
  * VotoController implements the CRUD actions for Voto model.
  */
@@ -401,6 +404,11 @@ class VotoController extends Controller
         
         $htmlvotacionespublicas='';
         $i=0;
+        $votacionespublicas=VistaResultado::find()
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta'])
+                    ->where('region_id=:region_id',[':region_id'=>$region])
+                    ->all();
+        /*
         $votacionespublicas=VotacionPublica::find()
                         ->select('votacion_publica.proyecto_id,proyecto.titulo,proyecto.resumen,institucion.denominacion,equipo.id as equipo_id,video.tipo,video.ruta')
                         ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
@@ -411,6 +419,7 @@ class VotoController extends Controller
                         ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
                         ->where('votacion_publica.region_id=:region_id',[':region_id'=>$region])
                         ->all();
+        */                
                         //var_dump($region);
         if($region==15)
         {
@@ -519,6 +528,11 @@ class VotoController extends Controller
         
         $htmlvotacionespublicas='';
         $i=0;
+        $votacionespublicas=VistaResultado::find()
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta'])
+                    ->where('region_id=:region_id',[':region_id'=>$region])
+                    ->all();
+        /*
         $votacionespublicas=VotacionPublica::find()
                         ->select('votacion_publica.proyecto_id,proyecto.titulo,proyecto.resumen,institucion.denominacion,equipo.id as equipo_id,video.tipo,video.ruta')
                         ->innerJoin('proyecto','proyecto.id=votacion_publica.proyecto_id')
@@ -529,7 +543,7 @@ class VotoController extends Controller
                         ->innerJoin('institucion','institucion.id=estudiante.institucion_id')
                         ->where('votacion_publica.region_id=:region_id',[':region_id'=>$region])
                         ->all();
-                        //var_dump($region);
+        */   
         
             foreach($votacionespublicas as $resultado)
             {
