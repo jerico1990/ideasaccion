@@ -926,7 +926,7 @@ use yii\helpers\Html;
 		</div>
 
 		<div class="col-md-7 options_voto_map">
-			<div class="col-md-7 resultados">
+			<div class="col-md-8 resultados">
                                 <?php foreach($resultados as $resultado){ ?>
 				<div id="v_<?= $resultado->proyecto_id ?>" data-id="<?= $resultado->proyecto_id ?>" class="box_option_voto">
 					<div class="box-head-voto">
@@ -1116,7 +1116,7 @@ use yii\helpers\Html;
 			-->
                         </div>
 			
-			<div class="col-md-5 col_right_options text-justify">
+			<div class="col-md-4 col_right_options text-justify">
 				<div class="box_votation_small" data-id="1" data-option="" style="border:solid 2px #1f2a69;font-size: 10px">
 					
 			    <b style="font-size: 12px">Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC.<br>
