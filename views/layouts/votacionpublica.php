@@ -32,14 +32,7 @@ $mensajes=['Conoce los proyectos finalistas de las 26 regiones.','Selecciona los
 $key=array_rand($mensajes);
 ?>
 <div class="personaje_derecha_fixed personaje_entregas">
-    <table cellpadding="0" cellspacing="0" border="0" align="right" class="text">
-	    <tr>
-		    <td>
-			    <?= $mensajes[$key] ?>
-		    </td>
-	    </tr>
-    </table>
-    <img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/munecos/mono.png" class="" alt="" />
+    
 </div>
 <header>
     <div class="bar_yellow"></div>

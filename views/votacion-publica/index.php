@@ -11,11 +11,9 @@ use yii\helpers\Html;
 ?>
 <div class="row">
 		<div class="col-md-12 title_map">
-			Los finalistas de la región <span class="department_name">Loreto</span> son:
-			<div class="subtitle_map">
-				¡Vota por proyecto favorito!
-			</div>
+			Votación cerrada de la región <span class="department_name">Loreto</span>
 		</div>
+		<div class="col-md-1"></div>
 		<div class="col-md-4" id="map_peru">
 		    
 			<!-- MAPA PERU -->
@@ -919,14 +917,15 @@ use yii\helpers\Html;
 			
 			</svg>
 			<!-- FIN MAPA PERU -->
-			<div class="box text-justify" style="border: 2px solid #2C3461;position: absolute; left: 0px;top: 88%;width: 220px;padding: 5px;font-size: 9px;margin-bottom: 10px">
+			<!--
+			<div class="box text-justify" style="border: 2px solid #2C3461;position: absolute; left: 0px;top: 88%;width: 220px;padding: 5px;font-size: 12px;margin-bottom: 10px">
 			    <b>Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC.<br>
 			    La relación de los proyectos vitrina serán publicados luego de dicho proceso
 			</div>
-			
+			-->
 		</div>
 
-		<div class="col-md-8 options_voto_map">
+		<div class="col-md-7 options_voto_map">
 			<div class="col-md-7 resultados">
                                 <?php foreach($resultados as $resultado){ ?>
 				<div id="v_<?= $resultado->proyecto_id ?>" data-id="<?= $resultado->proyecto_id ?>" class="box_option_voto">
@@ -936,7 +935,7 @@ use yii\helpers\Html;
                                                             <?= $resultado->titulo ?>
                                                         </div>
 							<div class="col-md-5 bhb_right">
-								<?= VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count('proyecto_id'); ?> votos <span class="vote_icon_map"></span>
+								<?= $resultado->voto ?> votos <span class="vote_icon_map"></span>
 							</div>
 						</div>
 					</div>
@@ -1116,55 +1115,13 @@ use yii\helpers\Html;
 				</div>
 			-->
                         </div>
-
-			<div class="col-md-5 col_right_options">
-				<div class="title_col">
-					<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_heart_small.jpg" alt="">
-					MI SELECCIÓN:
+			
+			<div class="col-md-5 col_right_options text-justify">
+				<div class="box_votation_small" data-id="1" data-option="" style="border:solid 2px #1f2a69;font-size: 10px">
+					
+			    <b style="font-size: 12px">Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC.<br>
+			    La relación de los proyectos vitrina serán publicados luego de dicho proceso
 				</div>
-
-				<div class="box_votation_small" data-id="1" data-option="" style="border:solid 2px #FFD400">
-					<a href="#" class="icon_delete_box">
-						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
-					</a>
-
-					<div class="box_votacion_number">
-						1
-					</div>
-
-					<div class="box_votacion_content"></div>
-
-					<div class="box_votacion_arrow"></div>
-				</div>
-
-				<div class="box_votation_small" data-id="2" data-option="" style="border:solid 2px #be2cd9">
-					<a href="#" class="icon_delete_box">
-						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
-					</a>
-
-					<div class="box_votacion_number">
-						2
-					</div>
-
-					<div class="box_votacion_content"></div>
-
-					<div class="box_votacion_arrow"></div>
-				</div>
-
-				<div class="box_votation_small" data-id="3" data-option="" style="border:solid 2px #009DBA">
-					<a href="#" class="icon_delete_box">
-						<img src="<?= \Yii::$app->request->BaseUrl ?>/votacion/images/icon_close_small.png">
-					</a>
-
-					<div class="box_votacion_number">
-						3
-					</div>
-
-					<div class="box_votacion_content"></div>
-
-					<div class="box_votacion_arrow"></div>
-				</div>
-				<button type="button" class="btn btn-default btn-send-votation">VOTAR</button>
 			</div>
 		</div>
 	</div>
@@ -1350,10 +1307,10 @@ use yii\helpers\Html;
 	</div>
 </div>
 <?php
-$validardni= Yii::$app->getUrlManager()->createUrl('votacion-publica/validar-dni');
+//$validardni= Yii::$app->getUrlManager()->createUrl('votacion-publica/validar-dni');
 $mostrarvotacionpublica= Yii::$app->getUrlManager()->createUrl('voto/mostrarvotacionpublica');
 $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrarvotacionpublicalima');
-$registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
+//$registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 ?>
 <script>
 	window.fbAsyncInit = function() {
@@ -1519,75 +1476,8 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 
 			$(".box-body-voto", d).stop(true).slideToggle();
 
-			if(!d.hasClass("active")){
-				var _idOption = d.data("id");
-				var apply = false;
-
-				$(".col_right_options .box_votation_small").each(function(e){
-					var divVotation = $(this);
-					if(divVotation.attr("data-option") == "" && !apply){
-						//d.addClass("active");
-						apply = true;
-						//divVotation.addClass("active");
-						//divVotation.attr("data-option", _idOption);
-
-						//$(".box_votacion_content", divVotation).html( $(".bhb_left", d).html() );
-
-						//$("#input_votation_"+ divVotation.attr("data-id")).val(_idOption);
-					}
-				});
-
-				if(!apply){
-					$("#alert_error").show();
-				}
-			}
 		});
 		
-		$(document).on('click', ".options_voto_map .box_option_voto .box-head-voto .vote_icon_map", function(e){
-		    
-			var o = $(this).parents('.box-head-voto');
-			var d = o.parent();
-
-			$(".box-body-voto", d).stop(true).slideToggle();
-
-			if(!d.hasClass("active")){
-			    var _idOption = d.data("id");
-			    var apply = false;
-
-			    $(".col_right_options .box_votation_small").each(function(e){
-				    var divVotation = $(this);
-				    if(divVotation.attr("data-option") == "" && !apply){
-					    d.addClass("active");
-					    if(myArray.length<=3)
-					    {
-						apply = true;
-					    }
-					    divVotation.addClass("active");
-					    divVotation.attr("data-option", _idOption);
-					    myArray.push(_idOption);
-					    $(".box_votacion_content", divVotation).html( $(".bhb_left", d).html() );
-					    $(".box_votacion_arrow", divVotation).html(ucFirstAllWords($(".st0.active").attr('data-id').capitalizeFirstLetter().replaceAll('_', ' ')));
-					    $("#contd").html(myArray.length);
-					    $("#contd3").html(myArray.length);
-					    $("#input_votation_"+ divVotation.attr("data-id")).val(_idOption);
-					    
-					    if(myArray.length<3)
-					    {
-						$("#form_mensaje_region").show();
-					    }
-					    else
-					    {
-						$("#form_mensaje_region_3").show();
-					    }
-					    console.log(myArray);
-				    }
-			    });
-
-			    if(!apply){
-				$("#alert_error").show();
-			    }
-			}
-		});
 
 		$(document).on('click', ".col_right_options .box_votation_small .icon_delete_box", function(e){
 		    console.log("b");
@@ -1627,97 +1517,6 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
 		});
 	});
 	
-    function Votar() {
-        var error='';
-        if($('#voto-dni').val()=='' && $('#voto-region').val()=='')
-        {
-            error='Ingrese DNI <br>';
-            error=error+'Ingrese Región <br>';
-            
-            $('#faltan_datos').show();
-            $('#form_votar').hide();
-            return false;
-        }
-        
-        if($('#voto-dni').val()=='')
-        {
-            error='Ingrese DNI <br>';
-            error=error+'Ingrese Región <br>';
-            
-            $('#faltan_datos_dni').show();
-            $('#form_votar').hide();
-            return false;
-        }
-        
-        if($('#voto-region').val()=='')
-        {
-            error='Ingrese DNI <br>';
-            error=error+'Ingrese Región <br>';
-            
-            $('#faltan_datos_region').show();
-            $('#form_votar').hide();
-            return false;
-        }
-        
-        if(error!='')
-        {
-            return false;
-        }
-        else
-        {
-            $('.field-voto-dni').addClass('has-success');
-            $('.field-voto-dni').removeClass('has-error');
-            $('.field-voto-region').addClass('has-success');
-            $('.field-voto-region').removeClass('has-error');
-	    
-	    $.post( "<?= $registrar ?>", { 'dni':$('#voto-dni').val(),'region':$('#voto-region').val(),'v1': $('#input_votation_1').val(),'v2':$('#input_votation_2').val(),'v3':$('#input_votation_3').val() })
-	    .done(function( data ) {
-		    if(data==1)
-                    {
-                        $('#form_vote_send').parent().parent().hide();
-                        $('#form_send').show();
-                        
-                    }
-                    else if (data==0) {
-                        $('#dni_duplicado').show();
-                        $('#form_votar').hide();
-                        $('#voto-dni').val('');
-                    }
-		    else if (data==2) {
-			$('#proyectos_duplicados').show();
-			$('#form_votar').hide();
-			$('#voto-dni').val('');
-			$('#voto-region').val('');
-		    }
-		    
-		    
-	    });
-	    /*
-            $.ajax({
-                url: '<?= $registrar ?>',
-                type: 'GET',
-                async: true,
-                data: {'Voto[dni]':$('#voto-dni').val(),'Voto[region]':$('#voto-region').val(),Asuntos: myArray},
-                success: function(data){
-                
-                    if(data==1)
-                    {
-                        $('#form_vote_send').parent().parent().hide();
-
-                        $('#form_send').show();
-                        
-                    }
-                    else if (data==0) {
-                        $('#dni_duplicado').show();
-                        $('#form_votar').hide();
-                        $('#voto-dni').val('');
-                    }
-                }
-            });*/
-	    
-            return true;
-        }   
-    }
     
     $('.numerico').keypress(function (tecla) {
         var reg = /^[0-9\s]+$/;
@@ -1727,39 +1526,6 @@ $registrar= Yii::$app->getUrlManager()->createUrl('votacion-publica/registrar');
         return true;
     });
     
-    function CambioDNI(elemento) {
-        if($(elemento).val()!='')
-        {
-            if($(elemento).val().length<8)
-            {
-                
-                $('#dni_incompleto').show();
-                $('#form_votar').hide();
-                $('#voto-dni').val('');
-                return false;
-            }
-            
-            $.ajax({
-                url: '<?= $validardni ?>',
-                type: 'GET',
-                async: true,
-                data: {dni:$(elemento).val()},
-                success: function(data){
-                    if(data==1)
-                    {
-                        $('#dni_duplicado').show();
-                        $('#form_votar').hide();
-                        $('#voto-dni').val('');
-                        
-                        
-                    }
-                }
-            });
-            return true;
-            
-        }
-        return false;
-    }
     
     $("#aceptar_dni_incompleto").on('click', function (e) {
         e.preventDefault();

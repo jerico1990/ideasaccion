@@ -69,12 +69,12 @@ class VotacionPublicaController extends Controller
                     ->all();
                     */
         $resultados=VistaResultado::find()
-                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta'])
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto'])
                     ->where('region_id=:region_id',[':region_id'=>16])
                     ->all();
         return $this->render('index',['resultados'=>$resultados]);
     }
-    
+    /*
     public function actionRegistrar()
     {
         if(isset($_POST["dni"]) && isset($_POST["region"]) && isset($_POST["v1"]) && isset($_POST["v2"])  && isset($_POST["v2"]) )
@@ -131,7 +131,8 @@ class VotacionPublicaController extends Controller
             
         }
     }
-    
+    */
+    /*
     public function actionValidarDni($dni)
     {
         //if(isset($_POST["dni"]) && $_POST["dni"]!="")
@@ -145,6 +146,6 @@ class VotacionPublicaController extends Controller
             }
             echo $bandera;
         //}
-    }
+    }*/
     
 }

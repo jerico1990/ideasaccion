@@ -456,6 +456,11 @@ section.map .info_deptos .text_end{
 	background: white;
 	margin-bottom: 15px;
 }
+.box_option_voto_ganador{
+	border: solid 2px #FFD400;
+	background: #FFD400;
+	margin-bottom: 15px;
+}
 
 .box-head-voto{
 	padding: 15px 10px 10px 20px;
@@ -465,6 +470,8 @@ section.map .info_deptos .text_end{
 	line-height: 120%;
 	cursor: pointer;
 }
+
+
 
 .box-head-voto .bhb_left{
 	text-transform: uppercase;
@@ -476,6 +483,9 @@ section.map .info_deptos .text_end{
 	line-height: 34px;
 }
 
+
+
+
 .vote_icon_map{
 	float: right;
 	display: inline-block;
@@ -483,6 +493,15 @@ section.map .info_deptos .text_end{
 	height: 34px;
 	margin-left: 5px;
 	background: url("../images/vote_options_heart_white.png") no-repeat center bottom;
+}
+
+.vote_icon_map_ganador{
+	float: right;
+	display: inline-block;
+	width: 34px;
+	height: 34px;
+	margin-left: 5px;
+	background: url("../images/vote_winner_yellow.png") no-repeat center bottom;
 }
 
 .active .vote_icon_map{
@@ -549,7 +568,6 @@ section.map .info_deptos .text_end{
 	padding: 15px;
 	border: 2px solid #1f2a69;
 	margin-bottom: 12px;
-	text-align: center;
 }
 
 .col_right_options .title_col{
@@ -597,40 +615,14 @@ section.map .info_deptos .text_end{
 
 
 .personaje_derecha_fixed{
-	width: 110px;
+	width: 150px;
 	position: fixed;
 	bottom: 5%;
-	right: 1%;
-	z-index: 3;
+	right: 10%;
 	font-size: 10px;
 	font-family: 'Raleway', sans-serif;
 }
 
-.personaje_derecha_fixed .text{
-	width: 89%;
-	position: absolute;
-	z-index: 2;
-	height: 60px;
-	text-align: center;
-	font-family: 'Raleway', sans-serif;
-	color: #1f2a69;
-	font-weight: bold;
-	top: 6px;
-}
-
-.personaje_derecha_fixed .text_gato_chicha{
-	width: 92%;
-	right: 0;
-	height: 115px;
-}
-
-.personaje_derecha_fixed img{
-	width: auto;
-	max-width: 100%;
-	height: auto;
-	position: relative;
-	z-index: 1;
-}
 
 @media screen and (max-width: 1340px) {
 	section.vote .vote_character{
