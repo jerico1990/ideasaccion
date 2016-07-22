@@ -405,7 +405,7 @@ class VotoController extends Controller
         $htmlvotacionespublicas='';
         $i=0;
         $votacionespublicas=VistaResultado::find()
-                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto'])
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta'])
                     ->where('region_id=:region_id',[':region_id'=>$region])
                     ->all();
         /*
@@ -448,7 +448,7 @@ class VotoController extends Controller
                                                                 '.$resultado->titulo.'
                                                             </div>
                                                             <div class="col-md-5 bhb_right">
-                                                                    '.$resultado->voto.' votos <span class="vote_icon_map"></span>
+                                                                    '.VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count('proyecto_id').' votos <span class="vote_icon_map"></span>
                                                             </div>
                                                     </div>
                                             </div>
@@ -536,7 +536,7 @@ class VotoController extends Controller
         $htmlvotacionespublicas='';
         $i=0;
         $votacionespublicas=VistaResultado::find()
-                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto'])
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta'])
                     ->where('region_id=:region_id',[':region_id'=>$region])
                     ->all();
         /*
@@ -563,7 +563,7 @@ class VotoController extends Controller
                                                                 '.strtoupper($resultado->titulo).'
                                                             </div>
                                                             <div class="col-md-5 bhb_right">
-                                                                    '.$resultado->voto.' votos <span class="vote_icon_map"></span>
+                                                                    '.VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count('proyecto_id').' votos <span class="vote_icon_map"></span>
                                                             </div>
                                                     </div>
                                             </div>

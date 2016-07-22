@@ -935,7 +935,7 @@ use yii\helpers\Html;
                                                             <?= $resultado->titulo ?>
                                                         </div>
 							<div class="col-md-5 bhb_right">
-								<?= $resultado->voto ?> votos <span class="vote_icon_map"></span>
+								<?= VotacionFinal::find()->select('proyecto_id')->where('proyecto_id=:proyecto_id',[':proyecto_id'=>$resultado["proyecto_id"]])->count('proyecto_id'); ?> votos <span class="vote_icon_map"></span>
 							</div>
 						</div>
 					</div>
