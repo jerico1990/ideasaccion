@@ -11,7 +11,7 @@ use yii\helpers\Html;
 ?>
 <div class="row">
 		<div class="col-md-12 title_map">
-			Votación cerrada de la región <span class="department_name">Loreto</span>
+			Resultados finales con votos validados en Región <span class="department_name">Loreto</span>
 		</div>
 		<div class="col-md-1"></div>
 		<div class="col-md-4" id="map_peru">
@@ -928,19 +928,19 @@ use yii\helpers\Html;
 		<div class="col-md-7 options_voto_map">
 			<div class="col-md-8 resultados">
                                 <?php foreach($resultados as $resultado){ ?>
-				<div id="v_<?= $resultado->proyecto_id ?>" data-id="<?= $resultado->proyecto_id ?>" class="box_option_voto">
+				<div id="v_<?= $resultado->proyecto_id ?>" data-id="<?= $resultado->proyecto_id ?>" class="<?= ($resultado->puesto==1)?'box_option_voto_ganador':'box_option_voto' ?>">
 					<div class="box-head-voto">
 						<div class="row">
 							<div class="col-md-7 bhb_left">
                                                             <?= $resultado->titulo ?>
                                                         </div>
 							<div class="col-md-5 bhb_right">
-								<?= $resultado->voto; ?> votos <span class="vote_icon_map"></span>
+								<?= $resultado->voto_nuevo; ?> votos <span class="<?= ($resultado->puesto==1)?'vote_icon_map_ganador':'vote_icon_map' ?>"></span>
 							</div>
 						</div>
 					</div>
 
-					<div class="box-body-voto">
+					<div class="box-body-voto" <?= ($resultado->puesto==1)?'style="background:white"':'' ?>>
 						<b>Resumen:</b><br>
 						<p class="text-justify"><?= $resultado->resumen ?></p>
 						<div class="line_yellow"></div>
@@ -1119,8 +1119,7 @@ use yii\helpers\Html;
 			<div class="col-md-4 col_right_options text-justify">
 				<div class="box_votation_small" data-id="1" data-option="" style="border:solid 2px #1f2a69;font-size: 10px">
 					
-			    <b style="font-size: 12px">Nota:</b><br> Habiéndose identificado preliminarmente votos realizados con DNI inexistentes, comunicamos a toda la comunidad educativa que para el conteo final de votos se validarán solo aquellos ingresados con DNI registrados en RENIEC.<br>
-			    La relación de los proyectos vitrina serán publicados luego de dicho proceso
+			    <b style="font-size: 12px">Nota:</b><br> Los resultados finales han considerado un proceso de validación de los DNI debidamente registrados en RENIEC
 				</div>
 			</div>
 		</div>
@@ -1478,6 +1477,13 @@ $mostrarvotacionpublicalima= Yii::$app->getUrlManager()->createUrl('voto/mostrar
 
 		});
 		
+		$(document).on('click', ".options_voto_map .box_option_voto_ganador .box-head-voto", function(e){
+			
+			var o = $(this);
+			var d = o.parent();
+
+			$(".box-body-voto", d).stop(true).slideToggle();
+		});
 
 		$(document).on('click', ".col_right_options .box_votation_small .icon_delete_box", function(e){
 		    console.log("b");

@@ -69,8 +69,9 @@ class VotacionPublicaController extends Controller
                     ->all();
                     */
         $resultados=VistaResultado::find()
-                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto'])
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto','vista_resultado.puesto','vista_resultado.voto_nuevo'])
                     ->where('region_id=:region_id',[':region_id'=>16])
+                    ->orderBy('voto_nuevo desc')
                     ->all();
         return $this->render('index',['resultados'=>$resultados]);
     }

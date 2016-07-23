@@ -405,8 +405,9 @@ class VotoController extends Controller
         $htmlvotacionespublicas='';
         $i=0;
         $votacionespublicas=VistaResultado::find()
-                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto'])
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto','vista_resultado.puesto','vista_resultado.voto_nuevo'])
                     ->where('region_id=:region_id',[':region_id'=>$region])
+                    ->orderBy('voto_nuevo desc')
                     ->all();
         /*
         $votacionespublicas=VotacionPublica::find()
@@ -440,20 +441,32 @@ class VotoController extends Controller
             foreach($votacionespublicas as $resultado)
             {
                 
+                $class="vote_icon_map";
+                $classvoto="box_option_voto";
+                $finalista="";
+                $style="";
+                if($resultado->puesto==1)
+                {
+                    $class="vote_icon_map_ganador";
+                    $classvoto="box_option_voto_ganador";
+                    $finalista="<br><b style='font-size: 9px'>Finalista</b>";
+                    $style="background:white";
+                }
+                
                 $htmlvotacionespublicas=$htmlvotacionespublicas.'
-                                        <div id="v_'.$resultado->proyecto_id.'" data-id="'.$resultado->proyecto_id.'" class="box_option_voto">
+                                        <div id="v_'.$resultado->proyecto_id.'" data-id="'.$resultado->proyecto_id.'" class="'.$classvoto.'">
                                             <div class="box-head-voto">
                                                     <div class="row">
                                                             <div class="col-md-7 bhb_left">
                                                                 '.$resultado->titulo.'
                                                             </div>
                                                             <div class="col-md-5 bhb_right">
-                                                                    '.$resultado->voto.' votos <span class="vote_icon_map"></span>
+                                                                    '.$resultado->voto_nuevo.' votos <span class="'.$class.'"></span>
                                                             </div>
                                                     </div>
                                             </div>
     
-                                            <div class="box-body-voto">
+                                            <div class="box-body-voto" style="'.$style.'">
                                                 <b>Resumen:</b><br>
                                                 <p class="text-justify">'.$resultado->resumen.'</p>
                                                 <div class="line_yellow"></div>
@@ -536,8 +549,9 @@ class VotoController extends Controller
         $htmlvotacionespublicas='';
         $i=0;
         $votacionespublicas=VistaResultado::find()
-                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto'])
+                    ->select(['vista_resultado.proyecto_id','vista_resultado.titulo','vista_resultado.resumen','vista_resultado.denominacion','vista_resultado.equipo_id','vista_resultado.tipo','vista_resultado.ruta','vista_resultado.voto','vista_resultado.puesto','vista_resultado.voto_nuevo'])
                     ->where('region_id=:region_id',[':region_id'=>$region])
+                    ->orderBy('voto_nuevo desc')
                     ->all();
         /*
         $votacionespublicas=VotacionPublica::find()
@@ -554,21 +568,31 @@ class VotoController extends Controller
         
             foreach($votacionespublicas as $resultado)
             {
-                
+                $class="vote_icon_map";
+                $classvoto="box_option_voto";
+                $finalista="";
+                $style="";
+                if($resultado->puesto==1)
+                {
+                    $class="vote_icon_map_ganador";
+                    $classvoto="box_option_voto_ganador";
+                    $finalista="<br><b style='font-size: 9px'>Finalista</b>";
+                    $style="background:white";
+                }
                 $htmlvotacionespublicas=$htmlvotacionespublicas.'
-                                        <div id="v_'.$resultado->proyecto_id.'" data-id="'.$resultado->proyecto_id.'" class="box_option_voto">
+                                        <div id="v_'.$resultado->proyecto_id.'" data-id="'.$resultado->proyecto_id.'" class="'.$classvoto.'">
                                             <div class="box-head-voto">
                                                     <div class="row">
                                                             <div class="col-md-7 bhb_left">
-                                                                '.strtoupper($resultado->titulo).'
+                                                                '.$resultado->titulo.'
                                                             </div>
                                                             <div class="col-md-5 bhb_right">
-                                                                    '.$resultado->voto.' votos <span class="vote_icon_map"></span>
+                                                                    '.$resultado->voto_nuevo.' votos <span class="'.$class.'"></span>
                                                             </div>
                                                     </div>
                                             </div>
     
-                                            <div class="box-body-voto">
+                                            <div class="box-body-voto" style="'.$style.'">
                                                 <b>Resumen:</b><br>
                                                 <p class="text-justify">'.$resultado->resumen.'</p>
                                                 <div class="line_yellow"></div>
